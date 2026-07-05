@@ -1,4 +1,6 @@
 import { generateSiteMetadata } from '@/config/seo';
+import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
 import { ServicesHero } from '@/components/sections/services-hero';
 import { ServicesGrid } from '@/components/sections/services-grid';
 import { ServicesProcess } from '@/components/sections/services-process';
@@ -14,13 +16,17 @@ export const metadata = generateSiteMetadata(
 
 export default function ServicesPage() {
   return (
-    <div className="pt-20">
-      <ServicesHero />
-      <ServicesGrid />
-      <ServicesProcess />
-      <ServicesBenefits />
-      <ServicesProjects />
-      <ServicesCTA />
-    </div>
+    <>
+      <Header />
+      <main>
+        <ServicesHero />
+        <ServicesGrid />
+        <ServicesProcess />
+        <ServicesBenefits />
+        <ServicesProjects />
+        <ServicesCTA />
+      </main>
+      <Footer />
+    </>
   );
 }

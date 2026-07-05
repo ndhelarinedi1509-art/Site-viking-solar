@@ -1,12 +1,18 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { NAV_ITEMS } from '@/config/routes';
-import { SITE_CONFIG } from '@/config/site';
-import { cn } from '@/lib/utils';
-import { Menu, X } from 'lucide-react';
+import { ThemeToggle } from '@/components/ui/theme-toggle';
+
+const NAV_LINKS = [
+  { href: '/', label: 'Accueil' },
+  { href: '/about', label: 'À propos' },
+  { href: '/services', label: 'Services' },
+  { href: '/projects', label: 'Projets' },
+  { href: '/contact', label: 'Contact' },
+];
 
 export function Header() {
   const pathname = usePathname();
@@ -23,112 +29,121 @@ export function Header() {
     setMobileOpen(false);
   }, [pathname]);
 
-  return (
-    <header
-      className={cn(
-        'fixed top-0 left-0 right-0 z-50 transition-all duration-350',
-        scrolled
-          ? 'bg-bg-primary/80 backdrop-blur-xl border-b border-white/6 shadow-soft'
-          : 'bg-transparent',
-      )}
-    >
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="flex h-16 items-center justify-between lg:h-20">
-          {/* Logo */}
-          <Link href="/" className="flex items-center gap-2.5 group" aria-label="Viking Solar Home">
-            <svg className="h-8 w-8 transition-transform duration-300 group-hover:scale-110" viewBox="0 0 32 32" fill="none">
-              <circle cx="16" cy="16" r="14" stroke="#22C55E" strokeWidth="2.5" />
-              <path d="M16 6 L18 14 L26 16 L18 18 L16 26 L14 18 L6 16 L14 14 Z" fill="#22C55E" />
-            </svg>
-            <span className="text-lg font-semibold text-white">
-              Vicking <span className="font-bold text-green">Solar</span>
-            </span>
-          </Link>
+  const isActive = (href: string) =>
+    href === '/' ? pathname === '/' : pathname.startsWith(href);
 
-          {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
-            {NAV_ITEMS.map((item) => {
-              const isActive =
-                item.href === '/'
-                  ? pathname === '/'
-                  : pathname.startsWith(item.href);
-              return (
+  return (
+    <>
+      <header
+        className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-350 ${
+          scrolled
+            ? 'bg-bg-primary/85 backdrop-blur-xl border-b border-border'
+            : 'bg-transparent'
+        }`}
+      >
+        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-2.5 group" aria-label="Viking Solar Home">
+              <Image
+                src="/logo.webp"
+                alt="Viking Solar"
+                className="h-9 w-auto object-contain"
+                width={36}
+                height={36}
+                priority
+              />
+              <span className="text-lg font-normal text-white tracking-tight">
+                Vicking <span className="font-bold">Solar</span>
+              </span>
+            </Link>
+
+            {/* Desktop Nav */}
+            <nav className="hidden lg:flex items-center gap-8">
+              {NAV_LINKS.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={cn(
-                    'relative text-sm font-medium transition-colors duration-200',
-                    isActive
-                      ? 'text-green'
-                      : 'text-gray-400 hover:text-white',
-                  )}
+                  className={`relative text-sm font-medium transition-colors duration-200 py-0.5 ${
+                    isActive(item.href)
+                      ? 'text-white'
+                      : 'text-gray-400 hover:text-white'
+                  }`}
                 >
                   {item.label}
-                  {isActive && (
-                    <span className="absolute -bottom-1 left-0 right-0 h-0.5 rounded-full bg-green" />
-                  )}
+                  <span
+                    className={`absolute -bottom-0.5 left-0 h-0.5 rounded-full bg-green transition-all duration-350 ${
+                      isActive(item.href) ? 'w-full' : 'w-0 group-hover:w-full'
+                    }`}
+                  />
                 </Link>
-              );
-            })}
-          </nav>
+              ))}
+            </nav>
 
-          {/* CTA */}
-          <div className="hidden lg:flex items-center gap-4">
-            <Link
-              href="/#contact"
-              className="rounded-xl bg-green px-5 py-2.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
-            >
-              Devis gratuit
-            </Link>
-          </div>
-
-          {/* Mobile Toggle */}
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="lg:hidden p-2 text-gray-400 hover:text-white transition-colors"
-            aria-label="Menu"
-          >
-            {mobileOpen ? <X size={24} /> : <Menu size={24} />}
-          </button>
-        </div>
-      </div>
-
-      {/* Mobile Menu */}
-      <div
-        className={cn(
-          'lg:hidden overflow-hidden transition-all duration-350',
-          mobileOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0',
-        )}
-      >
-        <nav className="flex flex-col gap-1 border-t border-white/6 bg-bg-primary/95 backdrop-blur-xl px-4 pb-4 pt-2">
-          {NAV_ITEMS.map((item) => {
-            const isActive =
-              item.href === '/'
-                ? pathname === '/'
-                : pathname.startsWith(item.href);
-            return (
+            {/* Right side: Theme Toggle + CTA */}
+            <div className="hidden lg:flex items-center gap-3">
+              <ThemeToggle />
               <Link
-                key={item.href}
-                href={item.href}
-                className={cn(
-                  'rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
-                  isActive
-                    ? 'bg-green/10 text-green'
-                    : 'text-gray-400 hover:text-white hover:bg-white/5',
-                )}
+                href="/#contact"
+                className="rounded-full bg-green px-5 py-2.5 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
               >
-                {item.label}
+                Devis gratuit
               </Link>
-            );
-          })}
+            </div>
+
+            {/* Mobile toggle */}
+            <div className="flex lg:hidden items-center gap-2">
+              <ThemeToggle />
+              <button
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="p-2 text-gray-400 hover:text-white transition-colors"
+                aria-label="Menu"
+              >
+                <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
+                  {mobileOpen ? (
+                    <>
+                      <path d="M18 6L6 18" />
+                      <path d="M6 6l12 12" />
+                    </>
+                  ) : (
+                    <>
+                      <path d="M4 6h16" />
+                      <path d="M4 12h16" />
+                      <path d="M4 18h16" />
+                    </>
+                  )}
+                </svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      {/* Mobile fullscreen menu */}
+      <div
+        className={`fixed inset-0 z-40 bg-bg-primary/97 backdrop-blur-2xl flex flex-col items-center justify-center gap-8 transition-all duration-350 lg:hidden ${
+          mobileOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
+        }`}
+      >
+        {NAV_LINKS.map((item) => (
           <Link
-            href="/#contact"
-            className="mt-2 rounded-xl bg-green px-5 py-2.5 text-center text-sm font-semibold text-white"
+            key={item.href}
+            href={item.href}
+            className={`text-2xl font-medium transition-colors ${
+              isActive(item.href) ? 'text-green' : 'text-white hover:text-green'
+            }`}
           >
-            Devis gratuit
+            {item.label}
           </Link>
-        </nav>
+        ))}
+        <Link
+          href="/#contact"
+          className="mt-4 rounded-full bg-green px-8 py-3 text-base font-semibold text-bg-primary"
+          onClick={() => setMobileOpen(false)}
+        >
+          Devis gratuit
+        </Link>
       </div>
-    </header>
+    </>
   );
 }

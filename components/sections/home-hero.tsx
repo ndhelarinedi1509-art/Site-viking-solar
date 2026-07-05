@@ -1,8 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { Star, ArrowRight, ChevronRight } from 'lucide-react';
-import { useCountUp } from '@/hooks/useCountUp';
+import { useEffect, useRef } from 'react';
 
 const stats = [
   { value: 150, suffix: '+', label: 'Projets Réalisés' },
@@ -10,67 +9,90 @@ const stats = [
   { value: 24, suffix: '/7', label: 'Support 24/7' },
 ];
 
-export function HomeHero() {
-  const count1 = useCountUp(150);
-  const count2 = useCountUp(5);
-  const count3 = useCountUp(24);
+function StatItem({ value, suffix, label }: { value: number; suffix: string; label: string }) {
+  const ref = useRef<HTMLSpanElement>(null);
 
-  const counters = [count1, count2, count3];
+  useEffect(() => {
+    const el = ref.current;
+    if (!el) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (!entry.isIntersecting) return;
+        let current = 0;
+        const step = Math.max(1, Math.ceil(value / 60));
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= value) {
+            current = value;
+            clearInterval(timer);
+          }
+          el.textContent = String(current);
+        }, 25);
+        observer.disconnect();
+      },
+      { threshold: 0.5 },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [value]);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-      {/* Glow effect */}
-      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[600px] w-[600px] rounded-full bg-green/10 blur-[120px]" />
+    <div className="text-center">
+      <div className="text-3xl sm:text-4xl font-extrabold text-white">
+        <span ref={ref}>0</span>{suffix}
+      </div>
+      <div className="mt-1 text-xs sm:text-sm text-gray-500">{label}</div>
+    </div>
+  );
+}
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 text-center lg:text-left">
-        <div className="mx-auto max-w-3xl lg:mx-0">
-          {/* Badge */}
-          <div className="mb-8 inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/5 px-4 py-2 text-sm font-medium text-green">
-            <Star className="h-4 w-4 fill-green text-green" />
+export function HomeHero() {
+  return (
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-green/5 blur-[120px]" />
+
+      <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8 py-32 text-center">
+        <div className="animate-fade-up mb-8" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+          <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/5 px-4 py-1.5 text-xs font-semibold tracking-wider text-green uppercase">
             Leader en énergie renouvelable en RDC
-          </div>
+          </span>
+        </div>
 
-          {/* Title */}
-          <h1 className="text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-6xl xl:text-7xl">
-            L&apos;énergie de demain,{' '}
-            <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
-              disponible aujourd&apos;hui
-            </span>
-          </h1>
+        <h1 className="animate-fade-up text-4xl sm:text-5xl lg:text-6xl font-extrabold text-white leading-[1.12] tracking-tight mb-6" style={{ animationDelay: '0.25s', animationFillMode: 'both' }}>
+          L&apos;énergie de demain,<br />
+          disponible{' '}
+          <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent italic">
+            aujourd&apos;hui
+          </span>
+        </h1>
 
-          {/* Subtitle */}
-          <p className="mt-6 text-lg text-gray-400 sm:text-xl max-w-2xl mx-auto lg:mx-0">
-            Viking Solar conçoit et installe des solutions solaires fiables et performantes pour les
-            particuliers, entreprises et industries en République Démocratique du Congo.
-          </p>
+        <p className="animate-fade-up text-base sm:text-lg text-gray-400 max-w-[580px] mx-auto leading-relaxed mb-10" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
+          Vicking Solar vous accompagne dans votre transition énergétique avec des solutions solaires sur mesure, fiables et durables pour particuliers et professionnels à Kinshasa.
+        </p>
 
-          {/* Buttons */}
-          <div className="mt-10 flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4">
-            <Link
-              href="/#contact"
-              className="group inline-flex items-center gap-2 rounded-xl bg-green px-7 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
-            >
-              Demander un devis
-              <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-            <Link
-              href="/projects"
-              className="group inline-flex items-center gap-2 rounded-xl border border-green/30 px-7 py-3.5 text-sm font-semibold text-green transition-all duration-300 hover:bg-green/10 hover:border-green/50 active:scale-[0.98]"
-            >
-              Découvrir nos projets
-              <ChevronRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5" />
-            </Link>
-          </div>
+        <div className="animate-fade-up flex flex-col sm:flex-row items-center justify-center gap-4 mb-14" style={{ animationDelay: '0.55s', animationFillMode: 'both' }}>
+          <Link
+            href="/contact"
+            className="inline-flex items-center gap-2 rounded-full bg-green px-7 py-3 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
+          >
+            Demander un devis
+          </Link>
+          <Link
+            href="/projects"
+            className="inline-flex items-center gap-2 rounded-full border border-border-light bg-transparent px-7 py-3 text-sm font-medium text-white transition-all duration-300 hover:border-green/40 hover:bg-green/5"
+          >
+            Découvrir nos projets
+            <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+          </Link>
+        </div>
 
-          {/* Stats */}
-          <div className="mt-16 grid grid-cols-3 gap-8 border-t border-white/10 pt-10">
+        <div className="animate-fade-up pt-8 border-t border-border" style={{ animationDelay: '0.7s', animationFillMode: 'both' }}>
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-0">
             {stats.map((stat, i) => (
-              <div key={stat.label} className="text-center lg:text-left">
-                <div className="text-3xl font-bold text-white sm:text-4xl">
-                  <span ref={counters[i].ref}>0</span>
-                  {stat.suffix}
-                </div>
-                <div className="mt-1 text-sm text-gray-400">{stat.label}</div>
+              <div key={stat.label} className="flex items-center sm:gap-12">
+                <StatItem {...stat} />
+                {i < stats.length - 1 && <div className="hidden sm:block w-px h-12 mx-12 bg-border-light" />}
               </div>
             ))}
           </div>

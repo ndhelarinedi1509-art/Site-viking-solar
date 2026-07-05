@@ -1,4 +1,6 @@
 import { generateSiteMetadata } from '@/config/seo';
+import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
 import { ProjectsHero } from '@/components/sections/projects-hero';
 import { ProjectsStats } from '@/components/sections/projects-stats';
 import { ProjectsGallery } from '@/components/sections/projects-gallery';
@@ -14,13 +16,17 @@ export const metadata = generateSiteMetadata(
 
 export default function ProjectsPage() {
   return (
-    <div className="pt-20">
-      <ProjectsHero />
-      <ProjectsStats />
-      <ProjectsGallery />
-      <ProjectsTestimonials />
-      <ProjectsCTA />
-      <ProjectsSocial />
-    </div>
+    <>
+      <Header />
+      <main>
+        <ProjectsHero />
+        <ProjectsStats />
+        <ProjectsGallery />
+        <ProjectsTestimonials />
+        <ProjectsCTA />
+        <ProjectsSocial />
+      </main>
+      <Footer />
+    </>
   );
 }

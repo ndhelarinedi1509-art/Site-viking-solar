@@ -2,7 +2,6 @@
 const plugin = require('tailwindcss/plugin');
 
 module.exports = {
-  darkMode: 'class',
   content: [
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './components/**/*.{js,ts,jsx,tsx,mdx}',
@@ -18,11 +17,11 @@ module.exports = {
     extend: {
       colors: {
         bg: {
-          primary: '#060B18',
-          card: '#0D1322',
-          'card-hover': '#111827',
-          elevated: '#141B2D',
-          surface: '#1A2235',
+          primary: 'var(--bg-primary)',
+          card: 'var(--bg-card)',
+          'card-hover': 'var(--bg-card-hover)',
+          elevated: 'var(--bg-elevated)',
+          surface: 'var(--bg-surface)',
         },
         green: {
           DEFAULT: '#22C55E',
@@ -38,26 +37,20 @@ module.exports = {
           red: '#EF4444',
         },
         gray: {
-          100: '#F1F5F9',
-          200: '#E2E8F0',
-          300: '#CBD5E1',
-          400: '#94A3B8',
-          500: '#64748B',
-          600: '#475569',
-          700: '#334155',
-          800: '#1E293B',
-          900: '#0F172A',
+          100: 'var(--gray-100)',
+          200: 'var(--gray-200)',
+          300: 'var(--gray-300)',
+          400: 'var(--gray-400)',
+          500: 'var(--gray-500)',
+          600: 'var(--gray-600)',
+          700: 'var(--gray-700)',
+          800: 'var(--gray-800)',
         },
         border: {
-          DEFAULT: 'rgba(255, 255, 255, 0.06)',
-          light: 'rgba(255, 255, 255, 0.1)',
-          medium: 'rgba(255, 255, 255, 0.15)',
+          DEFAULT: 'var(--border)',
+          light: 'var(--border-light)',
         },
-        glass: {
-          white: 'rgba(255, 255, 255, 0.05)',
-          'white-10': 'rgba(255, 255, 255, 0.1)',
-          black: 'rgba(0, 0, 0, 0.2)',
-        },
+        white: 'var(--white)',
       },
       fontFamily: {
         sans: ['Inter', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],

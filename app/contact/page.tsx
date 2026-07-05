@@ -1,4 +1,6 @@
 import { generateSiteMetadata } from '@/config/seo';
+import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
 import { ContactHero } from '@/components/sections/contact-hero';
 import { ContactFormSection } from '@/components/sections/contact-form-section';
 import { ContactMap } from '@/components/sections/contact-map';
@@ -13,12 +15,16 @@ export const metadata = generateSiteMetadata(
 
 export default function ContactPage() {
   return (
-    <div className="pt-20">
-      <ContactHero />
-      <ContactFormSection />
-      <ContactMap />
-      <ContactFAQ />
-      <ContactCTA />
-    </div>
+    <>
+      <Header />
+      <main>
+        <ContactHero />
+        <ContactFormSection />
+        <ContactMap />
+        <ContactFAQ />
+        <ContactCTA />
+      </main>
+      <Footer />
+    </>
   );
 }

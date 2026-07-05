@@ -1,4 +1,6 @@
 import { generateSiteMetadata } from '@/config/seo';
+import { Header } from '@/components/layout/header';
+import { Footer } from '@/components/layout/footer';
 import { AboutHero } from '@/components/sections/about-hero';
 import { AboutInnovation } from '@/components/sections/about-innovation';
 import { AboutPillars } from '@/components/sections/about-pillars';
@@ -14,13 +16,17 @@ export const metadata = generateSiteMetadata(
 
 export default function AboutPage() {
   return (
-    <div className="pt-20">
-      <AboutHero />
-      <AboutInnovation />
-      <AboutPillars />
-      <AboutTeam />
-      <AboutExpertise />
-      <AboutCTA />
-    </div>
+    <>
+      <Header />
+      <main>
+        <AboutHero />
+        <AboutInnovation />
+        <AboutPillars />
+        <AboutTeam />
+        <AboutExpertise />
+        <AboutCTA />
+      </main>
+      <Footer />
+    </>
   );
 }
