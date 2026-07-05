@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Projets & Réalisations – Viking Solar | Installations solaires et systèmes hybrides en RDC." />
+  <title>Projets – Viking Solar | Nos Réalisations Solaires</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="loader.css" />
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="projects.css" />
+</head>
+<body>
+
+  <!-- ============ HEADER ============ -->
+  <header class="header" id="header">
+    <div class="container nav-wrap">
+      <a href="index.html" class="logo" aria-label="Viking Solar Home">
+        <svg class="logo-icon" width="32" height="32" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" stroke="#22C55E" stroke-width="2.5"/>
+          <path d="M16 6 L18 14 L26 16 L18 18 L16 26 L14 18 L6 16 L14 14 Z" fill="#22C55E"/>
+        </svg>
+        <span class="logo-text">Vicking <span class="logo-bold">Solar</span></span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="index.html">Accueil</a>
+        <a href="about.html">À propos</a>
+        <a href="services.html">Services</a>
+        <a href="projects.html" class="active">Projets</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+      <a href="index.html#contact" class="nav-cta">Devis gratuit</a>
+      <button class="mobile-toggle" id="mobileToggle" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/243820128315" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ============================================================
+       HERO CINÉMATIQUE
+       ============================================================ -->
+  <!-- Floating WhatsApp -->
+  <a href="https://wa.me/243820128315" class="whatsapp-fab" target="_blank" rel="noopener" aria-label="Chat WhatsApp">
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="#fff">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+    </svg>
+  </a>
+
+  <!-- ============================================================
+       HERO CINÉMATIQUE
+       ============================================================ -->
+  <section class="pj-hero">
+    <div class="pj-hero-bg"></div>
+    <div class="pj-hero-overlay"></div>
+    <div class="pj-particles" aria-hidden="true">
+      <span></span><span></span><span></span><span></span>
+    </div>
+    <div class="container pj-hero-content">
+      <div class="pj-hero-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="#22C55E"><path d="M12 2L14.09 8.26L20 9.27L15.45 13.14L16.82 19.02L12 16.09L7.18 19.02L8.55 13.14L4 9.27L9.91 8.26L12 2Z"/></svg>
+        L'EXCELLENCE SOLAIRE AFRICAINE
+      </div>
+      <h1 class="pj-hero-title">
+        Nos <span class="pj-hl-green">Réalisations</span>
+      </h1>
+      <p class="pj-hero-sub">
+        Découvrez quelques projets et installations réalisés par Viking Solar au cœur de la République Démocratique du Congo.
+      </p>
+    </div>
+    <div class="pj-hero-scroll">
+      <div class="pj-scroll-line"></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       STATISTICS SECTION
+       ============================================================ -->
+  <section class="pj-stats">
+    <div class="container">
+      <div class="pj-stats-grid">
+        <div class="pj-stat-card" data-pjanim>
+          <div class="pj-stat-icon green-glow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14c-3.87 0-7-3.13-7-7h2c0 2.76 2.24 5 5 5s5-2.24 5-5h2c0 3.87-3.13 7-7 7z"/>
+            </svg>
+          </div>
+          <div class="pj-stat-info">
+            <span class="pj-stat-num" data-target="800">0</span><span class="pj-stat-plus">+</span>
+            <span class="pj-stat-label">Projets & Installations</span>
+          </div>
+        </div>
+        <div class="pj-stat-card" data-pjanim>
+          <div class="pj-stat-icon blue-glow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/>
+            </svg>
+          </div>
+          <div class="pj-stat-info">
+            <span class="pj-stat-num" data-target="1500">0</span><span class="pj-stat-plus">+</span>
+            <span class="pj-stat-label">Clients Satisfaits</span>
+          </div>
+        </div>
+        <div class="pj-stat-card" data-pjanim>
+          <div class="pj-stat-icon orange-glow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11 22.45h2V19.5h-2v2.95zM4 10.5H1v2h3v-2zm9-9.95h-2v3h2v-3zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"/>
+            </svg>
+          </div>
+          <div class="pj-stat-info">
+            <span class="pj-stat-num" data-target="2497">0</span><span class="pj-stat-plus">kW</span>
+            <span class="pj-stat-label">Capacité Solaire</span>
+          </div>
+        </div>
+        <div class="pj-stat-card" data-pjanim>
+          <div class="pj-stat-icon purple-glow">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14c-3.87 0-7-3.13-7-7h2c0 2.76 2.24 5 5 5s5-2.24 5-5h2c0 3.87-3.13 7-7 7z"/>
+            </svg>
+          </div>
+          <div class="pj-stat-info">
+            <span class="pj-stat-num" data-target="3200">0</span><span class="pj-stat-plus">+</span>
+            <span class="pj-stat-label">Panneaux Installés</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PROJECTS GALLERY
+       ============================================================ -->
+  <section class="pj-gallery">
+    <div class="container">
+      
+      <!-- Filter System -->
+      <div class="pj-filters" data-pjanim>
+        <button class="pj-filter-btn active" data-filter="all">Tous</button>
+        <button class="pj-filter-btn" data-filter="residentiel">Résidentiel</button>
+        <button class="pj-filter-btn" data-filter="industriel">Industriel</button>
+        <button class="pj-filter-btn" data-filter="commercial">Commercial</button>
+        <button class="pj-filter-btn" data-filter="hybride">Hybride</button>
+        <button class="pj-filter-btn" data-filter="solaire">Solaire</button>
+      </div>
+
+      <!-- Projects Grid -->
+      <div class="pj-grid">
+        
+        <!-- Project 1 -->
+        <article class="pj-card" data-category="industriel hybride solaire" data-pjanim>
+          <div class="pj-card-img-wrap">
+            <div class="pj-img-placeholder">
+              <div class="pj-placeholder-inner">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                <p>Projet Industriel – Image à venir</p>
+              </div>
+            </div>
+            <div class="pj-card-category green-bg">Industriel</div>
+          </div>
+          <div class="pj-card-content">
+            <div class="pj-card-loc">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              Limete, Kinshasa
+            </div>
+            <h3>Complexe Industriel et Logistique</h3>
+            <p>Installation hybride de 250 kW avec batteries au lithium de haute capacité pour garantir une autonomie de 24h et stabiliser la production de l'usine.</p>
+            <div class="pj-card-tags">
+              <span>Solaire</span><span>Hybride</span><span>250 kW</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 2 -->
+        <article class="pj-card" data-category="residentiel solaire" data-pjanim>
+          <div class="pj-card-img-wrap">
+            <div class="pj-img-placeholder">
+              <div class="pj-placeholder-inner">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                <p>Villa Résidentielle – Image à venir</p>
+              </div>
+            </div>
+            <div class="pj-card-category blue-bg">Résidentiel</div>
+          </div>
+          <div class="pj-card-content">
+            <div class="pj-card-loc">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              Gombe, Kinshasa
+            </div>
+            <h3>Villa Moderne Autonome</h3>
+            <p>Conception et installation d'un système résidentiel esthétique de 15 kW. Intégration sur toiture et backup complet en cas de coupure réseau.</p>
+            <div class="pj-card-tags">
+              <span>Solaire</span><span>Batterie</span><span>15 kW</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 3 -->
+        <article class="pj-card" data-category="commercial solaire" data-pjanim>
+          <div class="pj-card-img-wrap">
+            <div class="pj-img-placeholder">
+              <div class="pj-placeholder-inner">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4zm0 5h16v2H4zm0 5h16v2H4z"/></svg>
+                <p>Centre Commercial – Image à venir</p>
+              </div>
+            </div>
+            <div class="pj-card-category orange-bg">Commercial</div>
+          </div>
+          <div class="pj-card-content">
+            <div class="pj-card-loc">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              Ngaliema, Kinshasa
+            </div>
+            <h3>Centre d'Affaires Principal</h3>
+            <p>Alimentation solaire de 80 kW pour bureaux administratifs et commerces, permettant une réduction de 60% de la facture énergétique annuelle.</p>
+            <div class="pj-card-tags">
+              <span>Solaire</span><span>Toiture</span><span>80 kW</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 4 -->
+        <article class="pj-card" data-category="commercial hybride" data-pjanim>
+          <div class="pj-card-img-wrap">
+            <div class="pj-img-placeholder">
+              <div class="pj-placeholder-inner">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                <p>Institution – Image à venir</p>
+              </div>
+            </div>
+            <div class="pj-card-category purple-bg">Commercial</div>
+          </div>
+          <div class="pj-card-content">
+            <div class="pj-card-loc">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              Matete, Kinshasa
+            </div>
+            <h3>Électrification École Publique</h3>
+            <p>Projet hybride solidaire de 35 kW fournissant une énergie stable aux salles de classe, laboratoires et espaces informatiques.</p>
+            <div class="pj-card-tags">
+              <span>Institutionnel</span><span>Hybride</span><span>35 kW</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 5 -->
+        <article class="pj-card" data-category="residentiel hybride solaire" data-pjanim>
+          <div class="pj-card-img-wrap">
+            <div class="pj-img-placeholder">
+              <div class="pj-placeholder-inner">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+                <p>Résidence – Image à venir</p>
+              </div>
+            </div>
+            <div class="pj-card-category blue-bg">Résidentiel</div>
+          </div>
+          <div class="pj-card-content">
+            <div class="pj-card-loc">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              Macampagne, Kinshasa
+            </div>
+            <h3>Résidence Familiale Haute Sécurité</h3>
+            <p>Installation hybride de 10 kW pour garantir la sécurité et l'éclairage en continu pour une résidence sécurisée.</p>
+            <div class="pj-card-tags">
+              <span>Solaire</span><span>Hybride</span><span>10 kW</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Project 6 -->
+        <article class="pj-card" data-category="industriel" data-pjanim>
+          <div class="pj-card-img-wrap">
+            <div class="pj-img-placeholder">
+              <div class="pj-placeholder-inner">
+                <svg width="42" height="42" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zM9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4z"/></svg>
+                <p>Entrepôt – Image à venir</p>
+              </div>
+            </div>
+            <div class="pj-card-category green-bg">Industriel</div>
+          </div>
+          <div class="pj-card-content">
+            <div class="pj-card-loc">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>
+              Kingabwa, Kinshasa
+            </div>
+            <h3>Entrepôt Frigorifique Alimentaire</h3>
+            <p>Mise en place d'une toiture solaire de 120 kW pour réduire la dépendance au réseau et alimenter les chambres froides.</p>
+            <div class="pj-card-tags">
+              <span>Toiture</span><span>Solaire</span><span>120 kW</span>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       TESTIMONIALS SECTION
+       ============================================================ -->
+  <section class="pj-testimonials">
+    <div class="container">
+      <div class="pj-testi-head" data-pjanim>
+        <div class="pj-eyebrow">Ce qu'ils disent de nous</div>
+        <h2 class="pj-section-title">Avis de <span class="pj-hl-orange">Nos Clients</span></h2>
+      </div>
+
+      <div class="pj-testi-grid">
+        <!-- Testimonial 1 Placeholder -->
+        <div class="pj-testi-card" data-pjanim>
+          <div class="pj-testi-quote-icon">"</div>
+          <div class="pj-testi-content-ph">
+            <div class="pj-line-ph full"></div>
+            <div class="pj-line-ph"></div>
+            <div class="pj-line-ph short"></div>
+          </div>
+          <div class="pj-testi-author">
+            <div class="pj-author-avatar-ph"></div>
+            <div class="pj-author-info-ph">
+              <div class="pj-line-ph name"></div>
+              <div class="pj-line-ph title"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 Placeholder -->
+        <div class="pj-testi-card" data-pjanim>
+          <div class="pj-testi-quote-icon">"</div>
+          <div class="pj-testi-content-ph">
+            <div class="pj-line-ph full"></div>
+            <div class="pj-line-ph"></div>
+            <div class="pj-line-ph medium"></div>
+          </div>
+          <div class="pj-testi-author">
+            <div class="pj-author-avatar-ph"></div>
+            <div class="pj-author-info-ph">
+              <div class="pj-line-ph name"></div>
+              <div class="pj-line-ph title"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 Placeholder -->
+        <div class="pj-testi-card" data-pjanim>
+          <div class="pj-testi-quote-icon">"</div>
+          <div class="pj-testi-content-ph">
+            <div class="pj-line-ph full"></div>
+            <div class="pj-line-ph full"></div>
+            <div class="pj-line-ph short"></div>
+          </div>
+          <div class="pj-testi-author">
+            <div class="pj-author-avatar-ph"></div>
+            <div class="pj-author-info-ph">
+              <div class="pj-line-ph name"></div>
+              <div class="pj-line-ph title"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       CTA FINAL
+       ============================================================ -->
+  <section class="pj-cta">
+    <div class="container">
+      <div class="pj-cta-card" data-pjanim>
+        <div class="pj-cta-glow"></div>
+        <div class="pj-cta-content">
+          <div class="pj-eyebrow pj-eyebrow-center">Votre projet commence ici</div>
+          <h2>Confiez votre projet solaire<br/>à Vicking Solar.</h2>
+          <p>Nous concevons, installons et maintenons des systèmes énergétiques fiables pour vous accompagner sur le long terme.</p>
+          <div class="pj-cta-contact-row">
+            <div class="pj-contact-item">
+              <div class="pj-ci-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+              </div>
+              +243 820 128 315
+            </div>
+            <div class="pj-contact-item">
+              <div class="pj-ci-icon">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+              </div>
+              vikingsolar58@gmail.com
+            </div>
+          </div>
+          <div class="pj-cta-btns">
+            <a href="https://wa.me/243820128315" class="pj-wa-btn" target="_blank" rel="noopener">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/></svg>
+              Contacter sur WhatsApp
+            </a>
+            <a href="mailto:vikingsolar58@gmail.com" class="pj-quote-btn">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 9V3.5L18.5 9H13zM7 17l2-2 2 2 4-4 2 2v4H7v-2z"/></svg>
+              Demander un devis
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SOCIAL MEDIA ============ -->
+  <section class="social-footer-section">
+    <div class="container">
+      <h3 class="social-footer-title">Suivez Vicking Solar sur nos réseaux sociaux</h3>
+      <div class="social-footer-grid">
+        <a href="https://www.facebook.com/share/1CiMtZAPkx/?mibextid=wwXIfr" class="social-btn facebook" target="_blank" rel="noopener" aria-label="Facebook">
+          <svg viewBox="0 0 24 24"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.84 3.44 8.87 8 9.8V15H8v-3h2V9.5C10 7.57 11.57 6 13.5 6H16v3h-2c-.55 0-1 .45-1 1v2h3v3h-3v6.95c5.05-.5 9-4.76 9-9.95z"/></svg>
+        </a>
+        <a href="https://www.instagram.com/vickingsolar58?igsh=MTY3YmIxNDN4NWpzaw==" class="social-btn instagram" target="_blank" rel="noopener" aria-label="Instagram">
+          <svg viewBox="0 0 24 24"><path d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg>
+        </a>
+        <a href="https://x.com/vikingsolar?s=21" class="social-btn twitter" target="_blank" rel="noopener" aria-label="X (Twitter)">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://www.tiktok.com/@vicking.solar?_r=1&_t=ZS-96lF8PPJJxc" class="social-btn tiktok" target="_blank" rel="noopener" aria-label="TikTok">
+          <svg viewBox="0 0 24 24"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.01.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 2.78-1.15 5.54-3.33 7.39-2.2 1.88-5.31 2.5-8.11 1.77-2.61-.69-4.81-2.45-5.91-4.88-1.12-2.46-.92-5.46.52-7.72 1.45-2.25 3.91-3.66 6.55-3.83v4.05c-1.22.14-2.41.67-3.21 1.6-1.02 1.18-1.28 2.9-.66 4.31.57 1.32 1.83 2.26 3.25 2.5 1.51.26 3.1-.2 4.1-1.31 1.05-1.15 1.4-2.77 1.35-4.32-.05-6.07-.03-12.15-.03-18.23h3.42z"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ GLOBAL FOOTER ============ -->
+  <footer class="global-footer">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="footer-logo-row">
+          <svg class="logo-icon" width="28" height="28" viewBox="0 0 32 32" fill="none">
+            <circle cx="16" cy="16" r="14" stroke="#22C55E" stroke-width="2.5"/>
+            <path d="M16 6 L18 14 L26 16 L18 18 L16 26 L14 18 L6 16 L14 14 Z" fill="#22C55E"/>
+          </svg>
+          <span class="logo-text">Vicking <span class="logo-bold">Solar</span></span>
+        </div>
+        <p class="footer-desc">
+          Leader des solutions d'énergie solaire en République Démocratique du Congo. Nous offrons des services innovants et durables pour un avenir meilleur.
+        </p>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="services.html#sv-svc-install">Installation solaire</a>
+        <a href="services.html#sv-svc-hybrid">Systèmes hybrides</a>
+        <a href="services.html#sv-svc-maint">Maintenance</a>
+        <a href="services.html#sv-svc-indus">Solutions industrielles</a>
+      </div>
+      <div class="footer-col">
+        <h4>Compagnie</h4>
+        <a href="about.html">À propos</a>
+        <a href="projects.html">Projets</a>
+        <a href="index.html#contact">Contact</a>
+        <a href="admin.html">Admin</a>
+      </div>
+    </div>
+    <div class="container footer-bottom">
+      <p>&copy; 2024 Vicking Solar. Tous droits réservés. Une entreprise congolaise au service du monde. <span class="footer-flag">🇨🇩</span></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Projects specific JS
+    document.addEventListener('DOMContentLoaded', () => {
+      // 1. Reveal Animations
+      const animEls = document.querySelectorAll('[data-pjanim]');
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('pj-visible');
+            }, i * 80);
+            obs.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
+      
+      animEls.forEach(el => obs.observe(el));
+
+      // 2. Animated Counters
+      const statNums = document.querySelectorAll('.pj-stat-num[data-target]');
+      const statObs = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = +el.dataset.target;
+            let current = 0;
+            const step = Math.ceil(target / 45);
+            const interval = setInterval(() => {
+              current += step;
+              if (current >= target) {
+                current = target;
+                clearInterval(interval);
+              }
+              el.textContent = current.toLocaleString('fr-FR');
+            }, 30);
+            statObs.unobserve(el);
+          }
+        });
+      }, { threshold: 0.5 });
+      statNums.forEach(el => statObs.observe(el));
+
+      // 3. Category Filter System
+      const filterBtns = document.querySelectorAll('.pj-filter-btn');
+      const projectCards = document.querySelectorAll('.pj-card');
+
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // Remove active
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+
+          const filterVal = btn.dataset.filter;
+
+          projectCards.forEach(card => {
+            if (filterVal === 'all') {
+              card.style.display = 'flex';
+              // re-trigger animation simply
+              card.style.animation = 'none';
+              card.offsetHeight; // trigger reflow
+              card.style.animation = 'fadeInUp 0.6s ease forwards';
+            } else {
+              if (card.dataset.category.includes(filterVal)) {
+                card.style.display = 'flex';
+                card.style.animation = 'none';
+                card.offsetHeight;
+                card.style.animation = 'fadeInUp 0.6s ease forwards';
+              } else {
+                card.style.display = 'none';
+              }
+            }
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

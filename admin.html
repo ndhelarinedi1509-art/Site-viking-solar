@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Vicking Solar – Premium Admin Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="admin-body">
+
+  <!-- ============ LOGIN SCREEN ============ -->
+  <div class="admin-login-wrapper" id="loginWrapper">
+    <div class="admin-login-box">
+      <div class="logo-row">
+        <svg width="36" height="36" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" stroke="#3b82f6" stroke-width="2.5"/>
+          <path d="M16 6 L18 14 L26 16 L18 18 L16 26 L14 18 L6 16 L14 14 Z" fill="#3b82f6"/>
+        </svg>
+        <span class="logo-text">Vicking <strong>Solar</strong> Workspace</span>
+      </div>
+      <p style="color:var(--admin-muted); margin-bottom: 2rem; font-size: 0.9rem;">Votre partenaire en énergie solaire durable</p>
+      
+      <form class="login-form" id="loginForm">
+        <div class="form-group" style="margin-bottom:0">
+          <label>Identifiant Administrateur</label>
+          <input type="text" id="adminUser" placeholder="ex: admin@vickingsolar.com" value="admin@vickingsolar.com" required />
+        </div>
+        <div class="form-group" style="margin-bottom:0">
+          <label>Mot de passe</label>
+          <input type="password" id="adminPass" placeholder="••••••••" value="password" required />
+        </div>
+        <button type="submit" class="btn-login">Connexion Sécurisée</button>
+      </form>
+      <div style="margin-top: 1.5rem; font-size: 0.8rem; color: rgba(255,255,255,0.4);">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor" style="vertical-align:middle;margin-right:4px;"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+        Protection SaaS Active
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ MAIN APP ============ -->
+  <div class="app-container" id="appContainer">
+    
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none">
+          <circle cx="16" cy="16" r="14" stroke="#22c55e" stroke-width="2.5"/>
+          <path d="M16 6 L18 14 L26 16 L18 18 L16 26 L14 18 L6 16 L14 14 Z" fill="#22c55e"/>
+        </svg>
+        <span style="font-weight:600;font-size:1.1rem;">Viking Solar</span>
+      </div>
+      
+      <div class="sidebar-nav">
+        <div class="nav-item active" data-target="view-dashboard">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h8V3H3v10zm0 8h8v-6H3v6zm10 0h8V11h-8v10zm0-18v6h8V3h-8z"/></svg>
+          Dashboard
+        </div>
+        <div class="nav-item" data-target="view-content">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M3 17.25V21h3.75L17.81 9.94l-3.75-3.75L3 17.25zM20.71 7.04c.39-.39.39-1.02 0-1.41l-2.34-2.34c-.39-.39-1.02-.39-1.41 0l-1.83 1.83 3.75 3.75 1.83-1.83z"/></svg>
+          Contenu Site
+        </div>
+        <div class="nav-item" data-target="view-projects">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zm-5.04-6.71l-2.75 3.54-1.96-2.36L6.5 17h11l-3.54-4.71z"/></svg>
+          Projets & Médias
+        </div>
+        <div class="nav-item" data-target="view-messages">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg>
+          Messages (Inbox)
+        </div>
+        <div class="nav-item" data-target="view-team">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M16 11c1.66 0 2.99-1.34 2.99-3S17.66 5 16 5c-1.66 0-3 1.34-3 3s1.34 3 3 3zm-8 0c1.66 0 2.99-1.34 2.99-3S9.66 5 8 5C6.34 5 5 6.34 5 8s1.34 3 3 3zm0 2c-2.33 0-7 1.17-7 3.5V19h14v-2.5c0-2.33-4.67-3.5-7-3.5zm8 0c-.29 0-.62.02-.97.05 1.16.84 1.97 1.97 1.97 3.45V19h6v-2.5c0-2.33-4.67-3.5-7-3.5z"/></svg>
+          Équipe
+        </div>
+        <div class="nav-item" data-target="view-settings">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.06-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.56-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.73 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.06.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .43-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.49-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+          Configuration
+        </div>
+      </div>
+      
+      <div class="sidebar-footer">
+        <div class="user-profile">
+          <div class="avatar">A</div>
+          <div class="user-info">
+            <div>Admin Principal</div>
+            <div>Rôle: Super Admin</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+    
+    <!-- Main Content -->
+    <main class="main-content">
+      
+      <!-- Topbar -->
+      <header class="topbar">
+        <div class="topbar-title" id="topbarTitle">Dashboard</div>
+        <div class="topbar-actions">
+          <a href="index.html" target="_blank" class="btn-outline">Voir le site ↗</a>
+          <button class="btn-logout" id="btnLogout">Déconnexion</button>
+        </div>
+      </header>
+      
+      <!-- Views Container -->
+      <div class="content-wrapper">
+        
+        <!-- DASHBOARD VIEW -->
+        <div class="view active" id="view-dashboard">
+          <h2 style="margin-bottom: 2rem;">Aperçu Global</h2>
+          <div class="stats-grid">
+            <div class="stat-card">
+              <div class="stat-card-title">Projets Réalisés</div>
+              <div class="stat-card-value text-primary">124</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-title">Visiteurs (30j)</div>
+              <div class="stat-card-value text-success">8,450</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-title">Demandes Devis</div>
+              <div class="stat-card-value text-accent">32</div>
+            </div>
+            <div class="stat-card">
+              <div class="stat-card-title">Nouveaux Messages</div>
+              <div class="stat-card-value">14</div>
+            </div>
+          </div>
+          
+          <div class="admin-card">
+            <h3 style="margin-bottom: 1rem;">Activité Récente</h3>
+            <p class="text-muted">Les derniers événements et interactions sur la plateforme.</p>
+            <!-- Mock list -->
+            <ul style="list-style:none; padding:0; margin-top: 1rem;">
+              <li style="padding:1rem 0; border-bottom:1px solid var(--admin-border);">Demande de devis - <strong>Installation Industrielle</strong> (il y a 2h)</li>
+              <li style="padding:1rem 0; border-bottom:1px solid var(--admin-border);">Nouveau contact WhatsApp via site (il y a 5h)</li>
+              <li style="padding:1rem 0;">Mise à jour du contenu "Accueil" par Admin (hier)</li>
+            </ul>
+          </div>
+        </div>
+        
+        <!-- CONTENT VIEW -->
+        <div class="view" id="view-content">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3>Contenu Accueil (Hero)</h3>
+              <button class="btn-save" onclick="app.showToast('Contenu sauvegardé')">Enregistrer</button>
+            </div>
+            <div class="form-group">
+              <label>Slogan (Badge)</label>
+              <input type="text" value="ÉNERGIE SOLAIRE DURABLE" />
+            </div>
+            <div class="form-group">
+              <label>Titre principal</label>
+              <textarea>L'énergie solaire intelligente pour un Congo moderne</textarea>
+            </div>
+            <div class="form-group">
+              <label>Sous-titre</label>
+              <textarea>Vicking Solar accompagne les particuliers, entreprises et industries avec des solutions solaires durables, fiables et innovantes.</textarea>
+            </div>
+          </div>
+          
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3>Informations de Contact (Global)</h3>
+              <button class="btn-save" onclick="app.showToast('Contact sauvegardé')">Enregistrer</button>
+            </div>
+            <div class="form-group">
+              <label>Numéro Téléphone / WhatsApp</label>
+              <input type="text" value="+243 820 128 315" />
+            </div>
+            <div class="form-group">
+              <label>Adresse Email</label>
+              <input type="email" value="vikingsolar58@gmail.com" />
+            </div>
+          </div>
+        </div>
+
+        <!-- PROJECTS VIEW -->
+        <div class="view" id="view-projects">
+          <div class="admin-card-header" style="border:none; padding:0;">
+            <h2>Gestion des Projets</h2>
+            <button class="btn-save">+ Nouveau Projet</button>
+          </div>
+          <p class="text-muted" style="margin-bottom: 2rem;">Ajoutez, modifiez ou supprimez les images de vos réalisations.</p>
+          
+          <div class="grid-list">
+            <!-- Project items -->
+            <div class="item-card">
+              <div class="item-image-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" style="margin-bottom:0.5rem;"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                [Image Uploader]
+              </div>
+              <div class="form-group" style="margin-bottom:0.5rem;">
+                <input type="text" value="Villa Moderne, Gombe" />
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <input type="text" value="Résidentiel" placeholder="Tag" />
+              </div>
+              <div class="item-actions">
+                <button class="btn-save" style="flex:1; padding:0.5rem;">Sauver</button>
+                <button class="btn-icon danger"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+              </div>
+            </div>
+            
+            <div class="item-card">
+              <div class="item-image-placeholder">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" style="margin-bottom:0.5rem;"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+                [Image Uploader]
+              </div>
+              <div class="form-group" style="margin-bottom:0.5rem;">
+                <input type="text" value="Entreprise Logistique" />
+              </div>
+              <div class="form-group" style="margin-bottom:0;">
+                <input type="text" value="Entreprise" placeholder="Tag" />
+              </div>
+              <div class="item-actions">
+                <button class="btn-save" style="flex:1; padding:0.5rem;">Sauver</button>
+                <button class="btn-icon danger"><svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"/></svg></button>
+              </div>
+            </div>
+
+            <div class="add-new-card">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" style="margin-bottom:1rem;"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
+              <span>Ajouter un projet</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- MESSAGES VIEW -->
+        <div class="view" id="view-messages">
+          <div class="admin-card">
+            <h2 style="margin-bottom:1.5rem;">Boîte de réception</h2>
+            <div style="overflow-x:auto;">
+              <table>
+                <thead>
+                  <tr>
+                    <th>Statut</th>
+                    <th>Date</th>
+                    <th>Nom</th>
+                    <th>Service</th>
+                    <th>Message</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><span class="status-badge new">Nouveau</span></td>
+                    <td>Aujourd'hui</td>
+                    <td>Jean Dupont</td>
+                    <td>Installation</td>
+                    <td class="text-muted">Bonjour, j'aimerais un devis...</td>
+                    <td><button class="btn-outline" style="padding:0.3rem 0.6rem;">Ouvrir</button></td>
+                  </tr>
+                  <tr>
+                    <td><span class="status-badge read">Lu</span></td>
+                    <td>Hier</td>
+                    <td>Marie Claire</td>
+                    <td>Hybride</td>
+                    <td class="text-muted">Avez-vous des batteries en s...</td>
+                    <td><button class="btn-outline" style="padding:0.3rem 0.6rem;">Ouvrir</button></td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TEAM VIEW -->
+        <div class="view" id="view-team">
+          <div class="admin-card-header" style="border:none; padding:0;">
+            <h2>Gestion de l'Équipe</h2>
+            <button class="btn-save">+ Ajouter Membre</button>
+          </div>
+          <p class="text-muted" style="margin-bottom: 2rem;">Uploadez les photos de votre équipe pour la page À Propos.</p>
+          
+          <div class="grid-list">
+            <div class="add-new-card">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="currentColor" style="margin-bottom:1rem;"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+              <span>Uploader Photo Équipe</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- SETTINGS VIEW -->
+        <div class="view" id="view-settings">
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3>Configuration Système</h3>
+              <button class="btn-save" onclick="app.showToast('Configuration sauvegardée')">Sauvegarder</button>
+            </div>
+            
+            <div class="form-group">
+              <label>Logo URL</label>
+              <input type="text" value="/assets/logo.png" />
+            </div>
+            <div class="form-group">
+              <label>Couleur Primaire (Hex)</label>
+              <input type="color" value="#22C55E" style="width:100px; height:40px; padding:0; cursor:pointer;" />
+            </div>
+            <div class="form-group">
+              <label>Balise Titre SEO</label>
+              <input type="text" value="Viking Solar – Votre partenaire en énergie solaire durable" />
+            </div>
+          </div>
+
+          <div class="admin-card">
+            <div class="admin-card-header">
+              <h3>Sécurité & Sauvegardes</h3>
+            </div>
+            <p class="text-muted" style="margin-bottom:1.5rem;">Gérez les rôles et effectuez des sauvegardes de la base de données.</p>
+            <div style="display:flex; gap:1rem;">
+              <button class="btn-outline">Gérer les Rôles</button>
+              <button class="btn-save" style="background:var(--admin-primary);">Créer un Backup</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+  <div id="toast" class="toast">Action effectuée</div>
+
+  <script src="admin.js"></script>
+</body>
+</html>
