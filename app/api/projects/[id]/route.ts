@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getProjectById } from '@/lib/supabase/queries';
+import { serverT } from '@/lib/i18n/server';
 
 interface RouteContext {
   params: Promise<{ id: string }>;
@@ -12,7 +13,7 @@ export async function GET(request: Request, context: RouteContext) {
 
     if (!project) {
       return NextResponse.json(
-        { error: 'Projet non trouvé' },
+        { error: serverT('error.notFoundTitle') },
         { status: 404 }
       );
     }
@@ -20,7 +21,7 @@ export async function GET(request: Request, context: RouteContext) {
     return NextResponse.json({ data: project });
   } catch (error) {
     return NextResponse.json(
-      { error: 'Erreur lors de la récupération du projet' },
+      { error: serverT('error.description') },
       { status: 500 }
     );
   }

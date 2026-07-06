@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 
 export default function Error({
   error,
@@ -9,6 +10,7 @@ export default function Error({
   error: Error & { digest?: string };
   reset: () => void;
 }) {
+  const { t } = useTranslation();
   useEffect(() => {
     console.error('Application error:', error);
   }, [error]);
@@ -33,11 +35,11 @@ export default function Error({
         </svg>
 
         <h1 className="mb-3 text-4xl font-bold text-white sm:text-5xl">
-          Une erreur est survenue
+          {t('error.title')}
         </h1>
 
         <p className="mb-8 max-w-md text-gray-400">
-          Quelque chose s&apos;est mal passé. Veuillez réessayer.
+          {t('error.description')}
         </p>
 
         <button
@@ -55,7 +57,7 @@ export default function Error({
             <path d="M1 4v6h6M23 20v-6h-6" />
             <path d="M20.49 9A9 9 0 0 0 5.64 5.64L1 10m22 4l-4.64 4.36A9 9 0 0 1 3.51 15" />
           </svg>
-          Réessayer
+          {t('error.retry')}
         </button>
       </div>
     </main>

@@ -3,6 +3,7 @@
 import { useCountUp } from '@/hooks/useCountUp';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const stats = [
   {
@@ -13,7 +14,7 @@ const stats = [
     ),
     value: 800,
     suffix: '+',
-    label: 'Projets & Installations',
+    labelKey: 'stats.installations',
     colors: {
       bg: 'bg-green/15',
       text: 'text-green',
@@ -28,7 +29,7 @@ const stats = [
     ),
     value: 1500,
     suffix: '+',
-    label: 'Clients Satisfaits',
+    labelKey: 'stats.clientsSatisfied',
     colors: {
       bg: 'bg-accent-blue/15',
       text: 'text-accent-blue',
@@ -43,7 +44,7 @@ const stats = [
     ),
     value: 2497,
     suffix: ' kW',
-    label: 'Capacité Solaire',
+    labelKey: 'stats.powerInstalled',
     colors: {
       bg: 'bg-accent-orange/15',
       text: 'text-accent-orange',
@@ -58,7 +59,7 @@ const stats = [
     ),
     value: 3200,
     suffix: '+',
-    label: 'Panneaux Installés',
+    labelKey: 'stats.panelsInstalled',
     colors: {
       bg: 'bg-accent-purple/15',
       text: 'text-accent-purple',
@@ -68,6 +69,7 @@ const stats = [
 ];
 
 function StatCard({ stat, index }: { stat: (typeof stats)[number]; index: number }) {
+  const { t } = useTranslation();
   const { ref } = useCountUp(stat.value);
   const { ref: cardRef, isInView } = useInView();
 
@@ -88,7 +90,7 @@ function StatCard({ stat, index }: { stat: (typeof stats)[number]; index: number
           <span ref={ref}>0</span>
           <sup className="text-[1.2rem] font-bold text-green ml-0.5 align-super">{stat.suffix}</sup>
         </span>
-        <span className="text-[0.8rem] text-gray-500 uppercase tracking-[0.05em] mt-1.5">{stat.label}</span>
+        <span className="text-[0.8rem] text-gray-500 uppercase tracking-[0.05em] mt-1.5">{t(stat.labelKey)}</span>
       </div>
     </div>
   );
@@ -100,7 +102,7 @@ export function ProjectsStats() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-6 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           {stats.map((stat, i) => (
-            <StatCard key={stat.label} stat={stat} index={i} />
+            <StatCard key={stat.labelKey} stat={stat} index={i} />
           ))}
         </div>
       </div>

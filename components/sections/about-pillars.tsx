@@ -2,6 +2,7 @@
 
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const pillars: { icon: React.ReactNode; color: 'blue' | 'green' | 'purple'; title: string; description: string }[] = [
   {
@@ -62,11 +63,12 @@ function PillarCard({ children, delay = 0 }: { children: React.ReactNode; delay?
 }
 
 export function AboutPillars() {
+  const { t } = useTranslation();
   return (
     <section className="py-20 sm:py-24 border-t border-border bg-bg-card">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <h2 className="text-[clamp(1.6rem,2.8vw,2.2rem)] font-extrabold text-white text-center tracking-[-0.02em] mb-12">
-          Nos Piliers Fondamentaux
+          {t('about.pillars.title')}
         </h2>
 
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">

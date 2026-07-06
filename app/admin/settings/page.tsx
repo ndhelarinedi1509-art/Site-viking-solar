@@ -3,8 +3,10 @@
 import { useState } from 'react';
 import { Save, Shield, Database } from 'lucide-react';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 
 export default function AdminSettingsPage() {
+  const { t } = useTranslation();
   const [settings, setSettings] = useState({
     logoUrl: '/favicon.svg',
     primaryColor: '#22C55E',
@@ -13,18 +15,18 @@ export default function AdminSettingsPage() {
 
   const handleSave = () => {
     console.log('Saving settings:', settings);
-    toast.success('Configuration sauvegardée');
+    toast.success(t('admin.settings.saved'));
   };
 
   return (
     <div className="space-y-6 max-w-3xl">
-      <h1 className="text-2xl font-bold text-white">Configuration</h1>
+      <h1 className="text-2xl font-bold text-white">{t('admin.settings.title')}</h1>
 
       <div className="bg-bg-card border border-white/6 rounded-2xl p-6 shadow-card space-y-4">
-        <h2 className="text-lg font-semibold text-white">Configuration Système</h2>
+        <h2 className="text-lg font-semibold text-white">{t('admin.settings.system')}</h2>
 
         <div className="space-y-1.5">
-          <label className="block text-sm font-medium text-gray-300">URL du Logo</label>
+          <label className="block text-sm font-medium text-gray-300">{t('admin.settings.logoUrl')}</label>
           <input
             value={settings.logoUrl}
             onChange={(e) => setSettings({ ...settings, logoUrl: e.target.value })}
@@ -34,7 +36,7 @@ export default function AdminSettingsPage() {
         </div>
 
         <div className="space-y-1.5">
-          <label className="block text-sm font-medium text-gray-300">Couleur Principale</label>
+          <label className="block text-sm font-medium text-gray-300">{t('admin.settings.primaryColor')}</label>
           <div className="flex items-center gap-3">
             <input
               type="color"
@@ -51,7 +53,7 @@ export default function AdminSettingsPage() {
         </div>
 
         <div className="space-y-1.5">
-          <label className="block text-sm font-medium text-gray-300">Titre SEO</label>
+          <label className="block text-sm font-medium text-gray-300">{t('admin.settings.seoTitle')}</label>
           <input
             value={settings.seoTitle}
             onChange={(e) => setSettings({ ...settings, seoTitle: e.target.value })}
@@ -64,21 +66,21 @@ export default function AdminSettingsPage() {
           className="h-10 px-5 rounded-xl bg-green text-white text-sm font-semibold hover:bg-green-dark hover:shadow-glow transition-all duration-300 active:scale-[0.98] flex items-center gap-2"
         >
           <Save className="h-4 w-4" />
-          Sauvegarder
+          {t('admin.settings.save')}
         </button>
       </div>
 
       <div className="bg-bg-card border border-white/6 rounded-2xl p-6 shadow-card space-y-4">
-        <h2 className="text-lg font-semibold text-white">Sécurité & Sauvegardes</h2>
+        <h2 className="text-lg font-semibold text-white">{t('admin.settings.security')}</h2>
 
         <div className="flex items-center gap-3">
           <button className="h-10 px-5 rounded-xl border border-green/30 text-green text-sm font-semibold hover:bg-green/10 hover:border-green/50 transition-all duration-300 active:scale-[0.98] flex items-center gap-2">
             <Shield className="h-4 w-4" />
-            Gérer les Rôles
+            {t('admin.settings.manageRoles')}
           </button>
           <button className="h-10 px-5 rounded-xl border border-accent-blue/30 text-accent-blue text-sm font-semibold hover:bg-accent-blue/10 hover:border-accent-blue/50 transition-all duration-300 active:scale-[0.98] flex items-center gap-2">
             <Database className="h-4 w-4" />
-            Créer un Backup
+            {t('admin.settings.createBackup')}
           </button>
         </div>
       </div>

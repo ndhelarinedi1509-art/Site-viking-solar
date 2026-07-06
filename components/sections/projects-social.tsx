@@ -3,6 +3,7 @@
 import { SITE_CONFIG } from '@/config/site';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const socials = [
   {
@@ -60,16 +61,13 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 }
 
 export function ProjectsSocial() {
+  const { t } = useTranslation();
   return (
     <section className="py-20 sm:py-24 bg-bg-primary border-t border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
         <FadeIn>
           <h3 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-white mb-8">
-            Suivez{' '}
-            <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
-              Vicking Solar
-            </span>{' '}
-            sur nos réseaux sociaux
+            {t('projects.social.title')}
           </h3>
         </FadeIn>
 

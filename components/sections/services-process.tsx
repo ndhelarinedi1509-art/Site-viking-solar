@@ -2,6 +2,7 @@
 
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const steps = [
   {
@@ -84,79 +85,93 @@ const dotTextColors: Record<string, string> = {
   purple: 'text-accent-purple', teal: 'text-accent-teal',
 };
 
-function StepItem({ step, index }: { step: typeof steps[0]; index: number }) {
+function StepCard({ step }: { step: typeof steps[0] }) {
+  return (
+    <div className="flex items-start gap-3">
+      <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${step.color === 'blue' ? 'bg-accent-blue/10' : step.color === 'green' ? 'bg-green/10' : step.color === 'orange' ? 'bg-accent-orange/10' : step.color === 'purple' ? 'bg-accent-purple/10' : 'bg-accent-teal/10'}`}>
+        {step.icon}
+      </div>
+      <div className="flex-1 min-w-0">
+        <div className="flex items-center justify-between gap-2 mb-1">
+          <h3 className="text-base font-bold text-white">{step.title}</h3>
+          <span className="flex items-center gap-1 text-[0.7rem] font-semibold text-gray-600 shrink-0">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
+            </svg>
+            {step.duration}
+          </span>
+        </div>
+        <p className="text-sm text-gray-500 leading-relaxed">{step.description}</p>
+      </div>
+    </div>
+  );
+}
+
+function StepRow({ step, index }: { step: typeof steps[0]; index: number }) {
   const { ref, isInView } = useInView();
-  const isRight = index % 2 === 1;
   const ds = dotStyles[step.color];
+  const isRight = index % 2 === 1;
 
   return (
     <div
       ref={ref}
       className={cn(
-        'sv-tl-item grid grid-cols-[1fr_60px_1fr] items-center min-h-[140px]',
         'transition-all duration-[0.6s] ease-out',
-        isInView ? 'opacity-100 translate-x-0' : `opacity-0 ${isRight ? 'translate-x-8' : '-translate-x-8'}`,
+        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
       )}
       style={{ transitionDelay: `${index * 120}ms` }}
     >
-      {/* Left card */}
-      {!isRight && (
-        <div className="sv-tl-card mr-8 bg-bg-elevated border border-border rounded-2xl p-6 flex items-start gap-4 transition-all duration-350 hover:scale-[1.02] hover:border-white/10 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)]">
-          <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${step.color === 'blue' ? 'bg-accent-blue/10' : step.color === 'green' ? 'bg-green/10' : step.color === 'orange' ? 'bg-accent-orange/10' : step.color === 'purple' ? 'bg-accent-purple/10' : 'bg-accent-teal/10'}`}>
-            {step.icon}
-          </div>
-          <div className="flex-1">
-            <h3 className="text-base font-bold text-white mb-1.5">{step.title}</h3>
-            <p className="text-sm text-gray-500 leading-relaxed">{step.description}</p>
-          </div>
-          <span className="flex items-center gap-1 text-[0.7rem] font-semibold text-gray-600 shrink-0 mt-0.5">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
-            </svg>
-            {step.duration}
-          </span>
-        </div>
-      )}
-
-      {/* Dot */}
-      <div className="flex justify-center">
+      {/* Mobile layout (< lg) */}
+      <div className="flex items-start gap-4 min-h-[120px] lg:hidden">
         <div className={cn(
-          'flex h-[52px] w-[52px] items-center justify-center rounded-full border-2 bg-bg-primary z-[2] relative',
+          'flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full border-2 bg-bg-primary z-[2] relative',
           ds.border, ds.shadow,
         )}>
-          <span className={cn('text-[0.75rem] font-extrabold tracking-[0.02em]', dotTextColors[step.color])}>
+          <span className={cn('text-[0.75rem] font-extrabold', dotTextColors[step.color])}>
             {step.number}
           </span>
         </div>
+        <div className="flex-1 bg-bg-elevated border border-border rounded-2xl p-5 transition-all duration-350 hover:scale-[1.02] hover:border-white/10 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)]">
+          <StepCard step={step} />
+        </div>
       </div>
 
-      {/* Right card */}
-      {isRight && (
-        <div className="sv-tl-card ml-8 bg-bg-elevated border border-border rounded-2xl p-6 flex items-start gap-4 transition-all duration-350 hover:scale-[1.02] hover:border-white/10 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)]">
-          <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${step.color === 'blue' ? 'bg-accent-blue/10' : step.color === 'green' ? 'bg-green/10' : step.color === 'orange' ? 'bg-accent-orange/10' : step.color === 'purple' ? 'bg-accent-purple/10' : 'bg-accent-teal/10'}`}>
-            {step.icon}
+      {/* Desktop layout (lg+) */}
+      <div className={cn(
+        'hidden lg:grid grid-cols-[1fr_60px_1fr] items-center min-h-[140px]',
+        isInView ? 'opacity-100 translate-x-0' : `opacity-0 ${isRight ? 'translate-x-8' : '-translate-x-8'}`,
+      )}>
+        {!isRight && (
+          <div className="sv-tl-card mr-8 bg-bg-elevated border border-border rounded-2xl p-6 transition-all duration-350 hover:scale-[1.02] hover:border-white/10 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)]">
+            <StepCard step={step} />
           </div>
-          <div className="flex-1">
-            <h3 className="text-base font-bold text-white mb-1.5">{step.title}</h3>
-            <p className="text-sm text-gray-500 leading-relaxed">{step.description}</p>
-          </div>
-          <span className="flex items-center gap-1 text-[0.7rem] font-semibold text-gray-600 shrink-0 mt-0.5">
-            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
-            </svg>
-            {step.duration}
-          </span>
-        </div>
-      )}
+        )}
+        {isRight && <div />}
 
-      {/* Empty third column when needed */}
-      {!isRight && <div />}
-      {isRight && <div />}
+        <div className="flex justify-center">
+          <div className={cn(
+            'flex h-[52px] w-[52px] items-center justify-center rounded-full border-2 bg-bg-primary z-[2] relative',
+            ds.border, ds.shadow,
+          )}>
+            <span className={cn('text-[0.75rem] font-extrabold tracking-[0.02em]', dotTextColors[step.color])}>
+              {step.number}
+            </span>
+          </div>
+        </div>
+
+        {isRight && (
+          <div className="sv-tl-card ml-8 bg-bg-elevated border border-border rounded-2xl p-6 transition-all duration-350 hover:scale-[1.02] hover:border-white/10 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)]">
+            <StepCard step={step} />
+          </div>
+        )}
+        {!isRight && <div />}
+      </div>
     </div>
   );
 }
 
 export function ServicesProcess() {
+  const { t } = useTranslation();
   return (
     <section className="sv-process relative py-20 sm:py-24 border-t border-border bg-bg-card overflow-hidden">
       {/* Grid background */}
@@ -173,13 +188,13 @@ export function ServicesProcess() {
         {/* Section header */}
         <div className="text-center mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
-            Comment ça marche
+            {t('services.process.badge')}
           </span>
           <h2 className="text-[clamp(1.9rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.15] mb-3">
-            Notre <span className="bg-gradient-to-r from-accent-orange to-accent-red bg-clip-text text-transparent">Processus</span>
+            {t('services.process.title')} <span className="bg-gradient-to-r from-accent-orange to-accent-red bg-clip-text text-transparent">{t('services.process.titleHighlight')}</span>
           </h2>
           <p className="text-base text-gray-400 max-w-[580px] mx-auto leading-relaxed">
-            De la première analyse à la mise en service, nous vous accompagnons à chaque étape avec rigueur et transparence.
+            {t('services.process.description')}
           </p>
         </div>
 
@@ -192,53 +207,8 @@ export function ServicesProcess() {
 
           <div className="flex flex-col gap-0">
             {steps.map((step, i) => (
-              <div key={step.number} className="block lg:hidden">
-                {/* Mobile layout */}
-                <div
-                  className={cn(
-                    'flex items-start gap-4 min-h-[140px]',
-                    'transition-all duration-[0.6s] ease-out',
-                  )}
-                >
-                  <div className={cn(
-                    'flex h-[52px] w-[52px] shrink-0 items-center justify-center rounded-full border-2 bg-bg-primary z-[2] relative',
-                    dotStyles[step.color].border, dotStyles[step.color].shadow,
-                  )}>
-                    <span className={cn('text-[0.75rem] font-extrabold', dotTextColors[step.color])}>
-                      {step.number}
-                    </span>
-                  </div>
-                  <div className="flex-1 bg-bg-elevated border border-border rounded-2xl p-5 transition-all duration-350 hover:scale-[1.02] hover:border-white/10 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)]">
-                    <div className="flex items-start gap-3">
-                      <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${step.color === 'blue' ? 'bg-accent-blue/10' : step.color === 'green' ? 'bg-green/10' : step.color === 'orange' ? 'bg-accent-orange/10' : step.color === 'purple' ? 'bg-accent-purple/10' : 'bg-accent-teal/10'}`}>
-                        {step.icon}
-                      </div>
-                      <div className="flex-1">
-                        <div className="flex items-center justify-between gap-2 mb-1">
-                          <h3 className="text-base font-bold text-white">{step.title}</h3>
-                          <span className="flex items-center gap-1 text-[0.7rem] font-semibold text-gray-600 shrink-0">
-                            <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor">
-                              <path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z" />
-                            </svg>
-                            {step.duration}
-                          </span>
-                        </div>
-                        <p className="text-sm text-gray-500 leading-relaxed">{step.description}</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <StepRow key={step.number} step={step} index={i} />
             ))}
-
-            {/* Desktop layout */}
-            <div className="hidden lg:block">
-              <div className="flex flex-col gap-0">
-                {steps.map((step, i) => (
-                  <StepItem key={step.number} step={step} index={i} />
-                ))}
-              </div>
-            </div>
           </div>
         </div>
       </div>

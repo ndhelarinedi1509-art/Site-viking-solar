@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { FAQ_ITEMS } from '@/constants/faq';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const { ref, isInView } = useInView();
@@ -22,6 +23,7 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 }
 
 export function ContactFAQ() {
+  const { t } = useTranslation();
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
   const toggle = (index: number) => {
@@ -34,10 +36,11 @@ export function ContactFAQ() {
         <FadeIn>
           <div className="text-center mb-14">
             <h2 className="text-[clamp(2rem,4vw,2.5rem)] font-bold text-white mb-4">
-              Questions Fréquentes
+              {t('contact.faq.title')}{' '}
+              <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">{t('contact.faq.titleHighlight')}</span>
             </h2>
             <p className="text-[1.1rem] text-gray-400 max-w-[600px] mx-auto leading-relaxed">
-              Retrouvez ci-dessous les réponses aux questions les plus courantes concernant nos installations solaires en RDC.
+              {t('contact.faq.badge')}
             </p>
           </div>
         </FadeIn>
@@ -55,7 +58,7 @@ export function ContactFAQ() {
                   onClick={() => toggle(index)}
                   className="flex w-full items-center justify-between gap-4 bg-bg-primary px-6 py-5 text-left"
                 >
-                  <span className="text-[1.1rem] font-semibold text-white">{item.question}</span>
+                  <span className="text-[1.1rem] font-semibold text-white">{t(`faq.${index}.question`, { defaultValue: item.question })}</span>
                   <span className="relative h-6 w-6 shrink-0">
                     <span className="absolute top-1/2 left-0 h-0.5 w-full -translate-y-1/2 rounded-sm bg-green transition-transform duration-350" />
                     <span
@@ -73,7 +76,7 @@ export function ContactFAQ() {
                   }}
                 >
                   <div className="bg-bg-primary px-6 pb-6 text-[1rem] text-gray-400 leading-relaxed">
-                    {item.answer}
+                    {t(`faq.${index}.answer`, { defaultValue: item.answer })}
                   </div>
                 </div>
               </div>

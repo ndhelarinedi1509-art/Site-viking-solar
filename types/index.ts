@@ -101,6 +101,24 @@ export interface ApiResponse<T = unknown> {
   status: number;
 }
 
+export interface Actualite {
+  id: string;
+  title: string;
+  excerpt: string;
+  content: string;
+  date: string;
+  image?: string;
+  category: string;
+  featured?: boolean;
+}
+
+export interface AuthUser {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+}
+
 export interface PaginationParams {
   page: number;
   limit: number;

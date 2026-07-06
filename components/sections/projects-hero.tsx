@@ -1,8 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 
 export function ProjectsHero() {
+  const { t } = useTranslation();
   return (
     <section className="pj-hero relative flex min-h-screen items-center overflow-hidden">
       <div className="absolute inset-0">
@@ -31,20 +33,17 @@ export function ProjectsHero() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="#22C55E">
               <path d="M12 2L14.09 8.26L20 9.27L15.45 13.14L16.82 19.02L12 16.09L7.18 19.02L8.55 13.14L4 9.27L9.91 8.26L12 2Z" />
             </svg>
-            L&apos;EXCELLENCE SOLAIRE AFRICAINE
+            {t('hero.projects.badge')}
           </span>
         </div>
 
         <h1 className="animate-fade-up text-[clamp(3rem,7vw,5.2rem)] font-black text-white leading-[1.05] tracking-[-0.04em] mb-6" style={{ animationDelay: '0.25s', opacity: 0 }}>
-          Nos{' '}
-          <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
-            Réalisations
-          </span>
+          {t('hero.projects.title')}{' '}
+          <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">{t('hero.projects.titleHighlight')}</span>
         </h1>
 
         <p className="animate-fade-up text-[1.1rem] text-gray-300 leading-relaxed" style={{ animationDelay: '0.4s', opacity: 0 }}>
-          Découvrez quelques projets et installations réalisés par Viking Solar au cœur de la
-          République Démocratique du Congo.
+          {t('hero.projects.description')}
         </p>
       </div>
 

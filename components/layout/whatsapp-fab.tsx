@@ -3,8 +3,10 @@
 import { useEffect } from 'react';
 import { SITE_CONFIG } from '@/config/site';
 import { MessageCircle } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 export function WhatsAppFAB() {
+  const { t } = useTranslation();
   useEffect(() => {
     const style = document.createElement('style');
     style.textContent = `
@@ -22,7 +24,7 @@ export function WhatsAppFAB() {
       href={SITE_CONFIG.whatsapp}
       target="_blank"
       rel="noopener noreferrer"
-      aria-label="Chat WhatsApp"
+      aria-label={t('common.call')}
       className="fixed bottom-6 right-6 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-[#25D366] text-white shadow-lg transition-all duration-300 hover:scale-110 hover:shadow-[0_0_30px_rgba(37,211,102,0.4)]"
       style={{ animation: 'fab-float 3s ease-in-out infinite' }}
     >

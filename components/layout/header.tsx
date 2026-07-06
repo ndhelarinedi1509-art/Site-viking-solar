@@ -4,20 +4,24 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { ThemeToggle } from '@/components/ui/theme-toggle';
-
-const NAV_LINKS = [
-  { href: '/', label: 'Accueil' },
-  { href: '/about', label: 'À propos' },
-  { href: '/services', label: 'Services' },
-  { href: '/projects', label: 'Projets' },
-  { href: '/contact', label: 'Contact' },
-];
+import { LanguageToggle } from '@/components/ui/language-toggle';
 
 export function Header() {
+  const { t } = useTranslation();
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
+
+  const NAV_LINKS = [
+    { href: '/', label: t('nav.home') },
+    { href: '/actualites', label: t('nav.actualites') },
+    { href: '/about', label: t('nav.about') },
+    { href: '/services', label: t('nav.services') },
+    { href: '/projects', label: t('nav.projects') },
+    { href: '/contact', label: t('nav.contact') },
+  ];
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -80,24 +84,26 @@ export function Header() {
               ))}
             </nav>
 
-            {/* Right side: Theme Toggle + CTA */}
+            {/* Right side: Language toggle + Theme Toggle + CTA */}
             <div className="hidden lg:flex items-center gap-3">
+              <LanguageToggle />
               <ThemeToggle />
               <Link
                 href="/#contact"
                 className="rounded-full bg-green px-5 py-2.5 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
               >
-                Devis gratuit
+                {t('nav.freeQuote')}
               </Link>
             </div>
 
             {/* Mobile toggle */}
             <div className="flex lg:hidden items-center gap-2">
+              <LanguageToggle />
               <ThemeToggle />
               <button
                 onClick={() => setMobileOpen(!mobileOpen)}
                 className="p-2 text-gray-400 hover:text-white transition-colors"
-                aria-label="Menu"
+                aria-label={t('nav.menu')}
               >
                 <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
                   {mobileOpen ? (
@@ -141,7 +147,7 @@ export function Header() {
           className="mt-4 rounded-full bg-green px-8 py-3 text-base font-semibold text-bg-primary"
           onClick={() => setMobileOpen(false)}
         >
-          Devis gratuit
+          {t('nav.freeQuote')}
         </Link>
       </div>
     </>

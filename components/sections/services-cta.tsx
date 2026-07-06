@@ -3,6 +3,7 @@
 import { SITE_CONFIG } from '@/config/site';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 function FadeIn({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {
   const { ref, isInView } = useInView();
@@ -22,6 +23,7 @@ function FadeIn({ children, delay = 0, className }: { children: React.ReactNode;
 }
 
 export function ServicesCTA() {
+  const { t } = useTranslation();
   return (
     <section className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -40,15 +42,15 @@ export function ServicesCTA() {
 
             <div className="relative z-[1]">
               <span className="inline-block text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
-                Passons à l&apos;action
+                {t('services.cta.badge')}
               </span>
 
               <h2 className="text-[clamp(1.8rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.2] mb-4">
-                Passez à l&apos;énergie solaire<br />dès aujourd&apos;hui.
+                {t('services.cta.title')}
               </h2>
 
               <p className="text-base text-gray-400 max-w-[500px] mx-auto mb-8 leading-relaxed">
-                Rejoignez les centaines de foyers et entreprises congolaises qui ont déjà choisi Vicking Solar. Obtenez votre étude gratuite sous 24h.
+                {t('services.cta.description')}
               </p>
 
               {/* Contact row */}
@@ -88,7 +90,7 @@ export function ServicesCTA() {
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
                   </svg>
-                  Contacter sur WhatsApp
+                  {t('services.cta.whatsapp')}
                 </a>
                 <a
                   href={`mailto:${SITE_CONFIG.email}`}
@@ -97,7 +99,7 @@ export function ServicesCTA() {
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 9V3.5L18.5 9H13zM7 17l2-2 2 2 4-4 2 2v4H7v-2z" />
                   </svg>
-                  Demander un devis
+                  {t('services.cta.quote')}
                 </a>
               </div>
             </div>

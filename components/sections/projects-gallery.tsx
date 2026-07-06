@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { PROJECTS, PROJECT_FILTERS, CATEGORY_LABELS } from '@/constants/projects';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const categoryBg: Record<string, string> = {
   residentiel: 'bg-green/75',
@@ -29,6 +30,7 @@ function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
 }
 
 export function ProjectsGallery() {
+  const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState('all');
 
   const filtered = PROJECTS.filter((project) => {
@@ -55,7 +57,7 @@ export function ProjectsGallery() {
                     : 'border border-border bg-bg-card text-gray-400 hover:bg-bg-elevated hover:text-white hover:border-white/10',
                 )}
               >
-                {filter.label}
+                {t(`projects.gallery.filters.${filter.value}`, { defaultValue: filter.label })}
               </button>
             ))}
           </div>
@@ -81,7 +83,7 @@ export function ProjectsGallery() {
                         >
                           <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
                         </svg>
-                        <p className="text-[0.85rem] font-semibold text-gray-500">Image à venir</p>
+                        <p className="text-[0.85rem] font-semibold text-gray-500">{t('common.photoComing', { defaultValue: 'Image \u00e0 venir' })}</p>
                       </div>
                     </div>
                     <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-[sv-shimmer_3s_ease-in-out_infinite]" />
@@ -93,7 +95,7 @@ export function ProjectsGallery() {
                       categoryBg[project.category] || 'bg-green/75',
                     )}
                   >
-                    {CATEGORY_LABELS[project.category] || project.category}
+                    {t(`projects.gallery.filters.${project.category}`, { defaultValue: CATEGORY_LABELS[project.category] || project.category })}
                   </span>
                 </div>
 

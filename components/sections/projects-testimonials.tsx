@@ -2,6 +2,7 @@
 
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const testimonials = [
   { id: 'test-1', lines: [{ w: 'full' }, { w: '' }, { w: 'short' }] },
@@ -26,18 +27,19 @@ function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
 }
 
 export function ProjectsTestimonials() {
+  const { t } = useTranslation();
   return (
     <section className="py-20 sm:py-24 border-t border-border bg-bg-card">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeCard>
           <div className="text-center mb-14">
             <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
-              Ce qu&apos;ils disent de nous
+              {t('projects.testimonials.badge')}
             </span>
             <h2 className="text-[clamp(1.9rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.15]">
-              Avis de{' '}
+              {t('projects.testimonials.title')}{' '}
               <span className="bg-gradient-to-r from-accent-orange to-red-500 bg-clip-text text-transparent">
-                Nos Clients
+                {t('projects.testimonials.titleHighlight')}
               </span>
             </h2>
           </div>

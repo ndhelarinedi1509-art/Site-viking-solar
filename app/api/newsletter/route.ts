@@ -1,8 +1,9 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import { serverT } from '@/lib/i18n/server';
 
 const newsletterSchema = z.object({
-  email: z.string().min(1, "L'email est requis").email("Format d'email invalide"),
+  email: z.string().min(1, 'Email is required').email('Invalid email format'),
 });
 
 export async function POST(request: Request) {
@@ -13,7 +14,7 @@ export async function POST(request: Request) {
     if (!result.success) {
       const firstError = result.error.issues[0];
       return NextResponse.json(
-        { error: firstError?.message || 'Données invalides' },
+        { error: firstError?.message || 'Invalid data' },
         { status: 400 },
       );
     }
@@ -22,12 +23,12 @@ export async function POST(request: Request) {
     console.log('Newsletter subscription:', result.data.email);
 
     return NextResponse.json(
-      { message: 'Inscription à la newsletter réussie' },
+      { message: serverT('footer.newsletter.success') },
       { status: 200 },
     );
   } catch {
     return NextResponse.json(
-      { error: 'Erreur interne du serveur' },
+      { error: serverT('error.description') },
       { status: 500 },
     );
   }

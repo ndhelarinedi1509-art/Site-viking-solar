@@ -1,6 +1,10 @@
+'use client';
+
 import Link from 'next/link';
+import { useTranslation } from 'react-i18next';
 
 export default function NotFound() {
+  const { t } = useTranslation();
   return (
     <main className="flex min-h-screen items-center justify-center bg-bg-primary px-4">
       <div className="flex flex-col items-center text-center">
@@ -21,11 +25,11 @@ export default function NotFound() {
         </svg>
 
         <h1 className="mb-3 text-4xl font-bold text-white sm:text-5xl">
-          Page introuvable
+          {t('error.notFoundTitle')}
         </h1>
 
         <p className="mb-8 max-w-md text-gray-400">
-          La page que vous recherchez n&apos;existe pas ou a été déplacée.
+          {t('error.notFoundDescription')}
         </p>
 
         <Link
@@ -42,7 +46,7 @@ export default function NotFound() {
           >
             <path d="M19 12H5m7-7-7 7 7 7" />
           </svg>
-          Retour à l&apos;accueil
+          {t('error.goHome')}
         </Link>
       </div>
     </main>

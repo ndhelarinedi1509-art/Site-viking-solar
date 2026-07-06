@@ -3,6 +3,7 @@
 import { TEAM_MEMBERS } from '@/constants/team';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const accents = [
   { bg: 'bg-green/12', ring: 'ring-green/25', iconFill: 'rgba(34,197,94,0.4)' },
@@ -28,14 +29,15 @@ function TeamCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
 }
 
 export function AboutTeam() {
+  const { t } = useTranslation();
   return (
     <section className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="text-center text-sm text-gray-500 max-w-[520px] mx-auto mb-3 leading-relaxed">
-          Des experts passionnés qui prennent soin de l&apos;avenir du Congo avec intelligence.
+          {t('about.team.subtitle')}
         </p>
         <h2 className="text-[clamp(1.6rem,2.8vw,2.2rem)] font-extrabold text-white text-center tracking-[-0.02em] mb-11">
-          L&apos;Équipe Dirigeante
+          {t('about.team.title')}
         </h2>
 
         <div className="grid gap-5 grid-cols-2 lg:grid-cols-4">

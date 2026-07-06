@@ -3,6 +3,7 @@
 import { BENEFITS } from '@/constants/benefits';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const iconSvgs: Record<string, React.ReactNode> = {
   green: (
@@ -63,18 +64,19 @@ function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
 }
 
 export function ServicesBenefits() {
+  const { t } = useTranslation();
   return (
     <section className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
-            Pourquoi nous choisir
+            {t('services.benefits.badge')}
           </span>
           <h2 className="text-[clamp(1.9rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.15] mb-3">
-            Les <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">Avantages</span> Vicking Solar
+            {t('services.benefits.title')} <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">{t('services.benefits.titleHighlight')}</span>
           </h2>
           <p className="text-base text-gray-400 max-w-[580px] mx-auto leading-relaxed">
-            Choisir Vicking Solar, c&apos;est opter pour une expertise locale, une technologie de pointe et un accompagnement humain de qualité.
+            {t('services.benefits.description')}
           </p>
         </div>
 
@@ -86,8 +88,8 @@ export function ServicesBenefits() {
                   {iconSvgs[ben.iconColor]}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-base font-bold text-white mb-1.5">{ben.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{ben.description}</p>
+                  <h3 className="text-base font-bold text-white mb-1.5">{t(`benefits.${i}.title`, { defaultValue: ben.title })}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{t(`benefits.${i}.description`, { defaultValue: ben.description })}</p>
                 </div>
               </div>
             </FadeCard>

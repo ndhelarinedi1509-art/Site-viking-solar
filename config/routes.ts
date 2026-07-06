@@ -1,5 +1,6 @@
 export const ROUTES = {
   home: '/',
+  actualites: '/actualites',
   about: '/about',
   services: '/services',
   projects: '/projects',
@@ -10,6 +11,7 @@ export const ROUTES = {
 
 export const NAV_ITEMS = [
   { label: 'Accueil', href: ROUTES.home },
+  { label: 'Actualités', href: ROUTES.actualites },
   { label: 'À propos', href: ROUTES.about },
   { label: 'Services', href: ROUTES.services },
   { label: 'Projets', href: ROUTES.projects },
@@ -18,6 +20,7 @@ export const NAV_ITEMS = [
 
 export const FOOTER_QUICK_LINKS = [
   { label: 'Accueil', href: ROUTES.home },
+  { label: 'Actualités', href: ROUTES.actualites },
   { label: 'À propos', href: ROUTES.about },
   { label: 'Services', href: ROUTES.services },
   { label: 'Projets', href: ROUTES.projects },

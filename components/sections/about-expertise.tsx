@@ -3,6 +3,7 @@
 import { useCountUp } from '@/hooks/useCountUp';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const stats = [
   { value: 800, suffix: '+', label: 'Installations' },
@@ -135,15 +136,16 @@ function ProgressBar({ width, color, delay }: { width: number; color: string; de
 }
 
 export function AboutExpertise() {
+  const { t } = useTranslation();
   return (
     <section className="py-20 sm:py-24 border-t border-border bg-bg-card">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
           <h2 className="text-[clamp(1.6rem,2.8vw,2.2rem)] font-extrabold text-white text-center tracking-[-0.02em] mb-3">
-            Notre Expertise Technique
+            {t('about.expertise.title')}
           </h2>
           <p className="text-center text-sm text-gray-400 max-w-[560px] mx-auto mb-11 leading-relaxed">
-            Maîtrise de toute la chaîne de valeur solaire pour vous offrir les meilleurs résultats, dans les règles de l&apos;art.
+            {t('about.expertise.subtitle')}
           </p>
         </FadeIn>
 

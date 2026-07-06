@@ -2,9 +2,11 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 import { SITE_CONFIG } from '@/config/site';
 
 export function Footer() {
+  const { t } = useTranslation();
   const currentYear = new Date().getFullYear();
 
   return (
@@ -29,9 +31,8 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm text-gray-400 leading-relaxed mb-2 max-w-xs">
-              {SITE_CONFIG.description}
+              {t('footer.tagline')}
             </p>
-            <p className="text-sm text-green font-semibold mb-4">{SITE_CONFIG.slogan}</p>
             {/* Socials */}
             <div className="flex gap-2">
               <a href={SITE_CONFIG.socials.facebook} target="_blank" rel="noopener noreferrer" aria-label="Facebook" className="flex h-9 w-9 items-center justify-center rounded-lg border border-border text-gray-400 transition-all duration-300 hover:border-green/30 hover:bg-green/10 hover:text-green">
@@ -51,31 +52,32 @@ export function Footer() {
 
           {/* Quick Links */}
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Liens Rapides</h4>
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">{t('footer.quickLinks')}</h4>
             <ul className="space-y-2.5">
-              <li><Link href="/" className="text-sm text-gray-400 transition-colors hover:text-green">Accueil</Link></li>
-              <li><Link href="/about" className="text-sm text-gray-400 transition-colors hover:text-green">À propos</Link></li>
-              <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">Services</Link></li>
-              <li><Link href="/projects" className="text-sm text-gray-400 transition-colors hover:text-green">Projets</Link></li>
-              <li><Link href="/contact" className="text-sm text-gray-400 transition-colors hover:text-green">Contact</Link></li>
+              <li><Link href="/" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.home')}</Link></li>
+              <li><Link href="/actualites" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.actualites')}</Link></li>
+              <li><Link href="/about" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.about')}</Link></li>
+              <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.services')}</Link></li>
+              <li><Link href="/projects" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.projects')}</Link></li>
+              <li><Link href="/contact" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.contact')}</Link></li>
             </ul>
           </div>
 
           {/* Services */}
           <div>
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Nos Services</h4>
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">{t('footer.services')}</h4>
             <ul className="space-y-2.5">
-              <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">Installation Solaire</Link></li>
-              <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">Systèmes Hybrides</Link></li>
-              <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">Maintenance</Link></li>
-              <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">Solutions Industrielles</Link></li>
-              <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">Études Techniques</Link></li>
+              <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.servicesList.installation')}</Link></li>
+              <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.servicesList.hybrid')}</Link></li>
+              <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.servicesList.maintenance')}</Link></li>
+              <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.servicesList.industrial')}</Link></li>
+              <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.servicesList.residential')}</Link></li>
             </ul>
           </div>
 
           {/* Contact */}
           <div className="lg:col-span-2">
-            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">Contactez-nous</h4>
+            <h4 className="text-sm font-bold text-white uppercase tracking-wider mb-4">{t('footer.contact')}</h4>
             <ul className="space-y-3">
               <li className="flex items-center gap-2.5 text-sm text-gray-400">
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="h-4 w-4 shrink-0 text-green"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
@@ -97,13 +99,13 @@ export function Footer() {
             >
               <input
                 type="email"
-                placeholder="Votre adresse email..."
+                placeholder={t('footer.newsletter.placeholder')}
                 required
                 className="flex-1 bg-transparent text-sm text-white placeholder:text-gray-500 outline-none border-none"
               />
               <button
                 type="submit"
-                aria-label="S'abonner"
+                aria-label={t('footer.newsletter.button')}
                 className="flex h-9 w-9 items-center justify-center rounded-full bg-green text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow"
               >
                 <svg viewBox="0 0 24 24" fill="currentColor" className="h-4 w-4"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
@@ -116,7 +118,7 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
-          <p className="text-xs text-gray-500 text-center">&copy; {currentYear} Vicking Solar. Tous droits réservés.</p>
+          <p className="text-xs text-gray-500 text-center">&copy; {currentYear} Vicking Solar. {t('footer.rights')}</p>
         </div>
       </div>
     </footer>

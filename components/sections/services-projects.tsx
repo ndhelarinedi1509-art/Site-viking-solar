@@ -3,6 +3,7 @@
 import { PROJECTS } from '@/constants/projects';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const tagColors: Record<string, string> = {
   industriel: 'text-green bg-green/10 border-green/20',
@@ -53,6 +54,7 @@ function ProjCard({ children, delay = 0, className }: { children: React.ReactNod
 }
 
 export function ServicesProjects() {
+  const { t } = useTranslation();
   const previewProjects = PROJECTS.slice(0, 4);
 
   return (
@@ -60,13 +62,13 @@ export function ServicesProjects() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
-            Nos réalisations
+            {t('services.projects.badge')}
           </span>
           <h2 className="text-[clamp(1.9rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.15] mb-3">
-            Projets <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">Récents</span>
+            {t('services.projects.title')} <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">{t('services.projects.titleHighlight')}</span>
           </h2>
           <p className="text-base text-gray-400 max-w-[580px] mx-auto leading-relaxed">
-            Découvrez quelques-unes de nos installations réalisées à Kinshasa et dans toute la RDC.
+            {t('services.projects.description')}
           </p>
         </div>
 
@@ -94,8 +96,8 @@ export function ServicesProjects() {
                     <div className="animate-[sv-icon-pulse_3s_ease-in-out_infinite]">
                       {icons[project.category] || icons.industriel}
                     </div>
-                    <p className="text-sm font-semibold text-gray-600">Photo du projet à venir</p>
-                    {i === 0 && <span className="text-xs text-gray-700">Votre photo sera ajoutée ici</span>}
+                    <p className="text-sm font-semibold text-gray-600">{t('common.photoComing')}</p>
+                    {i === 0 && <span className="text-xs text-gray-700">{t('common.photoWillBeAdded')}</span>}
                   </div>
                 </div>
 
@@ -105,7 +107,7 @@ export function ServicesProjects() {
                     'inline-block text-[0.68rem] font-bold tracking-[0.06em] px-2.5 py-1 rounded-full border mb-3',
                     tagColors[project.category] || tagColors.industriel,
                   )}>
-                    {project.category === 'industriel' ? 'Industriel' : project.category === 'residentiel' ? 'Résidentiel' : project.category === 'commercial' ? 'Commercial' : 'Institutionnel'}
+                    {t(`projects.gallery.filters.${project.category}`, { defaultValue: project.category })}
                   </span>
                   <h3 className="text-[1.05rem] font-bold text-white mb-2 leading-tight">{project.title}</h3>
                   <p className="text-sm text-gray-500 leading-relaxed mb-3">{project.description}</p>

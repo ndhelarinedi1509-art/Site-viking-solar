@@ -1,8 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 
 export function ContactHero() {
+  const { t } = useTranslation();
   return (
     <section className="relative flex min-h-[60vh] items-center justify-center overflow-hidden pt-32 pb-16">
       <div className="absolute inset-0">
@@ -18,18 +20,18 @@ export function ContactHero() {
 
       <div className="relative z-[2] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 max-w-[800px] text-center">
         <span className="inline-block rounded-full border border-green/40 bg-green/20 text-green text-[0.8rem] font-semibold tracking-[0.05em] uppercase px-5 py-1.5 mb-6 animate-fade-up" style={{ opacity: 0, animationDelay: '0.1s' }}>
-          Votre partenaire en énergie solaire durable
+          {t('hero.contact.badge')}
         </span>
 
         <h1 className="text-[clamp(2.5rem,5vw,3.5rem)] font-extrabold text-white tracking-[-0.02em] mb-4 animate-fade-up" style={{ opacity: 0, animationDelay: '0.25s' }}>
-          Contactez{' '}
+          {t('hero.contact.title')}{' '}
           <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
-            Vicking Solar
+            {t('hero.contact.titleHighlight')}
           </span>
         </h1>
 
         <p className="text-[1.15rem] text-gray-300 leading-relaxed animate-fade-up" style={{ opacity: 0, animationDelay: '0.4s' }}>
-          Notre équipe est prête à vous accompagner dans vos projets énergétiques. Demandez un devis ou posez-nous vos questions.
+          {t('hero.contact.description')}
         </p>
       </div>
     </section>

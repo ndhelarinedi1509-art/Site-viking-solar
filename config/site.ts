@@ -1,8 +1,8 @@
 export const SITE_CONFIG = {
   name: 'Viking Solar',
-  slogan: 'Votre partenaire en énergie solaire durable',
+  slogan: 'Your trusted partner in sustainable solar energy',
   description:
-    'Viking Solar accompagne les particuliers et entreprises en RDC avec des solutions solaires modernes, fiables et durables à Kinshasa.',
+    'Viking Solar provides modern, reliable and durable solar solutions for individuals and businesses in Kinshasa, DRC.',
   url: process.env.NEXT_PUBLIC_SITE_URL || 'https://vickingsolar.com',
   locale: 'fr',
   phone: '+243 820 128 315',

@@ -2,6 +2,7 @@
 
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const visionCards = [
   {
@@ -11,9 +12,8 @@ const visionCards = [
       </svg>
     ),
     iconBg: 'bg-green/12',
-    title: 'Vision Solaire',
-    description:
-      "Démocratiser l'accès à l'énergie propre en utilisant la puissance du soleil pour transformer le quotidien des Congolais et bâtir un futur durable.",
+    titleKey: 'about.innovation.title1',
+    descKey: 'about.innovation.desc1',
   },
   {
     icon: (
@@ -22,9 +22,8 @@ const visionCards = [
       </svg>
     ),
     iconBg: 'bg-[rgba(16,185,129,0.12)]',
-    title: 'Engagement Durable',
-    description:
-      "Nous nous engageons à réduire l'empreinte carbone et à favoriser une croissance économique respectueuse de l'environnement au cœur du Congo.",
+    titleKey: 'about.innovation.title2',
+    descKey: 'about.innovation.desc2',
   },
 ];
 
@@ -35,9 +34,8 @@ const bottomItems = [
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
       </svg>
     ),
-    title: 'Notre Histoire',
-    description:
-      "Fondée à Kinshasa, Vicking Solar est née d'une vision ambitieuse : transformer l'accès à l'énergie du pays en combinant le savoir-faire local et une expertise de haut niveau.",
+    titleKey: 'about.innovation.title3',
+    descKey: 'about.innovation.desc3',
   },
   {
     icon: (
@@ -45,9 +43,8 @@ const bottomItems = [
         <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z" />
       </svg>
     ),
-    title: 'Mission',
-    description:
-      'Démocratiser l\'accès à l\'énergie solaire et propulser les entreprises, ménages et collectivités sur la voie du progrès national.',
+    titleKey: 'about.innovation.title4',
+    descKey: 'about.innovation.desc4',
   },
 ];
 
@@ -69,6 +66,7 @@ function FadeIn({ children, delay = 0, className }: { children: React.ReactNode;
 }
 
 export function AboutInnovation() {
+  const { t } = useTranslation();
   return (
     <section id="innovation" className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -76,19 +74,19 @@ export function AboutInnovation() {
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-10 lg:gap-16 items-start mb-12">
           <FadeIn>
             <h2 className="text-[clamp(1.8rem,3vw,2.6rem)] font-extrabold text-white leading-[1.2] tracking-[-0.02em]">
-              L&apos;innovation au cœur<br />du Congo
+              {t('about.innovation.heroTitle')}
             </h2>
           </FadeIn>
 
           <div className="flex flex-col gap-5">
             {visionCards.map((card, i) => (
-              <FadeIn key={card.title} delay={i * 150}>
+              <FadeIn key={card.titleKey} delay={i * 150}>
                 <div className="group rounded-2xl border border-border bg-bg-card p-6 sm:p-7 transition-all duration-350 hover:-translate-y-1 hover:border-green/20 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)]">
                   <div className={cn('mb-4 flex h-[42px] w-[42px] items-center justify-center rounded-xl', card.iconBg)}>
                     {card.icon}
                   </div>
-                  <h3 className="text-base font-bold text-white mb-2">{card.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{card.description}</p>
+                  <h3 className="text-base font-bold text-white mb-2">{t(card.titleKey)}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{t(card.descKey)}</p>
                 </div>
               </FadeIn>
             ))}
@@ -98,14 +96,14 @@ export function AboutInnovation() {
         {/* Bottom: Histoire + Mission */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-10 border-t border-border">
           {bottomItems.map((item, i) => (
-            <FadeIn key={item.title} delay={i * 150}>
+            <FadeIn key={item.titleKey} delay={i * 150}>
               <div className="flex gap-4 items-start">
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-bg-elevated mt-0.5">
                   {item.icon}
                 </div>
                 <div>
-                  <h4 className="text-[0.95rem] font-bold text-white mb-1.5">{item.title}</h4>
-                  <p className="text-sm text-gray-500 leading-relaxed">{item.description}</p>
+                  <h4 className="text-[0.95rem] font-bold text-white mb-1.5">{t(item.titleKey)}</h4>
+                  <p className="text-sm text-gray-500 leading-relaxed">{t(item.descKey)}</p>
                 </div>
               </div>
             </FadeIn>

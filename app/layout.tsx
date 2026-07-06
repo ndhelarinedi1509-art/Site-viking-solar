@@ -1,6 +1,8 @@
 import type { Metadata, Viewport } from 'next';
 import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
+import { I18nProvider } from '@/components/providers/i18n-provider';
+import { AuthProvider } from '@/lib/auth-context';
 import { Toaster } from 'sonner';
 import './globals.css';
 
@@ -40,7 +42,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" className={inter.variable} suppressHydrationWarning>
       <body className="font-sans bg-bg-primary text-gray-400 antialiased">
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false} storageKey="viking-theme">
-          {children}
+          <I18nProvider>
+            <AuthProvider>
+              {children}
+            </AuthProvider>
+          </I18nProvider>
         </ThemeProvider>
         <Toaster richColors position="bottom-right" />
       </body>

@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { getContactMessages } from '@/lib/supabase/queries';
+import { serverT } from '@/lib/i18n/server';
 
 export async function GET(request: Request) {
   try {
@@ -12,7 +13,7 @@ export async function GET(request: Request) {
     return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json(
-      { error: 'Erreur lors de la récupération des messages' },
+      { error: serverT('error.description') },
       { status: 500 }
     );
   }

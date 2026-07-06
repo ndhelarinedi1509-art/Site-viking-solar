@@ -2,8 +2,10 @@
 
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 export function ContactMap() {
+  const { t } = useTranslation();
   const { ref, isInView } = useInView();
   return (
     <section className="pb-16">
@@ -21,8 +23,8 @@ export function ContactMap() {
             <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z" />
           </svg>
 
-          <h4 className="text-[1.5rem] font-bold text-white mb-2">Nos Bureaux à Kinshasa</h4>
-          <p className="text-base text-gray-500">Bientôt disponible sur la carte interactive</p>
+          <h4 className="text-[1.5rem] font-bold text-white mb-2">{t('contact.map.title')}</h4>
+          <p className="text-base text-gray-500">{t('contact.map.comingSoon')}</p>
         </div>
       </div>
     </section>

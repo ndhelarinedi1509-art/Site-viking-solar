@@ -3,6 +3,7 @@
 import { SERVICES } from '@/constants/services';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const colorMap: Record<string, { icon: string; tag: string; glow: string; hover: string; cta: string }> = {
   blue:   { icon: 'bg-accent-blue/15 text-accent-blue', tag: 'bg-accent-blue/12 text-accent-blue', glow: 'blue-glow', hover: 'hover:border-accent-blue/35 hover:shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_25px_rgba(59,130,246,0.1)]', cta: '' },
@@ -39,19 +40,20 @@ function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
 }
 
 export function ServicesGrid() {
+  const { t } = useTranslation();
   return (
     <section id="sv-services" className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
-            Ce que nous offrons
+            {t('services.grid.badge')}
           </span>
           <h2 className="text-[clamp(1.9rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.15] mb-3">
-            Solutions <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">Énergétiques</span>
+            {t('services.grid.title')} <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">{t('services.grid.titleHighlight')}</span>
           </h2>
           <p className="text-base text-gray-400 max-w-[580px] mx-auto leading-relaxed">
-            Une gamme complète de services solaires pour particuliers, entreprises et industries en République Démocratique du Congo.
+            {t('services.grid.description')}
           </p>
         </div>
 
@@ -61,18 +63,18 @@ export function ServicesGrid() {
             const c = colorMap[service.color];
             return (
               <FadeCard key={service.id} delay={i * 100}>
-                <article
-                  id={service.id}
-                  className={cn(
-                    'sv-card group relative rounded-[20px] border bg-bg-card p-8 flex flex-col overflow-hidden',
-                    'transition-all duration-[0.45s] ease-premium will-change-[transform,border-color,box-shadow]',
-                    'hover:-translate-y-[10px] hover:scale-[1.02] hover:border-green/28 hover:shadow-[0_24px_60px_rgba(0,0,0,0.45)]',
-                    c.hover,
-                    service.featured
-                      ? 'border-green/30 bg-[linear-gradient(145deg,#0C1825,#0D1322)] hover:border-green/50 hover:shadow-[0_24px_60px_rgba(34,197,94,0.12)]'
-                      : 'border-border',
-                  )}
-                >
+<article
+                    id={service.id}
+                    className={cn(
+                      'sv-card group relative rounded-[20px] border bg-bg-card p-8 flex flex-col overflow-hidden',
+                      'transition-all duration-[0.45s] ease-premium will-change-[transform,border-color,box-shadow]',
+                      'hover:-translate-y-[8px] hover:scale-[1.01] hover:border-green/28 hover:shadow-[0_20px_40px_rgba(0,0,0,0.4)]',
+                      c.hover,
+                      service.featured
+                        ? 'border-green/30 bg-[linear-gradient(145deg,#0C1825,#0D1322)] hover:border-green/50 hover:shadow-[0_20px_40px_rgba(34,197,94,0.1)]'
+                        : 'border-border',
+                    )}
+                  >
                   {/* Glow effect */}
                   <div className={cn(
                     'pointer-events-none absolute -top-[60px] -right-[60px] w-[200px] h-[200px] rounded-full opacity-0 transition-opacity duration-350 group-hover:opacity-100',
@@ -87,7 +89,7 @@ export function ServicesGrid() {
                   {/* Featured badge */}
                   {service.featured && (
                     <span className="absolute top-5 right-5 text-[0.7rem] font-bold text-green bg-green/12 border border-green/25 px-2.5 py-1 rounded-full">
-                      ⭐ Le plus demandé
+                  {t('services.grid.featured')}
                     </span>
                   )}
 
@@ -97,21 +99,21 @@ export function ServicesGrid() {
                       {icons[service.icon]}
                     </div>
                     <span className={cn('text-[0.68rem] font-bold tracking-[0.05em] px-2.5 py-1 rounded-full', c.tag)}>
-                      {service.tag}
+                      {t(`servicesItems.${i}.tag`, { defaultValue: service.tag })}
                     </span>
                   </div>
 
-                  <h3 className="text-[1.15rem] font-bold text-white mb-2">{service.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed mb-5">{service.description}</p>
+                  <h3 className="text-[1.15rem] font-bold text-white mb-2">{t(`servicesItems.${i}.title`, { defaultValue: service.title })}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed mb-5">{t(`servicesItems.${i}.description`, { defaultValue: service.description })}</p>
 
                   {/* Features */}
                   <ul className="flex flex-col gap-2 mb-6 flex-1">
-                    {service.features.map((f) => (
-                      <li key={f} className="flex items-center gap-2 text-sm text-gray-300">
+                    {service.features.map((f, fi) => (
+                      <li key={fi} className="flex items-center gap-2 text-sm text-gray-300">
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="#22C55E" className="shrink-0">
                           <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                         </svg>
-                        {f}
+                        {t(`servicesItems.${i}.features.${fi}`, { defaultValue: f })}
                       </li>
                     ))}
                   </ul>
@@ -126,7 +128,7 @@ export function ServicesGrid() {
                       service.featured && 'text-green hover:text-[#4ade80]',
                     )}
                   >
-                    Demander un devis
+                    {t('services.grid.cta')}
                     <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
                       <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
                     </svg>

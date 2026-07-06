@@ -3,8 +3,10 @@
 import Link from 'next/link';
 import { PROJECTS } from '@/constants/projects';
 import { Reveal } from '@/components/ui/reveal';
+import { useTranslation } from 'react-i18next';
 
 export function HomeProjectsPreview() {
+  const { t } = useTranslation();
   const previewProjects = PROJECTS.slice(0, 4);
 
   return (
@@ -13,14 +15,14 @@ export function HomeProjectsPreview() {
         <Reveal>
           <div className="flex items-end justify-between mb-10 flex-wrap gap-4">
             <div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Réalisations Récentes</h2>
-              <p className="mt-2 text-base text-gray-400">Découvrez nos dernières installations solaires et projets réalisés au Congo.</p>
+              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">{t('home.projects.title')} {t('home.projects.titleHighlight')}</h2>
+              <p className="mt-2 text-base text-gray-400">{t('home.projects.description')}</p>
             </div>
             <Link
               href="/projects"
               className="group hidden sm:inline-flex items-center gap-1 text-sm font-semibold text-green transition-all duration-300 hover:gap-2"
             >
-              Voir tous les projets
+              {t('home.projects.link')}
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
             </Link>
           </div>
@@ -38,7 +40,7 @@ export function HomeProjectsPreview() {
                   </div>
                   <div className="absolute inset-0 bg-gradient-to-t from-bg-primary/80 via-transparent to-transparent" />
                   <span className="absolute top-3 left-3 rounded-full bg-green/90 px-3 py-1 text-xs font-semibold text-white backdrop-blur-sm">
-                    {project.category}
+                    {t(`projects.gallery.filters.${project.category}`, { defaultValue: project.category })}
                   </span>
                 </div>
                 <div className="p-4">
@@ -56,7 +58,7 @@ export function HomeProjectsPreview() {
               href="/projects"
               className="group inline-flex items-center gap-1 text-sm font-semibold text-green transition-all duration-300 hover:gap-2"
             >
-              Voir tous les projets
+              {t('home.projects.link')}
               <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
             </Link>
           </div>

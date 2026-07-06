@@ -6,15 +6,18 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Lock, Loader2 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
-const loginSchema = z.object({
-  email: z.string().min(1, "L'email est requis").email("Format d'email invalide"),
-  password: z.string().min(1, 'Le mot de passe est requis'),
-});
+const loginSchema = (t: (key: string) => string) =>
+  z.object({
+    email: z.string().min(1, t('formErrors.email')).email(t('formErrors.emailInvalid')),
+    password: z.string().min(1, t('formErrors.password')),
+  });
 
-type LoginValues = z.infer<typeof loginSchema>;
+type LoginValues = z.infer<ReturnType<typeof loginSchema>>;
 
 export default function AdminLoginPage() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
@@ -23,7 +26,7 @@ export default function AdminLoginPage() {
     handleSubmit,
     formState: { errors },
   } = useForm<LoginValues>({
-    resolver: zodResolver(loginSchema),
+    resolver: zodResolver(loginSchema(t)),
   });
 
   const onSubmit = async (data: LoginValues) => {
@@ -36,7 +39,7 @@ export default function AdminLoginPage() {
       });
 
       if (!res.ok) {
-        alert('Identifiants incorrects');
+        alert(t('admin.login.error'));
         return;
       }
 
@@ -61,18 +64,18 @@ export default function AdminLoginPage() {
                 />
               </svg>
             </div>
-            <h1 className="text-xl font-bold text-white">Vicking Solar Workspace</h1>
-            <p className="text-sm text-gray-400 mt-1">Votre partenaire en énergie solaire durable</p>
+            <h1 className="text-xl font-bold text-white">{t('admin.loginExtra.workspace')}</h1>
+            <p className="text-sm text-gray-400 mt-1">{t('admin.loginExtra.tagline')}</p>
           </div>
 
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
             <div className="space-y-1.5">
               <label className="block text-sm font-medium text-gray-300">
-                Identifiant Administrateur
+                {t('admin.loginExtra.adminId')}
               </label>
               <input
                 type="email"
-                placeholder="ex: admin@vickingsolar.com"
+                placeholder={t('admin.loginExtra.adminPlaceholder')}
                 className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
                 {...register('email')}
               />
@@ -80,7 +83,7 @@ export default function AdminLoginPage() {
             </div>
 
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium text-gray-300">Mot de passe</label>
+              <label className="block text-sm font-medium text-gray-300">{t('admin.login.password')}</label>
               <input
                 type="password"
                 placeholder="••••••••"
@@ -102,7 +105,7 @@ export default function AdminLoginPage() {
               ) : (
                 <>
                   <Lock className="h-4 w-4" />
-                  Connexion Sécurisée
+                  {t('admin.loginExtra.secureLogin')}
                 </>
               )}
             </button>
@@ -110,7 +113,7 @@ export default function AdminLoginPage() {
 
           <div className="flex items-center justify-center gap-2 mt-6 text-xs text-gray-500">
             <Lock className="h-3.5 w-3.5" />
-            <span>Protection SaaS Active</span>
+            <span>{t('admin.loginExtra.saasProtection')}</span>
           </div>
         </div>
       </div>

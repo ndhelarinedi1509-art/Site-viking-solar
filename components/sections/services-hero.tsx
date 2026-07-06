@@ -5,14 +5,16 @@ import { SITE_CONFIG } from '@/config/site';
 import { useCountUp } from '@/hooks/useCountUp';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { useTranslation } from 'react-i18next';
 
 const stats = [
-  { value: 800, suffix: '+', label: 'Installations' },
-  { value: 2497, suffix: ' kW', label: 'Puissance installée' },
-  { value: 5, suffix: '+', label: "Années d'expérience" },
+  { value: 800, suffix: '+', labelKey: 'stats.installations' },
+  { value: 2497, suffix: ' kW', labelKey: 'stats.powerInstalled' },
+  { value: 5, suffix: '+', labelKey: 'stats.yearsExperience' },
 ];
 
-function AnimatedStat({ value, suffix, label }: { value: number; suffix: string; label: string }) {
+function AnimatedStat({ value, suffix, labelKey }: { value: number; suffix: string; labelKey: string }) {
+  const { t } = useTranslation();
   const { ref } = useCountUp(value);
   return (
     <div className="text-left">
@@ -20,14 +22,15 @@ function AnimatedStat({ value, suffix, label }: { value: number; suffix: string;
         <span ref={ref}>0</span>
         <sup className="text-[0.75rem] text-green font-bold align-super">{suffix}</sup>
       </span>
-      <span className="block text-[0.72rem] text-gray-500 tracking-[0.04em]">{label}</span>
+      <span className="block text-[0.72rem] text-gray-500 tracking-[0.04em]">{t(labelKey)}</span>
     </div>
   );
 }
 
 export function ServicesHero() {
+  const { t } = useTranslation();
   return (
-    <section className="sv-hero relative flex min-h-screen items-center overflow-hidden">
+    <section className="sv-hero relative flex min-h-[90vh] items-center overflow-hidden">
       <div className="absolute inset-0">
         <Image
           src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=1920&q=85&auto=format&fit=crop"
@@ -58,17 +61,17 @@ export function ServicesHero() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="#22C55E">
               <path d="M12 2L14.09 8.26L20 9.27L15.45 13.14L16.82 19.02L12 16.09L7.18 19.02L8.55 13.14L4 9.27L9.91 8.26L12 2Z" />
             </svg>
-            VOTRE PARTENAIRE EN ÉNERGIE SOLAIRE DURABLE
+            {t('hero.services.badge')}
           </span>
         </div>
 
         <h1 className="animate-fade-up text-[clamp(3rem,7vw,5.2rem)] font-black text-white leading-[1.05] tracking-[-0.04em] mb-6" style={{ animationDelay: '0.25s', opacity: 0 }}>
-          Nos{' '}
-          <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">Services</span>
+          {t('hero.services.title')}{' '}
+          <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">{t('hero.services.titleHighlight')}</span>
         </h1>
 
         <p className="animate-fade-up text-[1.1rem] text-gray-300 leading-relaxed mb-10" style={{ animationDelay: '0.4s', opacity: 0 }}>
-          Des solutions énergétiques modernes, fiables et adaptées<br className="hidden sm:block" /> aux besoins du Congo.
+          {t('hero.services.description')}
         </p>
 
         <div className="animate-fade-up flex flex-wrap gap-4 mb-12" style={{ animationDelay: '0.55s', opacity: 0 }}>
@@ -76,7 +79,7 @@ export function ServicesHero() {
             href="#sv-services"
             className="inline-flex items-center gap-2 rounded-full bg-green px-7 py-3 text-[0.95rem] font-semibold text-bg-primary transition-all duration-350 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
           >
-            Explorer nos services
+            {t('hero.services.cta1')}
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
             </svg>
@@ -90,15 +93,15 @@ export function ServicesHero() {
             <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
               <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z" />
             </svg>
-            WhatsApp
+            {t('hero.services.cta2')}
           </a>
         </div>
 
         {/* Stats row */}
         <div className="animate-fade-up flex items-center gap-10" style={{ animationDelay: '0.7s', opacity: 0 }}>
           {stats.map((stat, i) => (
-            <div key={stat.label} className="flex items-center gap-10">
-              <AnimatedStat value={stat.value} suffix={stat.suffix} label={stat.label} />
+            <div key={stat.labelKey} className="flex items-center gap-10">
+              <AnimatedStat value={stat.value} suffix={stat.suffix} labelKey={stat.labelKey} />
               {i < stats.length - 1 && (
                 <div className="w-px h-10 bg-white/12" />
               )}

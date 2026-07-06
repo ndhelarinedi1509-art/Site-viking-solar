@@ -1,8 +1,10 @@
 'use client';
 
 import Image from 'next/image';
+import { useTranslation } from 'react-i18next';
 
 export function AboutHero() {
+  const { t } = useTranslation();
   return (
     <section className="ab-hero relative flex min-h-screen items-center justify-center overflow-hidden">
       <div className="absolute inset-0 transition-transform duration-[12s] ease-out hover:scale-[1.0] group">
@@ -18,18 +20,18 @@ export function AboutHero() {
 
       <div className="relative z-[2] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center pt-32 pb-16">
         <p className="mb-6 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase animate-fade-up" style={{ animationDelay: '0.1s', opacity: 0 }}>
-          À PROPOS DE VICKING SOLAR
+          {t('hero.about.badge')}
         </p>
 
         <h1 className="text-[clamp(2.6rem,6vw,4.2rem)] font-extrabold text-white leading-[1.1] tracking-[-0.03em] mb-6 animate-fade-up" style={{ animationDelay: '0.25s', opacity: 0 }}>
-          À propos de<br />
+          {t('about.story.title')}<br />
           <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
             Vicking Solar
           </span>
         </h1>
 
         <p className="mx-auto max-w-[580px] text-[1.05rem] text-gray-400 leading-relaxed mb-12 animate-fade-up" style={{ animationDelay: '0.4s', opacity: 0 }}>
-          Une entreprise congolaise engagée dans les solutions énergétiques durables et modernes. Découvrez comment nous transformons le paysage énergétique de la RDC.
+          {t('hero.about.description')}
         </p>
 
         <div className="flex justify-center animate-fade-up" style={{ animationDelay: '0.6s', opacity: 0 }}>

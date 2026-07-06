@@ -2,6 +2,7 @@
 
 import { useState, useCallback } from 'react';
 import { toast } from 'sonner';
+import { useTranslation } from 'react-i18next';
 
 interface UseFormSubmitOptions {
   onSuccess?: () => void;
@@ -9,6 +10,7 @@ interface UseFormSubmitOptions {
 }
 
 export function useFormSubmit(url: string, options?: UseFormSubmitOptions) {
+  const { t } = useTranslation();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -23,18 +25,18 @@ export function useFormSubmit(url: string, options?: UseFormSubmitOptions) {
           body: JSON.stringify(data),
         });
         const json = await res.json();
-        if (!res.ok) throw new Error(json.error || 'Une erreur est survenue');
-        toast.success(options?.successMessage || 'Envoyé avec succès !');
+        if (!res.ok) throw new Error(json.error || t('error.description'));
+        toast.success(options?.successMessage || t('contact.form.success'));
         options?.onSuccess?.();
       } catch (err) {
-        const msg = err instanceof Error ? err.message : 'Erreur inconnue';
+        const msg = err instanceof Error ? err.message : t('error.description');
         setError(msg);
         toast.error(msg);
       } finally {
         setIsLoading(false);
       }
     },
-    [url, options],
+    [url, options, t],
   );
 
   return { submit, isLoading, error };

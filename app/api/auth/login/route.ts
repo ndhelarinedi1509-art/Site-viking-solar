@@ -1,9 +1,10 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import { serverT } from '@/lib/i18n/server';
 
 const loginSchema = z.object({
-  email: z.string().min(1, "L'email est requis").email("Format d'email invalide"),
-  password: z.string().min(1, 'Le mot de passe est requis'),
+  email: z.string().min(1, 'Email is required').email('Invalid email format'),
+  password: z.string().min(1, 'Password is required'),
 });
 
 export async function POST(request: Request) {
@@ -14,7 +15,7 @@ export async function POST(request: Request) {
     if (!result.success) {
       const firstError = result.error.issues[0];
       return NextResponse.json(
-        { error: firstError?.message || 'Données invalides' },
+        { error: firstError?.message || 'Invalid data' },
         { status: 400 },
       );
     }
@@ -23,18 +24,18 @@ export async function POST(request: Request) {
 
     if (password !== 'password') {
       return NextResponse.json(
-        { error: 'Identifiants incorrects' },
+        { error: serverT('admin.login.error') },
         { status: 401 },
       );
     }
 
     return NextResponse.json({
-      message: 'Connexion réussie',
+      message: serverT('admin.login.submit'),
       user: { email, role: 'admin' },
     });
   } catch {
     return NextResponse.json(
-      { error: 'Erreur interne du serveur' },
+      { error: serverT('error.description') },
       { status: 500 },
     );
   }

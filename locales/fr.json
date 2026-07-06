@@ -1,0 +1,655 @@
+{
+  "nav": {
+    "home": "Accueil",
+    "about": "À propos",
+    "services": "Services",
+    "projects": "Projets",
+    "contact": "Contact",
+    "actualites": "Actualités",
+    "freeQuote": "Devis gratuit",
+    "menu": "Menu"
+  },
+  "common": {
+    "explore": "Explorer",
+    "learnMore": "En savoir plus",
+    "contactUs": "Contactez-nous",
+    "getQuote": "Demander un devis",
+    "viewProject": "Voir le projet",
+    "readMore": "Lire la suite",
+    "send": "Envoyer",
+    "submit": "Soumettre",
+    "loading": "Chargement...",
+    "noResults": "Aucun résultat",
+    "all": "Tous",
+    "phone": "Téléphone",
+    "email": "Email",
+    "address": "Adresse",
+    "whatsapp": "WhatsApp",
+    "call": "Appeler",
+    "soon": "Bientôt disponible",
+    "photoComing": "Photo du projet à venir",
+    "photoWillBeAdded": "Votre photo sera ajoutée ici",
+    "support": "Support 24/7"
+  },
+  "hero": {
+    "home": {
+      "badge": "Viking Solar — Énergie solaire durable à Kinshasa",
+      "title": "L'Énergie du\nCongo,\nAujourd'hui",
+      "description": "Des solutions solaires fiables pour les foyers, les entreprises et les industries. Ensemble, construisons un avenir énergétique durable pour la RDC.",
+      "cta1": "Découvrir nos solutions",
+      "cta2": "Contactez-nous"
+    },
+    "about": {
+      "badge": "NOTRE HISTOIRE, NOTRE MISSION",
+      "title": "À Propos",
+      "description": "Découvrez l'histoire, la vision et l'équipe qui font de Vicking Solar le leader congolais de l'énergie solaire."
+    },
+    "services": {
+      "badge": "VOTRE PARTENAIRE EN ÉNERGIE SOLAIRE DURABLE",
+      "title": "Nos",
+      "titleHighlight": "Services",
+      "description": "Des solutions énergétiques modernes, fiables et adaptées aux besoins du Congo.",
+      "cta1": "Explorer nos services",
+      "cta2": "WhatsApp"
+    },
+    "projects": {
+      "badge": "NOS INSTALLATIONS SOLAIRES",
+      "title": "Nos",
+      "titleHighlight": "Réalisations",
+      "description": "Découvrez nos projets solaires réalisés à Kinshasa et à travers la RDC.",
+      "cta1": "Voir tous les projets",
+      "cta2": "Proposer un projet"
+    },
+    "contact": {
+      "badge": "VOTRE PARTENAIRE EN ÉNERGIE SOLAIRE DURABLE",
+      "title": "Contactez",
+      "titleHighlight": "Vicking Solar",
+      "description": "Notre équipe est prête à vous accompagner dans vos projets énergétiques. Demandez un devis ou posez-nous vos questions."
+    }
+  },
+  "stats": {
+    "installations": "Installations",
+    "powerInstalled": "Puissance installée",
+    "yearsExperience": "Années d'expérience",
+    "projectsCompleted": "Projets réalisés",
+    "experts": "Experts",
+    "clientsSatisfied": "Clients satisfaits",
+    "citiesCovered": "Villes couvertes",
+    "panelsInstalled": "Panneaux Installés"
+  },
+  "home": {
+    "about": {
+      "badge": "À propos",
+      "title": "Expertise locale,",
+      "titleHighlight": "Standards internationaux",
+      "paragraph1": "Chez Vicking Solar, nous sommes une équipe d'experts basée en République Démocratique du Congo, spécialisée dans les solutions d'énergie solaire. Nous combinons notre connaissance locale avec les technologies les plus avancées pour transformer le paysage énergétique du Congo.",
+      "paragraph2": "Notre méthodologie repose sur une approche personnalisée — nous analysons vos besoins spécifiques, proposons des solutions sur mesure et assurons un suivi rigoureux de chaque installation.",
+      "highlight1": "Ingénierie complète et fiable",
+      "highlight2": "Équipements de pointe certifiés",
+      "highlight3": "Support 24/7 toute l'année"
+    },
+    "services": {
+      "badge": "NOS SERVICES",
+      "title": "Solutions",
+      "titleHighlight": "Énergétiques",
+      "description": "Une gamme complète de services solaires pour particuliers, entreprises et industries.",
+      "link": "Tous nos services"
+    },
+    "projects": {
+      "badge": "PROJETS RÉCENTS",
+      "title": "Réalisations",
+      "titleHighlight": "Marquantes",
+      "description": "Découvrez quelques-unes de nos installations solaires à travers Kinshasa et la RDC.",
+      "link": "Voir tous les projets"
+    },
+    "benefits": {
+      "badge": "POURQUOI NOUS CHOISIR"
+    },
+    "cta": {
+      "title": "Prêt à passer à l'énergie solaire ?",
+      "description": "Rejoignez les centaines de clients qui nous font confiance. Obtenez votre devis gratuit dès aujourd'hui.",
+      "button": "Demander un devis"
+    }
+  },
+  "about": {
+    "story": {
+      "badge": "NOTRE HISTOIRE",
+      "title": "Qui Sommes-Nous",
+      "titleHighlight": "Vraiment",
+      "description": "Depuis notre création, Vicking Solar s'est imposé comme un acteur incontournable de l'énergie solaire en RDC.",
+      "mission": "Notre mission est claire : rendre l’énergie solaire accessible, fiable et durable pour chaque foyer, entreprise et industrie congolais.",
+      "vision": "Nous imaginons un Congo où l'énergie propre est la norme, pas un luxe."
+    },
+    "pillars": {
+      "badge": "NOS VALEURS",
+      "title": "Nos Piliers"
+    },
+    "team": {
+      "badge": "NOTRE ÉQUIPE",
+      "title": "L'Équipe Dirigeante",
+      "subtitle": "Des experts passionnés qui prennent soin de l'avenir du Congo avec intelligence."
+    },
+    "expertise": {
+      "badge": "NOTRE EXPERTISE",
+      "title": "Notre Expertise Technique",
+      "subtitle": "Maîtrise de toute la chaîne de valeur solaire pour vous offrir les meilleurs résultats, dans les règles de l'art."
+    },
+    "cta": {
+      "title": "Envie d'en savoir plus ?",
+      "description": "Contactez-nous dès aujourd'hui pour discuter de votre projet solaire.",
+      "whatsapp": "Discuter sur WhatsApp",
+      "call": "Appeler"
+    },
+    "innovation": {
+      "title1": "Vision Solaire",
+      "desc1": "Démocratiser l'accès à l'énergie propre et fiable pour chaque foyer et entreprise congolais grâce à des solutions solaires innovantes et accessibles.",
+      "title2": "Engagement Durable",
+      "desc2": "Nous nous engageons à réduire l'empreinte carbone de nos clients tout en contribuant au développement économique local et à la création d'emplois verts en RDC.",
+      "title3": "Notre Histoire",
+      "desc3": "Fondée à Kinshasa, Vicking Solar est née d'une vision simple : offrir au Congo une énergie fiable, propre et accessible pour tous.",
+      "title4": "Mission",
+      "desc4": "Démocratiser l'accès à l'énergie solaire en RDC en proposant des solutions innovantes, fiables et adaptées aux réalités locales.",
+      "heroTitle": "L'innovation au cœur<br />du Congo"
+    }
+  },
+  "services": {
+    "grid": {
+      "badge": "Ce que nous offrons",
+      "title": "Solutions",
+      "titleHighlight": "Énergétiques",
+      "description": "Une gamme complète de services solaires pour particuliers, entreprises et industries en République Démocratique du Congo.",
+      "featured": "Le plus demandé",
+      "cta": "Demander un devis"
+    },
+    "process": {
+      "badge": "Comment ça marche",
+      "title": "Notre",
+      "titleHighlight": "Processus",
+      "description": "De la première analyse à la mise en service, nous vous accompagnons à chaque étape avec rigueur et transparence."
+    },
+    "benefits": {
+      "badge": "Pourquoi nous choisir",
+      "title": "Les",
+      "titleHighlight": "Avantages",
+      "titleHighlightEnd": "Vicking Solar",
+      "description": "Choisir Vicking Solar, c'est opter pour une expertise locale, une technologie de pointe et un accompagnement humain de qualité."
+    },
+    "projects": {
+      "badge": "Nos réalisations",
+      "title": "Projets",
+      "titleHighlight": "Récents",
+      "description": "Découvrez quelques-unes de nos installations réalisées à Kinshasa et dans toute la RDC."
+    },
+    "cta": {
+      "badge": "Passons à l'action",
+      "title": "Passez à l'énergie solaire dès aujourd'hui.",
+      "description": "Rejoignez les centaines de foyers et entreprises congolaises qui ont déjà choisi Vicking Solar. Obtenez votre étude gratuite sous 24h.",
+      "whatsapp": "Contacter sur WhatsApp",
+      "quote": "Demander un devis"
+    }
+  },
+  "servicesItems": [
+    {
+      "id": "sv-installation",
+      "tag": "Installation",
+      "title": "Installation de Panneaux Solaires",
+      "description": "Installation clé en main de systèmes photovoltaïques pour maisons, commerces et industries. Panneaux haute performance et onduleurs de qualité.",
+      "features": [
+        "Étude de faisabilité gratuite",
+        "Panneaux monocristallins haut rendement",
+        "Installation par techniciens certifiés",
+        "Garantie matériel 25 ans"
+      ]
+    },
+    {
+      "id": "sv-hybrid",
+      "tag": "Systèmes Hybrides",
+      "title": "Systèmes Hybrides et Stockage",
+      "description": "Solutions hybrides avec batteries de stockage pour une alimentation électrique fiable, 24h/24, même en l'absence de soleil.",
+      "features": [
+        "Batteries lithium-ion longue durée",
+        "Passerelle automatique secteur/solaire",
+        "Gestion intelligente de l’énergie",
+        "Autonomie jusqu’à 48h"
+      ]
+    },
+    {
+      "id": "sv-maintenance",
+      "tag": "Maintenance",
+      "title": "Maintenance et Réparation",
+      "description": "Services de maintenance préventive et corrective pour optimiser les performances de votre installation solaire.",
+      "features": [
+        "Nettoyage professionnel des panneaux",
+        "Inspection thermographique",
+        "Remplacement onduleur et câblage",
+        "Contrat de suivi annuel"
+      ]
+    },
+    {
+      "id": "sv-industrial",
+      "tag": "Industriel",
+      "title": "Systèmes Industriels",
+      "description": "Grandes installations photovoltaïques pour sites industriels, permettant des économies d'énergie substantielles.",
+      "features": [
+        "Centrales solaires au sol et toiture",
+        "Systèmes de tracking solaire",
+        "Monitoring temps réel",
+        "ROI sous 3-5 ans"
+      ]
+    },
+    {
+      "id": "sv-residential",
+      "tag": "Résidentiel",
+      "title": "Solutions Résidentielles",
+      "description": "Packs solaires adaptés aux foyers congolais pour réduire la facture d'électricité et gagner en autonomie.",
+      "features": [
+        "Kits solaires prêts à installer",
+        "Systèmes de 1 à 10 kWc",
+        "Batterie de secours incluse",
+        "Installation en 24-48h"
+      ]
+    },
+    {
+      "id": "sv-audit",
+      "tag": "Audit Énergétique",
+      "title": "Audit et Conseil",
+      "description": "Analyse complète de votre consommation énergétique et recommandations personnalisées pour optimiser votre installation.",
+      "features": [
+        "Audit gratuit sur site",
+        "Rapport détaillé sous 48h",
+        "Simulation de production",
+        "Conseil en financement"
+      ]
+    }
+  ],
+  "processSteps": [
+    {
+      "title": "Analyse des Besoins",
+      "description": "Visite sur site gratuite et audit énergétique complet de votre installation existante. Identification de vos consommations et objectifs.",
+      "duration": "Jour 1"
+    },
+    {
+      "title": "Étude Technique",
+      "description": "Dimensionnement précis du système, sélection des équipements, plans d'installation et devis détaillé remis sous 48h.",
+      "duration": "Jours 2-3"
+    },
+    {
+      "title": "Installation",
+      "description": "Déploiement par nos techniciens certifiés. Pose des panneaux, câblage, protection électrique et intégration des onduleurs selon les normes IEC.",
+      "duration": "1–5 jours"
+    },
+    {
+      "title": "Mise en Service",
+      "description": "Tests complets du système, configuration du monitoring, formation de l'utilisateur et remise du dossier de conformité avec certificats.",
+      "duration": "Jour J"
+    },
+    {
+      "title": "Maintenance Continue",
+      "description": "Suivi à distance via notre plateforme IoT, visites préventives programmées et assistance téléphonique 7j/7 pour garantir vos performances.",
+      "duration": "En continu"
+    }
+  ],
+  "benefits": [
+    {
+      "title": "Expertise Locale",
+      "description": "Une équipe basée à Kinshasa, connaissant parfaitement les réalités du terrain et les défis énergétiques congolais."
+    },
+    {
+      "title": "Technologie de Pointe",
+      "description": "Nous utilisons uniquement des équipements certifiés et des technologies solaires les plus avancées du marché."
+    },
+    {
+      "title": "Prix Compétitifs",
+      "description": "Des solutions solaires accessibles avec des options de financement flexibles adaptées à tous les budgets."
+    },
+    {
+      "title": "Service Après-Vente",
+      "description": "Un suivi client rigoureux et une équipe technique disponible 7j/7 pour vous assurer une tranquillité d'esprit totale."
+    },
+    {
+      "title": "Installation Rapide",
+      "description": "Délais d'installation record grâce à notre équipe expérimentée et nos processus optimisés."
+    },
+    {
+      "title": "Impact Environnemental",
+      "description": "Contribuez activement à la transition énergétique du Congo tout en réduisant votre empreinte carbone."
+    }
+  ],
+  "projects": {
+    "hero": {
+      "stats": {
+        "completed": "Projets réalisés",
+        "power": "Puissance installée",
+        "experts": "Experts",
+        "clients": "Clients satisfaits"
+      }
+    },
+    "gallery": {
+      "badge": "Nos réalisations",
+      "title": "Projets",
+      "titleHighlight": "Récents",
+      "description": "Explorez nos installations solaires à travers Kinshasa et la RDC. Chaque projet reflète notre engagement envers l'excellence.",
+      "filters": {
+        "all": "Tous",
+        "industriel": "Industriel",
+        "residentiel": "Résidentiel",
+        "commercial": "Commercial",
+        "institutionnel": "Institutionnel",
+        "hybride": "Hybride",
+        "maintenance": "Maintenance"
+      }
+    },
+    "testimonials": {
+      "badge": "Témoignages",
+      "title": "Ce que disent",
+      "titleHighlight": "nos clients"
+    },
+    "cta": {
+      "badge": "Prêt à réaliser votre projet ?",
+      "title": "Vous avez un projet solaire ?",
+      "description": "Que vous soyez particulier, entreprise ou institution, notre équipe est prête à vous accompagner de A à Z.",
+      "whatsapp": "Contacter sur WhatsApp",
+      "quote": "Demander un devis"
+    },
+    "social": {
+      "badge": "Suivez-nous",
+      "title": "Restons connectés",
+      "facebook": "Facebook",
+      "instagram": "Instagram",
+      "twitter": "X (Twitter)",
+      "tiktok": "TikTok"
+    }
+  },
+  "contact": {
+    "info": {
+      "address": "Notre Adresse",
+      "phone": "Téléphone",
+      "email": "Email",
+      "hours": "Horaires",
+      "whatsapp": "WhatsApp",
+      "chatOnline": "Discuter en ligne"
+    },
+    "form": {
+      "badge": "Envoyez-nous un message",
+      "title": "Parlons de votre projet",
+      "description": "Remplissez le formulaire ci-dessous et notre équipe vous recontactera sous 24h.",
+      "name": "Nom complet",
+      "namePlaceholder": "Jean Dupont",
+      "email": "Email",
+      "emailPlaceholder": "jean@exemple.com",
+      "phone": "Téléphone",
+      "phonePlaceholder": "+243 8XX XXX XXX",
+      "service": "Service souhaité",
+      "servicePlaceholder": "Sélectionnez un service",
+      "serviceOptions": {
+        "default": "Sélectionnez un service",
+        "installation": "Installation de panneaux solaires",
+        "hybrid": "Système hybride / Stockage",
+        "maintenance": "Maintenance et Réparation",
+        "industrial": "Système industriel",
+        "residential": "Solution résidentielle",
+        "audit": "Audit énergétique",
+        "other": "Autre"
+      },
+      "message": "Message",
+      "messagePlaceholder": "Décrivez votre projet en quelques mots...",
+      "submit": "Envoyer le message",
+      "sending": "Envoi en cours...",
+      "success": "Message envoyé avec succès !",
+      "error": "Une erreur est survenue. Veuillez réessayer."
+    },
+    "map": {
+      "title": "Nos Bureaux à Kinshasa",
+      "comingSoon": "Bientôt disponible sur la carte interactive"
+    },
+    "faq": {
+      "badge": "Questions fréquentes",
+      "title": "Vous avez des questions ?",
+      "titleHighlight": "FAQ"
+    },
+    "cta": {
+      "title": "Vous préférez nous appeler directement ?",
+      "description": "Notre équipe est disponible du lundi au samedi de 8h à 18h.",
+      "whatsapp": "Contacter sur WhatsApp",
+      "call": "Appeler maintenant"
+    }
+  },
+  "footer": {
+    "tagline": "Votre partenaire de confiance en énergie solaire durable à Kinshasa et à travers la RDC. Solutions solaires fiables pour particuliers, entreprises et industries.",
+    "quickLinks": "Liens rapides",
+    "services": "Services",
+    "newsletter": {
+      "title": "Newsletter",
+      "description": "Recevez nos actualités et conseils solaires chaque mois.",
+      "placeholder": "Votre email",
+      "button": "S'abonner",
+      "success": "Inscription réussie !",
+      "error": "Erreur lors de l'inscription."
+    },
+    "contact": "Contact",
+    "rights": "Tous droits réservés.",
+    "social": "Suivez-nous",
+    "links": {
+      "home": "Accueil",
+      "about": "À propos",
+      "services": "Services",
+      "projects": "Projets",
+      "contact": "Contact",
+      "actualites": "Actualités",
+      "privacy": "Politique de confidentialité",
+      "terms": "Conditions d'utilisation"
+    },
+    "servicesList": {
+      "installation": "Installation solaire",
+      "hybrid": "Systèmes hybrides",
+      "maintenance": "Maintenance",
+      "industrial": "Systèmes industriels",
+      "residential": "Solutions résidentielles",
+      "audit": "Audit énergétique"
+    }
+  },
+  "actualites": {
+    "hero": {
+      "badge": "Actualités",
+      "title": "Toute l'actualité",
+      "titleHighlight": "Viking Solar",
+      "description": "Restez informé des dernières actualités, promotions et nouveautés de Vicking Solar à Kinshasa, RDC."
+    },
+    "grid": {
+      "title": "Nos dernières actualités",
+      "description": "Découvrez nos articles sur l'énergie solaire, nos projets et nos innovations.",
+      "freeInfo": "Les 3 premiers articles sont accessibles gratuitement. Connectez-vous pour lire la suite.",
+      "locked": "Connectez-vous pour lire",
+      "readMore": "Lire l'article",
+      "loginToAccess": "Connectez-vous pour accéder",
+      "close": "Fermer",
+      "ctaText": "Créez un compte ou connectez-vous pour accéder à tous nos articles.",
+      "loggedInAs": "Connecté en tant que"
+    },
+    "categories": {
+      "innovation": "Innovation",
+      "project": "Projet",
+      "promotion": "Promotion",
+      "event": "Événement",
+      "industry": "Industrie",
+      "tip": "Conseil"
+    },
+    "auth": {
+      "login": "Se connecter",
+      "register": "Créer un compte",
+      "loginTab": "Connexion",
+      "registerTab": "Inscription",
+      "emailLabel": "Email ou téléphone",
+      "emailPlaceholder": "email@exemple.com ou +243...",
+      "passwordLabel": "Mot de passe",
+      "passwordPlaceholder": "Votre mot de passe",
+      "nameLabel": "Nom complet",
+      "namePlaceholder": "Jean Dupont",
+      "submitLogin": "Se connecter",
+      "submitRegister": "Créer mon compte",
+      "loginSuccess": "Connexion réussie",
+      "registerSuccess": "Compte créé avec succès",
+      "alreadyRegistered": "Déjà inscrit ? Connectez-vous",
+      "invalidCredentials": "Email ou mot de passe incorrect"
+    }
+  },
+  "admin": {
+    "login": {
+      "title": "Administration",
+      "subtitle": "Connectez-vous pour accéder au tableau de bord",
+      "email": "Email",
+      "emailPlaceholder": "admin@vikingsolar.cd",
+      "password": "Mot de passe",
+      "submit": "Se connecter",
+      "error": "Identifiants incorrects"
+    },
+    "dashboard": {
+      "title": "Tableau de bord",
+      "messages": "Messages",
+      "projects": "Projets",
+      "content": "Contenu",
+      "team": "Équipe",
+      "settings": "Paramètres",
+      "logout": "Déconnexion",
+    "overview": "Aperçu Global",
+    "projectsCompleted": "Projets Réalisés",
+    "visitors30d": "Visiteurs 30j",
+    "quoteRequests": "Demandes Devis",
+    "newMessages": "Nouveaux Messages",
+    "recentActivity": "Activité Récente",
+    "activity1": "Nouveau devis demandé par Jean Dupont – Installation solaire",
+    "activity2": "Message reçu de Marie Claire – Demande info batteries",
+    "activity3": "Projet \"Villa Lumière\" marqué comme terminé",
+    "timeAgo2h": "Il y a 2h",
+    "timeAgo5h": "Il y a 5h",
+    "timeYesterday": "Hier"
+    },
+    "layout": {
+      "dashboard": "Dashboard",
+      "content": "Contenu Site",
+      "projectsMedia": "Projets et Médias",
+      "messages": "Messages Inbox",
+      "team": "Équipe",
+      "settings": "Configuration",
+      "role": "Rôle: Super Admin",
+      "title": "Administration",
+      "viewSite": "Voir le site",
+      "logout": "Déconnexion"
+    },
+    "loginExtra": {
+      "workspace": "Vicking Solar Workspace",
+      "tagline": "Votre partenaire en énergie solaire durable",
+      "adminId": "Identifiant Administrateur",
+      "adminPlaceholder": "ex: admin@vickingsolar.com",
+      "secureLogin": "Connexion Sécurisée",
+      "saasProtection": "Protection SaaS Active"
+    },
+    "messages": {
+      "inbox": "Boîte de réception",
+      "status": "Statut",
+      "date": "Date",
+      "name": "Nom",
+      "service": "Service",
+      "message": "Message",
+      "action": "Action",
+      "open": "Ouvrir",
+      "new": "Nouveau",
+      "read": "Lu"
+    },
+    "projectsPage": {
+      "management": "Gestion des Projets",
+      "newProject": "Nouveau Projet",
+      "title": "Titre",
+      "titlePlaceholder": "Nom du projet",
+      "category": "Catégorie",
+      "categoryPlaceholder": "Catégorie",
+      "save": "Sauver",
+      "add": "Ajouter un projet",
+      "saved": "Projet sauvegardé",
+      "deleted": "Projet supprimé"
+    },
+    "content": {
+      "management": "Gestion du Contenu",
+      "heroContent": "Contenu Accueil (Hero)",
+      "badge": "Badge",
+      "title": "Titre",
+      "subtitle": "Sous-titre",
+      "save": "Sauvegarder",
+      "contactInfo": "Informations de Contact (Global)",
+      "phone": "Téléphone",
+      "email": "Email"
+    },
+    "teamPage": {
+      "management": "Gestion de l'Équipe",
+      "addMember": "Ajouter Membre",
+      "uploadPhoto": "Uploader Photo Équipe"
+    },
+    "settings": {
+      "title": "Configuration",
+      "system": "Configuration Système",
+      "logoUrl": "URL du Logo",
+      "primaryColor": "Couleur Principale",
+      "seoTitle": "Titre SEO",
+      "save": "Sauvegarder",
+      "security": "Sécurité et Sauvegardes",
+      "manageRoles": "Gérer les Rôles",
+      "createBackup": "Créer un Backup",
+      "saved": "Configuration sauvegardée"
+    }
+  },
+  "error": {
+    "title": "Une erreur est survenue",
+    "description": "Quelque chose s'est mal passé. Veuillez réessayer.",
+    "retry": "Réessayer",
+    "notFoundTitle": "Page introuvable",
+    "notFoundDescription": "La page que vous recherchez n'existe pas ou a été déplacée.",
+    "goHome": "Retour à l'accueil"
+  },
+  "homeHero": {
+    "slogan": "L'Énergie du Congo, Aujourd'hui",
+    "description": "Des solutions solaires fiables pour les foyers, les entreprises et les industries.",
+    "ctaQuote": "Demander un devis",
+    "ctaDiscover": "Découvrir nos solutions",
+    "ctaContact": "Contactez-nous"
+  },
+  "theme": {
+    "toggleLabel": "Basculer le thème",
+    "langLabel": "Changer la langue"
+  },
+  "formErrors": {
+    "name": "Le nom complet est requis",
+    "phone": "Le téléphone est requis",
+    "email": "L'email est requis",
+    "emailInvalid": "Format d'email invalide",
+    "service": "Veuillez sélectionner un service",
+    "message": "Le message est requis",
+    "password": "Le mot de passe est requis"
+  },
+  "faq": [
+    {
+      "id": "faq-1",
+      "question": "Comment se déroule l'installation d'un système solaire ?",
+      "answer": "Nous commençons par une visite sur site pour évaluer vos besoins énergétiques. Ensuite, nous vous proposons un devis détaillé. Une fois accepté, notre équipe d'experts procède à l'installation avec du matériel certifié, et nous effectuons des tests rigoureux avant la mise en service."
+    },
+    {
+      "id": "faq-2",
+      "question": "Proposez-vous des contrats de maintenance ?",
+      "answer": "Oui, nous offrons des contrats de maintenance préventive et curative. Cela inclut le nettoyage des panneaux, la vérification des onduleurs et des batteries, afin de garantir la longévité et les performances de votre installation."
+    },
+    {
+      "id": "faq-3",
+      "question": "Les devis (quotations) sont-ils payants ?",
+      "answer": "Non, nos premières études et devis sont totalement gratuits. Nous analysons votre facture d'électricité ou vos équipements pour vous proposer la solution la plus adaptée sans engagement."
+    },
+    {
+      "id": "faq-4",
+      "question": "Quelles sont les garanties sur vos équipements ?",
+      "answer": "Nous travaillons avec les meilleures marques du marché. Nos panneaux solaires sont généralement garantis 25 ans sur la performance, et les onduleurs/batteries bénéficient d'une garantie constructeur de 5 à 10 ans selon les modèles."
+    },
+    {
+      "id": "faq-5",
+      "question": "Qu'est-ce qu'un système hybride ?",
+      "answer": "Un système hybride combine l'énergie solaire, le réseau électrique public (SNEL) et/ou un groupe électrogène. Il permet de gérer intelligemment les coupures de courant et d'optimiser l'utilisation de l'énergie solaire pour réduire la facture tout en assurant une alimentation continue."
+    }
+  ]
+}

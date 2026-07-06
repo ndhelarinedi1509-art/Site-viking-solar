@@ -1,12 +1,13 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import { serverT } from '@/lib/i18n/server';
 
 const contactSchema = z.object({
-  name: z.string().min(1, 'Le nom complet est requis'),
-  email: z.string().min(1, "L'email est requis").email("Format d'email invalide"),
-  phone: z.string().min(1, 'Le téléphone est requis'),
-  service: z.string().min(1, 'Le service est requis'),
-  message: z.string().min(1, 'Le message est requis'),
+  name: z.string().min(1, 'Name is required'),
+  email: z.string().min(1, 'Email is required').email('Invalid email format'),
+  phone: z.string().min(1, 'Phone is required'),
+  service: z.string().min(1, 'Service is required'),
+  message: z.string().min(1, 'Message is required'),
 });
 
 export async function POST(request: Request) {
@@ -17,7 +18,7 @@ export async function POST(request: Request) {
     if (!result.success) {
       const firstError = result.error.issues[0];
       return NextResponse.json(
-        { error: firstError?.message || 'Données invalides' },
+        { error: firstError?.message || 'Invalid data' },
         { status: 400 },
       );
     }
@@ -26,12 +27,12 @@ export async function POST(request: Request) {
     console.log('Contact form submission:', result.data);
 
     return NextResponse.json(
-      { message: 'Message envoyé avec succès' },
+      { message: serverT('contact.form.success') },
       { status: 200 },
     );
   } catch {
     return NextResponse.json(
-      { error: 'Erreur interne du serveur' },
+      { error: serverT('error.description') },
       { status: 500 },
     );
   }

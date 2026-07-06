@@ -3,6 +3,7 @@
 import { BENEFITS } from '@/constants/benefits';
 import { Reveal } from '@/components/ui/reveal';
 import { Leaf, TrendingDown, Headphones, Zap, Gauge } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 
 const iconMap: Record<string, React.ReactNode> = {
   green: <Leaf className="h-6 w-6 text-green" />,
@@ -13,13 +14,14 @@ const iconMap: Record<string, React.ReactNode> = {
 };
 
 export function HomeBenefits() {
+  const { t } = useTranslation();
   return (
     <section className="relative py-20 sm:py-24 border-t border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto mb-14">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">
-              Pourquoi choisir{' '}
+              {t('home.benefits.badge')}{' '}
               <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
                 Vicking Solar
               </span>{' '}
@@ -35,8 +37,8 @@ export function HomeBenefits() {
                 <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-bg-elevated">
                   {iconMap[benefit.iconColor]}
                 </div>
-                <h3 className="text-sm font-semibold text-white">{benefit.title}</h3>
-                <p className="mt-2 text-xs text-gray-500 leading-relaxed">{benefit.description}</p>
+                <h3 className="text-sm font-semibold text-white">{t(`benefits.${i}.title`, { defaultValue: benefit.title })}</h3>
+                <p className="mt-2 text-xs text-gray-500 leading-relaxed">{t(`benefits.${i}.description`, { defaultValue: benefit.description })}</p>
               </div>
             </Reveal>
           ))}
