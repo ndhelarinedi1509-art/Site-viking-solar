@@ -441,6 +441,44 @@
     }
   }
 
+  /* Services hero animations */
+  @keyframes sv-ken-burns {
+    from { transform: scale(1.05) translate(0, 0); }
+    to   { transform: scale(1.0) translate(-1%, -1%); }
+  }
+
+  @keyframes sv-float-particle {
+    0%   { opacity:0; transform: translateY(0) scale(0); }
+    20%  { opacity:0.8; transform: translateY(-20px) scale(1); }
+    80%  { opacity:0.5; transform: translateY(-80px) scale(0.8); }
+    100% { opacity:0; transform: translateY(-120px) scale(0); }
+  }
+
+  @keyframes sv-scroll-pulse {
+    0%, 100% { opacity: 0.3; transform: scaleY(0.6); }
+    50%       { opacity: 1;   transform: scaleY(1); }
+  }
+
+  @keyframes sv-glow-pulse {
+    0%, 100% { opacity: 0.8; transform: translateX(-50%) scale(1); }
+    50%       { opacity: 1;   transform: translateX(-50%) scale(1.1); }
+  }
+
+  @keyframes sv-shimmer {
+    0%   { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  @keyframes sv-icon-pulse {
+    0%, 100% { opacity: 0.5; transform: scale(1); }
+    50%       { opacity: 1;   transform: scale(1.08); }
+  }
+
+  @keyframes pj-icon-pulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50%       { transform: scale(1.05); opacity: 1; }
+  }
+
   @keyframes fadeInUp {
     from {
       opacity: 0;

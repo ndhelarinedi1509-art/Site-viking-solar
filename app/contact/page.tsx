@@ -6,6 +6,7 @@ import { ContactFormSection } from '@/components/sections/contact-form-section';
 import { ContactMap } from '@/components/sections/contact-map';
 import { ContactFAQ } from '@/components/sections/contact-faq';
 import { ContactCTA } from '@/components/sections/contact-cta';
+import { ProjectsSocial } from '@/components/sections/projects-social';
 
 export const metadata = generateSiteMetadata(
   'Contact',
@@ -22,6 +23,7 @@ export default function ContactPage() {
         <ContactFormSection />
         <ContactMap />
         <ContactFAQ />
+        <ProjectsSocial />
         <ContactCTA />
       </main>
       <Footer />

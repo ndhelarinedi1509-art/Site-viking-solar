@@ -1,16 +1,32 @@
 'use client';
 
 import { useState } from 'react';
-import { PROJECTS, PROJECT_FILTERS } from '@/constants/projects';
-import { Reveal } from '@/components/ui/reveal';
-import { MapPin } from 'lucide-react';
+import { PROJECTS, PROJECT_FILTERS, CATEGORY_LABELS } from '@/constants/projects';
+import { useInView } from '@/hooks/useInView';
+import { cn } from '@/lib/utils';
 
-const categoryColors: Record<string, string> = {
-  residentiel: 'bg-green/80',
-  industriel: 'bg-orange-500/80',
-  commercial: 'bg-accent-blue/80',
-  institutionnel: 'bg-accent-purple/80',
+const categoryBg: Record<string, string> = {
+  residentiel: 'bg-green/75',
+  industriel: 'bg-accent-blue/75',
+  commercial: 'bg-accent-orange/75',
+  institutionnel: 'bg-accent-purple/75',
 };
+
+function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const { ref, isInView } = useInView();
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        'transition-all duration-[0.6s] ease-premium',
+        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
+      )}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
 
 export function ProjectsGallery() {
   const [activeFilter, setActiveFilter] = useState('all');
@@ -24,92 +40,92 @@ export function ProjectsGallery() {
   });
 
   return (
-    <section className="relative py-24 sm:py-32">
+    <section className="py-24 sm:py-28 bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
-              Tous nos{' '}
-              <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
-                Projets
-              </span>
-            </h2>
-          </div>
-        </Reveal>
-
-        <Reveal delay={100}>
-          <div className="mb-10 flex flex-wrap justify-center gap-3">
+        <FadeCard>
+          <div className="flex flex-wrap justify-center gap-3 mb-14">
             {PROJECT_FILTERS.map((filter) => (
               <button
                 key={filter.value}
                 onClick={() => setActiveFilter(filter.value)}
-                className={`rounded-full px-5 py-2 text-sm font-medium transition-all duration-300 ${
+                className={cn(
+                  'rounded-full px-5 py-2.5 text-[0.85rem] font-semibold transition-all duration-350',
                   activeFilter === filter.value
-                    ? 'bg-green text-white shadow-glow'
-                    : 'border border-white/10 bg-white/5 text-gray-400 hover:border-green/30 hover:text-green'
-                }`}
+                    ? 'bg-green text-bg-primary shadow-[0_4px_15px_rgba(34,197,94,0.3)]'
+                    : 'border border-border bg-bg-card text-gray-400 hover:bg-bg-elevated hover:text-white hover:border-white/10',
+                )}
               >
                 {filter.label}
               </button>
             ))}
           </div>
-        </Reveal>
+        </FadeCard>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {filtered.map((project, i) => (
-            <div
-              key={project.id}
-              id={project.id}
-              className={`group overflow-hidden rounded-2xl border border-white/5 bg-bg-card transition-all duration-500 hover:border-green/20 hover:shadow-card-hover`}
-            >
-              <div className="relative flex h-52 items-center justify-center overflow-hidden bg-gradient-to-br from-bg-elevated to-bg-card">
-                <div className="flex flex-col items-center gap-2 text-gray-600">
-                  <svg
-                    className="h-12 w-12"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={1}
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                    />
-                  </svg>
-                </div>
-                <span
-                  className={`absolute top-3 left-3 rounded-full px-3 py-1 text-xs font-medium text-white backdrop-blur-sm ${
-                    categoryColors[project.category] || 'bg-green/80'
-                  }`}
-                >
-                  {project.category}
-                </span>
-              </div>
+            <FadeCard key={project.id} delay={i * 80}>
+              <article
+                id={project.id}
+                className="group rounded-[20px] border border-border bg-bg-card overflow-hidden flex flex-col transition-all duration-[0.45s] ease-premium hover:-translate-y-2 hover:border-white/15 hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)]"
+              >
+                <div className="relative h-60 overflow-hidden bg-bg-elevated">
+                  <div className="absolute inset-0 bg-gradient-to-br from-[#0A1020] to-[#0F1A2E]">
+                    <div className="flex h-full items-center justify-center">
+                      <div className="flex flex-col items-center gap-2 z-[1]">
+                        <svg
+                          width="42"
+                          height="42"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          className="text-gray-600 animate-[pj-icon-pulse_4s_ease-in-out_infinite]"
+                        >
+                          <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+                        </svg>
+                        <p className="text-[0.85rem] font-semibold text-gray-500">Image à venir</p>
+                      </div>
+                    </div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-[sv-shimmer_3s_ease-in-out_infinite]" />
+                  </div>
 
-              <div className="p-6">
-                <div className="mb-2 flex items-center gap-1.5 text-xs text-gray-500">
-                  <MapPin className="h-3.5 w-3.5" />
-                  {project.location}
+                  <span
+                    className={cn(
+                      'absolute top-3 left-3 z-[2] text-[0.7rem] font-bold text-white uppercase tracking-[0.05em] px-3 py-1.5 rounded-full shadow-[0_4px_10px_rgba(0,0,0,0.3)] backdrop-blur-sm',
+                      categoryBg[project.category] || 'bg-green/75',
+                    )}
+                  >
+                    {CATEGORY_LABELS[project.category] || project.category}
+                  </span>
                 </div>
-                <h3 className="text-lg font-semibold text-white group-hover:text-green transition-colors">
-                  {project.title}
-                </h3>
-                <p className="mt-2 text-sm text-gray-400 leading-relaxed line-clamp-2">
-                  {project.description}
-                </p>
-                <div className="mt-4 flex flex-wrap gap-2">
-                  {project.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-gray-400"
-                    >
-                      {tag}
-                    </span>
-                  ))}
+
+                <div className="p-6 sm:p-7 flex flex-col flex-1">
+                  <div className="flex items-center gap-1.5 mb-3">
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="#22C55E">
+                      <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                    </svg>
+                    <span className="text-[0.75rem] font-semibold text-gray-500">{project.location}</span>
+                  </div>
+
+                  <h3 className="text-[1.15rem] font-bold text-white leading-tight mb-3 transition-colors group-hover:text-green">
+                    {project.title}
+                  </h3>
+
+                  <p className="text-[0.85rem] text-gray-400 leading-relaxed mb-6 flex-1">
+                    {project.description}
+                  </p>
+
+                  <div className="flex flex-wrap gap-2 border-t border-border pt-5">
+                    {project.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="text-[0.7rem] font-semibold text-gray-300 bg-bg-primary border border-border px-2.5 py-1 rounded-sm"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </div>
+              </article>
+            </FadeCard>
           ))}
         </div>
       </div>

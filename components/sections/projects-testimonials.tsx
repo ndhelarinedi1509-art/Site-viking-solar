@@ -1,62 +1,85 @@
 'use client';
 
-import { Reveal } from '@/components/ui/reveal';
-import { Quote } from 'lucide-react';
+import { useInView } from '@/hooks/useInView';
+import { cn } from '@/lib/utils';
 
 const testimonials = [
-  {
-    id: 'test-1',
-    lines: 4,
-  },
-  {
-    id: 'test-2',
-    lines: 5,
-  },
-  {
-    id: 'test-3',
-    lines: 3,
-  },
+  { id: 'test-1', lines: [{ w: 'full' }, { w: '' }, { w: 'short' }] },
+  { id: 'test-2', lines: [{ w: 'full' }, { w: '' }, { w: 'medium' }] },
+  { id: 'test-3', lines: [{ w: 'full' }, { w: 'full' }, { w: 'short' }] },
 ];
+
+function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const { ref, isInView } = useInView();
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        'transition-all duration-[0.6s] ease-premium',
+        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
+      )}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
 
 export function ProjectsTestimonials() {
   return (
-    <section className="relative py-24 sm:py-32 bg-gradient-to-b from-bg-primary via-bg-card to-bg-primary">
+    <section className="py-24 sm:py-28 border-t border-border bg-bg-card">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal>
+        <FadeCard>
           <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-white sm:text-4xl lg:text-5xl">
+            <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
+              Ce qu&apos;ils disent de nous
+            </span>
+            <h2 className="text-[clamp(1.9rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.15]">
               Avis de{' '}
-              <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-accent-orange to-red-500 bg-clip-text text-transparent">
                 Nos Clients
               </span>
             </h2>
           </div>
-        </Reveal>
+        </FadeCard>
 
         <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.map((t, i) => (
-            <Reveal key={t.id} delay={i * 150}>
-              <div className="rounded-2xl border border-white/5 bg-bg-card p-8">
-                <Quote className="mb-4 h-8 w-8 text-green/40" />
-                <div className="space-y-3">
-                  {Array.from({ length: t.lines }).map((_, j) => (
+            <FadeCard key={t.id} delay={i * 150}>
+              <div className="rounded-[20px] border border-border bg-bg-elevated p-8 sm:p-10 relative transition-all duration-350 hover:-translate-y-1 hover:border-white/10">
+                <span className="absolute top-6 right-8 text-[4rem] font-serif leading-none text-white/[0.03]">
+                  &ldquo;
+                </span>
+
+                <div className="flex flex-col gap-3 mb-10">
+                  {t.lines.map((line, j) => (
                     <div
                       key={j}
-                      className={`h-3 rounded-full bg-white/5 ${
-                        j === t.lines - 1 ? 'w-3/4' : 'w-full'
-                      }`}
-                    />
+                      className={cn(
+                        'h-[10px] rounded-sm bg-bg-card relative overflow-hidden',
+                        line.w === 'full' ? 'w-full' : line.w === 'medium' ? 'w-[85%]' : 'w-[60%]',
+                      )}
+                    >
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent animate-[sv-shimmer_2s_ease-in-out_infinite]" />
+                    </div>
                   ))}
                 </div>
-                <div className="mt-6 flex items-center gap-4">
-                  <div className="h-10 w-10 rounded-full bg-white/5" />
-                  <div className="space-y-2">
-                    <div className="h-3 w-24 rounded-full bg-white/5" />
-                    <div className="h-2.5 w-16 rounded-full bg-white/5" />
+
+                <div className="flex items-center gap-4">
+                  <div className="h-12 w-12 rounded-full bg-bg-card relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent animate-[sv-shimmer_2s_ease-in-out_infinite]" />
+                  </div>
+                  <div className="flex flex-col gap-2 flex-1">
+                    <div className="h-3 w-[50%] rounded-sm bg-white/[0.05] relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent animate-[sv-shimmer_2s_ease-in-out_infinite]" />
+                    </div>
+                    <div className="h-2 w-[35%] rounded-sm bg-green/10 relative overflow-hidden">
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.02] to-transparent animate-[sv-shimmer_2s_ease-in-out_infinite]" />
+                    </div>
                   </div>
                 </div>
               </div>
-            </Reveal>
+            </FadeCard>
           ))}
         </div>
       </div>

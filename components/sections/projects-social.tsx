@@ -1,11 +1,11 @@
 'use client';
 
 import { SITE_CONFIG } from '@/config/site';
-import { Reveal } from '@/components/ui/reveal';
+import { useInView } from '@/hooks/useInView';
+import { cn } from '@/lib/utils';
 
-const socialButtons = [
+const socials = [
   {
-    key: 'facebook',
     label: 'Facebook',
     href: SITE_CONFIG.socials.facebook,
     icon: (
@@ -15,7 +15,6 @@ const socialButtons = [
     ),
   },
   {
-    key: 'instagram',
     label: 'Instagram',
     href: SITE_CONFIG.socials.instagram,
     icon: (
@@ -25,7 +24,6 @@ const socialButtons = [
     ),
   },
   {
-    key: 'twitter',
     label: 'X (Twitter)',
     href: SITE_CONFIG.socials.twitter,
     icon: (
@@ -35,7 +33,6 @@ const socialButtons = [
     ),
   },
   {
-    key: 'tiktok',
     label: 'TikTok',
     href: SITE_CONFIG.socials.tiktok,
     icon: (
@@ -46,25 +43,41 @@ const socialButtons = [
   },
 ];
 
+function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const { ref, isInView } = useInView();
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        'transition-all duration-700 ease-premium',
+        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
+      )}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
+
 export function ProjectsSocial() {
   return (
-    <section className="relative py-16 sm:py-20">
+    <section className="py-16 sm:py-20 bg-bg-primary border-t border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
-        <Reveal>
-          <h2 className="text-2xl font-bold text-white sm:text-3xl">
+        <FadeIn>
+          <h3 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-white mb-8">
             Suivez{' '}
             <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
               Vicking Solar
             </span>{' '}
             sur nos réseaux sociaux
-          </h2>
-        </Reveal>
+          </h3>
+        </FadeIn>
 
-        <Reveal delay={150}>
-          <div className="mt-8 flex flex-wrap justify-center gap-4">
-            {socialButtons.map((social) => (
+        <FadeIn delay={150}>
+          <div className="flex flex-wrap justify-center gap-4">
+            {socials.map((social) => (
               <a
-                key={social.key}
+                key={social.label}
                 href={social.href}
                 target="_blank"
                 rel="noopener noreferrer"
@@ -75,7 +88,7 @@ export function ProjectsSocial() {
               </a>
             ))}
           </div>
-        </Reveal>
+        </FadeIn>
       </div>
     </section>
   );

@@ -1,34 +1,29 @@
 'use client';
 
-import { Reveal } from '@/components/ui/reveal';
-import { SectionHeader } from '@/components/ui/section-header';
-import { MapPin } from 'lucide-react';
+import { useInView } from '@/hooks/useInView';
+import { cn } from '@/lib/utils';
 
 export function ContactMap() {
+  const { ref, isInView } = useInView();
   return (
-    <section className="relative py-24 sm:py-32">
+    <section className="pb-12 sm:pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <SectionHeader
-            title="Nos Bureaux à"
-            titleHighlight="Kinshasa"
-            description="Retrouvez-nous au cœur de Kinshasa, prêts à vous servir."
-          />
-        </Reveal>
+        <div
+          ref={ref}
+          className={cn(
+            'relative flex h-[450px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-border bg-bg-card text-center transition-all duration-700 ease-premium',
+            isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
+          )}
+        >
+          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,197,94,0.05)_0%,transparent_60%)]" />
 
-        <Reveal delay={150}>
-          <div className="mx-auto max-w-4xl overflow-hidden rounded-2xl border border-white/10 bg-bg-card">
-            <div className="flex flex-col items-center justify-center gap-4 py-20 text-center">
-              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-green/10 text-green">
-                <MapPin className="h-8 w-8" />
-              </div>
-              <h3 className="text-xl font-bold text-white">Nos Bureaux à Kinshasa</h3>
-              <p className="max-w-sm text-sm text-gray-400">
-                Bientôt disponible sur la carte interactive
-              </p>
-            </div>
-          </div>
-        </Reveal>
+          <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor" className="text-green/70 mb-4">
+            <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z" />
+          </svg>
+
+          <h4 className="text-[1.5rem] font-bold text-white mb-2">Nos Bureaux à Kinshasa</h4>
+          <p className="text-base text-gray-500">Bientôt disponible sur la carte interactive</p>
+        </div>
       </div>
     </section>
   );

@@ -1,59 +1,48 @@
 'use client';
 
-import { Reveal } from '@/components/ui/reveal';
-import { ChevronDown } from 'lucide-react';
+import Image from 'next/image';
 
 export function AboutHero() {
   return (
-    <section className="relative flex min-h-[85vh] items-center justify-center overflow-hidden bg-gradient-to-br from-bg-primary via-bg-card to-bg-primary">
-      {/* Overlay pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03]"
-        style={{
-          backgroundImage:
-            'radial-gradient(circle at 1px 1px, rgba(255,255,255,0.15) 1px, transparent 0)',
-          backgroundSize: '40px 40px',
-        }}
-      />
+    <section className="ab-hero relative flex min-h-screen items-center justify-center overflow-hidden">
+      <div className="absolute inset-0 transition-transform duration-[12s] ease-out hover:scale-[1.0] group">
+        <Image
+          src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=85&auto=format&fit=crop"
+          alt="Panneaux solaires"
+          fill
+          className="object-cover scale-105 group-hover:scale-100 transition-transform duration-[12s] ease-out"
+          priority
+        />
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-b from-[rgba(6,11,24,0.55)] via-[rgba(6,11,24,0.72)] to-[rgba(6,11,24,0.97)] z-[1]" />
 
-      {/* Glow effect */}
-      <div className="pointer-events-none absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 h-[500px] w-[500px] rounded-full bg-green/8 blur-[120px]" />
+      <div className="relative z-[2] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center pt-32 pb-16">
+        <p className="mb-6 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase animate-fade-up" style={{ animationDelay: '0.1s', opacity: 0 }}>
+          À PROPOS DE VICKING SOLAR
+        </p>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-20 text-center">
-        <Reveal>
-          <span className="mb-4 inline-block rounded-full border border-green/20 bg-green/5 px-5 py-2 text-xs font-medium tracking-wider text-green uppercase">
-            À propos de Vicking Solar
+        <h1 className="text-[clamp(2.6rem,6vw,4.2rem)] font-extrabold text-white leading-[1.1] tracking-[-0.03em] mb-6 animate-fade-up" style={{ animationDelay: '0.25s', opacity: 0 }}>
+          À propos de<br />
+          <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
+            Vicking Solar
           </span>
-        </Reveal>
+        </h1>
 
-        <Reveal delay={150}>
-          <h1 className="mt-6 text-4xl font-bold tracking-tight text-white sm:text-5xl lg:text-7xl">
-            À propos de{' '}
-            <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
-              Vicking Solar
-            </span>
-          </h1>
-        </Reveal>
+        <p className="mx-auto max-w-[580px] text-[1.05rem] text-gray-400 leading-relaxed mb-12 animate-fade-up" style={{ animationDelay: '0.4s', opacity: 0 }}>
+          Une entreprise congolaise engagée dans les solutions énergétiques durables et modernes. Découvrez comment nous transformons le paysage énergétique de la RDC.
+        </p>
 
-        <Reveal delay={300}>
-          <p className="mx-auto mt-8 max-w-2xl text-lg text-gray-400 leading-relaxed">
-            Entreprise congolaise spécialisée dans les solutions solaires innovantes, nous
-            accompagnons particuliers et professionnels vers un avenir énergétique durable en
-            République Démocratique du Congo.
-          </p>
-        </Reveal>
-
-        {/* Down arrow */}
-        <Reveal delay={500}>
-          <div className="mt-16 flex justify-center">
-            <a
-              href="#innovation"
-              className="group flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-white/5 text-gray-400 transition-all duration-300 hover:border-green/30 hover:text-green hover:shadow-glow"
-            >
-              <ChevronDown className="h-5 w-5 animate-bounce" />
-            </a>
-          </div>
-        </Reveal>
+        <div className="flex justify-center animate-fade-up" style={{ animationDelay: '0.6s', opacity: 0 }}>
+          <svg
+            className="animate-bounce h-6 w-6 text-green"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+          >
+            <path d="M12 5v14M5 12l7 7 7-7" />
+          </svg>
+        </div>
       </div>
     </section>
   );

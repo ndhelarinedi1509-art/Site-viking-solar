@@ -1,132 +1,140 @@
 'use client';
 
 import { SERVICES } from '@/constants/services';
-import { Reveal } from '@/components/ui/reveal';
-import { SectionHeader } from '@/components/ui/section-header';
-import { SITE_CONFIG } from '@/config/site';
-import { Sun, FileText, Wrench, Factory, Home, ClipboardList, Check } from 'lucide-react';
+import { useInView } from '@/hooks/useInView';
+import { cn } from '@/lib/utils';
 
-const iconMap: Record<string, React.ReactNode> = {
-  sun: <Sun className="h-6 w-6" />,
-  'file-text': <FileText className="h-6 w-6" />,
-  wrench: <Wrench className="h-6 w-6" />,
-  industrial: <Factory className="h-6 w-6" />,
-  home: <Home className="h-6 w-6" />,
-  'clipboard-list': <ClipboardList className="h-6 w-6" />,
+const colorMap: Record<string, { icon: string; tag: string; glow: string; hover: string; cta: string }> = {
+  blue:   { icon: 'bg-accent-blue/15 text-accent-blue', tag: 'bg-accent-blue/12 text-accent-blue', glow: 'blue-glow', hover: 'hover:border-accent-blue/35 hover:shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_25px_rgba(59,130,246,0.1)]', cta: '' },
+  green:  { icon: 'bg-green/15 text-green', tag: 'bg-green/12 text-green', glow: 'green-glow', hover: 'hover:border-green/40 hover:shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_25px_rgba(34,197,94,0.15)]', cta: 'text-green hover:text-[#4ade80]' },
+  orange: { icon: 'bg-accent-orange/15 text-accent-orange', tag: 'bg-accent-orange/12 text-accent-orange', glow: 'orange-glow', hover: 'hover:border-accent-orange/35 hover:shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_25px_rgba(245,158,11,0.1)]', cta: '' },
+  purple: { icon: 'bg-accent-purple/15 text-accent-purple', tag: 'bg-accent-purple/12 text-accent-purple', glow: 'purple-glow', hover: 'hover:border-accent-purple/35 hover:shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_25px_rgba(139,92,246,0.1)]', cta: '' },
+  teal:   { icon: 'bg-accent-teal/15 text-accent-teal', tag: 'bg-accent-teal/12 text-accent-teal', glow: 'teal-glow', hover: 'hover:border-accent-teal/35 hover:shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_25px_rgba(20,184,166,0.1)]', cta: '' },
+  amber:  { icon: 'bg-accent-amber/15 text-accent-amber', tag: 'bg-accent-amber/12 text-accent-amber', glow: 'amber-glow', hover: 'hover:border-accent-amber/35 hover:shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_25px_rgba(251,191,36,0.1)]', cta: '' },
 };
 
-const colorMap: Record<string, string> = {
-  blue: 'bg-accent-blue/10 text-accent-blue border-accent-blue/20',
-  green: 'bg-green/10 text-green border-green/20',
-  orange: 'bg-accent-orange/10 text-accent-orange border-accent-orange/20',
-  purple: 'bg-accent-purple/10 text-accent-purple border-accent-purple/20',
-  teal: 'bg-accent-teal/10 text-accent-teal border-accent-teal/20',
-  amber: 'bg-accent-amber/10 text-accent-amber border-accent-amber/20',
+const icons: Record<string, React.ReactNode> = {
+  sun: <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M3.55 18.54l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8zM11 22.45h2V19.5h-2v2.95zM4 10.5H1v2h3v-2zm9-9.95h-2v3h2v-3zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z" /></svg>,
+  'file-text': <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 9V3.5L18.5 9H13zM7 17l2-2 2 2 4-4 2 2v4H7v-2z" /></svg>,
+  wrench: <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" /></svg>,
+  industrial: <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 14c-3.87 0-7-3.13-7-7h2c0 2.76 2.24 5 5 5s5-2.24 5-5h2c0 3.87-3.13 7-7 7zm0-4c-1.66 0-3-1.34-3-3h2c0 .55.45 1 1 1s1-.45 1-1h2c0 1.66-1.34 3-3 3z" /></svg>,
+  home: <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" /></svg>,
+  'clipboard-list': <svg width="28" height="28" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9l-7-7-7 7h4v7h6V9h4zm-7 11c-1.1 0-2 .9-2 2h4c0-1.1-.9-2-2-2zM4 19h16v2H4z" /></svg>,
 };
 
-const glowMap: Record<string, string> = {
-  blue: 'bg-accent-blue/5',
-  green: 'bg-green/5',
-  orange: 'bg-accent-orange/5',
-  purple: 'bg-accent-purple/5',
-  teal: 'bg-accent-teal/5',
-  amber: 'bg-accent-amber/5',
-};
-
-const tagColorMap: Record<string, string> = {
-  blue: 'bg-accent-blue/10 text-accent-blue',
-  green: 'bg-green/10 text-green',
-  orange: 'bg-accent-orange/10 text-accent-orange',
-  purple: 'bg-accent-purple/10 text-accent-purple',
-  teal: 'bg-accent-teal/10 text-accent-teal',
-  amber: 'bg-accent-amber/10 text-accent-amber',
-};
+function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
+  const { ref, isInView } = useInView();
+  return (
+    <div
+      ref={ref}
+      className={cn(
+        'transition-all duration-[0.45s] ease-premium',
+        isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
+      )}
+      style={{ transitionDelay: `${delay}ms` }}
+    >
+      {children}
+    </div>
+  );
+}
 
 export function ServicesGrid() {
   return (
-    <section id="services-section" className="relative py-24 sm:py-32">
+    <section id="sv-services" className="py-24 sm:py-28 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <Reveal>
-          <SectionHeader
-            eyebrow="Ce que nous offrons"
-            title="Solutions Énergétiques"
-            description="Une gamme complète de services pour répondre à tous vos besoins en énergie solaire, de l'étude à la maintenance."
-          />
-        </Reveal>
+        {/* Section header */}
+        <div className="text-center mb-14">
+          <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
+            Ce que nous offrons
+          </span>
+          <h2 className="text-[clamp(1.9rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.15] mb-3">
+            Solutions <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">Énergétiques</span>
+          </h2>
+          <p className="text-base text-gray-400 max-w-[580px] mx-auto leading-relaxed">
+            Une gamme complète de services solaires pour particuliers, entreprises et industries en République Démocratique du Congo.
+          </p>
+        </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((service, i) => (
-            <Reveal key={service.id} delay={i * 100}>
-              <div
-                id={service.id}
-                className={`group relative h-full overflow-hidden rounded-2xl border border-white/5 bg-bg-card p-6 transition-all duration-300 hover:border-green/20 hover:shadow-card-hover ${
-                  service.id === 'systemes-hybrides' ? 'border-green/15' : ''
-                }`}
-              >
-                <div
-                  className={`pointer-events-none absolute -top-12 -right-12 h-32 w-32 rounded-full blur-[60px] ${
-                    service.id === 'systemes-hybrides'
-                      ? 'bg-green/15'
-                      : glowMap[service.color]
-                  }`}
-                />
+        {/* Cards grid */}
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+          {SERVICES.map((service, i) => {
+            const c = colorMap[service.color];
+            return (
+              <FadeCard key={service.id} delay={i * 100}>
+                <article
+                  id={service.id}
+                  className={cn(
+                    'sv-card group relative rounded-[20px] border bg-bg-card p-8 flex flex-col overflow-hidden',
+                    'transition-all duration-[0.45s] ease-premium will-change-[transform,border-color,box-shadow]',
+                    'hover:-translate-y-[10px] hover:scale-[1.02] hover:border-green/28 hover:shadow-[0_24px_60px_rgba(0,0,0,0.45)]',
+                    c.hover,
+                    service.featured
+                      ? 'border-green/30 bg-[linear-gradient(145deg,#0C1825,#0D1322)] hover:border-green/50 hover:shadow-[0_24px_60px_rgba(34,197,94,0.12)]'
+                      : 'border-border',
+                  )}
+                >
+                  {/* Glow effect */}
+                  <div className={cn(
+                    'pointer-events-none absolute -top-[60px] -right-[60px] w-[200px] h-[200px] rounded-full opacity-0 transition-opacity duration-350 group-hover:opacity-100',
+                    service.color === 'blue' && 'bg-[radial-gradient(circle,rgba(59,130,246,0.12),transparent_70%)]',
+                    service.color === 'green' && 'bg-[radial-gradient(circle,rgba(34,197,94,0.12),transparent_70%)]',
+                    service.color === 'orange' && 'bg-[radial-gradient(circle,rgba(245,158,11,0.12),transparent_70%)]',
+                    service.color === 'purple' && 'bg-[radial-gradient(circle,rgba(139,92,246,0.12),transparent_70%)]',
+                    service.color === 'teal' && 'bg-[radial-gradient(circle,rgba(20,184,166,0.12),transparent_70%)]',
+                    service.color === 'amber' && 'bg-[radial-gradient(circle,rgba(251,191,36,0.12),transparent_70%)]',
+                  )} />
 
-                {service.id === 'systemes-hybrides' && (
-                  <span className="mb-3 inline-flex items-center gap-1 rounded-full bg-green/10 px-3 py-1 text-xs font-medium text-green">
-                    ⭐ Le plus demandé
-                  </span>
-                )}
+                  {/* Featured badge */}
+                  {service.featured && (
+                    <span className="absolute top-5 right-5 text-[0.7rem] font-bold text-green bg-green/12 border border-green/25 px-2.5 py-1 rounded-full">
+                      ⭐ Le plus demandé
+                    </span>
+                  )}
 
-                <div className="relative z-10">
-                  <div
-                    className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-xl border ${colorMap[service.color]}`}
-                  >
-                    {iconMap[service.icon]}
+                  {/* Card top: icon + tag */}
+                  <div className="flex items-center gap-4 mb-5">
+                    <div className={cn('flex h-[52px] w-[52px] items-center justify-center rounded-xl shrink-0', c.icon)}>
+                      {icons[service.icon]}
+                    </div>
+                    <span className={cn('text-[0.68rem] font-bold tracking-[0.05em] px-2.5 py-1 rounded-full', c.tag)}>
+                      {service.tag}
+                    </span>
                   </div>
 
-                  <span
-                    className={`mb-3 inline-block rounded-full px-3 py-1 text-xs font-medium ${tagColorMap[service.color]}`}
-                  >
-                    {service.tag}
-                  </span>
+                  <h3 className="text-[1.15rem] font-bold text-white mb-2">{service.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed mb-5">{service.description}</p>
 
-                  <h3 className="mt-3 text-lg font-semibold text-white">{service.title}</h3>
-                  <p className="mt-2 text-sm text-gray-400 leading-relaxed">
-                    {service.description}
-                  </p>
-
-                  <ul className="mt-4 space-y-2">
-                    {service.features.map((feature) => (
-                      <li key={feature} className="flex items-start gap-2 text-sm text-gray-300">
-                        <Check className="mt-0.5 h-4 w-4 flex-shrink-0 text-green" />
-                        {feature}
+                  {/* Features */}
+                  <ul className="flex flex-col gap-2 mb-6 flex-1">
+                    {service.features.map((f) => (
+                      <li key={f} className="flex items-center gap-2 text-sm text-gray-300">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="#22C55E" className="shrink-0">
+                          <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
+                        </svg>
+                        {f}
                       </li>
                     ))}
                   </ul>
 
-                  <div className="mt-6">
-                    <a
-                      href={SITE_CONFIG.whatsapp}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="inline-flex items-center gap-2 text-sm font-semibold text-green transition-colors hover:text-green-dark"
-                    >
-                      Demander un devis
-                      <svg
-                        className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </Reveal>
-          ))}
+                  {/* CTA */}
+                  <a
+                    href="https://wa.me/243820128315"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={cn(
+                      'inline-flex items-center gap-1.5 text-sm font-semibold text-gray-400 border-t border-border pt-4 mt-auto transition-all duration-350 hover:text-white hover:gap-[0.7rem]',
+                      service.featured && 'text-green hover:text-[#4ade80]',
+                    )}
+                  >
+                    Demander un devis
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                      <path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z" />
+                    </svg>
+                  </a>
+                </article>
+              </FadeCard>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -39,10 +39,10 @@ export const PROJECTS: Project[] = [
     title: 'Électrification École Publique',
     description:
       'Projet hybride solidaire de 35 kW fournissant une énergie stable aux salles de classe, laboratoires et espaces informatiques.',
-    category: 'institutionnel',
+    category: 'commercial',
     power: '35 kW',
     location: 'Matete, Kinshasa',
-    tags: ['Institutionnel', 'Hybride', '35 kW'],
+    tags: ['Commercial', 'Hybride', '35 kW'],
     features: ['35 kW hybride', 'Labo équipé', 'Soutien pédagogique'],
   },
   {
@@ -77,3 +77,10 @@ export const PROJECT_FILTERS = [
   { label: 'Hybride', value: 'hybride' },
   { label: 'Solaire', value: 'solaire' },
 ] as const;
+
+export const CATEGORY_LABELS: Record<string, string> = {
+  residentiel: 'Résidentiel',
+  industriel: 'Industriel',
+  commercial: 'Commercial',
+  institutionnel: 'Institutionnel',
+};
