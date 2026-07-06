@@ -56,7 +56,7 @@ export function ServicesProjects() {
   const previewProjects = PROJECTS.slice(0, 4);
 
   return (
-    <section className="py-24 sm:py-28 border-t border-border bg-bg-card">
+    <section className="py-20 sm:py-24 border-t border-border bg-bg-card">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">

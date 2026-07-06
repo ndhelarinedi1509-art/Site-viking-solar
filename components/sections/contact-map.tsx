@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 export function ContactMap() {
   const { ref, isInView } = useInView();
   return (
-    <section className="pb-12 sm:pb-16">
+    <section className="pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div
           ref={ref}

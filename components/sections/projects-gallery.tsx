@@ -40,7 +40,7 @@ export function ProjectsGallery() {
   });
 
   return (
-    <section className="py-24 sm:py-28 bg-bg-primary">
+    <section className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeCard>
           <div className="flex flex-wrap justify-center gap-3 mb-14">

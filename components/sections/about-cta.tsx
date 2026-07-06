@@ -26,7 +26,7 @@ export function AboutCTA() {
     <section className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
-          <div className="relative overflow-hidden rounded-2xl border border-border-light bg-[linear-gradient(145deg,rgba(15,26,46,0.9),rgba(10,22,40,0.95))] p-12 sm:p-16 text-center">
+          <div className="relative overflow-hidden rounded-2xl border border-border-light bg-[linear-gradient(145deg,rgba(15,26,46,0.9),rgba(10,22,40,0.95))] p-10 sm:p-14 lg:p-16 text-center">
             {/* Green glow */}
             <div className="pointer-events-none absolute -top-[120px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(34,197,94,0.07)_0%,transparent_70%)]" />
 

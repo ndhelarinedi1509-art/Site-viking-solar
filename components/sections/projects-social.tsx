@@ -61,7 +61,7 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
 
 export function ProjectsSocial() {
   return (
-    <section className="py-16 sm:py-20 bg-bg-primary border-t border-border">
+    <section className="py-20 sm:py-24 bg-bg-primary border-t border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center">
         <FadeIn>
           <h3 className="text-[1.1rem] sm:text-[1.3rem] font-bold text-white mb-8">

@@ -158,7 +158,7 @@ function StepItem({ step, index }: { step: typeof steps[0]; index: number }) {
 
 export function ServicesProcess() {
   return (
-    <section className="sv-process relative py-24 sm:py-28 border-t border-border bg-bg-card overflow-hidden">
+    <section className="sv-process relative py-20 sm:py-24 border-t border-border bg-bg-card overflow-hidden">
       {/* Grid background */}
       <div
         className="absolute inset-0 pointer-events-none"

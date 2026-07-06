@@ -98,7 +98,7 @@ export function ContactFormSection() {
   });
 
   return (
-    <section className="py-16 sm:py-20 bg-bg-primary">
+    <section className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16 items-start">
           {/* LEFT: Info */}

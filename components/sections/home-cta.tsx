@@ -5,10 +5,10 @@ import { Reveal } from '@/components/ui/reveal';
 
 export function HomeCTA() {
   return (
-    <section id="contact" className="relative py-24">
+    <section id="contact" className="relative py-20 sm:py-24 border-t border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="relative overflow-hidden rounded-2xl border border-border-light bg-gradient-to-br from-[#0F1A2E] to-[#0A1628] p-8 sm:p-12 lg:p-14 text-center">
+          <div className="relative overflow-hidden rounded-2xl border border-border-light bg-gradient-to-br from-[#0F1A2E] to-[#0A1628] p-10 sm:p-14 lg:p-16 text-center">
             {/* Glow */}
             <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full bg-green/5 blur-[100px]" />
 

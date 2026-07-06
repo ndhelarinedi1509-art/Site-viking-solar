@@ -10,7 +10,7 @@ const highlights = [
 
 export function HomeAboutPreview() {
   return (
-    <section className="relative py-24 border-t border-border">
+    <section className="relative py-20 sm:py-24 border-t border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
           {/* Left */}

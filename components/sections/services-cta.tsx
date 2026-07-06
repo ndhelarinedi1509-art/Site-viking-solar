@@ -26,7 +26,7 @@ export function ServicesCTA() {
     <section className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <FadeIn>
-          <div className="sv-cta-card relative overflow-hidden rounded-[28px] border border-green/15 bg-[linear-gradient(145deg,#0C1828,#081220)] px-6 sm:px-12 lg:px-16 py-16 sm:py-20 text-center">
+          <div className="sv-cta-card relative overflow-hidden rounded-[28px] border border-green/15 bg-[linear-gradient(145deg,#0C1828,#081220)] p-10 sm:p-14 lg:p-16 text-center">
             {/* Animated glow */}
             <div className="pointer-events-none absolute -top-[200px] left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[radial-gradient(circle,rgba(34,197,94,0.06)_0%,rgba(59,130,246,0.04)_40%,transparent_70%)] animate-[sv-glow-pulse_4s_ease-in-out_infinite]" />
 

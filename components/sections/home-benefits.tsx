@@ -14,7 +14,7 @@ const iconMap: Record<string, React.ReactNode> = {
 
 export function HomeBenefits() {
   return (
-    <section className="relative py-24 border-t border-border">
+    <section className="relative py-20 sm:py-24 border-t border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto mb-14">

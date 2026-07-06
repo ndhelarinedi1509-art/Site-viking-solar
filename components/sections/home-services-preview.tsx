@@ -24,10 +24,10 @@ const colorMap: Record<string, { bg: string; color: string; border: string }> = 
 
 export function HomeServicesPreview() {
   return (
-    <section className="relative py-24 border-t border-border">
+    <section className="relative py-20 sm:py-24 border-t border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
-          <div className="text-center max-w-2xl mx-auto mb-16">
+          <div className="text-center max-w-2xl mx-auto mb-14">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">Nos Solutions Énergétiques</h2>
             <p className="mt-4 text-base text-gray-400">
               Une gamme complète de services pour répondre à tous les besoins énergétiques, en résidentiel et industriel.

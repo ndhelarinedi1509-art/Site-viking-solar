@@ -40,7 +40,7 @@ function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
 
 export function ServicesGrid() {
   return (
-    <section id="sv-services" className="py-24 sm:py-28 border-t border-border bg-bg-primary">
+    <section id="sv-services" className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-14">
