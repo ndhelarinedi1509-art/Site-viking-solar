@@ -164,7 +164,7 @@ export function ContactFormSection() {
                       type="text"
                       placeholder={t('contact.form.namePlaceholder')}
                       {...register('name')}
-                      className="w-full rounded-xl border border-white/10 bg-white/[0.05] px-5 py-3.5 text-base text-white placeholder:text-gray-500 transition-colors focus:border-green focus:bg-white/[0.08] focus:outline-none"
+                      className="w-full rounded-xl border border-white/10 bg-white px-5 py-3.5 text-base text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
                     />
                     {errors.name?.message && <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>}
                   </div>
@@ -177,7 +177,7 @@ export function ContactFormSection() {
                       type="tel"
                       placeholder={t('contact.form.phonePlaceholder')}
                       {...register('phone')}
-                      className="w-full rounded-xl border border-white/10 bg-white/[0.05] px-5 py-3.5 text-base text-white placeholder:text-gray-500 transition-colors focus:border-green focus:bg-white/[0.08] focus:outline-none"
+                      className="w-full rounded-xl border border-white/10 bg-white px-5 py-3.5 text-base text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
                     />
                     {errors.phone?.message && <p className="mt-1 text-xs text-red-400">{errors.phone.message}</p>}
                   </div>
@@ -192,7 +192,7 @@ export function ContactFormSection() {
                     type="email"
                     placeholder={t('contact.form.emailPlaceholder')}
                     {...register('email')}
-                    className="w-full rounded-xl border border-white/10 bg-white/[0.05] px-5 py-3.5 text-base text-white placeholder:text-gray-500 transition-colors focus:border-green focus:bg-white/[0.08] focus:outline-none"
+                    className="w-full rounded-xl border border-white/10 bg-white px-5 py-3.5 text-base text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
                   />
                   {errors.email?.message && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
                 </div>
@@ -205,7 +205,7 @@ export function ContactFormSection() {
                     id="service"
                     {...register('service')}
                     defaultValue=""
-                    className="w-full rounded-xl border border-white/10 bg-white/[0.05] px-5 py-3.5 text-base text-white transition-colors focus:border-green focus:bg-white/[0.08] focus:outline-none"
+                    className="w-full rounded-xl border border-white/10 bg-white px-5 py-3.5 text-base text-gray-900 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
                   >
                     <option value="" disabled className="bg-bg-card">{t('contact.form.servicePlaceholder')}</option>
                     {serviceOptions.map((s) => (
@@ -224,7 +224,7 @@ export function ContactFormSection() {
                     placeholder={t('contact.form.messagePlaceholder')}
                     rows={4}
                     {...register('message')}
-                    className="w-full resize-y rounded-xl border border-white/10 bg-white/[0.05] px-5 py-3.5 text-base text-white placeholder:text-gray-500 transition-colors focus:border-green focus:bg-white/[0.08] focus:outline-none min-h-[120px]"
+                    className="w-full resize-y rounded-xl border border-white/10 bg-white px-5 py-3.5 text-base text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none min-h-[120px]"
                   />
                   {errors.message?.message && <p className="mt-1 text-xs text-red-400">{errors.message.message}</p>}
                 </div>

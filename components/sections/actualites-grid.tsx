@@ -230,7 +230,7 @@ export function ActualitesGrid() {
                   <input value={commentTexts[item.id] ?? ''} onChange={(e) => setCommentTexts((prev) => ({ ...prev, [item.id]: e.target.value }))}
                     onKeyDown={(e) => e.key === 'Enter' && handleComment(item.id)}
                     placeholder={t('actualites.comments.placeholder')}
-                    className="flex-1 rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
+                    className="flex-1 rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
                   <button onClick={() => handleComment(item.id)}
                     disabled={!commentTexts[item.id]?.trim()}
                     className="h-10 w-10 rounded-xl bg-green text-bg-primary flex items-center justify-center hover:bg-green-dark transition-colors disabled:opacity-40 disabled:pointer-events-none">

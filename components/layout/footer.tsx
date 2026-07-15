@@ -94,14 +94,14 @@ export function Footer() {
             </ul>
             {/* Newsletter */}
             <form
-              className="mt-4 flex items-center gap-2 rounded-full border border-border bg-white/5 p-1.5 pl-4"
+              className="mt-4 flex items-center gap-2 rounded-full border border-border bg-white p-1.5 pl-4"
               onSubmit={(e) => { e.preventDefault(); alert('Merci pour votre inscription !'); }}
             >
               <input
                 type="email"
                 placeholder={t('footer.newsletter.placeholder')}
                 required
-                className="flex-1 bg-transparent text-sm text-white placeholder:text-gray-500 outline-none border-none"
+                className="flex-1 bg-transparent text-sm text-gray-900 placeholder:text-gray-400 outline-none border-none"
               />
               <button
                 type="submit"

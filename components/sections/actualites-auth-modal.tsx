@@ -151,7 +151,7 @@ export function ActualitesAuthModal({ open, onClose }: Props) {
                   <label className="block text-sm font-medium text-gray-300">{t('actualites.auth.emailOrPhone')}</label>
                   <input type="text" value={resetContact} onChange={(e) => setResetContact(e.target.value)}
                     placeholder={t('actualites.auth.emailPlaceholder')}
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
+                    className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
                 </div>
                 <button type="submit" disabled={loading}
                   className="w-full h-11 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2">
@@ -179,7 +179,7 @@ export function ActualitesAuthModal({ open, onClose }: Props) {
                   <label className="block text-sm font-medium text-gray-300">{t('actualites.auth.resetCode')}</label>
                   <input type="text" value={resetCode} onChange={(e) => setResetCode(e.target.value.toUpperCase())}
                     placeholder="ABC123" maxLength={6}
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors text-center tracking-[0.3em] font-mono" />
+                    className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors text-center tracking-[0.3em] font-mono" />
                 </div>
                 <button type="submit" disabled={loading}
                   className="w-full h-11 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2">
@@ -200,7 +200,7 @@ export function ActualitesAuthModal({ open, onClose }: Props) {
                   <label className="block text-sm font-medium text-gray-300">{t('admin.login.password')}</label>
                   <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
+                    className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
                 </div>
                 <button type="submit" disabled={loading}
                   className="w-full h-11 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2">
@@ -243,7 +243,7 @@ export function ActualitesAuthModal({ open, onClose }: Props) {
                   <label className="block text-sm font-medium text-gray-300">{t('actualites.auth.emailOrPhone')}</label>
                   <input type="text" value={loginEmail} onChange={(e) => setLoginEmail(e.target.value)}
                     placeholder={t('actualites.auth.emailPlaceholder')}
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
+                    className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
                 </div>
                 <div className="space-y-1.5">
                   <div className="flex items-center justify-between">
@@ -255,7 +255,7 @@ export function ActualitesAuthModal({ open, onClose }: Props) {
                   </div>
                   <input type="password" value={loginPassword} onChange={(e) => setLoginPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
+                    className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
                 </div>
                 <button type="submit" disabled={loading}
                   className="w-full h-11 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2">
@@ -268,25 +268,25 @@ export function ActualitesAuthModal({ open, onClose }: Props) {
                   <label className="block text-sm font-medium text-gray-300">{t('contact.form.name')}</label>
                   <input type="text" value={regName} onChange={(e) => setRegName(e.target.value)}
                     placeholder={t('contact.form.namePlaceholder')}
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
+                    className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
                 </div>
                 <div className="space-y-1.5">
                   <label className="block text-sm font-medium text-gray-300">{t('contact.form.email')}</label>
                   <input type="email" value={regEmail} onChange={(e) => setRegEmail(e.target.value)}
                     placeholder={t('contact.form.emailPlaceholder')}
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
+                    className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
                 </div>
                 <div className="space-y-1.5">
                   <label className="block text-sm font-medium text-gray-300">{t('contact.form.phone')}</label>
                   <input type="tel" value={regPhone} onChange={(e) => setRegPhone(e.target.value)}
                     placeholder={t('contact.form.phonePlaceholder')}
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
+                    className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
                 </div>
                 <div className="space-y-1.5">
                   <label className="block text-sm font-medium text-gray-300">{t('admin.login.password')}</label>
                   <input type="password" value={regPassword} onChange={(e) => setRegPassword(e.target.value)}
                     placeholder="••••••••"
-                    className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
+                    className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
                 </div>
                 <button type="submit" disabled={loading}
                   className="w-full h-11 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2">

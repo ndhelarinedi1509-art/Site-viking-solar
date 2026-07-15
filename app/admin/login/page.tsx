@@ -76,7 +76,7 @@ export default function AdminLoginPage() {
               <input
                 type="email"
                 placeholder={t('admin.loginExtra.adminPlaceholder')}
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
+                className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
                 {...register('email')}
               />
               {errors.email && <p className="text-xs text-accent-red">{errors.email.message}</p>}
@@ -87,7 +87,7 @@ export default function AdminLoginPage() {
               <input
                 type="password"
                 placeholder="••••••••"
-                className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
+                className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
                 {...register('password')}
               />
               {errors.password && (

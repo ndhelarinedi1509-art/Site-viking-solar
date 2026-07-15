@@ -135,7 +135,7 @@ function InputField({ label, value, onChange, placeholder }: {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
-        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
+        className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
       />
     </div>
   );
@@ -153,7 +153,7 @@ function TextareaField({ label, value, onChange }: {
         value={value}
         onChange={(e) => onChange(e.target.value)}
         rows={3}
-        className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors resize-y"
+        className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors resize-y"
       />
     </div>
   );
@@ -177,11 +177,11 @@ function ButtonsEditor({ buttons, onChange }: {
         <div key={i} className="flex items-start gap-2">
           <div className="flex-1 grid grid-cols-3 gap-2">
             <input value={btn.label} onChange={(e) => update(i, 'label', e.target.value)}
-              placeholder="Label" className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none" />
+              placeholder="Label" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none" />
             <input value={btn.href} onChange={(e) => update(i, 'href', e.target.value)}
-              placeholder="/lien" className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none" />
+              placeholder="/lien" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none" />
             <select value={btn.variant} onChange={(e) => update(i, 'variant', e.target.value)}
-              className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white focus:border-green/50 focus:outline-none">
+              className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 focus:border-green/50 focus:outline-none">
               <option value="primary">Primaire</option>
               <option value="outline">Contour</option>
               <option value="ghost">Ghost</option>
@@ -209,11 +209,11 @@ function SingleButtonEditor({ button, onChange }: {
     <div className="flex items-start gap-2">
       <div className="flex-1 grid grid-cols-3 gap-2">
         <input value={button.label} onChange={(e) => onChange({ ...button, label: e.target.value })}
-          placeholder="Label" className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none" />
+          placeholder="Label" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none" />
         <input value={button.href} onChange={(e) => onChange({ ...button, href: e.target.value })}
-          placeholder="/lien" className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none" />
+          placeholder="/lien" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none" />
         <select value={button.variant} onChange={(e) => onChange({ ...button, variant: e.target.value })}
-          className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white focus:border-green/50 focus:outline-none">
+          className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 focus:border-green/50 focus:outline-none">
           <option value="primary">Primaire</option>
           <option value="outline">Contour</option>
           <option value="ghost">Ghost</option>
@@ -286,11 +286,11 @@ function ImagesEditor({ images, onChange }: {
         <div key={i} className="flex items-start gap-2">
           <div className="flex-1 grid grid-cols-2 gap-2">
             <input value={img.url} onChange={(e) => update(i, 'url', e.target.value)}
-              placeholder="URL de l'image" className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none col-span-2" />
+              placeholder="URL de l'image" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none col-span-2" />
             <input value={img.alt ?? ''} onChange={(e) => update(i, 'alt', e.target.value)}
-              placeholder="Texte alternatif" className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none" />
+              placeholder="Texte alternatif" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none" />
             <input value={img.caption ?? ''} onChange={(e) => update(i, 'caption', e.target.value)}
-              placeholder="Légende" className="rounded-lg border border-white/10 bg-white/5 px-3 py-2 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none" />
+              placeholder="Légende" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none" />
           </div>
           <button onClick={() => remove(i)}
             className="mt-1 h-8 w-8 rounded-lg bg-accent-red/10 text-accent-red hover:bg-accent-red/20 flex items-center justify-center text-sm transition-colors">

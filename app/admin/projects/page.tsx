@@ -72,7 +72,7 @@ export default function AdminProjectsPage() {
                   value={project.title}
                   onChange={(e) => updateProject(project.id, 'title', e.target.value)}
                   placeholder={t('admin.projectsPage.titlePlaceholder')}
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
+                  className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
                 />
               </div>
               <div className="space-y-1.5">
@@ -81,7 +81,7 @@ export default function AdminProjectsPage() {
                   value={project.category}
                   onChange={(e) => updateProject(project.id, 'category', e.target.value)}
                   placeholder={t('admin.projectsPage.categoryPlaceholder')}
-                  className="w-full rounded-xl border border-white/10 bg-white/5 px-4 py-2.5 text-sm text-white placeholder:text-gray-500 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
+                  className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
                 />
               </div>
               <div className="flex items-center gap-2 pt-1">
