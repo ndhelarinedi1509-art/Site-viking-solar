@@ -119,6 +119,54 @@ export interface AuthUser {
   phone: string;
 }
 
+export interface PageSection {
+  id: string;
+  page_key: string;
+  section_key: string;
+  section_type: SectionType;
+  label: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  content: Record<string, unknown>;
+  images: MediaItem[];
+  sort_order: number;
+  is_published: boolean;
+  created_at: string;
+  updated_at: string;
+  updated_by: string;
+}
+
+export type SectionType = 'hero' | 'text' | 'cards' | 'image-text' | 'cta' | 'gallery' | 'faq' | 'team' | 'stats' | 'benefits';
+
+export interface MediaItem {
+  url: string;
+  alt?: string;
+  caption?: string;
+}
+
+export interface SiteMedia {
+  id: string;
+  url: string;
+  alt: string;
+  caption: string;
+  filename: string;
+  mime_type: string;
+  size_bytes: number;
+  width: number;
+  height: number;
+  created_at: string;
+  created_by: string;
+}
+
+export interface PageInfo {
+  key: string;
+  label: string;
+  icon: string;
+  sections: number;
+  published: boolean;
+}
+
 export interface PaginationParams {
   page: number;
   limit: number;
