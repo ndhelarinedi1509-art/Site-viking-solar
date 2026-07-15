@@ -48,7 +48,6 @@ export function AboutTeam() {
                 <div className="group rounded-2xl border border-border bg-bg-card p-6 sm:p-7 text-center transition-all duration-[0.45s] ease-premium will-change-transform hover:-translate-y-2 hover:scale-[1.02] hover:border-green/25 hover:shadow-[0_16px_40px_rgba(0,0,0,0.35),0_0_20px_rgba(34,197,94,0.12)]">
                   <div className={cn('mx-auto mb-5 flex h-20 w-20 items-center justify-center rounded-full ring-2 overflow-hidden', member.photo ? 'ring-green/30' : accent.ring)}>
                     {member.photo ? (
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img src={member.photo} alt={member.name} className="h-full w-full object-cover" />
                     ) : (
                       <svg width="36" height="36" viewBox="0 0 24 24" fill={accent.iconFill}>

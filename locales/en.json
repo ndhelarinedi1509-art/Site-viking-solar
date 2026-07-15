@@ -400,7 +400,8 @@
     },
     "map": {
       "title": "Our Office in Kinshasa",
-      "comingSoon": "Coming soon on the interactive map"
+      "subtitle": "Kinshasa, DRC — Click to open in Google Maps",
+      "openLarger": "Open in OpenStreetMap &rarr;"
     },
     "faq": {
       "badge": "Frequently asked questions",

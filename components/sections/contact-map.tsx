@@ -7,24 +7,47 @@ import { useTranslation } from 'react-i18next';
 export function ContactMap() {
   const { t } = useTranslation();
   const { ref, isInView } = useInView();
+
   return (
     <section className="pb-16">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div
           ref={ref}
           className={cn(
-            'relative flex h-[450px] flex-col items-center justify-center overflow-hidden rounded-2xl border border-border bg-bg-card text-center transition-all duration-700 ease-premium',
+            'overflow-hidden rounded-2xl border border-border bg-bg-card transition-all duration-700 ease-premium',
             isInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8',
           )}
         >
-          <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_center,rgba(34,197,94,0.05)_0%,transparent_60%)]" />
-
-          <svg width="64" height="64" viewBox="0 0 24 24" fill="currentColor" className="text-green/70 mb-4">
-            <path d="M20.5 3l-.16.03L15 5.1 9 3 3.36 4.9c-.21.07-.36.25-.36.48V20.5c0 .28.22.5.5.5l.16-.03L9 18.9l6 2.1 5.64-1.9c.21-.07.36-.25.36-.48V3.5c0-.28-.22-.5-.5-.5zM15 19l-6-2.11V5l6 2.11V19z" />
-          </svg>
-
-          <h4 className="text-[1.5rem] font-bold text-white mb-2">{t('contact.map.title')}</h4>
-          <p className="text-base text-gray-500">{t('contact.map.comingSoon')}</p>
+          <div className="p-5 sm:p-6 border-b border-border">
+            <h3 className="text-lg font-bold text-white">{t('contact.map.title')}</h3>
+            <p className="text-sm text-gray-500 mt-0.5">{t('contact.map.subtitle')}</p>
+          </div>
+          <div className="relative w-full" style={{ height: 'clamp(300px, 50vw, 450px)' }}>
+            <iframe
+              src="https://www.openstreetmap.org/export/embed.html?bbox=15.19%2C-4.38%2C15.45%2C-4.27&amp;layer=mapnik&amp;marker=-4.325%2C15.322"
+              width="100%"
+              height="100%"
+              style={{ border: 0 }}
+              title={t('contact.map.title')}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              className="absolute inset-0"
+            />
+          </div>
+          <div className="p-3 sm:p-4 flex flex-wrap items-center justify-between gap-2 border-t border-border bg-white/2">
+            <a
+              href="https://www.openstreetmap.org/?mlat=-4.325&mlon=15.322#map=14/-4.325/15.322"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-xs font-medium text-green hover:text-green-dark transition-colors"
+            >
+              {t('contact.map.openLarger')}
+            </a>
+            <span className="text-[0.65rem] text-gray-600">
+              &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">OpenStreetMap</a>
+            </span>
+          </div>
         </div>
       </div>
     </section>

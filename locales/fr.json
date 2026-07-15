@@ -400,7 +400,8 @@
     },
     "map": {
       "title": "Nos Bureaux à Kinshasa",
-      "comingSoon": "Bientôt disponible sur la carte interactive"
+      "subtitle": "Kinshasa, RDC — Cliquez pour ouvrir dans Google Maps",
+      "openLarger": "Ouvrir dans OpenStreetMap &rarr;"
     },
     "faq": {
       "badge": "Questions fréquentes",
