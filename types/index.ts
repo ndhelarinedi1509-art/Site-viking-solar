@@ -101,6 +101,15 @@ export interface ApiResponse<T = unknown> {
   status: number;
 }
 
+export interface Comment {
+  id: string;
+  articleId: string;
+  userId: string;
+  userName: string;
+  text: string;
+  date: string;
+}
+
 export interface Actualite {
   id: string;
   title: string;

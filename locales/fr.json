@@ -479,7 +479,7 @@
       "register": "Créer un compte",
       "loginTab": "Connexion",
       "registerTab": "Inscription",
-      "emailLabel": "Email ou téléphone",
+      "emailOrPhone": "Email ou téléphone",
       "emailPlaceholder": "email@exemple.com ou +243...",
       "passwordLabel": "Mot de passe",
       "passwordPlaceholder": "Votre mot de passe",
@@ -490,7 +490,32 @@
       "loginSuccess": "Connexion réussie",
       "registerSuccess": "Compte créé avec succès",
       "alreadyRegistered": "Déjà inscrit ? Connectez-vous",
-      "invalidCredentials": "Email ou mot de passe incorrect"
+      "invalidCredentials": "Email ou mot de passe incorrect",
+      "forgotPassword": "Mot de passe oublié ?",
+      "forgotDescription": "Entrez votre email ou numéro de téléphone. Nous vous enverrons un code de réinitialisation.",
+      "emailRequired": "Veuillez entrer votre email ou téléphone",
+      "emailNotFound": "Aucun compte trouvé avec cet email ou téléphone",
+      "codeRequired": "Veuillez entrer le code de réinitialisation",
+      "invalidCode": "Code invalide ou expiré",
+      "passwordMinLength": "Le mot de passe doit contenir au moins 4 caractères",
+      "sendCode": "Envoyer le code",
+      "yourCode": "Votre code de réinitialisation",
+      "codeSentTo": "Un code a été envoyé à",
+      "resetCode": "Code de réinitialisation",
+      "verifyCode": "Vérifier le code",
+      "newPasswordDescription": "Choisissez un nouveau mot de passe pour votre compte.",
+      "resetPasswordBtn": "Réinitialiser le mot de passe",
+      "passwordResetSuccess": "Mot de passe réinitialisé !",
+      "passwordResetDescription": "Votre mot de passe a été modifié avec succès. Connectez-vous avec votre nouveau mot de passe.",
+      "emailOrPhone": "Email ou téléphone"
+    },
+    "comments": {
+      "placeholder": "Écrire un commentaire...",
+      "loginToComment": "pour commenter et interagir avec les articles.",
+      "like": "J'aime",
+      "likes": "j'aime",
+      "comment": "Commentaire",
+      "comments": "commentaires"
     }
   },
   "admin": {

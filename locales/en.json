@@ -479,7 +479,7 @@
       "register": "Create account",
       "loginTab": "Login",
       "registerTab": "Register",
-      "emailLabel": "Email or phone",
+      "emailOrPhone": "Email or phone",
       "emailPlaceholder": "email@example.com or +243...",
       "passwordLabel": "Password",
       "passwordPlaceholder": "Your password",
@@ -490,7 +490,32 @@
       "loginSuccess": "Login successful",
       "registerSuccess": "Account created successfully",
       "alreadyRegistered": "Already registered? Log in",
-      "invalidCredentials": "Invalid email or password"
+      "invalidCredentials": "Invalid email or password",
+      "forgotPassword": "Forgot password?",
+      "forgotDescription": "Enter your email or phone number. We'll send you a reset code.",
+      "emailRequired": "Please enter your email or phone",
+      "emailNotFound": "No account found with this email or phone",
+      "codeRequired": "Please enter the reset code",
+      "invalidCode": "Invalid or expired code",
+      "passwordMinLength": "Password must be at least 4 characters",
+      "sendCode": "Send code",
+      "yourCode": "Your reset code",
+      "codeSentTo": "A code has been sent to",
+      "resetCode": "Reset code",
+      "verifyCode": "Verify code",
+      "newPasswordDescription": "Choose a new password for your account.",
+      "resetPasswordBtn": "Reset password",
+      "passwordResetSuccess": "Password reset!",
+      "passwordResetDescription": "Your password has been changed successfully. Log in with your new password.",
+      "emailOrPhone": "Email or phone"
+    },
+    "comments": {
+      "placeholder": "Write a comment...",
+      "loginToComment": "to comment and interact with articles.",
+      "like": "Like",
+      "likes": "likes",
+      "comment": "Comment",
+      "comments": "comments"
     }
   },
   "admin": {
