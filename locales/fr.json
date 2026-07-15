@@ -532,6 +532,7 @@
       "team": "Équipe",
       "settings": "Configuration",
       "role": "Rôle: Super Admin",
+      "adminName": "Admin Principal",
       "title": "Administration",
       "viewSite": "Voir le site",
       "logout": "Déconnexion"
@@ -567,6 +568,18 @@
       "add": "Ajouter un projet",
       "saved": "Projet sauvegardé",
       "deleted": "Projet supprimé"
+    },
+    "pages": {
+      "title": "Pages",
+      "description": "Sélectionnez une page à modifier",
+      "preview": "Aperçu",
+      "publishAll": "Tout publier"
+    },
+    "media": {
+      "title": "Médiathèque",
+      "upload": "Uploader",
+      "empty": "Aucun fichier",
+      "uploadFirst": "Uploader votre première image"
     },
     "content": {
       "management": "Gestion du Contenu",

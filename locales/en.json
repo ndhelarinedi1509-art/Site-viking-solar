@@ -532,6 +532,7 @@
       "team": "Team",
       "settings": "Settings",
       "role": "Role: Super Admin",
+      "adminName": "Main Admin",
       "title": "Administration",
       "viewSite": "View site",
       "logout": "Logout"
@@ -567,6 +568,18 @@
       "add": "Add a project",
       "saved": "Project saved",
       "deleted": "Project deleted"
+    },
+    "pages": {
+      "title": "Pages",
+      "description": "Select a page to edit",
+      "preview": "Preview",
+      "publishAll": "Publish all"
+    },
+    "media": {
+      "title": "Media Library",
+      "upload": "Upload",
+      "empty": "No files",
+      "uploadFirst": "Upload your first image"
     },
     "content": {
       "management": "Content Management",
