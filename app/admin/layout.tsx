@@ -54,21 +54,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <div className={`px-4 py-5 border-b border-white/6 flex items-center ${sidebarOpen ? 'justify-between' : 'justify-center'}`}>
           {sidebarOpen ? (
             <Link href="/admin" className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-green/10 border border-green/30 flex items-center justify-center flex-shrink-0">
-                <svg width="18" height="18" viewBox="0 0 32 32" fill="none">
-                  <circle cx="16" cy="16" r="14" stroke="#22C55E" strokeWidth="2" />
-                  <path d="M16 6L18.5 13H26L20 17.5L22.5 25L16 20.5L9.5 25L12 17.5L6 13H13.5L16 6Z" fill="#22C55E" />
-                </svg>
+              <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden bg-white/10">
+                <img src="/logo.webp" alt="Vicking Solar" className="h-full w-full object-contain" />
               </div>
-              <span className="text-base font-bold text-white">Viking Solar</span>
+              <span className="text-base font-bold text-white">Vicking Solar</span>
             </Link>
           ) : (
             <Link href="/admin">
-              <div className="w-9 h-9 rounded-full bg-green/10 border border-green/30 flex items-center justify-center">
-                <svg width="18" height="18" viewBox="0 0 32 32" fill="none">
-                  <circle cx="16" cy="16" r="14" stroke="#22C55E" strokeWidth="2" />
-                  <path d="M16 6L18.5 13H26L20 17.5L22.5 25L16 20.5L9.5 25L12 17.5L6 13H13.5L16 6Z" fill="#22C55E" />
-                </svg>
+              <div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden bg-white/10">
+                <img src="/logo.webp" alt="Vicking Solar" className="h-full w-full object-contain" />
               </div>
             </Link>
           )}
@@ -141,8 +135,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         {sidebarOpen && (
           <div className="px-4 py-4 border-t border-white/6">
             <div className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-full bg-green/10 border border-green/30 flex items-center justify-center text-sm font-bold text-green flex-shrink-0">
-                A
+              <div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden bg-white/10 border border-white/10 flex-shrink-0">
+                <img src="/logo.webp" alt="Admin" className="h-full w-full object-contain" />
               </div>
               <div className="min-w-0">
                 <p className="text-sm font-medium text-white truncate">{t('admin.layout.adminName')}</p>
@@ -170,11 +164,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               {t('admin.layout.viewSite')}
               <ExternalLink className="h-4 w-4" />
             </a>
-            <Link href="/admin/login"
+            <button onClick={async () => { await fetch('/api/auth/logout', { method: 'POST' }); window.location.href = '/admin/login'; }}
               className="flex items-center gap-2 text-sm text-gray-400 hover:text-accent-red transition-colors">
               <LogOut className="h-4 w-4" />
               {t('admin.layout.logout')}
-            </Link>
+            </button>
           </div>
         </header>
         <main className="flex-1 p-6 overflow-auto">{children}</main>

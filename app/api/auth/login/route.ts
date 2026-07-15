@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
+import { cookies } from 'next/headers';
 import { serverT } from '@/lib/i18n/server';
 
 const loginSchema = z.object({
@@ -22,12 +23,29 @@ export async function POST(request: Request) {
 
     const { email, password } = result.data;
 
-    if (password !== 'password') {
+    const adminEmail = process.env.ADMIN_EMAIL || 'admin@vickingsolar.com';
+    const adminPassword = process.env.ADMIN_PASSWORD || 'Admin123!';
+
+    if (email !== adminEmail || password !== adminPassword) {
       return NextResponse.json(
         { error: serverT('admin.login.error') },
         { status: 401 },
       );
     }
+
+    // Create a simple session token
+    const token = Buffer.from(
+      JSON.stringify({ email, role: 'admin', ts: Date.now() })
+    ).toString('base64');
+
+    const cookieStore = await cookies();
+    cookieStore.set('viking-admin-session', token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      maxAge: 60 * 60 * 24, // 24 hours
+    });
 
     return NextResponse.json({
       message: serverT('admin.login.submit'),

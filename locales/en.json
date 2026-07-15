@@ -569,6 +569,8 @@
       "adminId": "Admin ID",
       "adminPlaceholder": "ex: admin@vickingsolar.com",
       "secureLogin": "Secure Login",
+      "forgotPassword": "Forgot password?",
+      "forgotDescription": "Enter your admin email to receive a reset code.",
       "saasProtection": "SaaS Protection Active"
     },
     "messages": {
