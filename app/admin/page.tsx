@@ -6,6 +6,7 @@ import Link from 'next/link';
 import {
   FolderOpen, Users, MessageSquare, Mail, FileEdit, Image,
   TrendingUp, ArrowRight, Loader2, Home, Newspaper, Info, Zap,
+  ShieldCheck,
 } from 'lucide-react';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -59,6 +60,7 @@ export default function AdminDashboardPage() {
     { label: 'Modifier Services', href: '/admin/pages/services', icon: Zap, color: 'text-accent-orange' },
     { label: 'Médias', href: '/admin/media', icon: Image, color: 'text-accent-purple' },
     { label: 'Messages', href: '/admin/messages', icon: Mail, color: 'text-accent-teal' },
+    { label: 'Administrateurs', href: '/admin/users', icon: Users, color: 'text-accent-orange' },
     { label: 'Paramètres', href: '/admin/settings', icon: FileEdit, color: 'text-gray-400' },
   ];
 

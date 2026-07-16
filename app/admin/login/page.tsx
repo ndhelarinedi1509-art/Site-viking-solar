@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,10 +21,10 @@ type ForgotStep = 'request' | 'verify' | 'reset' | 'done';
 export default function AdminLoginPage() {
   const { t } = useTranslation();
   const router = useRouter();
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [submitLoading, setSubmitLoading] = useState(false);
   const [error, setError] = useState('');
 
-  // Forgot password state
   const [forgotOpen, setForgotOpen] = useState(false);
   const [forgotStep, setForgotStep] = useState<ForgotStep>('request');
   const [resetEmail, setResetEmail] = useState('');
@@ -40,37 +40,48 @@ export default function AdminLoginPage() {
     resolver: zodResolver(loginSchema(t)),
   });
 
+  useEffect(() => {
+    fetch('/api/admin/auth/setup')
+      .then((r) => r.json())
+      .then((d) => {
+        if (d.setupRequired) {
+          router.replace('/admin/setup');
+        } else {
+          setLoading(false);
+        }
+      })
+      .catch(() => setLoading(false));
+  }, [router]);
+
   const onSubmit = async (data: LoginValues) => {
-    setLoading(true);
+    setSubmitLoading(true);
     setError('');
     try {
-      const res = await fetch('/api/auth/login', {
+      const res = await fetch('/api/admin/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       });
-
       if (!res.ok) {
         const err = await res.json();
         setError(err.error || t('admin.login.error'));
         return;
       }
-
       router.push('/admin');
       router.refresh();
     } catch {
       setError(t('error.description'));
     } finally {
-      setLoading(false);
+      setSubmitLoading(false);
     }
   };
 
   const handleRequestCode = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!resetEmail) { setError(t('actualites.auth.emailRequired')); return; }
-    setError(''); setLoading(true);
+    setError(''); setSubmitLoading(true);
     try {
-      const res = await fetch('/api/auth/forgot-password', {
+      const res = await fetch('/api/admin/auth/forgot-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: resetEmail }),
@@ -81,31 +92,30 @@ export default function AdminLoginPage() {
     } catch {
       setError(t('error.description'));
     } finally {
-      setLoading(false);
+      setSubmitLoading(false);
     }
   };
 
   const handleVerifyCode = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!resetCode) { setError(t('actualites.auth.codeRequired')); return; }
-    setError(''); setLoading(true);
-    // Simple client-side verification for dev
+    setError(''); setSubmitLoading(true);
     if (resetCode === generatedCode) {
       setForgotStep('reset');
     } else {
       setError(t('actualites.auth.invalidCode'));
     }
-    setLoading(false);
+    setSubmitLoading(false);
   };
 
   const handleResetPassword = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!newPassword || newPassword.length < 4) {
+    if (!newPassword || newPassword.length < 8) {
       setError(t('actualites.auth.passwordMinLength')); return;
     }
-    setError(''); setLoading(true);
+    setError(''); setSubmitLoading(true);
     try {
-      const res = await fetch('/api/auth/reset-password', {
+      const res = await fetch('/api/admin/auth/reset-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: resetEmail, code: resetCode, password: newPassword }),
@@ -115,9 +125,17 @@ export default function AdminLoginPage() {
     } catch {
       setError(t('error.description'));
     } finally {
-      setLoading(false);
+      setSubmitLoading(false);
     }
   };
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-bg-primary flex items-center justify-center">
+        <Loader2 className="h-8 w-8 text-green animate-spin" />
+      </div>
+    );
+  }
 
   return (
     <div className="min-h-screen bg-bg-primary flex items-center justify-center px-4">
@@ -133,7 +151,6 @@ export default function AdminLoginPage() {
 
           {error && <p className="text-xs text-accent-red mb-4 text-center">{error}</p>}
 
-          {/* ── Forgot Password Flow ── */}
           {forgotOpen ? (
             <>
               {forgotStep === 'request' && (
@@ -157,9 +174,9 @@ export default function AdminLoginPage() {
                       placeholder={t('admin.loginExtra.adminPlaceholder')}
                       className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
                   </div>
-                  <button type="submit" disabled={loading}
+                  <button type="submit" disabled={submitLoading}
                     className="w-full h-11 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all disabled:opacity-50 flex items-center justify-center gap-2">
-                    {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : t('actualites.auth.sendCode')}
+                    {submitLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : t('actualites.auth.sendCode')}
                   </button>
                 </form>
               )}
@@ -185,9 +202,9 @@ export default function AdminLoginPage() {
                       placeholder="ABC123" maxLength={6}
                       className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors text-center tracking-[0.3em] font-mono" />
                   </div>
-                  <button type="submit" disabled={loading}
+                  <button type="submit" disabled={submitLoading}
                     className="w-full h-11 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all disabled:opacity-50 flex items-center justify-center gap-2">
-                    {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : t('actualites.auth.verifyCode')}
+                    {submitLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : t('actualites.auth.verifyCode')}
                   </button>
                 </form>
               )}
@@ -206,9 +223,9 @@ export default function AdminLoginPage() {
                       placeholder="••••••••"
                       className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
                   </div>
-                  <button type="submit" disabled={loading}
+                  <button type="submit" disabled={submitLoading}
                     className="w-full h-11 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all disabled:opacity-50 flex items-center justify-center gap-2">
-                    {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : t('actualites.auth.resetPasswordBtn')}
+                    {submitLoading ? <Loader2 className="h-4 w-4 animate-spin" /> : t('actualites.auth.resetPasswordBtn')}
                   </button>
                 </form>
               )}
@@ -228,7 +245,6 @@ export default function AdminLoginPage() {
               )}
             </>
           ) : (
-            /* ── Login Form ── */
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="space-y-1.5">
                 <label className="block text-sm font-medium text-gray-300">{t('admin.loginExtra.adminId')}</label>
@@ -252,9 +268,9 @@ export default function AdminLoginPage() {
                 {errors.password && <p className="text-xs text-accent-red">{errors.password.message}</p>}
               </div>
 
-              <button type="submit" disabled={loading}
+              <button type="submit" disabled={submitLoading}
                 className="w-full h-11 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all duration-300 active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none flex items-center justify-center gap-2">
-                {loading ? (
+                {submitLoading ? (
                   <Loader2 className="h-4 w-4 animate-spin" />
                 ) : (
                   <><Lock className="h-4 w-4" />{t('admin.loginExtra.secureLogin')}</>

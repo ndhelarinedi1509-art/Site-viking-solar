@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import {
   LayoutDashboard, FileEdit, Image, Mail, Users, Settings,
   ExternalLink, LogOut, PanelRightClose, PanelRight, Loader2,
-  Home, Newspaper, Info, Zap, FolderOpen, ChevronRight,
+  Home, Newspaper, Info, Zap, FolderOpen,
 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import type { PageInfo } from '@/types';
@@ -20,18 +20,25 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const pathname = usePathname();
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [pages, setPages] = useState<PageInfo[]>([]);
+  const [sessionUser, setSessionUser] = useState<{ name: string; email: string; role: string } | null>(null);
+  const [sessionLoading, setSessionLoading] = useState(true);
 
   const fetchPages = useCallback(async () => {
     try {
       const res = await fetch('/api/admin/sections');
       const json = await res.json();
       setPages(json.data ?? []);
-    } catch {
-      // silent
-    }
+    } catch { /* silent */ }
   }, []);
 
-  useEffect(() => { fetchPages(); }, [fetchPages]);
+  useEffect(() => {
+    fetch('/api/admin/auth/session')
+      .then((r) => r.ok ? r.json() : Promise.reject())
+      .then((d) => setSessionUser(d.user))
+      .catch(() => {})
+      .finally(() => setSessionLoading(false));
+    fetchPages();
+  }, [fetchPages]);
 
   const mainNavItems = [
     { href: '/admin', label: t('admin.layout.dashboard'), icon: LayoutDashboard },
@@ -39,10 +46,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: '/admin/media', label: 'Médias', icon: Image },
     { href: '/admin/messages', label: t('admin.layout.messages'), icon: Mail },
     { href: '/admin/team', label: t('admin.layout.team'), icon: Users },
+    { href: '/admin/users', label: 'Administrateurs', icon: Users },
     { href: '/admin/settings', label: t('admin.layout.settings'), icon: Settings },
   ];
 
-  if (pathname === '/admin/login') {
+  if (pathname === '/admin/login' || pathname === '/admin/setup') {
     return <>{children}</>;
   }
 
@@ -80,7 +88,6 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
         {/* Navigation */}
         <nav className="flex-1 px-2 py-4 space-y-1 overflow-y-auto overflow-x-hidden">
-          {/* Main items */}
           {mainNavItems.map((item) => {
             const isActive = item.href === '/admin'
               ? pathname === '/admin'
@@ -136,11 +143,19 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
           <div className="px-4 py-4 border-t border-white/6">
             <div className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden bg-white/10 border border-white/10 flex-shrink-0">
-                <img src="/logo.webp" alt="Admin" className="h-full w-full object-contain" />
+                {sessionUser ? (
+                  <span className="text-sm font-bold text-green">{sessionUser.name.charAt(0).toUpperCase()}</span>
+                ) : (
+                  <img src="/logo.webp" alt="Admin" className="h-full w-full object-contain" />
+                )}
               </div>
               <div className="min-w-0">
-                <p className="text-sm font-medium text-white truncate">{t('admin.layout.adminName')}</p>
-                <p className="text-xs text-gray-500 truncate">{t('admin.layout.role')}</p>
+                <p className="text-sm font-medium text-white truncate">
+                  {sessionLoading ? '...' : (sessionUser?.name || 'Admin')}
+                </p>
+                <p className="text-xs text-gray-500 truncate">
+                  {sessionUser?.role === 'super_admin' ? 'Super Admin' : 'Administrateur'}
+                </p>
               </div>
             </div>
           </div>
@@ -164,7 +179,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
               {t('admin.layout.viewSite')}
               <ExternalLink className="h-4 w-4" />
             </a>
-            <button onClick={async () => { await fetch('/api/auth/logout', { method: 'POST' }); window.location.href = '/admin/login'; }}
+            <button onClick={async () => { await fetch('/api/admin/auth/logout', { method: 'POST' }); window.location.href = '/admin/login'; }}
               className="flex items-center gap-2 text-sm text-gray-400 hover:text-accent-red transition-colors">
               <LogOut className="h-4 w-4" />
               {t('admin.layout.logout')}
