@@ -5,21 +5,24 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 import { Loader2, ShieldCheck, Eye, EyeOff } from 'lucide-react';
 
-const setupSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-  confirmPassword: z.string(),
-}).refine((d) => d.password === d.confirmPassword, {
-  message: 'Passwords do not match',
-  path: ['confirmPassword'],
-});
+const setupSchema = (t: (key: string) => string) =>
+  z.object({
+    name: z.string().min(1, t('admin.setup.name')),
+    email: z.string().email(t('formErrors.emailInvalid')),
+    password: z.string().min(8, t('formErrors.password')),
+    confirmPassword: z.string(),
+  }).refine((d) => d.password === d.confirmPassword, {
+    message: t('admin.setup.passwordMismatch'),
+    path: ['confirmPassword'],
+  });
 
-type SetupValues = z.infer<typeof setupSchema>;
+type SetupValues = z.infer<ReturnType<typeof setupSchema>>;
 
 export default function AdminSetupPage() {
+  const { t } = useTranslation();
   const router = useRouter();
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -29,7 +32,7 @@ export default function AdminSetupPage() {
   const [setupRequired, setSetupRequired] = useState<boolean | null>(null);
 
   const { register, handleSubmit, formState: { errors } } = useForm<SetupValues>({
-    resolver: zodResolver(setupSchema),
+    resolver: zodResolver(setupSchema(t)),
   });
 
   useEffect(() => {
@@ -37,13 +40,11 @@ export default function AdminSetupPage() {
       .then((r) => r.json())
       .then((d) => {
         setSetupRequired(d.setupRequired);
-        if (!d.setupRequired) {
-          router.replace('/admin/login');
-        }
+        if (!d.setupRequired) router.replace('/admin/login');
       })
-      .catch(() => setError('Failed to check setup status'))
+      .catch(() => setError(t('error.description')))
       .finally(() => setLoading(false));
-  }, [router]);
+  }, [router, t]);
 
   const onSubmit = async (data: SetupValues) => {
     setSubmitting(true);
@@ -56,13 +57,13 @@ export default function AdminSetupPage() {
       });
       if (!res.ok) {
         const err = await res.json();
-        setError(err.error || 'Setup failed');
+        setError(err.error || t('error.description'));
         return;
       }
       setSuccess(true);
       setTimeout(() => router.push('/admin'), 1500);
     } catch {
-      setError('An error occurred');
+      setError(t('error.description'));
     } finally {
       setSubmitting(false);
     }
@@ -76,9 +77,7 @@ export default function AdminSetupPage() {
     );
   }
 
-  if (setupRequired === false) {
-    return null;
-  }
+  if (setupRequired === false) return null;
 
   return (
     <div className="min-h-screen bg-bg-primary flex items-center justify-center px-4">
@@ -93,15 +92,15 @@ export default function AdminSetupPage() {
                 <div className="w-16 h-16 rounded-full bg-green/10 flex items-center justify-center">
                   <ShieldCheck className="h-8 w-8 text-green" />
                 </div>
-                <h1 className="text-xl font-bold text-white">Super Admin Created</h1>
-                <p className="text-sm text-gray-400 text-center">Redirecting to dashboard...</p>
+                <h1 className="text-xl font-bold text-white">{t('admin.setup.success')}</h1>
+                <p className="text-sm text-gray-400 text-center">{t('admin.setup.redirecting')}</p>
               </div>
             ) : (
               <>
-                <h1 className="text-xl font-bold text-white">Initial Setup</h1>
+                <h1 className="text-xl font-bold text-white">{t('admin.setup.title')}</h1>
                 <p className="text-sm text-gray-400 mt-1 text-center">
-                  Create your Super Admin account to get started.<br />
-                  This form will be disabled after the first registration.
+                  {t('admin.setup.description')}<br />
+                  {t('admin.setup.warning')}
                 </p>
               </>
             )}
@@ -112,25 +111,25 @@ export default function AdminSetupPage() {
           {!success && (
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="space-y-1.5">
-                <label className="block text-sm font-medium text-gray-300">Full Name</label>
-                <input type="text" placeholder="John Doe"
+                <label className="block text-sm font-medium text-gray-300">{t('admin.setup.name')}</label>
+                <input type="text" placeholder={t('admin.setup.namePlaceholder')}
                   className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
                   {...register('name')} />
                 {errors.name && <p className="text-xs text-accent-red">{errors.name.message}</p>}
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-sm font-medium text-gray-300">Email</label>
-                <input type="email" placeholder="admin@vickingsolar.com"
+                <label className="block text-sm font-medium text-gray-300">{t('admin.login.email')}</label>
+                <input type="email" placeholder={t('admin.setup.emailPlaceholder')}
                   className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
                   {...register('email')} />
                 {errors.email && <p className="text-xs text-accent-red">{errors.email.message}</p>}
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-sm font-medium text-gray-300">Password</label>
+                <label className="block text-sm font-medium text-gray-300">{t('admin.login.password')}</label>
                 <div className="relative">
-                  <input type={showPassword ? 'text' : 'password'} placeholder="Min. 8 characters"
+                  <input type={showPassword ? 'text' : 'password'} placeholder={t('admin.users.passwordPlaceholder')}
                     className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 pr-10 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
                     {...register('password')} />
                   <button type="button" onClick={() => setShowPassword(!showPassword)}
@@ -142,8 +141,8 @@ export default function AdminSetupPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-sm font-medium text-gray-300">Confirm Password</label>
-                <input type="password" placeholder="Re-enter password"
+                <label className="block text-sm font-medium text-gray-300">{t('admin.setup.confirmPassword')}</label>
+                <input type="password" placeholder={t('admin.setup.confirmPlaceholder')}
                   className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
                   {...register('confirmPassword')} />
                 {errors.confirmPassword && <p className="text-xs text-accent-red">{errors.confirmPassword.message}</p>}
@@ -151,7 +150,7 @@ export default function AdminSetupPage() {
 
               <button type="submit" disabled={submitting}
                 className="w-full h-11 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all disabled:opacity-50 flex items-center justify-center gap-2">
-                {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : 'Create Super Admin Account'}
+                {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : t('admin.setup.submit')}
               </button>
             </form>
           )}

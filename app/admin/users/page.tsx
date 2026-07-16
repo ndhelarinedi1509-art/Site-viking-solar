@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
+import { useTranslation } from 'react-i18next';
 import { Loader2, Plus, UserPlus, ShieldCheck, Shield, Trash2, Eye, EyeOff, Check, X, AlertTriangle } from 'lucide-react';
 import toast from 'react-hot-toast';
 
@@ -17,15 +18,17 @@ interface AdminUser {
   createdBy: string | null;
 }
 
-const createSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Invalid email'),
-  password: z.string().min(8, 'Password must be at least 8 characters'),
-});
+const createSchema = (t: (key: string) => string) =>
+  z.object({
+    name: z.string().min(1, t('admin.users.name')),
+    email: z.string().email(t('formErrors.emailInvalid')),
+    password: z.string().min(8, t('formErrors.password')),
+  });
 
-type CreateValues = z.infer<typeof createSchema>;
+type CreateValues = z.infer<ReturnType<typeof createSchema>>;
 
 export default function AdminUsersPage() {
+  const { t } = useTranslation();
   const [users, setUsers] = useState<AdminUser[]>([]);
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
@@ -37,21 +40,21 @@ export default function AdminUsersPage() {
   const [deleteConfirm, setDeleteConfirm] = useState<string | null>(null);
 
   const { register, handleSubmit, reset, formState: { errors } } = useForm<CreateValues>({
-    resolver: zodResolver(createSchema),
+    resolver: zodResolver(createSchema(t)),
   });
 
   const fetchUsers = useCallback(async () => {
     try {
       const res = await fetch('/api/admin/users');
-      if (res.status === 403) { setError('Access denied. Super Admin only.'); setLoading(false); return; }
+      if (res.status === 403) { setError(t('admin.users.accessDenied')); setLoading(false); return; }
       const json = await res.json();
       setUsers(json.data ?? []);
     } catch {
-      setError('Failed to load users');
+      setError(t('admin.users.loadError'));
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [t]);
 
   useEffect(() => { fetchUsers(); }, [fetchUsers]);
 
@@ -66,15 +69,16 @@ export default function AdminUsersPage() {
       });
       if (!res.ok) {
         const err = await res.json();
-        setError(err.error || 'Creation failed');
+        if (res.status === 409) setError(t('admin.users.emailExists'));
+        else setError(err.error || t('error.description'));
         return;
       }
-      toast.success(`Admin "${data.name}" created`);
+      toast.success(t('admin.users.createSuccess'));
       reset();
       setShowCreate(false);
       fetchUsers();
     } catch {
-      setError('An error occurred');
+      setError(t('error.description'));
     } finally {
       setSubmitting(false);
     }
@@ -89,13 +93,13 @@ export default function AdminUsersPage() {
       });
       if (!res.ok) {
         const err = await res.json();
-        toast.error(err.error || 'Update failed');
+        toast.error(err.error || t('admin.users.updateError'));
         return;
       }
-      toast.success(`User ${user.isActive ? 'disabled' : 'enabled'}`);
+      toast.success(user.isActive ? t('admin.users.userDisabled') : t('admin.users.userEnabled'));
       fetchUsers();
     } catch {
-      toast.error('Update failed');
+      toast.error(t('admin.users.updateError'));
     }
   };
 
@@ -109,14 +113,14 @@ export default function AdminUsersPage() {
       });
       if (!res.ok) {
         const err = await res.json();
-        toast.error(err.error || 'Update failed');
+        toast.error(err.error || t('admin.users.updateError'));
         return;
       }
-      toast.success('Name updated');
+      toast.success(t('admin.users.nameUpdated'));
       setEditId(null);
       fetchUsers();
     } catch {
-      toast.error('Update failed');
+      toast.error(t('admin.users.updateError'));
     }
   };
 
@@ -125,14 +129,14 @@ export default function AdminUsersPage() {
       const res = await fetch(`/api/admin/users/${id}`, { method: 'DELETE' });
       if (!res.ok) {
         const err = await res.json();
-        toast.error(err.error || 'Delete failed');
+        toast.error(err.error || t('admin.users.deleteError'));
         return;
       }
-      toast.success('User deleted');
+      toast.success(t('admin.users.userDeleted'));
       setDeleteConfirm(null);
       fetchUsers();
     } catch {
-      toast.error('Delete failed');
+      toast.error(t('admin.users.deleteError'));
     }
   };
 
@@ -146,43 +150,41 @@ export default function AdminUsersPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Admin Users</h1>
-          <p className="text-sm text-gray-400 mt-1">Manage administrator accounts and permissions</p>
+          <h1 className="text-2xl font-bold text-white">{t('admin.users.title')}</h1>
+          <p className="text-sm text-gray-400 mt-1">{t('admin.users.description')}</p>
         </div>
         <button onClick={() => { setShowCreate(!showCreate); setError(''); reset(); }}
           className="flex items-center gap-2 h-10 px-4 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all">
           <UserPlus className="h-4 w-4" />
-          Create Admin
+          {t('admin.users.create')}
         </button>
       </div>
 
-      {/* Create form */}
       {showCreate && (
         <div className="bg-bg-card border border-white/6 rounded-2xl p-6 shadow-card">
-          <h2 className="text-lg font-semibold text-white mb-4">New Administrator</h2>
+          <h2 className="text-lg font-semibold text-white mb-4">{t('admin.users.newUser')}</h2>
           {error && <p className="text-xs text-accent-red mb-3">{error}</p>}
           <form onSubmit={handleSubmit(onCreate)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium text-gray-300">Full Name</label>
-              <input type="text" placeholder="e.g. Jean Dupont"
+              <label className="block text-sm font-medium text-gray-300">{t('admin.users.name')}</label>
+              <input type="text" placeholder={t('admin.users.namePlaceholder')}
                 className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
                 {...register('name')} />
               {errors.name && <p className="text-xs text-accent-red">{errors.name.message}</p>}
             </div>
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium text-gray-300">Email</label>
-              <input type="email" placeholder="admin@example.com"
+              <label className="block text-sm font-medium text-gray-300">{t('admin.login.email')}</label>
+              <input type="email" placeholder={t('admin.users.emailPlaceholder')}
                 className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
                 {...register('email')} />
               {errors.email && <p className="text-xs text-accent-red">{errors.email.message}</p>}
             </div>
             <div className="space-y-1.5">
-              <label className="block text-sm font-medium text-gray-300">Password</label>
+              <label className="block text-sm font-medium text-gray-300">{t('admin.login.password')}</label>
               <div className="relative">
-                <input type={showPassword ? 'text' : 'password'} placeholder="Min. 8 characters"
+                <input type={showPassword ? 'text' : 'password'} placeholder={t('admin.users.passwordPlaceholder')}
                   className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 pr-10 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
                   {...register('password')} />
                 <button type="button" onClick={() => setShowPassword(!showPassword)}
@@ -195,29 +197,27 @@ export default function AdminUsersPage() {
             <div className="flex items-end gap-2">
               <button type="submit" disabled={submitting}
                 className="h-10 px-6 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark transition-all disabled:opacity-50 flex items-center gap-2">
-                {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <><Plus className="h-4 w-4" /> Create</>}
+                {submitting ? <Loader2 className="h-4 w-4 animate-spin" /> : <><Plus className="h-4 w-4" /> {t('admin.users.create')}</>}
               </button>
               <button type="button" onClick={() => setShowCreate(false)}
                 className="h-10 px-4 rounded-xl border border-white/10 text-gray-400 hover:text-white text-sm transition-colors">
-                Cancel
+                {t('admin.users.cancel')}
               </button>
             </div>
           </form>
         </div>
       )}
 
-      {/* Users list */}
       <div className="bg-bg-card border border-white/6 rounded-2xl shadow-card overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/6">
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Email</th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Role</th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Status</th>
-                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Created</th>
-                <th className="text-right px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">Actions</th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">{t('admin.users.name')}</th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">{t('admin.login.email')}</th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">{t('admin.users.status')}</th>
+                <th className="text-left px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">{t('admin.users.created')}</th>
+                <th className="text-right px-6 py-4 text-xs font-semibold text-gray-500 uppercase tracking-wider">{t('admin.users.actions')}</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-white/6">
@@ -238,30 +238,22 @@ export default function AdminUsersPage() {
                         </div>
                         <div>
                           <p className="text-sm font-medium text-white">{user.name}</p>
-                          {user.role === 'super_admin' && (
-                            <span className="text-[0.65rem] text-green/70 font-medium">Super Admin</span>
-                          )}
+                          <span className={`inline-flex items-center gap-1 text-xs font-medium ${
+                            user.role === 'super_admin' ? 'text-green/70' : 'text-accent-blue/70'
+                          }`}>
+                            {user.role === 'super_admin' ? <ShieldCheck className="h-3 w-3" /> : <Shield className="h-3 w-3" />}
+                            {user.role === 'super_admin' ? t('admin.users.superAdmin') : t('admin.users.admin')}
+                          </span>
                         </div>
                       </div>
                     )}
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-400">{user.email}</td>
                   <td className="px-6 py-4">
-                    {user.role === 'super_admin' ? (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-green/10 text-green text-xs font-medium">
-                        <ShieldCheck className="h-3.5 w-3.5" /> Super Admin
-                      </span>
-                    ) : (
-                      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg bg-accent-blue/10 text-accent-blue text-xs font-medium">
-                        <Shield className="h-3.5 w-3.5" /> Admin
-                      </span>
-                    )}
-                  </td>
-                  <td className="px-6 py-4">
                     <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium ${
                       user.isActive ? 'bg-green/10 text-green' : 'bg-accent-red/10 text-accent-red'
                     }`}>
-                      {user.isActive ? 'Active' : 'Disabled'}
+                      {user.isActive ? t('admin.users.active') : t('admin.users.disabled')}
                     </span>
                   </td>
                   <td className="px-6 py-4 text-sm text-gray-400">
@@ -272,7 +264,7 @@ export default function AdminUsersPage() {
                       <div className="flex items-center justify-end gap-2">
                         <button onClick={() => { setEditId(user.id); setEditName(user.name); }}
                           className="h-8 px-3 rounded-lg border border-white/10 text-xs text-gray-400 hover:text-white hover:border-green/30 transition-colors">
-                          Rename
+                          {t('admin.users.rename')}
                         </button>
                         <button onClick={() => toggleActive(user)}
                           className={`h-8 px-3 rounded-lg border text-xs transition-colors ${
@@ -280,13 +272,13 @@ export default function AdminUsersPage() {
                               ? 'border-accent-orange/30 text-accent-orange hover:bg-accent-orange/10'
                               : 'border-green/30 text-green hover:bg-green/10'
                           }`}>
-                          {user.isActive ? 'Disable' : 'Enable'}
+                          {user.isActive ? t('admin.users.disable') : t('admin.users.enable')}
                         </button>
                         {deleteConfirm === user.id ? (
                           <div className="flex items-center gap-1">
                             <button onClick={() => deleteUser(user.id)}
                               className="h-8 px-3 rounded-lg bg-accent-red/20 text-accent-red text-xs font-semibold hover:bg-accent-red/30 transition-colors flex items-center gap-1">
-                              <AlertTriangle className="h-3 w-3" /> Confirm
+                              <AlertTriangle className="h-3 w-3" /> {t('admin.users.confirm')}
                             </button>
                             <button onClick={() => setDeleteConfirm(null)}
                               className="h-8 px-2 rounded-lg text-gray-500 hover:text-white text-xs transition-colors">
@@ -309,7 +301,7 @@ export default function AdminUsersPage() {
         </div>
         {users.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500 text-sm">No admin users found</p>
+            <p className="text-gray-500 text-sm">{t('admin.users.noUsers')}</p>
           </div>
         )}
       </div>

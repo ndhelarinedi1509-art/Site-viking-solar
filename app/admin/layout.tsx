@@ -42,11 +42,11 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
 
   const mainNavItems = [
     { href: '/admin', label: t('admin.layout.dashboard'), icon: LayoutDashboard },
-    { href: '/admin/pages', label: 'Pages', icon: FileEdit },
-    { href: '/admin/media', label: 'Médias', icon: Image },
+    { href: '/admin/pages', label: t('admin.layout.pages'), icon: FileEdit },
+    { href: '/admin/media', label: t('admin.layout.media'), icon: Image },
     { href: '/admin/messages', label: t('admin.layout.messages'), icon: Mail },
     { href: '/admin/team', label: t('admin.layout.team'), icon: Users },
-    { href: '/admin/users', label: 'Administrateurs', icon: Users },
+    { href: '/admin/users', label: t('admin.layout.admins'), icon: Users },
     { href: '/admin/settings', label: t('admin.layout.settings'), icon: Settings },
   ];
 
@@ -167,9 +167,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
         <header className="h-16 border-b border-white/6 bg-bg-card/50 backdrop-blur-sm flex items-center justify-between px-6 flex-shrink-0">
           <h2 className="text-lg font-semibold text-white">
             {pathname.startsWith('/admin/pages/') && pathname.split('/').pop() !== 'pages'
-              ? 'Éditeur de page'
+              ? t('admin.layout.pageEditor')
               : pathname.split('/').filter(Boolean).pop() === 'admin'
-                ? 'Tableau de bord'
+                ? t('admin.layout.dashboardTitle')
                 : pathname.split('/').filter(Boolean).pop() ?? ''
             }
           </h2>
