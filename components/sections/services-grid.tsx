@@ -1,9 +1,9 @@
 'use client';
 
-import { SERVICES } from '@/constants/services';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
+import type { CmsService } from '@/types';
 
 const colorMap: Record<string, { icon: string; tag: string; glow: string; hover: string; cta: string }> = {
   blue:   { icon: 'bg-accent-blue/15 text-accent-blue', tag: 'bg-accent-blue/12 text-accent-blue', glow: 'blue-glow', hover: 'hover:border-accent-blue/35 hover:shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_25px_rgba(59,130,246,0.1)]', cta: '' },
@@ -39,7 +39,11 @@ function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
   );
 }
 
-export function ServicesGrid() {
+interface ServicesGridProps {
+  services: CmsService[];
+}
+
+export function ServicesGrid({ services }: ServicesGridProps) {
   const { t } = useTranslation();
   return (
     <section id="sv-services" className="py-20 sm:py-24 border-t border-border bg-bg-primary">
@@ -59,7 +63,7 @@ export function ServicesGrid() {
 
         {/* Cards grid */}
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.map((service, i) => {
+          {services.map((service, i) => {
             const c = colorMap[service.color];
             return (
               <FadeCard key={service.id} delay={i * 100}>
@@ -96,15 +100,15 @@ export function ServicesGrid() {
                   {/* Card top: icon + tag */}
                   <div className="flex items-center gap-4 mb-5">
                     <div className={cn('flex h-[52px] w-[52px] items-center justify-center rounded-xl shrink-0', c.icon)}>
-                      {icons[service.icon]}
+                      {icons[service.icon] ?? icons.sun}
                     </div>
                     <span className={cn('text-[0.68rem] font-bold tracking-[0.05em] px-2.5 py-1 rounded-full', c.tag)}>
-                      {t(`servicesItems.${i}.tag`, { defaultValue: service.tag })}
+                      {service.tag}
                     </span>
                   </div>
 
-                  <h3 className="text-[1.15rem] font-bold text-white mb-2">{t(`servicesItems.${i}.title`, { defaultValue: service.title })}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed mb-5">{t(`servicesItems.${i}.description`, { defaultValue: service.description })}</p>
+                  <h3 className="text-[1.15rem] font-bold text-white mb-2">{service.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed mb-5">{service.description}</p>
 
                   {/* Features */}
                   <ul className="flex flex-col gap-2 mb-6 flex-1">
@@ -113,7 +117,7 @@ export function ServicesGrid() {
                         <svg width="14" height="14" viewBox="0 0 24 24" fill="#22C55E" className="shrink-0">
                           <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
                         </svg>
-                        {t(`servicesItems.${i}.features.${fi}`, { defaultValue: f })}
+                        {f}
                       </li>
                     ))}
                   </ul>

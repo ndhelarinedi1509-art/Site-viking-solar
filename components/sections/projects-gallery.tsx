@@ -1,10 +1,20 @@
 'use client';
 
 import { useState } from 'react';
-import { PROJECTS, PROJECT_FILTERS, CATEGORY_LABELS } from '@/constants/projects';
+import { CATEGORY_LABELS } from '@/constants/projects';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
+import type { CmsProject } from '@/types';
+
+const PROJECT_FILTERS = [
+  { label: 'Tous', value: 'all' },
+  { label: 'Résidentiel', value: 'residentiel' },
+  { label: 'Industriel', value: 'industriel' },
+  { label: 'Commercial', value: 'commercial' },
+  { label: 'Hybride', value: 'hybride' },
+  { label: 'Solaire', value: 'solaire' },
+] as const;
 
 const categoryBg: Record<string, string> = {
   residentiel: 'bg-green/75',
@@ -29,11 +39,11 @@ function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
   );
 }
 
-export function ProjectsGallery() {
+export function ProjectsGallery({ projects = [] }: { projects?: CmsProject[] }) {
   const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState('all');
 
-  const filtered = PROJECTS.filter((project) => {
+  const filtered = projects.filter((project) => {
     if (activeFilter === 'all') return true;
     return (
       project.category === activeFilter ||

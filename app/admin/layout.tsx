@@ -7,8 +7,7 @@ import {
   LayoutDashboard, FileEdit, Image, Mail, Users, Settings,
   ExternalLink, LogOut, PanelRightClose, PanelRight, Loader2,
   Home, Newspaper, Info, Zap, FolderOpen, MessageSquareText, Tags,
-} from 'lucide-react';
-import { usePathname } from 'next/navigation';
+} from 'lucide-react';import { usePathname } from 'next/navigation';
 import type { PageInfo } from '@/types';
 
 const iconMap: Record<string, React.ElementType> = {
@@ -47,6 +46,8 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: '/admin/news', label: t('admin.layout.news'), icon: Newspaper },
     { href: '/admin/comments', label: t('admin.layout.comments'), icon: MessageSquareText },
     { href: '/admin/categories', label: t('admin.layout.categories'), icon: Tags },
+    { href: '/admin/services', label: t('admin.layout.services'), icon: Zap },
+    { href: '/admin/projects', label: t('admin.layout.projects'), icon: FolderOpen },
     { href: '/admin/media', label: t('admin.layout.media'), icon: Image },
     { href: '/admin/messages', label: t('admin.layout.messages'), icon: Mail },
     { href: '/admin/team', label: t('admin.layout.team'), icon: Users },

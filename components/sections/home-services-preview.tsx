@@ -1,9 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import { SERVICES } from '@/constants/services';
 import { Reveal } from '@/components/ui/reveal';
 import { useTranslation } from 'react-i18next';
+import type { PageSection, CmsService } from '@/types';
+import { sectionString, sectionButton } from '@/lib/section-utils';
 
 const iconMap: Record<string, React.ReactNode> = {
   sun: <svg className="h-7 w-7" viewBox="0 0 24 24" fill="currentColor"><path d="M3.55 18.54l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8zM11 22.45h2V19.5h-2v2.95zM4 10.5H1v2h3v-2zm9-9.95h-2v3h2v-3zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z"/></svg>,
@@ -23,43 +24,59 @@ const colorMap: Record<string, { bg: string; color: string; border: string }> = 
   amber: { bg: 'bg-accent-amber/15', color: 'text-accent-amber', border: 'hover:border-accent-amber/30' },
 };
 
-export function HomeServicesPreview() {
+interface HomeServicesPreviewProps {
+  section?: PageSection;
+  services?: CmsService[];
+}
+
+export function HomeServicesPreview({ section, services = [] }: HomeServicesPreviewProps) {
   const { t } = useTranslation();
+
+  const title = section?.title || t('home.services.title');
+  const titleHighlight = sectionString(section, 'titleHighlight', t('home.services.titleHighlight'));
+  const description = section?.description || t('home.services.description');
+  const button = sectionButton(section);
+
+  const items = services.slice(0, 6);
+  const hasServices = items.length > 0;
+
   return (
     <section className="relative py-20 sm:py-24 border-t border-border">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div className="text-center max-w-2xl mx-auto mb-14">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">{t('home.services.title')} {t('home.services.titleHighlight')}</h2>
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white">{title} {titleHighlight}</h2>
             <p className="mt-4 text-base text-gray-400">
-              {t('home.services.description')}
+              {description}
             </p>
           </div>
         </Reveal>
 
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {SERVICES.slice(0, 6).map((service, i) => (
-          <Reveal key={service.id} delay={i * 80}>
-            <div className={`group h-full rounded-2xl border border-border bg-bg-card p-6 md:p-7 transition-all duration-500 ${colorMap[service.color]?.border || 'hover:border-green/30'} hover:-translate-y-2 hover:scale-[1.02] hover:shadow-card-hover`}>
-              <div className="mb-4 flex items-center gap-3">
-                <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${colorMap[service.color]?.bg || 'bg-green/15'} ${colorMap[service.color]?.color || 'text-green'}`}>
-                  {iconMap[service.icon]}
+        {hasServices && (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {items.map((service, i) => (
+              <Reveal key={service.id} delay={i * 80}>
+                <div className={`group h-full rounded-2xl border border-border bg-bg-card p-6 md:p-7 transition-all duration-500 ${colorMap[service.color]?.border || 'hover:border-green/30'} hover:-translate-y-2 hover:scale-[1.02] hover:shadow-card-hover`}>
+                  <div className="mb-4 flex items-center gap-3">
+                    <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${colorMap[service.color]?.bg || 'bg-green/15'} ${colorMap[service.color]?.color || 'text-green'}`}>
+                      {iconMap[service.icon] ?? iconMap.sun}
+                    </div>
+                    <h3 className="text-lg font-semibold text-white">{service.title}</h3>
+                  </div>
+                  <p className="text-sm text-gray-500 leading-relaxed">{service.description}</p>
                 </div>
-                <h3 className="text-lg font-semibold text-white">{t(`servicesItems.${i}.title`, { defaultValue: service.title })}</h3>
-              </div>
-              <p className="text-sm text-gray-500 leading-relaxed">{t(`servicesItems.${i}.description`, { defaultValue: service.description })}</p>
-            </div>
-          </Reveal>
-        ))}
-      </div>
+              </Reveal>
+            ))}
+          </div>
+        )}
 
         <Reveal>
           <div className="mt-12 text-center">
             <Link
-              href="/services"
+              href={button?.href || '/services'}
               className="group inline-flex items-center gap-2 rounded-full border border-border-light bg-transparent px-6 py-2.5 text-sm font-semibold text-green transition-all duration-300 hover:border-green/40 hover:bg-green/5"
             >
-              {t('home.services.link')}
+              {button?.label || t('home.services.link')}
               <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
             </Link>
           </div>

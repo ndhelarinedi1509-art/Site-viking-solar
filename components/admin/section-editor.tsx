@@ -52,6 +52,38 @@ export function SectionEditor({ section, onUpdate }: SectionEditorProps) {
       </div>
 
       {/* Section-type-specific editors */}
+      {(section.section_type === 'hero' || section.section_type === 'image-text' || section.section_type === 'text') && (
+        <div className="space-y-4 border-t border-white/6 pt-4">
+          <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">Contenu</h4>
+          <InputField
+            label="Badge"
+            value={contentString(section, 'badge')}
+            onChange={(v) => updateContent('badge', v)}
+          />
+          <InputField
+            label="Partie surlignée du titre"
+            value={contentString(section, 'titleHighlight')}
+            onChange={(v) => updateContent('titleHighlight', v)}
+          />
+        </div>
+      )}
+
+      {section.section_type === 'image-text' && (
+        <div className="space-y-4 border-t border-white/6 pt-4">
+          <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">Texte & points forts</h4>
+          <TextareaField
+            label="Paragraphe 2"
+            value={contentString(section, 'paragraph2')}
+            onChange={(v) => updateContent('paragraph2', v)}
+          />
+          <StringListEditor
+            label="Points forts"
+            items={(section.content?.highlights as string[]) ?? []}
+            onChange={(items) => updateContent('highlights', items)}
+          />
+        </div>
+      )}
+
       {section.section_type === 'hero' && (
         <div className="space-y-4 border-t border-white/6 pt-4">
           <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">Boutons</h4>
@@ -59,6 +91,12 @@ export function SectionEditor({ section, onUpdate }: SectionEditorProps) {
             buttons={(section.content?.buttons as Array<{ label: string; href: string; variant: string }>) ?? []}
             onChange={(buttons) => updateContent('buttons', buttons)}
           />
+          <div className="pt-2">
+            <StatsEditor
+              stats={(section.content?.stats as Array<{ value: number; suffix: string; label: string }>) ?? []}
+              onChange={(stats) => updateContent('stats', stats)}
+            />
+          </div>
         </div>
       )}
 
@@ -67,7 +105,7 @@ export function SectionEditor({ section, onUpdate }: SectionEditorProps) {
           <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">Éléments</h4>
           <ItemsEditor
             items={(section.content?.items as Array<Record<string, string>>) ?? []}
-            fields={section.section_type === 'team' ? ['name', 'role'] : ['title', 'description']}
+            fields={section.section_type === 'team' ? ['name', 'role'] : section.section_type === 'benefits' ? ['title', 'description', 'iconColor'] : ['title', 'description']}
             onChange={(items) => updateContent('items', items)}
           />
         </div>
@@ -121,6 +159,11 @@ export function SectionEditor({ section, onUpdate }: SectionEditorProps) {
 }
 
 // ── Sub-components ──
+
+function contentString(section: PageSection, key: string): string {
+  const val = section.content?.[key];
+  return typeof val === 'string' ? val : '';
+}
 
 function InputField({ label, value, onChange, placeholder }: {
   label: string;
@@ -185,6 +228,7 @@ function ButtonsEditor({ buttons, onChange }: {
               <option value="primary">Primaire</option>
               <option value="outline">Contour</option>
               <option value="ghost">Ghost</option>
+              <option value="whatsapp">WhatsApp</option>
             </select>
           </div>
           <button onClick={() => remove(i)}
@@ -217,6 +261,7 @@ function SingleButtonEditor({ button, onChange }: {
           <option value="primary">Primaire</option>
           <option value="outline">Contour</option>
           <option value="ghost">Ghost</option>
+          <option value="whatsapp">WhatsApp</option>
         </select>
       </div>
     </div>
@@ -301,6 +346,92 @@ function ImagesEditor({ images, onChange }: {
       <button onClick={add}
         className="text-sm font-semibold text-green hover:text-green-dark transition-colors">
         + Ajouter une image
+      </button>
+    </div>
+  );
+}
+
+function StringListEditor({ label, items, onChange }: {
+  label: string;
+  items: string[];
+  onChange: (items: string[]) => void;
+}) {
+  const update = (i: number, value: string) => {
+    onChange(items.map((item, idx) => (idx === i ? value : item)));
+  };
+  const add = () => onChange([...items, '']);
+  const remove = (i: number) => onChange(items.filter((_, idx) => idx !== i));
+
+  return (
+    <div className="space-y-2">
+      <label className="block text-sm font-medium text-gray-300">{label}</label>
+      {items.map((item, i) => (
+        <div key={i} className="flex items-start gap-2">
+          <input
+            value={item}
+            onChange={(e) => update(i, e.target.value)}
+            className="flex-1 rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none"
+          />
+          <button onClick={() => remove(i)}
+            className="h-8 w-8 rounded-lg bg-accent-red/10 text-accent-red hover:bg-accent-red/20 flex items-center justify-center text-sm transition-colors">
+            &times;
+          </button>
+        </div>
+      ))}
+      <button onClick={add}
+        className="text-sm font-semibold text-green hover:text-green-dark transition-colors">
+        + Ajouter
+      </button>
+    </div>
+  );
+}
+
+function StatsEditor({ stats, onChange }: {
+  stats: Array<{ value: number; suffix: string; label: string }>;
+  onChange: (stats: Array<{ value: number; suffix: string; label: string }>) => void;
+}) {
+  const update = (i: number, field: string, value: string | number) => {
+    const next = stats.map((s, idx) => (idx === i ? { ...s, [field]: value } : s));
+    onChange(next);
+  };
+  const add = () => onChange([...stats, { value: 0, suffix: '', label: '' }]);
+  const remove = (i: number) => onChange(stats.filter((_, idx) => idx !== i));
+
+  return (
+    <div className="space-y-3">
+      <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">Statistiques</h4>
+      {stats.map((stat, i) => (
+        <div key={i} className="flex items-start gap-2">
+          <div className="flex-1 grid grid-cols-3 gap-2">
+            <input
+              type="number"
+              value={stat.value}
+              onChange={(e) => update(i, 'value', Number(e.target.value))}
+              placeholder="150"
+              className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none"
+            />
+            <input
+              value={stat.suffix}
+              onChange={(e) => update(i, 'suffix', e.target.value)}
+              placeholder="+"
+              className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none"
+            />
+            <input
+              value={stat.label}
+              onChange={(e) => update(i, 'label', e.target.value)}
+              placeholder="Projets réalisés"
+              className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none"
+            />
+          </div>
+          <button onClick={() => remove(i)}
+            className="mt-1 h-8 w-8 rounded-lg bg-accent-red/10 text-accent-red hover:bg-accent-red/20 flex items-center justify-center text-sm transition-colors">
+            &times;
+          </button>
+        </div>
+      ))}
+      <button onClick={add}
+        className="text-sm font-semibold text-green hover:text-green-dark transition-colors">
+        + Ajouter une statistique
       </button>
     </div>
   );

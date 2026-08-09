@@ -1,9 +1,9 @@
 'use client';
 
-import { BENEFITS } from '@/constants/benefits';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
+import type { Benefit } from '@/types';
 
 const iconSvgs: Record<string, React.ReactNode> = {
   green: (
@@ -63,8 +63,13 @@ function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
   );
 }
 
-export function ServicesBenefits() {
+interface ServicesBenefitsProps {
+  benefits?: Benefit[];
+}
+
+export function ServicesBenefits({ benefits = [] }: ServicesBenefitsProps) {
   const { t } = useTranslation();
+  const items = benefits.length > 0 ? benefits : [];
   return (
     <section className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -80,21 +85,23 @@ export function ServicesBenefits() {
           </p>
         </div>
 
+        {items.length > 0 && (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {BENEFITS.map((ben, i) => (
+          {items.map((ben, i) => (
             <FadeCard key={ben.id} delay={i * 80}>
               <div className="group flex items-start gap-5 rounded-2xl border border-border bg-bg-card p-7 transition-all duration-350 hover:-translate-y-[5px] hover:border-white/10 hover:shadow-[0_14px_42px_rgba(0,0,0,0.28)]">
                 <div className={cn('flex h-[50px] w-[50px] shrink-0 items-center justify-center rounded-xl', wrapColors[ben.iconColor])}>
                   {iconSvgs[ben.iconColor]}
                 </div>
                 <div className="flex-1">
-                  <h3 className="text-base font-bold text-white mb-1.5">{t(`benefits.${i}.title`, { defaultValue: ben.title })}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed">{t(`benefits.${i}.description`, { defaultValue: ben.description })}</p>
+                  <h3 className="text-base font-bold text-white mb-1.5">{ben.title}</h3>
+                  <p className="text-sm text-gray-500 leading-relaxed">{ben.description}</p>
                 </div>
               </div>
             </FadeCard>
           ))}
         </div>
+        )}
       </div>
     </section>
   );

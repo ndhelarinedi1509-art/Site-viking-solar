@@ -508,8 +508,7 @@
       "newPasswordDescription": "Choisissez un nouveau mot de passe pour votre compte.",
       "resetPasswordBtn": "Réinitialiser le mot de passe",
       "passwordResetSuccess": "Mot de passe réinitialisé !",
-      "passwordResetDescription": "Votre mot de passe a été modifié avec succès. Connectez-vous avec votre nouveau mot de passe.",
-      "emailOrPhone": "Email ou téléphone"
+      "passwordResetDescription": "Votre mot de passe a été modifié avec succès. Connectez-vous avec votre nouveau mot de passe."
     },
     "comments": {
       "placeholder": "Écrire un commentaire...",
@@ -537,7 +536,7 @@
     "like": "J'aime",
     "share": "Partager",
     "copied": "Lien copié",
-    "comments": "Commentaires",
+    "comments": "commentaires",
     "trending": "Tendances",
     "help": "Aide",
     "subscribeNow": "S'abonner",
@@ -556,9 +555,6 @@
       "comments": "Plus commentés"
     },
     "noResults": "Aucun résultat pour votre recherche.",
-    "share": "Partager",
-    "copied": "Lien copié",
-    "comments": "commentaires",
     "pinBadge": "À la une",
     "back": "Retour aux actualités",
     "commentsTitle": "Commentaires",
@@ -593,18 +589,18 @@
       "team": "Équipe",
       "settings": "Paramètres",
       "logout": "Déconnexion",
-    "overview": "Aperçu Global",
-    "projectsCompleted": "Projets Réalisés",
-    "visitors30d": "Visiteurs 30j",
-    "quoteRequests": "Demandes Devis",
-    "newMessages": "Nouveaux Messages",
-    "recentActivity": "Activité Récente",
-    "activity1": "Nouveau devis demandé par Jean Dupont – Installation solaire",
-    "activity2": "Message reçu de Marie Claire – Demande info batteries",
-    "activity3": "Projet \"Villa Lumière\" marqué comme terminé",
-    "timeAgo2h": "Il y a 2h",
-    "timeAgo5h": "Il y a 5h",
-    "timeYesterday": "Hier"
+      "overview": "Aperçu Global",
+      "projectsCompleted": "Projets Réalisés",
+      "visitors30d": "Visiteurs 30j",
+      "quoteRequests": "Demandes Devis",
+      "newMessages": "Nouveaux Messages",
+      "recentActivity": "Activité Récente",
+      "activity1": "Nouveau devis demandé par Jean Dupont – Installation solaire",
+      "activity2": "Message reçu de Marie Claire – Demande info batteries",
+      "activity3": "Projet \"Villa Lumière\" marqué comme terminé",
+      "timeAgo2h": "Il y a 2h",
+      "timeAgo5h": "Il y a 5h",
+      "timeYesterday": "Hier"
     },
     "layout": {
       "dashboard": "Dashboard",
@@ -623,7 +619,9 @@
       "viewSite": "Voir le site",
       "logout": "Déconnexion",
       "pageEditor": "Éditeur de page",
-      "dashboardTitle": "Tableau de bord"
+      "dashboardTitle": "Tableau de bord",
+      "services": "Services",
+      "projects": "Projets"
     },
     "loginExtra": {
       "workspace": "Vicking Solar Workspace",

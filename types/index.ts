@@ -24,6 +24,36 @@ export interface Project {
   date: string;
 }
 
+export interface CmsService {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  features: string[];
+  tag: string;
+  color: ServiceColor;
+  featured: boolean;
+  icon: string;
+  sort_order: number;
+  is_published: boolean;
+}
+
+export interface CmsProject {
+  id: string;
+  slug: string;
+  title: string;
+  description: string;
+  category: string;
+  power: string;
+  location: string;
+  tags: string[];
+  features: string[];
+  image: string;
+  date: string;
+  sort_order: number;
+  is_published: boolean;
+}
+
 export interface TeamMember {
   id: string;
   name: string;

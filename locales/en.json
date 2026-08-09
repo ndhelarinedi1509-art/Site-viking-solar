@@ -508,8 +508,7 @@
       "newPasswordDescription": "Choose a new password for your account.",
       "resetPasswordBtn": "Reset password",
       "passwordResetSuccess": "Password reset!",
-      "passwordResetDescription": "Your password has been changed successfully. Log in with your new password.",
-      "emailOrPhone": "Email or phone"
+      "passwordResetDescription": "Your password has been changed successfully. Log in with your new password."
     },
     "comments": {
       "placeholder": "Write a comment...",
@@ -537,7 +536,7 @@
     "like": "Like",
     "share": "Share",
     "copied": "Link copied",
-    "comments": "Comments",
+    "comments": "comments",
     "trending": "Trending",
     "help": "Help",
     "subscribeNow": "Subscribe Now",
@@ -556,9 +555,6 @@
       "comments": "Most commented"
     },
     "noResults": "No results for your search.",
-    "share": "Share",
-    "copied": "Link copied",
-    "comments": "comments",
     "pinBadge": "Top story",
     "back": "Back to news",
     "commentsTitle": "Comments",
@@ -623,7 +619,9 @@
       "viewSite": "View site",
       "logout": "Logout",
       "pageEditor": "Page Editor",
-      "dashboardTitle": "Dashboard"
+      "dashboardTitle": "Dashboard",
+      "services": "Services",
+      "projects": "Projets"
     },
     "loginExtra": {
       "workspace": "Vicking Solar Workspace",

@@ -1,9 +1,9 @@
 'use client';
 
-import { PROJECTS } from '@/constants/projects';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
+import type { CmsProject } from '@/types';
 
 const tagColors: Record<string, string> = {
   industriel: 'text-green bg-green/10 border-green/20',
@@ -53,9 +53,13 @@ function ProjCard({ children, delay = 0, className }: { children: React.ReactNod
   );
 }
 
-export function ServicesProjects() {
+interface ServicesProjectsProps {
+  projects?: CmsProject[];
+}
+
+export function ServicesProjects({ projects = [] }: ServicesProjectsProps) {
   const { t } = useTranslation();
-  const previewProjects = [...PROJECTS]
+  const previewProjects = [...projects]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 3);
 

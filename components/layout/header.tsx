@@ -62,23 +62,18 @@ export function Header() {
             </Link>
 
             {/* Desktop Nav */}
-            <nav className="hidden lg:flex items-center gap-8">
+            <nav className="hidden lg:flex items-center gap-1.5">
               {NAV_LINKS.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`relative text-sm font-medium transition-colors duration-200 py-0.5 ${
+                  className={`rounded-full px-4 py-2 text-sm font-medium transition-all duration-200 ${
                     isActive(item.href)
-                      ? 'text-white'
-                      : 'text-gray-400 hover:text-white'
+                      ? 'bg-green text-bg-primary font-semibold'
+                      : 'text-gray-400 hover:text-white hover:bg-white/5'
                   }`}
                 >
                   {item.label}
-                  <span
-                    className={`absolute -bottom-0.5 left-0 h-0.5 rounded-full bg-green transition-all duration-350 ${
-                      isActive(item.href) ? 'w-full' : 'w-0 group-hover:w-full'
-                    }`}
-                  />
                 </Link>
               ))}
             </nav>
