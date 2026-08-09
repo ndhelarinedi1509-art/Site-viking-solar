@@ -10,60 +10,26 @@
      · optimizePackageImports
 
  ✓ Starting...
- ✓ Ready in 5.1s
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
+ ✓ Ready in 4.4s
  ○ Compiling /middleware ...
- ✓ Compiled /middleware in 3.5s (158 modules)
- ○ Compiling / ...
-<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (106kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
-<w> [webpack.cache.PackFileCacheStrategy] Serializing big strings (250kiB) impacts deserialization performance (consider using Buffer instead and decode when needed)
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- ✓ Compiled /admin in 29.2s (1016 modules)
- GET / 200 in 6708ms
- ⚠ Fast Refresh had to perform a full reload due to a runtime error.
- GET /admin 200 in 32029ms
- GET / 200 in 4815ms
- GET / 200 in 1720ms
- ○ Compiling /api/admin/auth/session ...
- ✓ Compiled /api/admin/auth/session in 2.5s (1027 modules)
- GET /api/admin/sections 200 in 3700ms
- GET /api/admin/auth/session 200 in 3703ms
- GET /api/admin/sections 200 in 423ms
- GET /api/admin/auth/session 200 in 440ms
- GET /api/admin/sections 200 in 317ms
- GET /api/admin/sections 200 in 306ms
+ ✓ Compiled /middleware in 2.9s (158 modules)
+ ○ Compiling /api/site-updated-at ...
+ ✓ Compiled /api/site-updated-at in 5.3s (340 modules)
+ GET /api/site-updated-at 200 in 7401ms
  ○ Compiling /admin/login ...
- ✓ Compiled /admin/login in 2.8s (1084 modules)
- GET /admin/login 200 in 3802ms
- GET / 200 in 454ms
- GET /admin 200 in 142ms
- GET / 200 in 720ms
- ○ Compiling /actualites ...
- ✓ Compiled /actualites in 4.2s (1100 modules)
- ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
- GET /actualites 200 in 4802ms
- GET /actualites 200 in 105ms
- ⨯ [Error: ENOENT: no such file or directory, open 'D:\BUREAU REY\Bureau viking solar\Viking solar web\.next\server\app\admin\page.js'] {
-  errno: -4058,
-  code: 'ENOENT',
-  syscall: 'open',
-  path: 'D:\\BUREAU REY\\Bureau viking solar\\Viking solar web\\.next\\server\\app\\admin\\page.js',
-  page: '/admin'
-}
- ○ Compiling /api/news ...
- ✓ Compiled /api/news in 7.5s (1455 modules)
- ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
- GET /admin 500 in 9101ms
- GET /actualites 200 in 4594ms
- GET /actualites 200 in 99ms
- GET /api/news/categories 200 in 9338ms
- GET /api/news/tags 200 in 9347ms
- GET /api/news?page=1&limit=12&visitorId=7cee0448-e1a7-42d6-9684-c17bc88afe0e 200 in 9714ms
- GET /api/news/categories 200 in 371ms
- GET /api/news/tags 200 in 376ms
- GET /admin 200 in 358ms
- GET /admin 200 in 167ms
- GET /api/news?page=1&limit=12&visitorId=7cee0448-e1a7-42d6-9684-c17bc88afe0e 200 in 669ms
- GET /admin 200 in 753ms
- GET /api/news?page=1&limit=12&visitorId=7cee0448-e1a7-42d6-9684-c17bc88afe0e 200 in 1234ms
- GET /api/news?page=1&limit=12&visitorId=7cee0448-e1a7-42d6-9684-c17bc88afe0e 200 in 555ms
+ ✓ Compiled /admin/login in 13.1s (848 modules)
+ GET /admin/login 200 in 15028ms
+ ✓ Compiled in 1824ms (323 modules)
+ ○ Compiling / ...
+ ✓ Compiled / in 6.7s (1050 modules)
+ GET / 200 in 8031ms
+ GET / 200 in 734ms
+ GET / 200 in 670ms
+ ○ Compiling /api/admin/sections ...
+ ✓ Compiled /api/admin/sections in 593ms (1052 modules)
+ GET /api/admin/sections?pageKey=home 200 in 1296ms
+ ✓ Compiled in 806ms (420 modules)
+ GET / 200 in 831ms
+ ○ Compiling /api/admin/media ...
+ ✓ Compiled /api/admin/media in 2.9s (1019 modules)
+ GET /api/admin/media 200 in 3862ms

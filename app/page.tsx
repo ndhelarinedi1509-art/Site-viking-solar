@@ -6,10 +6,26 @@ import { HomeServicesPreview } from '@/components/sections/home-services-preview
 import { HomeProjectsPreview } from '@/components/sections/home-projects-preview';
 import { HomeBenefits } from '@/components/sections/home-benefits';
 import { HomeCTA } from '@/components/sections/home-cta';
-import { fetchPublishedSections, fetchServices, fetchProjects, getSection } from '@/lib/cms-queries';
+import { fetchPublishedSections, fetchServices, fetchProjects } from '@/lib/cms-queries';
+import type { PageSection, CmsService, CmsProject } from '@/types';
 import { RealtimeRefresh } from '@/components/realtime-refresh';
 
 export const dynamic = 'force-dynamic';
+
+interface HomeSectionProps {
+  section?: PageSection;
+  services?: CmsService[];
+  projects?: CmsProject[];
+}
+
+const sectionComponents: Record<string, React.ComponentType<HomeSectionProps>> = {
+  hero: HomeHero,
+  'about-preview': HomeAboutPreview,
+  'services-preview': HomeServicesPreview,
+  'projects-preview': HomeProjectsPreview,
+  benefits: HomeBenefits,
+  cta: HomeCTA,
+};
 
 export default async function HomePage() {
   let sections: Awaited<ReturnType<typeof fetchPublishedSections>> = [];
@@ -30,12 +46,18 @@ export default async function HomePage() {
     <>
       <Header />
       <main>
-        <HomeHero section={getSection(sections, 'hero')} />
-        <HomeAboutPreview section={getSection(sections, 'about-preview')} />
-        <HomeServicesPreview section={getSection(sections, 'services-preview')} services={services} />
-        <HomeProjectsPreview section={getSection(sections, 'projects-preview')} projects={projects} />
-        <HomeBenefits section={getSection(sections, 'benefits')} />
-        <HomeCTA section={getSection(sections, 'cta')} />
+        {sections.map((section) => {
+          const Component = sectionComponents[section.section_key];
+          if (!Component) return null;
+          return (
+            <Component
+              key={section.id}
+              section={section}
+              services={services}
+              projects={projects}
+            />
+          );
+        })}
       </main>
       <Footer />
       <RealtimeRefresh />

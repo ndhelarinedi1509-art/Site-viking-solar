@@ -1,9 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
+
+const BUCKET = 'vicking';
 
 export async function GET() {
   try {
-    const supabase = await createClient();
+    const supabase = getAdminClient();
     const { data, error } = await supabase
       .from('site_media')
       .select('*')
@@ -23,14 +25,14 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'No file provided' }, { status: 400 });
     }
 
-    const supabase = await createClient();
+    const supabase = getAdminClient();
     const bytes = await file.arrayBuffer();
     const buffer = new Uint8Array(bytes);
     const filename = `${Date.now()}-${file.name.replace(/[^a-zA-Z0-9.-]/g, '_')}`;
 
     const { data: uploadData, error: uploadError } = await supabase
       .storage
-      .from('site-media')
+      .from(BUCKET)
       .upload(filename, buffer, {
         contentType: file.type,
         cacheControl: '3600',
@@ -41,7 +43,7 @@ export async function POST(request: NextRequest) {
 
     const { data: { publicUrl } } = supabase
       .storage
-      .from('site-media')
+      .from(BUCKET)
       .getPublicUrl(filename);
 
     const { data: mediaRecord, error: dbError } = await supabase

@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { toast } from 'sonner';
 import { Plus, Pencil, Trash2, Eye, EyeOff, Loader2, X } from 'lucide-react';
 import type { CmsProject } from '@/types';
+import { ImageUploader } from '@/components/admin/image-uploader';
 
 const CATEGORIES = [
   { value: 'residentiel', label: 'Résidentiel' },
@@ -209,9 +210,12 @@ export default function AdminProjectsPage() {
                 <textarea value={form.features} onChange={(e) => setForm({ ...form, features: e.target.value })}
                   rows={2} placeholder={'Toiture intégrée\nApp suivi'} className={inputCls} />
               </Field>
-              <Field label="Image (URL)">
-                <input value={form.image} onChange={(e) => setForm({ ...form, image: e.target.value })}
-                  placeholder="/images/projet.jpg" className={inputCls} />
+              <Field label="Image">
+                <ImageUploader
+                  value={form.image}
+                  onChange={(image) => setForm({ ...form, image })}
+                  placeholder="/images/projet.jpg"
+                />
               </Field>
               <label className="flex items-center gap-2 text-sm text-gray-300 cursor-pointer pt-1">
                 <input type="checkbox" checked={form.is_published} onChange={(e) => setForm({ ...form, is_published: e.target.checked })}

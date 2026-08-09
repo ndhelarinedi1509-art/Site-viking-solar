@@ -53,7 +53,7 @@ export function HomeHero({ section }: HomeHeroProps) {
   const { t } = useTranslation();
 
   const badge = sectionString(section, 'badge', t('hero.home.badge'));
-  const title = sectionString(section, 'title', "L'énergie de demain, disponible");
+  const title = section?.title || sectionString(section, 'title', "L'énergie de demain, disponible");
   const titleHighlight = sectionString(section, 'titleHighlight', 'aujourd\'hui');
   const description = section?.description || t('hero.home.description');
   const buttons = sectionButtons(section);

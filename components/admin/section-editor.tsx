@@ -3,6 +3,7 @@
 import { useCallback } from 'react';
 import type { PageSection, SectionType } from '@/types';
 import { toast } from 'sonner';
+import { ImageUploader } from '@/components/admin/image-uploader';
 
 interface SectionEditorProps {
   section: PageSection;
@@ -36,7 +37,7 @@ export function SectionEditor({ section, onUpdate }: SectionEditorProps) {
       <div className="space-y-4">
         <InputField
           label="Titre de la section"
-          value={section.title}
+          value={section.title || contentString(section, 'title')}
           onChange={(v) => updateField('title', v)}
         />
         <InputField
@@ -328,19 +329,26 @@ function ImagesEditor({ images, onChange }: {
   return (
     <div className="space-y-3">
       {images.map((img, i) => (
-        <div key={i} className="flex items-start gap-2">
-          <div className="flex-1 grid grid-cols-2 gap-2">
-            <input value={img.url} onChange={(e) => update(i, 'url', e.target.value)}
-              placeholder="URL de l'image" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none col-span-2" />
+        <div key={i} className="rounded-xl border border-white/6 bg-white/3 p-3 space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">Image {i + 1}</span>
+            <button onClick={() => remove(i)}
+              className="h-7 w-7 rounded-lg bg-accent-red/10 text-accent-red hover:bg-accent-red/20 flex items-center justify-center text-sm transition-colors">
+              &times;
+            </button>
+          </div>
+          <ImageUploader
+            label="URL de l'image"
+            value={img.url}
+            onChange={(url) => update(i, 'url', url)}
+            placeholder="https://… ou /home.jpeg"
+          />
+          <div className="grid grid-cols-2 gap-2">
             <input value={img.alt ?? ''} onChange={(e) => update(i, 'alt', e.target.value)}
               placeholder="Texte alternatif" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none" />
             <input value={img.caption ?? ''} onChange={(e) => update(i, 'caption', e.target.value)}
               placeholder="Légende" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none" />
           </div>
-          <button onClick={() => remove(i)}
-            className="mt-1 h-8 w-8 rounded-lg bg-accent-red/10 text-accent-red hover:bg-accent-red/20 flex items-center justify-center text-sm transition-colors">
-            &times;
-          </button>
         </div>
       ))}
       <button onClick={add}
