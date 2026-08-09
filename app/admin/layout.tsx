@@ -32,13 +32,14 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }, []);
 
   useEffect(() => {
+    if (pathname === '/admin/login' || pathname === '/admin/setup') return;
     fetch('/api/admin/auth/session')
       .then((r) => r.ok ? r.json() : Promise.reject())
       .then((d) => setSessionUser(d.user))
       .catch(() => {})
       .finally(() => setSessionLoading(false));
     fetchPages();
-  }, [fetchPages]);
+  }, [fetchPages, pathname]);
 
   const mainNavItems = [
     { href: '/admin', label: t('admin.layout.dashboard'), icon: LayoutDashboard },
