@@ -70,6 +70,21 @@ export function NewsArticle({
 
           <p className="text-sm text-gray-400 leading-relaxed whitespace-pre-line mb-6">{post.content}</p>
 
+          {/* Hashtags */}
+          {post.tags && post.tags.length > 0 && (
+            <div className="flex flex-wrap gap-2 mb-6">
+              {post.tags.map((tag) => (
+                <Link
+                  key={tag}
+                  href={`/actualites?tag=${encodeURIComponent(tag)}`}
+                  className="rounded-full border border-border bg-bg-primary px-3 py-1 text-xs font-medium text-gray-400 hover:text-green hover:border-green/30 transition-colors"
+                >
+                  #{tag}
+                </Link>
+              ))}
+            </div>
+          )}
+
           {/* Actions */}
           <div className="flex items-center gap-6 pt-4 border-t border-border">
             <LikeButton postId={post.id} initialCount={post.like_count ?? 0} initialLiked={post.is_liked} />

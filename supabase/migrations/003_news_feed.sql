@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS news_posts (
   category_id UUID REFERENCES news_categories(id) ON DELETE SET NULL,
   status TEXT NOT NULL DEFAULT 'draft' CHECK (status IN ('draft','published','archived')),
   is_pinned BOOLEAN NOT NULL DEFAULT false,
+  tags TEXT[] NOT NULL DEFAULT '{}',
   published_at TIMESTAMPTZ,
   created_at TIMESTAMPTZ DEFAULT now(),
   updated_at TIMESTAMPTZ DEFAULT now()
@@ -55,6 +56,7 @@ CREATE INDEX IF NOT EXISTS idx_news_posts_status_published ON news_posts(status,
 CREATE INDEX IF NOT EXISTS idx_news_posts_category ON news_posts(category_id);
 CREATE INDEX IF NOT EXISTS idx_news_posts_slug ON news_posts(slug);
 CREATE INDEX IF NOT EXISTS idx_news_posts_pinned ON news_posts(is_pinned) WHERE is_pinned = true;
+CREATE INDEX IF NOT EXISTS idx_news_posts_tags ON news_posts USING GIN (tags);
 CREATE INDEX IF NOT EXISTS idx_news_comments_post ON news_comments(post_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_news_comments_status ON news_comments(status);
 CREATE INDEX IF NOT EXISTS idx_news_comments_visitor ON news_comments(anonymous_visitor_id, created_at);
@@ -161,14 +163,14 @@ INSERT INTO news_categories (name, slug, color, sort_order) VALUES
 ON CONFLICT (slug) DO NOTHING;
 
 -- Posts (adapted from the original hardcoded articles)
-INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_pinned, published_at) VALUES
+INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_pinned, tags, published_at) VALUES
   (
     'Nouvelle Promotion : -20% sur les Kits Solaires',
     'nouvelle-promotion-20-kits-solaires',
     'Profitez d''une réduction exceptionnelle de 20% sur tous nos kits solaires résidentiels jusqu''à la fin du mois.',
     'Vicking Solar lance une promotion exceptionnelle sur l''ensemble de sa gamme de kits solaires résidentiels. Que vous souhaitiez équiper votre maison d''un système de 3kW ou de 10kW, bénéficiez de 20% de réduction sur le prix total de l''installation. Offre valable jusqu''au 31 juillet 2026.',
     (SELECT id FROM news_categories WHERE slug = 'promotion'),
-    'published', true,
+    'published', true, ARRAY['solaires','promotion','kits'],
     '2026-07-01T08:00:00Z'
   ),
   (
@@ -177,7 +179,7 @@ INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_p
     'Venez nous rencontrer au Salon International de l''Énergie de Kinshasa du 15 au 18 juillet.',
     'Nous serons présents au Salon International de l''Énergie de Kinshasa pour vous présenter nos dernières innovations en matière d''énergie solaire. Découvrez nos nouveaux panneaux à haut rendement et nos solutions de stockage nouvelle génération. Entrée gratuite sur invitation.',
     (SELECT id FROM news_categories WHERE slug = 'evenement'),
-    'published', true,
+    'published', true, ARRAY['salon','evenement','kin-2026'],
     '2026-06-28T08:00:00Z'
   ),
   (
@@ -186,7 +188,7 @@ INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_p
     'Nous avons réalisé l''installation d''un système hybride de 50kW pour un centre commercial à Gombe en un temps record.',
     'Notre équipe a relevé le défi d''installer un système hybride de 50kW avec batteries lithium pour un centre commercial du quartier Gombe à Kinshasa. L''installation complète, de la pose des panneaux à la mise en service, a été réalisée en seulement 48 heures. Une performance qui démontre notre expertise et notre efficacité.',
     (SELECT id FROM news_categories WHERE slug = 'realisation'),
-    'published', false,
+    'published', false, ARRAY['installation','record','50kw'],
     '2026-06-20T08:00:00Z'
   ),
   (
@@ -195,7 +197,7 @@ INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_p
     'Vicking Solar signe un partenariat stratégique avec SolarTech pour distribuer exclusivement leurs panneaux nouvelle génération en RDC.',
     'Nous avons le plaisir d''annoncer notre partenariat exclusif avec SolarTech, fabricant mondial de panneaux solaires haut de gamme. Cette collaboration nous permet de vous offrir des panneaux monocristallins de dernière génération avec un rendement record de 24,5%. Disponibles dès maintenant dans notre showroom.',
     (SELECT id FROM news_categories WHERE slug = 'partenariat'),
-    'published', false,
+    'published', false, ARRAY['partenariat','solartech','panneaux'],
     '2026-06-15T08:00:00Z'
   ),
   (
@@ -204,7 +206,7 @@ INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_p
     'Pour toute installation solaire de plus de 5kW, recevez une batterie de stockage lithium offerte d''une valeur de 1500$.',
     'Dans le cadre de notre programme ''Soleil pour Tous'', nous offrons une batterie lithium de 5kWh pour toute installation solaire d''une puissance supérieure à 5kW. Une opportunité unique de bénéficier d''une autonomie énergétique totale à prix réduit. Offre limitée aux 50 premiers clients.',
     (SELECT id FROM news_categories WHERE slug = 'promotion'),
-    'published', false,
+    'published', false, ARRAY['kit','batterie','offre'],
     '2026-06-10T08:00:00Z'
   ),
   (
@@ -213,7 +215,7 @@ INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_p
     'Découvrez comment la famille Mbemba a réduit sa facture d''électricité de 80% grâce à notre installation solaire.',
     'La famille Mbemba, résidant à Ngaliema, a fait le choix du solaire avec Vicking Solar. Installés depuis 6 mois, leurs panneaux solaires de 8kW couvrent désormais 80% de leurs besoins énergétiques. ''Nous économisons près de 300$ par mois et nous n''avons plus de coupures'', témoigne M. Mbemba.',
     (SELECT id FROM news_categories WHERE slug = 'temoinage'),
-    'published', false,
+    'published', false, ARRAY['temoignage','clients','familiale'],
     '2026-06-05T08:00:00Z'
   ),
   (
@@ -222,7 +224,7 @@ INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_p
     'Inscrivez-vous à notre formation gratuite sur l''énergie solaire ouverte à tous les résidents de Kinshasa.',
     'Vicking Solar organise une formation gratuite d''une journée sur les bases de l''énergie solaire. Au programme : fonctionnement des panneaux, dimensionnement d''installation, entretien et maintenance. La formation aura lieu dans nos locaux à Kinshasa. Places limitées, inscription obligatoire.',
     (SELECT id FROM news_categories WHERE slug = 'formation'),
-    'published', false,
+    'published', false, ARRAY['formation','gratuit','savoir'],
     '2026-06-01T08:00:00Z'
   ),
   (
@@ -231,7 +233,7 @@ INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_p
     'Dans le cadre de notre programme de fidélité, offrons une maintenance complète gratuite à tous nos clients de plus d''un an.',
     'Nous lançons notre programme de fidélité ''Client Premium''. Tous nos clients ayant installé leur système solaire depuis plus d''un an bénéficient d''une visite de maintenance gratuite incluant le nettoyage des panneaux, la vérification des onduleurs et un rapport de performance détaillé.',
     (SELECT id FROM news_categories WHERE slug = 'promotion'),
-    'published', false,
+    'published', false, ARRAY['maintenance','fidelite','premium'],
     '2026-05-25T08:00:00Z'
   )
 ON CONFLICT (slug) DO NOTHING;

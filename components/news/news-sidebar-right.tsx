@@ -1,9 +1,9 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
-import { Flame, Clock, Layers } from 'lucide-react';
+import { Flame, Clock, Layers, Hash } from 'lucide-react';
 import { cn } from '@/lib/utils';
-import type { NewsCategory, NewsPost } from '@/types';
+import type { NewsCategory, NewsPost, NewsTrendingTag } from '@/types';
 import { NewsCard } from './news-card';
 
 export function NewsSidebarRight({
@@ -12,12 +12,18 @@ export function NewsSidebarRight({
   categories,
   selectedCategory,
   onSelectCategory,
+  tags,
+  selectedTag,
+  onSelectTag,
 }: {
   pinned: NewsPost[];
   recent: NewsPost[];
   categories: NewsCategory[];
   selectedCategory: string | null;
   onSelectCategory: (slug: string | null) => void;
+  tags: NewsTrendingTag[];
+  selectedTag: string | null;
+  onSelectTag: (tag: string | null) => void;
 }) {
   const { t } = useTranslation();
 
@@ -83,6 +89,44 @@ export function NewsSidebarRight({
                 style={selectedCategory === cat.slug ? { backgroundColor: cat.color || '#22C55E' } : undefined}
               >
                 {cat.name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Hashtags tendance */}
+      {tags.length > 0 && (
+        <div className="rounded-lg border border-border bg-bg-card p-4">
+          <h3 className="flex items-center gap-2 text-sm font-bold text-white mb-3">
+            <Hash className="h-4 w-4 text-green" />
+            {t('news.trendingTags')}
+          </h3>
+          <div className="flex flex-wrap gap-2">
+            <button
+              onClick={() => onSelectTag(null)}
+              className={cn(
+                'rounded-full px-3 py-1.5 text-xs font-semibold border transition-colors',
+                selectedTag === null
+                  ? 'bg-green/10 border-green/40 text-green'
+                  : 'border-border text-gray-400 hover:text-white hover:border-green/30',
+              )}
+            >
+              {t('news.all')}
+            </button>
+            {tags.slice(0, 12).map(({ tag, count }) => (
+              <button
+                key={tag}
+                onClick={() => onSelectTag(tag)}
+                className={cn(
+                  'rounded-full px-3 py-1.5 text-xs font-semibold border transition-colors',
+                  selectedTag === tag
+                    ? 'bg-green/10 border-green/40 text-green'
+                    : 'border-border text-gray-400 hover:text-white hover:border-green/30',
+                )}
+              >
+                #{tag}
+                <span className="opacity-60"> {count}</span>
               </button>
             ))}
           </div>

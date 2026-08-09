@@ -199,6 +199,7 @@ export interface NewsPost {
   category_id: string | null;
   status: NewsPostStatus;
   is_pinned: boolean;
+  tags: string[];
   published_at: string | null;
   created_at: string;
   updated_at: string;
@@ -223,6 +224,11 @@ export interface NewsLike {
   post_id: string;
   anonymous_visitor_id: string;
   created_at: string;
+}
+
+export interface NewsTrendingTag {
+  tag: string;
+  count: number;
 }
 
 export interface PaginationParams {

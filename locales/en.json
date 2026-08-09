@@ -537,6 +537,27 @@
     "like": "Like",
     "share": "Share",
     "copied": "Link copied",
+    "comments": "Comments",
+    "trending": "Trending",
+    "help": "Help",
+    "subscribeNow": "Subscribe Now",
+    "ctaQuote": "Get a Quote",
+    "legal": {
+      "mentions": "Legal Notice",
+      "privacy": "Privacy"
+    },
+    "searchPlaceholder": "Search the news...",
+    "clearSearch": "Clear search",
+    "trendingTags": "Trending",
+    "sort": {
+      "latest": "Newest",
+      "oldest": "Oldest",
+      "likes": "Most liked",
+      "comments": "Most commented"
+    },
+    "noResults": "No results for your search.",
+    "share": "Share",
+    "copied": "Link copied",
     "comments": "comments",
     "pinBadge": "Top story",
     "back": "Back to news",

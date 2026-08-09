@@ -86,6 +86,17 @@ export function NewsCard({ post, compact = false }: { post: NewsPost; compact?: 
         </Link>
         <p className="text-sm text-gray-400 leading-relaxed flex-1 line-clamp-3">{post.excerpt}</p>
 
+        {/* Hashtags */}
+        {post.tags && post.tags.length > 0 && (
+          <div className="flex flex-wrap gap-1.5 mt-3">
+            {post.tags.slice(0, 4).map((tag) => (
+              <span key={tag} className="rounded-full border border-border bg-bg-primary px-2.5 py-0.5 text-[0.65rem] font-medium text-gray-500">
+                #{tag}
+              </span>
+            ))}
+          </div>
+        )}
+
         {/* Stats */}
         <div className="mt-4 pt-3 border-t border-border flex items-center justify-between text-xs text-gray-500">
           <span className="flex items-center gap-1.5">

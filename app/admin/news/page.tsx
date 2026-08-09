@@ -29,6 +29,7 @@ const EMPTY_FORM = {
   status: 'draft' as NewsPostStatus,
   is_pinned: false,
   published_at: '',
+  tags: '',
 };
 
 function StatusBadge({ status }: { status: NewsPostStatus }) {
@@ -93,6 +94,7 @@ export default function AdminNewsPage() {
       status: post.status,
       is_pinned: post.is_pinned,
       published_at: post.published_at ? post.published_at.slice(0, 16) : '',
+      tags: (post.tags ?? []).join(', '),
     });
     setFormOpen(true);
   };
@@ -113,6 +115,10 @@ export default function AdminNewsPage() {
         status: form.status,
         is_pinned: form.is_pinned,
         published_at: form.published_at ? new Date(form.published_at).toISOString() : null,
+        tags: form.tags
+          .split(/[,;]/)
+          .map((t) => t.trim())
+          .filter(Boolean),
       };
       const res = await fetch(editingId ? `/api/admin/news/${editingId}` : '/api/admin/news', {
         method: editingId ? 'PUT' : 'POST',
@@ -154,6 +160,7 @@ export default function AdminNewsPage() {
         : post.status,
       is_pinned: field === 'is_pinned' ? !post.is_pinned : post.is_pinned,
       published_at: post.published_at,
+      tags: post.tags ?? [],
     };
     const res = await fetch(`/api/admin/news/${post.id}`, {
       method: 'PUT',
@@ -213,6 +220,15 @@ export default function AdminNewsPage() {
                     <span className="flex items-center gap-1"><ThumbsUp className="h-3 w-3" />{post.like_count ?? 0}</span>
                     <span className="flex items-center gap-1"><MessageCircle className="h-3 w-3" />{post.comment_count ?? 0}</span>
                     <span>{post.published_at ? new Date(post.published_at).toLocaleDateString('fr-FR') : '—'}</span>
+                    {post.tags && post.tags.length > 0 && (
+                      <span className="flex flex-wrap gap-1">
+                        {post.tags.slice(0, 5).map((tag) => (
+                          <span key={tag} className="rounded-full border border-white/10 px-2 py-0.5 text-[0.65rem] text-gray-500">
+                            #{tag}
+                          </span>
+                        ))}
+                      </span>
+                    )}
                   </div>
                 </div>
                 <div className="flex items-center gap-1 flex-shrink-0">
@@ -309,6 +325,12 @@ export default function AdminNewsPage() {
               <div className="space-y-1.5">
                 <label className="block text-sm font-medium text-gray-300">Image de couverture (URL)</label>
                 <input value={form.cover_image} onChange={(e) => setForm({ ...form, cover_image: e.target.value })} className={inputCls} placeholder="https://..." />
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="block text-sm font-medium text-gray-300">Hashtags (séparés par virgule)</label>
+                <input value={form.tags} onChange={(e) => setForm({ ...form, tags: e.target.value })} className={inputCls} placeholder="solaire, promotion, kit" />
+                <p className="text-xs text-gray-500">Ex. : solaire, promotion, kit — affichés en #hashtag et filtrables par les visiteurs.</p>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 items-end">

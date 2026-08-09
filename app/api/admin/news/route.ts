@@ -13,7 +13,12 @@ const postSchema = z.object({
   status: z.enum(['draft', 'published', 'archived']).default('draft'),
   is_pinned: z.boolean().default(false),
   published_at: z.string().nullable().optional().default(null),
+  tags: z.array(z.string()).optional().default([]),
 });
+
+function normalizeTags(tags: string[] | undefined): string[] {
+  return [...new Set((tags ?? []).map((t) => t.trim().replace(/^#/, '').toLowerCase()).filter(Boolean))];
+}
 
 function toCamel(row: Record<string, unknown>) {
   return {
@@ -26,6 +31,7 @@ function toCamel(row: Record<string, unknown>) {
     category_id: row.category_id,
     status: row.status,
     is_pinned: row.is_pinned,
+    tags: row.tags ?? [],
     published_at: row.published_at,
     created_at: row.created_at,
     updated_at: row.updated_at,
@@ -99,6 +105,7 @@ export async function POST(request: NextRequest) {
         category_id: parsed.data.category_id,
         status: parsed.data.status,
         is_pinned: parsed.data.is_pinned,
+        tags: normalizeTags(parsed.data.tags),
         published_at: publishedAt,
       })
       .select('*, category:news_categories(name, slug, color)')

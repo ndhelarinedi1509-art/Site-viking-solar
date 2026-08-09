@@ -13,7 +13,12 @@ const updateSchema = z.object({
   status: z.enum(['draft', 'published', 'archived']).default('draft'),
   is_pinned: z.boolean().default(false),
   published_at: z.string().nullable().optional().default(null),
+  tags: z.array(z.string()).optional().default([]),
 });
+
+function normalizeTags(tags: string[] | undefined): string[] {
+  return [...new Set((tags ?? []).map((t) => t.trim().replace(/^#/, '').toLowerCase()).filter(Boolean))];
+}
 
 export async function PUT(request: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const session = await getSessionFromCookie();
@@ -54,6 +59,7 @@ export async function PUT(request: NextRequest, { params }: { params: Promise<{ 
         category_id: parsed.data.category_id,
         status: parsed.data.status,
         is_pinned: parsed.data.is_pinned,
+        tags: normalizeTags(parsed.data.tags),
         published_at: publishedAt,
       })
       .eq('id', id)

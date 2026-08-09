@@ -10,39 +10,11 @@
      · optimizePackageImports
 
  ✓ Starting...
- ✓ Ready in 4.2s
+ ✓ Ready in 6.4s
  ○ Compiling /middleware ...
- ✓ Compiled /middleware in 592ms (158 modules)
+ ✓ Compiled /middleware in 724ms (158 modules)
  ○ Compiling /actualites ...
- ✓ Compiled /actualites in 5.3s (814 modules)
+ ✓ Compiled /actualites in 8s (822 modules)
  ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
- GET /actualites 200 in 6031ms
- ✓ Compiled in 1466ms (338 modules)
- ○ Compiling /api/news ...
- ✓ Compiled /api/news in 2s (878 modules)
- GET /api/news 500 in 3735ms
- ○ Compiling /api/news/categories ...
- ✓ Compiled /api/news/categories in 542ms (880 modules)
- GET /api/news/categories 500 in 956ms
- GET /api/news 500 in 544ms
- ✓ Compiled in 1233ms (894 modules)
- GET /api/news 200 in 945ms
- GET /api/news/categories 200 in 652ms
- ○ Compiling /actualites/[slug] ...
- ✓ Compiled /actualites/[slug] in 2.6s (882 modules)
- ⨯ [Error [PageNotFoundError]: Cannot find module for page: /actualites/[slug]/page] {
-  type: 'PageNotFoundError',
-  code: 'ENOENT',
-  page: '/actualites/test'
-}
- ○ Compiling /_error ...
- ✓ Compiled /_error in 9s (1229 modules)
- GET /actualites/test 500 in 17330ms
- ○ Compiling /_not-found ...
- ✓ Compiled /_not-found in 798ms (1211 modules)
- GET /actualites/test 404 in 1719ms
- GET /actualites/test 200 in 3239ms
- ○ Compiling /projects ...
- ✓ Compiled /projects in 1970ms (1047 modules)
- ⚠ metadataBase property in metadata export is not set for resolving social open graph or twitter images, using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
- GET /projects 200 in 3111ms
+ GET /actualites 200 in 9108ms
+ ✓ Compiled in 1653ms (342 modules)

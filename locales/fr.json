@@ -537,6 +537,27 @@
     "like": "J'aime",
     "share": "Partager",
     "copied": "Lien copié",
+    "comments": "Commentaires",
+    "trending": "Tendances",
+    "help": "Aide",
+    "subscribeNow": "S'abonner",
+    "ctaQuote": "Demander un devis",
+    "legal": {
+      "mentions": "Mentions légales",
+      "privacy": "Confidentialité"
+    },
+    "searchPlaceholder": "Rechercher une actualité...",
+    "clearSearch": "Effacer la recherche",
+    "trendingTags": "Tendances",
+    "sort": {
+      "latest": "Plus récents",
+      "oldest": "Plus anciens",
+      "likes": "Plus aimés",
+      "comments": "Plus commentés"
+    },
+    "noResults": "Aucun résultat pour votre recherche.",
+    "share": "Partager",
+    "copied": "Lien copié",
     "comments": "commentaires",
     "pinBadge": "À la une",
     "back": "Retour aux actualités",
