@@ -4,27 +4,25 @@ export const ROUTES = {
   about: '/about',
   services: '/services',
   projects: '/projects',
-  contact: '/contact',
+  contact: '/about#contact',
   admin: '/admin',
-  deployGratuit: '/#contact',
+  deployGratuit: '/about#contact',
 } as const;
 
 export const NAV_ITEMS = [
   { label: 'Accueil', href: ROUTES.home },
   { label: 'Actualités', href: ROUTES.actualites },
-  { label: 'À propos', href: ROUTES.about },
   { label: 'Services', href: ROUTES.services },
   { label: 'Projets', href: ROUTES.projects },
-  { label: 'Contact', href: ROUTES.contact },
+  { label: 'À propos', href: ROUTES.about },
 ] as const;
 
 export const FOOTER_QUICK_LINKS = [
   { label: 'Accueil', href: ROUTES.home },
   { label: 'Actualités', href: ROUTES.actualites },
-  { label: 'À propos', href: ROUTES.about },
   { label: 'Services', href: ROUTES.services },
   { label: 'Projets', href: ROUTES.projects },
-  { label: 'Contact', href: ROUTES.contact },
+  { label: 'À propos', href: ROUTES.about },
 ] as const;
 
 export const FOOTER_SERVICE_LINKS = [

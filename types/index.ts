@@ -21,6 +21,7 @@ export interface Project {
   tags: string[];
   features: string[];
   image?: string;
+  date: string;
 }
 
 export interface TeamMember {

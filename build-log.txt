@@ -1,0 +1,80 @@
+﻿
+> viking-solar-web@1.0.0 build
+> next build
+
+   Ôû▓ Next.js 15.5.20
+   - Environments: .env
+   - Experiments (use with caution):
+     ┬À optimizePackageImports
+
+   Creating an optimized production build ...
+ Ô£ô Compiled successfully in 7.8s
+   Linting and checking validity of types ...
+   Collecting page data ...
+   Generating static pages (0/36) ...
+node.exe :  ÔÜá metadataBase property in metadata export is not set for resolving social open graph or twitter images, 
+using "http://localhost:3000". See https://nextjs.org/docs/app/api-reference/functions/generate-metadata#metadatabase
+Au caractère Ligne:1 : 1
++ & "C:\Program Files\nodejs/node.exe" "C:\Program Files\nodejs/node_mo ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ( ÔÜá metadataBa...ta#metadatabase:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+   Generating static pages (9/36) 
+   Generating static pages (18/36) 
+   Generating static pages (27/36) 
+ Ô£ô Generating static pages (36/36)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                                 Size  First Load JS
+Ôöî Ôùï /                                     8.5 kB         149 kB
+Ôö£ Ôùï /_not-found                            187 B         103 kB
+Ôö£ Ôùï /about                               6.58 kB         147 kB
+Ôö£ Ôùï /actualites                          9.01 kB         149 kB
+Ôö£ Ôùï /admin                               3.42 kB         126 kB
+Ôö£ Ôùï /admin/content                       1.69 kB         130 kB
+Ôö£ Ôùï /admin/login                         3.45 kB         146 kB
+Ôö£ Ôùï /admin/media                         2.72 kB         131 kB
+Ôö£ Ôùï /admin/messages                      1.68 kB         121 kB
+Ôö£ Ôùï /admin/pages                         2.19 kB         125 kB
+Ôö£ ãÆ /admin/pages/[pageKey]               4.79 kB         137 kB
+Ôö£ Ôùï /admin/projects                      2.27 kB         131 kB
+Ôö£ Ôùï /admin/settings                      2.66 kB         131 kB
+Ôö£ Ôùï /admin/setup                         2.79 kB         145 kB
+Ôö£ Ôùï /admin/team                          1.32 kB         121 kB
+Ôö£ Ôùï /admin/users                         7.47 kB         150 kB
+Ôö£ ãÆ /api/admin/auth/forgot-password        187 B         103 kB
+Ôö£ ãÆ /api/admin/auth/login                  187 B         103 kB
+Ôö£ ãÆ /api/admin/auth/logout                 187 B         103 kB
+Ôö£ ãÆ /api/admin/auth/reset-password         187 B         103 kB
+Ôö£ ãÆ /api/admin/auth/session                187 B         103 kB
+Ôö£ ãÆ /api/admin/auth/setup                  187 B         103 kB
+Ôö£ ãÆ /api/admin/media                       187 B         103 kB
+Ôö£ ãÆ /api/admin/media/[id]                  187 B         103 kB
+Ôö£ ãÆ /api/admin/sections                    187 B         103 kB
+Ôö£ ãÆ /api/admin/sections/[id]               187 B         103 kB
+Ôö£ ãÆ /api/admin/settings                    187 B         103 kB
+Ôö£ ãÆ /api/admin/users                       187 B         103 kB
+Ôö£ ãÆ /api/admin/users/[id]                  187 B         103 kB
+Ôö£ ãÆ /api/contact                           187 B         103 kB
+Ôö£ ãÆ /api/messages                          187 B         103 kB
+Ôö£ ãÆ /api/newsletter                        187 B         103 kB
+Ôö£ ãÆ /api/projects                          187 B         103 kB
+Ôö£ ãÆ /api/projects/[id]                     187 B         103 kB
+Ôö£ Ôùï /contact                             6.97 kB         180 kB
+Ôö£ Ôùï /projects                            7.57 kB         148 kB
+Ôö£ Ôùï /robots.txt                            187 B         103 kB
+Ôö£ Ôùï /services                            10.5 kB         151 kB
+Ôöö Ôùï /sitemap.xml                           187 B         103 kB
++ First Load JS shared by all             102 kB
+  Ôö£ chunks/1255-d90f22433f14e976.js      46.2 kB
+  Ôö£ chunks/4bd1b696-f785427dddbba9fb.js  54.2 kB
+  Ôöö other shared chunks (total)          2.01 kB
+
+
+ãÆ Middleware                             86.7 kB
+
+Ôùï  (Static)   prerendered as static content
+ãÆ  (Dynamic)  server-rendered on demand
+

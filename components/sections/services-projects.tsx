@@ -55,7 +55,9 @@ function ProjCard({ children, delay = 0, className }: { children: React.ReactNod
 
 export function ServicesProjects() {
   const { t } = useTranslation();
-  const previewProjects = PROJECTS.slice(0, 4);
+  const previewProjects = [...PROJECTS]
+    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
+    .slice(0, 3);
 
   return (
     <section className="py-20 sm:py-24 border-t border-border bg-bg-card">

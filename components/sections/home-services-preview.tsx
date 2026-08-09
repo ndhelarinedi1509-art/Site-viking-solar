@@ -37,19 +37,21 @@ export function HomeServicesPreview() {
           </div>
         </Reveal>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {SERVICES.slice(0, 6).map((service, i) => (
-            <Reveal key={service.id} delay={i * 80}>
-              <div className={`group h-full rounded-2xl border border-border bg-bg-card p-6 md:p-7 transition-all duration-500 ${colorMap[service.color]?.border || 'hover:border-green/30'} hover:-translate-y-2 hover:scale-[1.02] hover:shadow-card-hover`}>
-                <div className={`mb-5 flex h-13 w-13 items-center justify-center rounded-xl ${colorMap[service.color]?.bg || 'bg-green/15'} ${colorMap[service.color]?.color || 'text-green'}`}>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {SERVICES.slice(0, 6).map((service, i) => (
+          <Reveal key={service.id} delay={i * 80}>
+            <div className={`group h-full rounded-2xl border border-border bg-bg-card p-6 md:p-7 transition-all duration-500 ${colorMap[service.color]?.border || 'hover:border-green/30'} hover:-translate-y-2 hover:scale-[1.02] hover:shadow-card-hover`}>
+              <div className="mb-4 flex items-center gap-3">
+                <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${colorMap[service.color]?.bg || 'bg-green/15'} ${colorMap[service.color]?.color || 'text-green'}`}>
                   {iconMap[service.icon]}
                 </div>
                 <h3 className="text-lg font-semibold text-white">{t(`servicesItems.${i}.title`, { defaultValue: service.title })}</h3>
-                <p className="mt-2 text-sm text-gray-500 leading-relaxed">{t(`servicesItems.${i}.description`, { defaultValue: service.description })}</p>
               </div>
-            </Reveal>
-          ))}
-        </div>
+              <p className="text-sm text-gray-500 leading-relaxed">{t(`servicesItems.${i}.description`, { defaultValue: service.description })}</p>
+            </div>
+          </Reveal>
+        ))}
+      </div>
 
         <Reveal>
           <div className="mt-12 text-center">

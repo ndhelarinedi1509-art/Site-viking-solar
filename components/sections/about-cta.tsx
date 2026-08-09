@@ -42,7 +42,7 @@ export function AboutCTA() {
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Link
-                  href="/#contact"
+                  href="/about#contact"
                   className="inline-flex items-center gap-2.5 rounded-full bg-green px-7 py-3 text-sm font-semibold text-bg-primary transition-all duration-350 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
                 >
                   Demander un devis

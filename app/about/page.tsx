@@ -7,6 +7,7 @@ import { AboutPillars } from '@/components/sections/about-pillars';
 import { AboutTeam } from '@/components/sections/about-team';
 import { AboutExpertise } from '@/components/sections/about-expertise';
 import { AboutCTA } from '@/components/sections/about-cta';
+import { ContactFormSection } from '@/components/sections/contact-form-section';
 
 export const metadata = generateSiteMetadata(
   'À propos',
@@ -25,6 +26,9 @@ export default function AboutPage() {
         <AboutTeam />
         <AboutExpertise />
         <AboutCTA />
+        <div id="contact" className="scroll-mt-24">
+          <ContactFormSection />
+        </div>
       </main>
       <Footer />
     </>

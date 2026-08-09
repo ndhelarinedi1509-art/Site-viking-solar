@@ -17,10 +17,9 @@ export function Header() {
   const NAV_LINKS = [
     { href: '/', label: t('nav.home') },
     { href: '/actualites', label: t('nav.actualites') },
-    { href: '/about', label: t('nav.about') },
     { href: '/services', label: t('nav.services') },
     { href: '/projects', label: t('nav.projects') },
-    { href: '/contact', label: t('nav.contact') },
+    { href: '/about', label: t('nav.about') },
   ];
 
   useEffect(() => {
@@ -41,8 +40,8 @@ export function Header() {
       <header
         className={`fixed top-0 left-0 right-0 z-50 py-4 transition-all duration-350 ${
           scrolled
-            ? 'bg-bg-primary/85 backdrop-blur-xl border-b border-border'
-            : 'bg-transparent'
+            ? 'bg-bg-primary/95 backdrop-blur-xl border-b border-border shadow-lg'
+            : 'bg-bg-primary/80 backdrop-blur-xl border-b border-border'
         }`}
       >
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -89,7 +88,7 @@ export function Header() {
               <LanguageToggle />
               <ThemeToggle />
               <Link
-                href="/#contact"
+                href="/about#contact"
                 className="rounded-full bg-green px-5 py-2.5 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
               >
                 {t('nav.freeQuote')}
@@ -143,7 +142,7 @@ export function Header() {
           </Link>
         ))}
         <Link
-          href="/#contact"
+          href="/about#contact"
           className="mt-4 rounded-full bg-green px-8 py-3 text-base font-semibold text-bg-primary"
           onClick={() => setMobileOpen(false)}
         >

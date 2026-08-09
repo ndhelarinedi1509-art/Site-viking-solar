@@ -40,11 +40,13 @@ export const viewport: Viewport = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="fr" className={inter.variable} suppressHydrationWarning>
-      <body className="font-sans bg-bg-primary text-gray-400 antialiased">
+      <body className="font-sans bg-bg-primary text-gray-400 antialiased overflow-x-hidden">
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false} storageKey="viking-theme">
           <I18nProvider>
             <AuthProvider>
-              {children}
+              <div className="mx-auto min-h-screen max-w-[1640px] px-4 sm:px-6 lg:px-8">
+                {children}
+              </div>
             </AuthProvider>
           </I18nProvider>
         </ThemeProvider>

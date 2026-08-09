@@ -11,6 +11,7 @@ export const PROJECTS: Project[] = [
     location: 'Limete, Kinshasa',
     tags: ['Solaire', 'Hybride', '250 kW'],
     features: ['Hybride lithium', 'Autonomie 24h', 'Monitoring IoT'],
+    date: '2026-07-15',
   },
   {
     id: 'proj-2',
@@ -22,6 +23,7 @@ export const PROJECTS: Project[] = [
     location: 'Gombe, Kinshasa',
     tags: ['Solaire', 'Batterie', '15 kW'],
     features: ['Toiture intégrée', 'App suivi', 'Silencieux'],
+    date: '2026-06-20',
   },
   {
     id: 'proj-3',
@@ -33,6 +35,7 @@ export const PROJECTS: Project[] = [
     location: 'Ngaliema, Kinshasa',
     tags: ['Solaire', 'Toiture', '80 kW'],
     features: ['Toiture solaire', 'Réduction 60%', 'Nettoyage auto'],
+    date: '2026-05-10',
   },
   {
     id: 'proj-4',
@@ -44,6 +47,7 @@ export const PROJECTS: Project[] = [
     location: 'Matete, Kinshasa',
     tags: ['Commercial', 'Hybride', '35 kW'],
     features: ['35 kW hybride', 'Labo équipé', 'Soutien pédagogique'],
+    date: '2026-03-25',
   },
   {
     id: 'proj-5',
@@ -55,6 +59,7 @@ export const PROJECTS: Project[] = [
     location: 'Macampagne, Kinshasa',
     tags: ['Solaire', 'Hybride', '10 kW'],
     features: ['Éclairage continu', 'Sécurité', 'Batterie LiFePO4'],
+    date: '2026-02-14',
   },
   {
     id: 'proj-6',
@@ -66,6 +71,7 @@ export const PROJECTS: Project[] = [
     location: 'Kingabwa, Kinshasa',
     tags: ['Toiture', 'Solaire', '120 kW'],
     features: ['120 kW toiture', 'Chambres froides', 'ROI < 5 ans'],
+    date: '2026-01-08',
   },
 ];
 

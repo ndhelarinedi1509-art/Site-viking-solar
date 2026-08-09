@@ -1,50 +1,46 @@
 'use client';
 
-import Image from 'next/image';
 import { useTranslation } from 'react-i18next';
 
 export function AboutHero() {
   const { t } = useTranslation();
   return (
-    <section className="ab-hero relative flex min-h-screen items-center justify-center overflow-hidden">
-      <div className="absolute inset-0 transition-transform duration-[12s] ease-out hover:scale-[1.0] group">
-        <Image
-          src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=85&auto=format&fit=crop"
-          alt="Panneaux solaires"
-          fill
-          className="object-cover scale-105 group-hover:scale-100 transition-transform duration-[12s] ease-out"
-          priority
-        />
-      </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-[rgba(6,11,24,0.55)] via-[rgba(6,11,24,0.72)] to-[rgba(6,11,24,0.97)] z-[1]" />
+    <section className="relative w-screen left-1/2 -translate-x-1/2 min-h-[55vh] flex items-center justify-center overflow-hidden bg-bg-primary">
+      {/* Decorative glows — full-bleed left to right */}
+      <div className="pointer-events-none absolute -top-32 -left-32 w-[600px] h-[600px] rounded-full bg-green/5 blur-[150px]" />
+      <div className="pointer-events-none absolute -bottom-32 -right-32 w-[600px] h-[600px] rounded-full bg-accent-blue/5 blur-[150px]" />
 
-      <div className="relative z-[2] mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 text-center pt-32 pb-16">
-        <p className="mb-6 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase animate-fade-up" style={{ animationDelay: '0.1s', opacity: 0 }}>
-          {t('hero.about.badge')}
-        </p>
+      <div className="relative z-10 w-full max-w-3xl px-6 sm:px-8 lg:px-10 py-16 sm:py-20 text-center">
+        <div className="animate-fade-up mb-6 mt-6 sm:mt-8" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
+          <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/5 px-4 py-1.5 text-xs font-semibold tracking-wider text-green uppercase">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="#22C55E">
+              <path d="M12 2L14.09 8.26L20 9.27L15.45 13.14L16.82 19.02L12 16.09L7.18 19.02L8.55 13.14L4 9.27L9.91 8.26L12 2Z" />
+            </svg>
+            {t('hero.about.badge')}
+          </span>
+        </div>
 
-        <h1 className="text-[clamp(2.6rem,6vw,4.2rem)] font-extrabold text-white leading-[1.1] tracking-[-0.03em] mb-6 animate-fade-up" style={{ animationDelay: '0.25s', opacity: 0 }}>
-          {t('about.story.title')}<br />
+        <h1 className="animate-fade-up text-[clamp(2.25rem,5vw,3.75rem)] font-extrabold text-white leading-[1.1] tracking-tight mb-4" style={{ animationDelay: '0.25s', animationFillMode: 'both' }}>
+          {t('hero.about.title')}{' '}
           <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
             Vicking Solar
           </span>
         </h1>
 
-        <p className="mx-auto max-w-[580px] text-[1.05rem] text-gray-400 leading-relaxed mb-12 animate-fade-up" style={{ animationDelay: '0.4s', opacity: 0 }}>
+        <p className="animate-fade-up text-lg text-gray-400 leading-relaxed mb-8 mx-auto max-w-[560px]" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
           {t('hero.about.description')}
         </p>
 
-        <div className="flex justify-center animate-fade-up" style={{ animationDelay: '0.6s', opacity: 0 }}>
-          <svg
-            className="animate-bounce h-6 w-6 text-green"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="2"
-          >
-            <path d="M12 5v14M5 12l7 7 7-7" />
+        <a
+          href="#innovation"
+          className="animate-fade-up inline-flex items-center gap-2 rounded-full bg-green px-7 py-3 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
+          style={{ animationDelay: '0.55s', animationFillMode: 'both' }}
+        >
+          {t('hero.about.cta1')}
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
           </svg>
-        </div>
+        </a>
       </div>
     </section>
   );

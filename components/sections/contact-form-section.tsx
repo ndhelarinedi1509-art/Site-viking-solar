@@ -105,43 +105,51 @@ export function ContactFormSection() {
   return (
     <section className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16 items-start">
-          {/* LEFT: Info */}
-          <FadeIn>
-            <div>
-              <h2 className="text-[clamp(2rem,4vw,2.5rem)] font-bold text-white mb-6">
-                {t('contact.form.title')}
-              </h2>
-              <p className="text-base text-gray-400 leading-relaxed mb-10">
-                {t('contact.form.description')}
-              </p>
+        {/* HEADER */}
+        <FadeIn>
+          <div className="text-center mb-14">
+            <h2 className="text-[clamp(2rem,4vw,2.5rem)] font-bold text-white mb-4">
+              {t('contact.form.title')}
+            </h2>
+            <p className="text-base text-gray-400 max-w-[600px] mx-auto leading-relaxed">
+              {t('contact.form.description')}
+            </p>
+          </div>
+        </FadeIn>
 
-              <div className="flex flex-col gap-4">
-                {INFO_ITEMS.map((item) => (
-                  <div
-                    key={item.titleKey}
-                    className="flex items-start gap-5 rounded-2xl border border-border bg-bg-card p-5 sm:p-6 transition-all duration-350 hover:-translate-y-1 hover:border-green"
-                  >
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green/12 text-green">
-                      {item.icon}
-                    </div>
-                    <div className="min-w-0">
-                      <h4 className="text-[1.1rem] font-semibold text-white mb-1">{t(item.titleKey)}</h4>
-                      {item.href ? (
-                        <a
-                          href={item.href}
-                          target={item.titleKey === 'contact.info.whatsapp' ? '_blank' : undefined}
-                          rel={item.titleKey === 'contact.info.whatsapp' ? 'noopener noreferrer' : undefined}
-                          className="text-[0.95rem] text-gray-400 transition-colors hover:text-green no-underline"
-                        >
-                          {item.valueKey ? t(item.valueKey) : item.value}
-                        </a>
-                      ) : (
-                        <p className="text-[0.95rem] text-gray-400">{item.value}</p>
-                      )}
-                    </div>
-                  </div>
-                ))}
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16 items-start">
+          {/* LEFT: Geolocation (small map) */}
+          <FadeIn>
+            <div className="overflow-hidden rounded-2xl border border-border bg-bg-card">
+              <div className="p-5 sm:p-6 border-b border-border">
+                <h3 className="text-lg font-bold text-white">{t('contact.map.title')}</h3>
+                <p className="text-sm text-gray-500 mt-0.5">{t('contact.map.subtitle')}</p>
+              </div>
+              <div className="relative w-full" style={{ height: 'clamp(260px, 40vw, 360px)' }}>
+                <iframe
+                  src="https://www.openstreetmap.org/export/embed.html?bbox=15.19%2C-4.38%2C15.45%2C-4.27&amp;layer=mapnik&amp;marker=-4.325%2C15.322"
+                  width="100%"
+                  height="100%"
+                  style={{ border: 0 }}
+                  title={t('contact.map.title')}
+                  allowFullScreen
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  className="absolute inset-0"
+                />
+              </div>
+              <div className="p-3 sm:p-4 flex flex-wrap items-center justify-between gap-2 border-t border-border bg-white/2">
+                <a
+                  href="https://www.openstreetmap.org/?mlat=-4.325&mlon=15.322#map=14/-4.325/15.322"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-xs font-medium text-green hover:text-green-dark transition-colors"
+                >
+                  {t('contact.map.openLarger')}
+                </a>
+                <span className="text-[0.65rem] text-gray-600">
+                  &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">OpenStreetMap</a>
+                </span>
               </div>
             </div>
           </FadeIn>
@@ -250,6 +258,37 @@ export function ContactFormSection() {
             </div>
           </FadeIn>
         </div>
+
+        {/* BOTTOM: Contact cards */}
+        <FadeIn delay={100}>
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-14">
+            {INFO_ITEMS.map((item) => (
+              <div
+                key={item.titleKey}
+                className="flex items-start gap-4 rounded-2xl border border-border bg-bg-card p-5 sm:p-6 transition-all duration-350 hover:-translate-y-1 hover:border-green"
+              >
+                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green/12 text-green">
+                  {item.icon}
+                </div>
+                <div className="min-w-0">
+                  <h4 className="text-[1rem] font-semibold text-white mb-1">{t(item.titleKey)}</h4>
+                  {item.href ? (
+                    <a
+                      href={item.href}
+                      target={item.titleKey === 'contact.info.whatsapp' ? '_blank' : undefined}
+                      rel={item.titleKey === 'contact.info.whatsapp' ? 'noopener noreferrer' : undefined}
+                      className="text-[0.9rem] text-gray-400 transition-colors hover:text-green no-underline"
+                    >
+                      {item.valueKey ? t(item.valueKey) : item.value}
+                    </a>
+                  ) : (
+                    <p className="text-[0.9rem] text-gray-400">{item.value}</p>
+                  )}
+                </div>
+              </div>
+            ))}
+          </div>
+        </FadeIn>
       </div>
     </section>
   );

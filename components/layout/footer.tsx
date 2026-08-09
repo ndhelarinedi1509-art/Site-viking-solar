@@ -56,10 +56,10 @@ export function Footer() {
             <ul className="space-y-2.5">
               <li><Link href="/" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.home')}</Link></li>
               <li><Link href="/actualites" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.actualites')}</Link></li>
-              <li><Link href="/about" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.about')}</Link></li>
               <li><Link href="/services" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.services')}</Link></li>
               <li><Link href="/projects" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.projects')}</Link></li>
-              <li><Link href="/contact" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.contact')}</Link></li>
+              <li><Link href="/about" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.about')}</Link></li>
+              <li><Link href="/about#contact" className="text-sm text-gray-400 transition-colors hover:text-green">{t('footer.links.contact')}</Link></li>
             </ul>
           </div>
 
