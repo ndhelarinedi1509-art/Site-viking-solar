@@ -118,7 +118,14 @@ export function Footer() {
       {/* Bottom bar */}
       <div className="border-t border-border">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-4">
-          <p className="text-xs text-gray-500 text-center">&copy; {currentYear} Vicking Solar. {t('footer.rights')}</p>
+          <Link
+            href="/admin/login"
+            className="text-xs text-gray-500 text-center block cursor-default"
+            aria-label="Administration"
+            title=""
+          >
+            &copy; {currentYear} Vicking Solar. {t('footer.rights')}
+          </Link>
         </div>
       </div>
     </footer>

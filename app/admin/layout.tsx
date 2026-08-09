@@ -59,9 +59,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }
 
   return (
-    <div className="flex min-h-screen bg-bg-primary">
+    <div className="flex h-screen bg-bg-primary overflow-hidden">
       {/* Sidebar */}
-      <aside className={`${sidebarOpen ? 'w-64' : 'w-16'} bg-bg-card border-r border-white/6 flex flex-col flex-shrink-0 transition-all duration-300 relative`}>
+      <aside className={`${sidebarOpen ? 'w-64' : 'w-16'} bg-bg-card border-r border-white/6 flex flex-col flex-shrink-0 transition-all duration-300 relative h-full`}>
         {/* Logo */}
         <div className={`px-4 py-5 border-b border-white/6 flex items-center ${sidebarOpen ? 'justify-between' : 'justify-center'}`}>
           {sidebarOpen ? (
@@ -167,7 +167,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       </aside>
 
       {/* Main content */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 h-full">
         <header className="h-16 border-b border-white/6 bg-bg-card/50 backdrop-blur-sm flex items-center justify-between px-6 flex-shrink-0">
           <h2 className="text-lg font-semibold text-white">
             {pathname.startsWith('/admin/pages/') && pathname.split('/').pop() !== 'pages'
@@ -190,7 +190,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </button>
           </div>
         </header>
-        <main className="flex-1 p-6 overflow-auto">{children}</main>
+        <main className="flex-1 p-6 overflow-y-auto">{children}</main>
       </div>
     </div>
   );
