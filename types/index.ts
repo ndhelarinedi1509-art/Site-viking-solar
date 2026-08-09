@@ -177,6 +177,54 @@ export interface PageInfo {
   published: boolean;
 }
 
+export type NewsPostStatus = 'draft' | 'published' | 'archived';
+export type NewsCommentStatus = 'published' | 'hidden' | 'pending' | 'spam';
+
+export interface NewsCategory {
+  id: string;
+  name: string;
+  slug: string;
+  color: string;
+  sort_order: number;
+  created_at: string;
+}
+
+export interface NewsPost {
+  id: string;
+  title: string;
+  slug: string;
+  excerpt: string;
+  content: string;
+  cover_image: string;
+  category_id: string | null;
+  status: NewsPostStatus;
+  is_pinned: boolean;
+  published_at: string | null;
+  created_at: string;
+  updated_at: string;
+  category?: NewsCategory | null;
+  like_count?: number;
+  comment_count?: number;
+  is_liked?: boolean;
+}
+
+export interface NewsComment {
+  id: string;
+  post_id: string;
+  author_name: string;
+  content: string;
+  anonymous_visitor_id: string;
+  status: NewsCommentStatus;
+  created_at: string;
+}
+
+export interface NewsLike {
+  id: string;
+  post_id: string;
+  anonymous_visitor_id: string;
+  created_at: string;
+}
+
 export interface PaginationParams {
   page: number;
   limit: number;

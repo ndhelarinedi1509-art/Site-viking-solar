@@ -2,11 +2,11 @@ import { generateSiteMetadata } from '@/config/seo';
 import { Header } from '@/components/layout/header';
 import { Footer } from '@/components/layout/footer';
 import { ActualitesHero } from '@/components/sections/actualites-hero';
-import { ActualitesGrid } from '@/components/sections/actualites-grid';
+import { NewsFeed } from '@/components/news/news-feed';
 
 export const metadata = generateSiteMetadata(
   'Actualités',
-  'Restez informé des dernières actualités, promotions et nouveautés de Vicking Solar à Kinshasa, RDC.',
+  'Fil d’actualité Viking Solar : dernières actualités, promotions et nouveautés à Kinshasa, RDC. Lisez, aimez et commentez librement.',
   '/actualites',
 );
 
@@ -16,7 +16,7 @@ export default function ActualitesPage() {
       <Header />
       <main>
         <ActualitesHero />
-        <ActualitesGrid />
+        <NewsFeed />
       </main>
       <Footer />
     </>

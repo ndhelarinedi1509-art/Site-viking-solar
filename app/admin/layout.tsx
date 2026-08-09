@@ -6,7 +6,7 @@ import { useTranslation } from 'react-i18next';
 import {
   LayoutDashboard, FileEdit, Image, Mail, Users, Settings,
   ExternalLink, LogOut, PanelRightClose, PanelRight, Loader2,
-  Home, Newspaper, Info, Zap, FolderOpen,
+  Home, Newspaper, Info, Zap, FolderOpen, MessageSquareText, Tags,
 } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 import type { PageInfo } from '@/types';
@@ -44,6 +44,9 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const mainNavItems = [
     { href: '/admin', label: t('admin.layout.dashboard'), icon: LayoutDashboard },
     { href: '/admin/pages', label: t('admin.layout.pages'), icon: FileEdit },
+    { href: '/admin/news', label: t('admin.layout.news'), icon: Newspaper },
+    { href: '/admin/comments', label: t('admin.layout.comments'), icon: MessageSquareText },
+    { href: '/admin/categories', label: t('admin.layout.categories'), icon: Tags },
     { href: '/admin/media', label: t('admin.layout.media'), icon: Image },
     { href: '/admin/messages', label: t('admin.layout.messages'), icon: Mail },
     { href: '/admin/team', label: t('admin.layout.team'), icon: Users },

@@ -70,31 +70,30 @@ export function AboutInnovation() {
   return (
     <section id="innovation" className="py-12 sm:py-14 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Top: title + 2 cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.4fr] gap-6 lg:gap-10 items-start mb-6">
-          <FadeIn>
-            <h2 className="text-[clamp(1.3rem,2.2vw,1.7rem)] font-extrabold text-white leading-[1.2] tracking-[-0.02em]">
-              {t('about.innovation.heroTitle')}
-            </h2>
-          </FadeIn>
+        {/* Title — centered, no longer orphaned */}
+        <FadeIn className="text-center mb-8">
+          <h2 className="text-[clamp(1.3rem,2.2vw,1.7rem)] font-extrabold text-white leading-[1.2] tracking-[-0.02em]">
+            {t('about.innovation.heroTitle')}
+          </h2>
+        </FadeIn>
 
-          <div className="flex flex-col gap-3">
-            {visionCards.map((card, i) => (
-              <FadeIn key={card.titleKey} delay={i * 150}>
-                <div className="group rounded-lg border border-border bg-bg-card p-3.5 transition-all duration-350 hover:-translate-y-1 hover:border-green/20 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)]">
-                  <div className={cn('mb-2 flex h-8 w-8 items-center justify-center rounded-lg', card.iconBg)}>
-                    {card.icon}
-                  </div>
-                  <h3 className="text-[0.9rem] font-bold text-white mb-1">{t(card.titleKey)}</h3>
-                  <p className="text-sm text-gray-400 leading-relaxed">{t(card.descKey)}</p>
+        {/* Vision cards — 2-col row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
+          {visionCards.map((card, i) => (
+            <FadeIn key={card.titleKey} delay={i * 150}>
+              <div className="group rounded-lg border border-border bg-bg-card p-3.5 transition-all duration-350 hover:-translate-y-1 hover:border-green/20 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)]">
+                <div className={cn('mb-2 flex h-8 w-8 items-center justify-center rounded-lg', card.iconBg)}>
+                  {card.icon}
                 </div>
-              </FadeIn>
-            ))}
-          </div>
+                <h3 className="text-[0.9rem] font-bold text-white mb-1">{t(card.titleKey)}</h3>
+                <p className="text-sm text-gray-400 leading-relaxed">{t(card.descKey)}</p>
+              </div>
+            </FadeIn>
+          ))}
         </div>
 
-        {/* Bottom: Histoire + Mission */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 pt-5 border-t border-border">
+        {/* Histoire + Mission — 2-col row */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-border pt-6">
           {bottomItems.map((item, i) => (
             <FadeIn key={item.titleKey} delay={i * 150}>
               <div className="flex gap-3 items-start">
