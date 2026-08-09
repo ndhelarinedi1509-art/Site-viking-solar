@@ -33,7 +33,7 @@ const serviceOptions = [
 const INFO_ITEMS = [
   {
     icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
         <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56a.977.977 0 00-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.45-.99-.99-.99z" />
       </svg>
     ),
@@ -43,7 +43,7 @@ const INFO_ITEMS = [
   },
   {
     icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
         <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
       </svg>
     ),
@@ -53,7 +53,7 @@ const INFO_ITEMS = [
   },
   {
     icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z" />
       </svg>
     ),
@@ -63,7 +63,7 @@ const INFO_ITEMS = [
   },
   {
     icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
         <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
       </svg>
     ),
@@ -103,29 +103,29 @@ export function ContactFormSection() {
   });
 
   return (
-    <section className="py-20 sm:py-24 border-t border-border bg-bg-primary">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <section className="py-12 sm:py-14 border-t border-border bg-bg-primary">
+      <div className="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
         {/* HEADER */}
         <FadeIn>
-          <div className="text-center mb-14">
-            <h2 className="text-[clamp(2rem,4vw,2.5rem)] font-bold text-white mb-4">
+          <div className="text-center mb-8">
+            <h2 className="text-[clamp(1.4rem,2.6vw,1.8rem)] font-bold text-white mb-2">
               {t('contact.form.title')}
             </h2>
-            <p className="text-base text-gray-400 max-w-[600px] mx-auto leading-relaxed">
+            <p className="text-sm text-gray-400 max-w-[560px] mx-auto leading-relaxed">
               {t('contact.form.description')}
             </p>
           </div>
         </FadeIn>
 
-        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16 items-start">
-          {/* LEFT: Geolocation (small map) */}
+        <div className="grid gap-6 lg:grid-cols-[1fr_1.05fr] lg:gap-7 items-start">
+          {/* LEFT: Geolocation + contact info at bottom */}
           <FadeIn>
             <div className="overflow-hidden rounded-2xl border border-border bg-bg-card">
-              <div className="p-5 sm:p-6 border-b border-border">
-                <h3 className="text-lg font-bold text-white">{t('contact.map.title')}</h3>
-                <p className="text-sm text-gray-500 mt-0.5">{t('contact.map.subtitle')}</p>
+              <div className="p-4 border-b border-border">
+                <h3 className="text-base font-bold text-white">{t('contact.map.title')}</h3>
+                <p className="text-xs text-gray-400 mt-0.5">{t('contact.map.subtitle')}</p>
               </div>
-              <div className="relative w-full" style={{ height: 'clamp(260px, 40vw, 360px)' }}>
+              <div className="relative w-full" style={{ height: 'clamp(190px, 28vw, 250px)' }}>
                 <iframe
                   src="https://www.openstreetmap.org/export/embed.html?bbox=15.19%2C-4.38%2C15.45%2C-4.27&amp;layer=mapnik&amp;marker=-4.325%2C15.322"
                   width="100%"
@@ -138,33 +138,60 @@ export function ContactFormSection() {
                   className="absolute inset-0"
                 />
               </div>
-              <div className="p-3 sm:p-4 flex flex-wrap items-center justify-between gap-2 border-t border-border bg-white/2">
+
+              {/* Contact info at bottom of map card */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 divide-y sm:divide-y-0 sm:divide-x divide-border">
+                {INFO_ITEMS.map((item) => (
+                  <div key={item.titleKey} className="flex items-center gap-3 bg-bg-card p-3.5">
+                    <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-green/12 text-green">
+                      {item.icon}
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-[0.7rem] font-semibold text-white mb-0.5">{t(item.titleKey)}</p>
+                      {item.href ? (
+                        <a
+                          href={item.href}
+                          target={item.titleKey === 'contact.info.whatsapp' ? '_blank' : undefined}
+                          rel={item.titleKey === 'contact.info.whatsapp' ? 'noopener noreferrer' : undefined}
+                          className="text-xs text-gray-400 transition-colors hover:text-green no-underline block truncate"
+                        >
+                          {item.valueKey ? t(item.valueKey) : item.value}
+                        </a>
+                      ) : (
+                        <p className="text-xs text-gray-400 truncate">{item.value}</p>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="p-3 flex flex-wrap items-center justify-between gap-2 border-t border-border bg-white/2">
                 <a
                   href="https://www.openstreetmap.org/?mlat=-4.325&mlon=15.322#map=14/-4.325/15.322"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-xs font-medium text-green hover:text-green-dark transition-colors"
+                  className="text-[0.7rem] font-medium text-green hover:text-green-dark transition-colors"
                 >
                   {t('contact.map.openLarger')}
                 </a>
-                <span className="text-[0.65rem] text-gray-600">
+                <span className="text-[0.6rem] text-gray-500">
                   &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">OpenStreetMap</a>
                 </span>
               </div>
             </div>
           </FadeIn>
 
-          {/* RIGHT: Form */}
+          {/* RIGHT: Form (compact) */}
           <FadeIn delay={150}>
-            <div className="rounded-2xl border border-white/10 bg-[rgba(13,19,34,0.7)] backdrop-blur-xl p-8 sm:p-10 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
-              <h3 className="text-[1.8rem] font-bold text-white mb-8">
+            <div className="rounded-2xl border border-white/10 bg-[rgba(13,19,34,0.7)] backdrop-blur-xl p-5 sm:p-6 shadow-[0_20px_40px_rgba(0,0,0,0.4)]">
+              <h3 className="text-lg font-bold text-white mb-5">
                 {t('contact.form.badge')}
               </h3>
 
-              <form onSubmit={handleSubmit(submit)} className="space-y-5">
-                <div className="grid gap-5 sm:grid-cols-2">
+              <form onSubmit={handleSubmit(submit)} className="space-y-4">
+                <div className="grid gap-4 sm:grid-cols-2">
                   <div>
-                    <label htmlFor="name" className="block text-[0.9rem] font-medium text-gray-300 mb-2">
+                    <label htmlFor="name" className="block text-[0.85rem] font-medium text-gray-300 mb-1.5">
                       {t('contact.form.name')}
                     </label>
                     <input
@@ -172,12 +199,12 @@ export function ContactFormSection() {
                       type="text"
                       placeholder={t('contact.form.namePlaceholder')}
                       {...register('name')}
-                      className="w-full rounded-xl border border-white/10 bg-white px-5 py-3.5 text-base text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
+                      className="w-full rounded-lg border border-white/10 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
                     />
-                    {errors.name?.message && <p className="mt-1 text-xs text-red-400">{errors.name.message}</p>}
+                    {errors.name?.message && <p className="mt-1 text-[0.7rem] text-red-400">{errors.name.message}</p>}
                   </div>
                   <div>
-                    <label htmlFor="phone" className="block text-[0.9rem] font-medium text-gray-300 mb-2">
+                    <label htmlFor="phone" className="block text-[0.85rem] font-medium text-gray-300 mb-1.5">
                       {t('contact.form.phone')}
                     </label>
                     <input
@@ -185,14 +212,14 @@ export function ContactFormSection() {
                       type="tel"
                       placeholder={t('contact.form.phonePlaceholder')}
                       {...register('phone')}
-                      className="w-full rounded-xl border border-white/10 bg-white px-5 py-3.5 text-base text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
+                      className="w-full rounded-lg border border-white/10 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
                     />
-                    {errors.phone?.message && <p className="mt-1 text-xs text-red-400">{errors.phone.message}</p>}
+                    {errors.phone?.message && <p className="mt-1 text-[0.7rem] text-red-400">{errors.phone.message}</p>}
                   </div>
                 </div>
 
                 <div>
-                  <label htmlFor="email" className="block text-[0.9rem] font-medium text-gray-300 mb-2">
+                  <label htmlFor="email" className="block text-[0.85rem] font-medium text-gray-300 mb-1.5">
                     {t('contact.form.email')}
                   </label>
                   <input
@@ -200,51 +227,51 @@ export function ContactFormSection() {
                     type="email"
                     placeholder={t('contact.form.emailPlaceholder')}
                     {...register('email')}
-                    className="w-full rounded-xl border border-white/10 bg-white px-5 py-3.5 text-base text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
+                    className="w-full rounded-lg border border-white/10 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
                   />
-                  {errors.email?.message && <p className="mt-1 text-xs text-red-400">{errors.email.message}</p>}
+                  {errors.email?.message && <p className="mt-1 text-[0.7rem] text-red-400">{errors.email.message}</p>}
                 </div>
 
                 <div>
-                  <label htmlFor="service" className="block text-[0.9rem] font-medium text-gray-300 mb-2">
+                  <label htmlFor="service" className="block text-[0.85rem] font-medium text-gray-300 mb-1.5">
                     {t('contact.form.service')}
                   </label>
                   <select
                     id="service"
                     {...register('service')}
                     defaultValue=""
-                    className="w-full rounded-xl border border-white/10 bg-white px-5 py-3.5 text-base text-gray-900 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
+                    className="w-full rounded-lg border border-white/10 bg-white px-3.5 py-2.5 text-sm text-gray-900 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
                   >
                     <option value="" disabled className="bg-bg-card">{t('contact.form.servicePlaceholder')}</option>
                     {serviceOptions.map((s) => (
                       <option key={s.key} value={s.key} className="bg-bg-card">{t(s.labelKey)}</option>
                     ))}
                   </select>
-                  {errors.service?.message && <p className="mt-1 text-xs text-red-400">{errors.service.message}</p>}
+                  {errors.service?.message && <p className="mt-1 text-[0.7rem] text-red-400">{errors.service.message}</p>}
                 </div>
 
                 <div>
-                  <label htmlFor="message" className="block text-[0.9rem] font-medium text-gray-300 mb-2">
+                  <label htmlFor="message" className="block text-[0.85rem] font-medium text-gray-300 mb-1.5">
                     {t('contact.form.message')}
                   </label>
                   <textarea
                     id="message"
                     placeholder={t('contact.form.messagePlaceholder')}
-                    rows={4}
+                    rows={3}
                     {...register('message')}
-                    className="w-full resize-y rounded-xl border border-white/10 bg-white px-5 py-3.5 text-base text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none min-h-[120px]"
+                    className="w-full resize-y rounded-lg border border-white/10 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none min-h-[90px]"
                   />
-                  {errors.message?.message && <p className="mt-1 text-xs text-red-400">{errors.message.message}</p>}
+                  {errors.message?.message && <p className="mt-1 text-[0.7rem] text-red-400">{errors.message.message}</p>}
                 </div>
 
                 <button
                   type="submit"
                   disabled={isLoading}
-                  className="w-full rounded-xl bg-green px-6 py-4 text-[1.1rem] font-bold text-bg-primary transition-all duration-350 hover:bg-green-dark hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(34,197,94,0.3)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2 mt-4"
+                  className="w-full rounded-lg bg-green px-6 py-3 text-sm font-bold text-bg-primary transition-all duration-350 hover:bg-green-dark hover:-translate-y-0.5 hover:shadow-[0_8px_24px_rgba(34,197,94,0.3)] disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
                   {isLoading ? (
                     <>
-                      <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24" fill="none">
+                      <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24" fill="none">
                         <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                         <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                       </svg>
@@ -258,37 +285,6 @@ export function ContactFormSection() {
             </div>
           </FadeIn>
         </div>
-
-        {/* BOTTOM: Contact cards */}
-        <FadeIn delay={100}>
-          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 mt-14">
-            {INFO_ITEMS.map((item) => (
-              <div
-                key={item.titleKey}
-                className="flex items-start gap-4 rounded-2xl border border-border bg-bg-card p-5 sm:p-6 transition-all duration-350 hover:-translate-y-1 hover:border-green"
-              >
-                <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-green/12 text-green">
-                  {item.icon}
-                </div>
-                <div className="min-w-0">
-                  <h4 className="text-[1rem] font-semibold text-white mb-1">{t(item.titleKey)}</h4>
-                  {item.href ? (
-                    <a
-                      href={item.href}
-                      target={item.titleKey === 'contact.info.whatsapp' ? '_blank' : undefined}
-                      rel={item.titleKey === 'contact.info.whatsapp' ? 'noopener noreferrer' : undefined}
-                      className="text-[0.9rem] text-gray-400 transition-colors hover:text-green no-underline"
-                    >
-                      {item.valueKey ? t(item.valueKey) : item.value}
-                    </a>
-                  ) : (
-                    <p className="text-[0.9rem] text-gray-400">{item.value}</p>
-                  )}
-                </div>
-              </div>
-            ))}
-          </div>
-        </FadeIn>
       </div>
     </section>
   );

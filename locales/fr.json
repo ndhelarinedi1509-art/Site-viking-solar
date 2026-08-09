@@ -150,7 +150,7 @@
       "desc3": "Fondée à Kinshasa, Vicking Solar est née d'une vision simple : offrir au Congo une énergie fiable, propre et accessible pour tous.",
       "title4": "Mission",
       "desc4": "Démocratiser l'accès à l'énergie solaire en RDC en proposant des solutions innovantes, fiables et adaptées aux réalités locales.",
-      "heroTitle": "L'innovation au cœur<br />du Congo"
+      "heroTitle": "L'innovation au cœur du Congo"
     }
   },
   "services": {
@@ -402,7 +402,7 @@
     "map": {
       "title": "Nos Bureaux à Kinshasa",
       "subtitle": "Kinshasa, RDC — Cliquez pour ouvrir dans Google Maps",
-      "openLarger": "Ouvrir dans OpenStreetMap &rarr;"
+      "openLarger": "Ouvrir dans OpenStreetMap"
     },
     "faq": {
       "badge": "Questions fréquentes",
