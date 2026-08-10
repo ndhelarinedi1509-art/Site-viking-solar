@@ -6,6 +6,7 @@ import { HomeServicesPreview } from '@/components/sections/home-services-preview
 import { HomeProjectsPreview } from '@/components/sections/home-projects-preview';
 import { HomeBenefits } from '@/components/sections/home-benefits';
 import { HomeCTA } from '@/components/sections/home-cta';
+import { GenericSection } from '@/components/sections/generic-section';
 import { fetchPublishedSections, fetchServices, fetchProjects } from '@/lib/cms-queries';
 import type { PageSection, CmsService, CmsProject } from '@/types';
 import { RealtimeRefresh } from '@/components/realtime-refresh';
@@ -47,8 +48,7 @@ export default async function HomePage() {
       <Header />
       <main>
         {sections.map((section) => {
-          const Component = sectionComponents[section.section_key];
-          if (!Component) return null;
+          const Component = sectionComponents[section.section_key] ?? GenericSection;
           return (
             <Component
               key={section.id}

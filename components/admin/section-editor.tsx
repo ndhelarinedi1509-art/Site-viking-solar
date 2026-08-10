@@ -1,35 +1,22 @@
 'use client';
 
 import { useCallback } from 'react';
-import type { PageSection, SectionType } from '@/types';
-import { toast } from 'sonner';
+import type { PageSection } from '@/types';
 import { ImageUploader } from '@/components/admin/image-uploader';
 
 interface SectionEditorProps {
   section: PageSection;
-  onUpdate: (id: string, updates: Partial<PageSection>) => Promise<void>;
+  onChange: (next: PageSection) => void;
 }
 
-export function SectionEditor({ section, onUpdate }: SectionEditorProps) {
-  const updateField = useCallback(async (field: string, value: unknown) => {
-    try {
-      await onUpdate(section.id, { [field]: value });
-      toast.success('Section mise à jour');
-    } catch {
-      toast.error('Erreur lors de la mise à jour');
-    }
-  }, [section.id, onUpdate]);
+export function SectionEditor({ section, onChange }: SectionEditorProps) {
+  const updateField = useCallback((field: string, value: unknown) => {
+    onChange({ ...section, [field]: value });
+  }, [section, onChange]);
 
-  const updateContent = useCallback(async (key: string, value: unknown) => {
-    try {
-      await onUpdate(section.id, {
-        content: { ...section.content, [key]: value },
-      });
-      toast.success('Contenu mis à jour');
-    } catch {
-      toast.error('Erreur lors de la mise à jour');
-    }
-  }, [section.id, section.content, onUpdate]);
+  const updateContent = useCallback((key: string, value: unknown) => {
+    onChange({ ...section, content: { ...section.content, [key]: value } });
+  }, [section, onChange]);
 
   return (
     <div className="space-y-5">

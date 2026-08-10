@@ -10,26 +10,28 @@
      · optimizePackageImports
 
  ✓ Starting...
- ✓ Ready in 4.4s
+ ✓ Ready in 7.9s
  ○ Compiling /middleware ...
- ✓ Compiled /middleware in 2.9s (158 modules)
- ○ Compiling /api/site-updated-at ...
- ✓ Compiled /api/site-updated-at in 5.3s (340 modules)
- GET /api/site-updated-at 200 in 7401ms
- ○ Compiling /admin/login ...
- ✓ Compiled /admin/login in 13.1s (848 modules)
- GET /admin/login 200 in 15028ms
- ✓ Compiled in 1824ms (323 modules)
+ ✓ Compiled /middleware in 3.1s (158 modules)
  ○ Compiling / ...
- ✓ Compiled / in 6.7s (1050 modules)
- GET / 200 in 8031ms
- GET / 200 in 734ms
- GET / 200 in 670ms
- ○ Compiling /api/admin/sections ...
- ✓ Compiled /api/admin/sections in 593ms (1052 modules)
- GET /api/admin/sections?pageKey=home 200 in 1296ms
- ✓ Compiled in 806ms (420 modules)
- GET / 200 in 831ms
- ○ Compiling /api/admin/media ...
- ✓ Compiled /api/admin/media in 2.9s (1019 modules)
- GET /api/admin/media 200 in 3862ms
+ ✓ Compiled / in 19.5s (986 modules)
+ ✓ Compiled in 3.4s (380 modules)
+ GET / 200 in 23456ms
+ ○ Compiling /services ...
+ ✓ Compiled /services in 5.9s (989 modules)
+ GET /services 200 in 7402ms
+ ○ Compiling /projects ...
+ ✓ Compiled /projects in 937ms (1016 modules)
+ GET /projects 200 in 1871ms
+ ○ Compiling /about ...
+ ✓ Compiled /about in 2.4s (1072 modules)
+ GET /about 200 in 3355ms
+ ○ Compiling /actualites ...
+ ✓ Compiled /actualites in 3.1s (1147 modules)
+ GET /actualites 200 in 4200ms
+ ○ Compiling /api/site-updated-at ...
+ ✓ Compiled /api/site-updated-at in 2.8s (1165 modules)
+ GET /api/site-updated-at 200 in 4463ms
+ GET / 200 in 1641ms
+ GET / 200 in 791ms
+ GET /services 200 in 802ms

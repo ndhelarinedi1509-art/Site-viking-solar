@@ -10,6 +10,7 @@ import { ServicesCTA } from '@/components/sections/services-cta';
 import { fetchServices, fetchProjects, fetchPublishedSections, getSection } from '@/lib/cms-queries';
 import { sectionItems } from '@/lib/section-utils';
 import { RealtimeRefresh } from '@/components/realtime-refresh';
+import { GenericSections } from '@/components/sections/generic-sections';
 import type { Benefit } from '@/types';
 
 export const metadata = generateSiteMetadata(
@@ -48,6 +49,7 @@ export default async function ServicesPage() {
         <ServicesBenefits benefits={benefits} />
         <ServicesProjects projects={projects} />
         <ServicesCTA />
+        <GenericSections pageKey="services" />
       </main>
       <Footer />
       <RealtimeRefresh />

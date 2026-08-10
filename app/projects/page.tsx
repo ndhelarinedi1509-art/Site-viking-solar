@@ -9,6 +9,7 @@ import { ProjectsCTA } from '@/components/sections/projects-cta';
 import { ProjectsSocial } from '@/components/sections/projects-social';
 import { fetchProjects } from '@/lib/cms-queries';
 import { RealtimeRefresh } from '@/components/realtime-refresh';
+import { GenericSections } from '@/components/sections/generic-sections';
 
 export const metadata = generateSiteMetadata(
   'Projets',
@@ -37,6 +38,7 @@ export default async function ProjectsPage() {
         <ProjectsTestimonials />
         <ProjectsCTA />
         <ProjectsSocial />
+        <GenericSections pageKey="projects" />
       </main>
       <Footer />
       <RealtimeRefresh />
