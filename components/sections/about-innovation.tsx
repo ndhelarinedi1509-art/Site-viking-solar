@@ -61,11 +61,31 @@ interface AboutInnovationProps {
 export function AboutInnovation({ section }: AboutInnovationProps) {
   const { t } = useTranslation();
 
+  const content = section?.content ?? {};
+  const story = (content.story ?? {}) as Record<string, string>;
+  const mission = (content.mission ?? {}) as Record<string, string> & { cards?: Array<{ title: string; description: string }> };
+
   const badge = sectionString(section, 'badge') || t('about.innovation.heroTitle').toUpperCase();
   const title = section?.title || t('about.innovation.heroTitle');
   const titleHighlight = sectionString(section, 'titleHighlight') || '';
-  const story =
+  const description =
     section?.description || `${t('about.story.description')} ${t('about.story.description2')}`.trim();
+
+  const storyBadge = story.badge || t('about.story.badge');
+  const storyTitle = story.title || t('about.story.title');
+  const storyTitleHighlight = story.titleHighlight || t('about.story.titleHighlight');
+  const missionLabel = story.missionLabel || t('about.story.missionLabel');
+  const missionText = story.mission || t('about.story.mission');
+  const visionLabel = story.visionLabel || t('about.story.visionLabel');
+  const visionText = story.vision || t('about.story.vision');
+
+  const missionBadge = mission.badge || t('about.story.missionLabel');
+  const missionTitle = mission.title || t('about.innovation.title4');
+
+  const cards = (mission.cards && mission.cards.length > 0 ? mission.cards : missionCards.map((c) => ({
+    title: t(c.titleKey),
+    description: t(c.descKey),
+  })));
 
   return (
     <section id="innovation" className="relative py-14 sm:py-20 border-t border-border bg-bg-primary overflow-hidden">
@@ -98,15 +118,15 @@ export function AboutInnovation({ section }: AboutInnovationProps) {
 
               <div className="relative">
                 <div className="mb-5">
-                  <Badge>{t('about.story.badge')}</Badge>
+                  <Badge>{storyBadge}</Badge>
                 </div>
                 <h3 className="text-[clamp(1.4rem,2.6vw,1.9rem)] font-extrabold text-white leading-[1.15] tracking-[-0.02em] mb-4">
-                  {t('about.story.title')}{' '}
+                  {storyTitle}{' '}
                   <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
-                    {t('about.story.titleHighlight')}
+                    {storyTitleHighlight}
                   </span>
                 </h3>
-                <p className="text-[0.95rem] text-gray-400 leading-relaxed">{story}</p>
+                <p className="text-[0.95rem] text-gray-400 leading-relaxed">{description}</p>
 
                 <div className="my-6 h-px bg-gradient-to-r from-transparent via-green/30 to-transparent" />
 
@@ -118,8 +138,8 @@ export function AboutInnovation({ section }: AboutInnovationProps) {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-[0.8rem] font-bold text-green uppercase tracking-wider mb-0.5">{t('about.story.missionLabel')}</p>
-                      <p className="text-sm text-gray-400 leading-relaxed">{t('about.story.mission')}</p>
+                      <p className="text-[0.8rem] font-bold text-green uppercase tracking-wider mb-0.5">{missionLabel}</p>
+                      <p className="text-sm text-gray-400 leading-relaxed">{missionText}</p>
                     </div>
                   </div>
                   <div className="flex gap-3 items-start">
@@ -129,8 +149,8 @@ export function AboutInnovation({ section }: AboutInnovationProps) {
                       </svg>
                     </div>
                     <div>
-                      <p className="text-[0.8rem] font-bold text-accent-blue uppercase tracking-wider mb-0.5">{t('about.story.visionLabel')}</p>
-                      <p className="text-sm text-gray-400 leading-relaxed">{t('about.story.vision')}</p>
+                      <p className="text-[0.8rem] font-bold text-accent-blue uppercase tracking-wider mb-0.5">{visionLabel}</p>
+                      <p className="text-sm text-gray-400 leading-relaxed">{visionText}</p>
                     </div>
                   </div>
                 </div>
@@ -143,24 +163,26 @@ export function AboutInnovation({ section }: AboutInnovationProps) {
             <FadeIn>
               <div className="mb-1">
                 <div className="mb-3">
-                  <Badge>{t('about.story.missionLabel')}</Badge>
+                  <Badge>{missionBadge}</Badge>
                 </div>
                 <h3 className="text-[clamp(1.4rem,2.6vw,1.9rem)] font-extrabold text-white leading-[1.15] tracking-[-0.02em]">
-                  {t('about.innovation.title4')}
+                  {missionTitle}
                 </h3>
               </div>
             </FadeIn>
 
-            {missionCards.map((card, i) => (
-              <FadeIn key={card.titleKey} delay={i * 120}>
+            {cards.map((card, i) => (
+              <FadeIn key={card.title || i} delay={i * 120}>
                 <div className="group rounded-2xl border border-border bg-bg-card p-5 transition-all duration-[0.45s] ease-premium will-change-transform hover:-translate-y-1 hover:border-green/25 hover:shadow-[0_16px_40px_rgba(0,0,0,0.35),0_0_20px_rgba(34,197,94,0.12)]">
                   <div className="flex items-start gap-4">
-                    <div className={cn('flex h-10 w-10 shrink-0 items-center justify-center rounded-xl', card.iconBg)}>
-                      {card.icon}
+                    <div className={cn('flex h-10 w-10 shrink-0 items-center justify-center rounded-xl', 'bg-green/12')}>
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="#22C55E">
+                        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+                      </svg>
                     </div>
                     <div>
-                      <h4 className="text-[0.95rem] font-bold text-white mb-1">{t(card.titleKey)}</h4>
-                      <p className="text-sm text-gray-400 leading-relaxed">{t(card.descKey)}</p>
+                      <h4 className="text-[0.95rem] font-bold text-white mb-1">{card.title}</h4>
+                      <p className="text-sm text-gray-400 leading-relaxed">{card.description}</p>
                     </div>
                   </div>
                 </div>

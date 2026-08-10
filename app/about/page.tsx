@@ -7,7 +7,7 @@ import { AboutPillars } from '@/components/sections/about-pillars';
 import { AboutTeam } from '@/components/sections/about-team';
 import { FaqSection } from '@/components/sections/faq-section';
 import { AboutCTA } from '@/components/sections/about-cta';
-import { ContactFormSection } from '@/components/sections/contact-form-section';
+import { ContactFormBlock } from '@/components/sections/contact-form-block';
 import { GenericSection } from '@/components/sections/generic-section';
 import { fetchPublishedSections } from '@/lib/cms-queries';
 import type { PageSection } from '@/types';
@@ -29,8 +29,9 @@ const sectionComponents: Record<string, React.ComponentType<AboutSectionProps>> 
   hero: AboutHero,
   innovation: AboutInnovation,
   pillars: AboutPillars,
-  team: AboutTeam,
   faq: FaqSection,
+  contact: ContactFormBlock,
+  team: AboutTeam,
   cta: AboutCTA,
 };
 
@@ -51,9 +52,6 @@ export default async function AboutPage() {
           const Component = sectionComponents[section.section_key] ?? GenericSection;
           return <Component key={section.id} section={section} />;
         })}
-        <div id="contact" className="scroll-mt-24">
-          <ContactFormSection />
-        </div>
       </main>
       <Footer />
       <RealtimeRefresh />

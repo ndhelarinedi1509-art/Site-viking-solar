@@ -104,7 +104,7 @@ export function SectionEditor({ section, onChange }: SectionEditorProps) {
           <ItemsEditor
             items={(section.content?.items as Array<Record<string, string>>) ?? []}
             fields={
-              section.section_type === 'team' ? ['name', 'role']
+              section.section_type === 'team' ? ['name', 'role', 'photo']
               : section.section_type === 'benefits' ? ['title', 'description', 'iconColor']
               : section.section_type === 'services-process' ? ['number', 'title', 'description', 'duration', 'color']
               : ['title', 'description']
@@ -121,6 +121,25 @@ export function SectionEditor({ section, onChange }: SectionEditorProps) {
             items={(section.content?.items as Array<Record<string, string>>) ?? []}
             fields={['question', 'answer']}
             onChange={(items) => updateContent('items', items)}
+          />
+        </div>
+      )}
+
+      {section.section_key === 'innovation' && (
+        <InnovationEditor
+          content={section.content}
+          onChange={(content) => updateField('content', content)}
+        />
+      )}
+
+      {section.section_type === 'contact-form' && (
+        <div className="space-y-4 border-t border-white/6 pt-4">
+          <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">Lien Google Maps</h4>
+          <InputField
+            label="Lien de la carte Google Maps"
+            value={contentString(section, 'mapUrl')}
+            onChange={(v) => updateContent('mapUrl', v)}
+            placeholder="https://maps.app.goo.gl/voTqLWVc3Qxdw2sa7"
           />
         </div>
       )}
@@ -279,6 +298,7 @@ const fieldLabels: Record<string, string> = {
   answer: 'Réponse',
   name: 'Nom',
   role: 'Rôle',
+  photo: 'Photo de profil',
   number: 'Numéro (01, 02…)',
   duration: 'Durée (ex. Jour 1)',
   color: 'Couleur (blue, green, orange, purple, teal)',
@@ -313,12 +333,22 @@ function ItemsEditor({ items, fields, onChange }: {
             </button>
           </div>
           {fields.map((field) => (
-            <InputField
-              key={field}
-              label={fieldLabels[field] ?? field.charAt(0).toUpperCase() + field.slice(1)}
-              value={item[field] ?? ''}
-              onChange={(v) => update(i, field, v)}
-            />
+            field === 'photo' ? (
+              <ImageUploader
+                key={field}
+                label={fieldLabels[field] ?? 'Photo de profil'}
+                value={item[field] ?? ''}
+                onChange={(v) => update(i, field, v)}
+                placeholder="/images/… ou https://…"
+              />
+            ) : (
+              <InputField
+                key={field}
+                label={fieldLabels[field] ?? field.charAt(0).toUpperCase() + field.slice(1)}
+                value={item[field] ?? ''}
+                onChange={(v) => update(i, field, v)}
+              />
+            )
           ))}
         </div>
       ))}
@@ -326,6 +356,54 @@ function ItemsEditor({ items, fields, onChange }: {
         className="text-sm font-semibold text-green hover:text-green-dark transition-colors">
         + Ajouter un élément
       </button>
+    </div>
+  );
+}
+
+function InnovationEditor({ content, onChange }: {
+  content: PageSection['content'];
+  onChange: (content: PageSection['content']) => void;
+}) {
+  const story = (content?.story ?? {}) as Record<string, string>;
+  const mission = (content?.mission ?? {}) as Record<string, string> & { cards?: Array<Record<string, string>> };
+  const cards = mission.cards ?? [];
+
+  const setStory = (k: string, v: string) => onChange({ ...content, story: { ...story, [k]: v } });
+  const setMission = (k: string, v: string) => onChange({ ...content, mission: { ...mission, [k]: v } });
+  const setCards = (next: Array<Record<string, string>>) => onChange({ ...content, mission: { ...mission, cards: next } });
+
+  return (
+    <div className="space-y-6 border-t border-white/6 pt-4">
+      {/* Bloc gauche — Notre Histoire */}
+      <div className="rounded-xl border border-white/6 bg-white/[0.02] p-5 space-y-4">
+        <h4 className="text-sm font-extrabold text-green uppercase tracking-wider">Notre Histoire (carte gauche)</h4>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          <InputField label="Badge histoire" value={story.badge ?? ''} onChange={(v) => setStory('badge', v)} />
+          <InputField label="Titre histoire" value={story.title ?? ''} onChange={(v) => setStory('title', v)} />
+          <InputField label="Partie surlignée" value={story.titleHighlight ?? ''} onChange={(v) => setStory('titleHighlight', v)} />
+        </div>
+        <div className="border-t border-white/6 pt-3" />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <InputField label="Label mission" value={story.missionLabel ?? ''} onChange={(v) => setStory('missionLabel', v)} />
+          <InputField label="Label vision" value={story.visionLabel ?? ''} onChange={(v) => setStory('visionLabel', v)} />
+        </div>
+        <TextareaField label="Texte mission" value={story.mission ?? ''} onChange={(v) => setStory('mission', v)} />
+        <TextareaField label="Texte vision" value={story.vision ?? ''} onChange={(v) => setStory('vision', v)} />
+      </div>
+
+      {/* Bloc droite — Mission */}
+      <div className="rounded-xl border border-white/6 bg-white/[0.02] p-5 space-y-4">
+        <h4 className="text-sm font-extrabold text-green uppercase tracking-wider">Mission (colonne droite)</h4>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <InputField label="Badge mission" value={mission.badge ?? ''} onChange={(v) => setMission('badge', v)} />
+          <InputField label="Titre mission" value={mission.title ?? ''} onChange={(v) => setMission('title', v)} />
+        </div>
+        <ItemsEditor
+          items={cards}
+          fields={['title', 'description']}
+          onChange={setCards}
+        />
+      </div>
     </div>
   );
 }

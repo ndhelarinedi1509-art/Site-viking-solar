@@ -86,7 +86,12 @@ function FadeIn({ children, delay = 0, className }: { children: React.ReactNode;
   );
 }
 
-export function ContactFormSection() {
+interface ContactFormSectionProps {
+  mapUrl?: string;
+  embedUrl?: string;
+}
+
+export function ContactFormSection({ mapUrl, embedUrl }: ContactFormSectionProps) {
   const { t } = useTranslation();
   const { submit, isLoading } = useFormSubmit('/api/contact', {
     successMessage: t('contact.form.success'),
@@ -127,7 +132,7 @@ export function ContactFormSection() {
               </div>
               <div className="relative w-full" style={{ height: 'clamp(190px, 28vw, 250px)' }}>
                 <iframe
-                  src="https://www.openstreetmap.org/export/embed.html?bbox=15.19%2C-4.38%2C15.45%2C-4.27&amp;layer=mapnik&amp;marker=-4.325%2C15.322"
+                  src={embedUrl || 'https://maps.google.com/maps?q=-4.4013038,15.3227446&z=12&output=embed'}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}
@@ -167,16 +172,13 @@ export function ContactFormSection() {
 
               <div className="p-3 flex flex-wrap items-center justify-between gap-2 border-t border-border bg-white/2">
                 <a
-                  href="https://www.openstreetmap.org/?mlat=-4.325&mlon=15.322#map=14/-4.325/15.322"
+                  href={mapUrl || 'https://maps.app.goo.gl/voTqLWVc3Qxdw2sa7'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-[0.7rem] font-medium text-green hover:text-green-dark transition-colors"
                 >
                   {t('contact.map.openLarger')}
                 </a>
-                <span className="text-[0.6rem] text-gray-500">
-                  &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer" className="hover:text-gray-400 transition-colors">OpenStreetMap</a>
-                </span>
               </div>
             </div>
           </FadeIn>

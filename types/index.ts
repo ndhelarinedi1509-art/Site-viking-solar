@@ -189,7 +189,7 @@ export interface PageSection {
   updated_by: string;
 }
 
-export type SectionType = 'hero' | 'text' | 'cards' | 'image-text' | 'cta' | 'gallery' | 'faq' | 'team' | 'stats' | 'benefits' | 'services-grid' | 'services-process' | 'testimonials';
+export type SectionType = 'hero' | 'text' | 'cards' | 'image-text' | 'cta' | 'gallery' | 'faq' | 'team' | 'stats' | 'benefits' | 'services-grid' | 'services-process' | 'testimonials' | 'contact-form';
 
 export interface MediaItem {
   url: string;
