@@ -1,5 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
-import type { PageSection, CmsService, CmsProject } from '@/types';
+import type { PageSection, CmsService, CmsProject, CmsTestimonial } from '@/types';
 
 export async function fetchPublishedSections(pageKey: string): Promise<PageSection[]> {
   const supabase = await createClient();
@@ -34,6 +34,17 @@ export async function fetchProjects(): Promise<CmsProject[]> {
     .order('date', { ascending: false });
   if (error) throw error;
   return (data ?? []) as CmsProject[];
+}
+
+export async function fetchTestimonials(): Promise<CmsTestimonial[]> {
+  const supabase = await createClient();
+  const { data, error } = await supabase
+    .from('testimonials')
+    .select('*')
+    .eq('is_published', true)
+    .order('sort_order', { ascending: true });
+  if (error) throw error;
+  return (data ?? []) as CmsTestimonial[];
 }
 
 export function getSection(sections: PageSection[], sectionKey: string): PageSection | undefined {

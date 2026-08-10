@@ -5,7 +5,8 @@ import { CATEGORY_LABELS } from '@/constants/projects';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-import type { CmsProject } from '@/types';
+import type { PageSection, CmsProject } from '@/types';
+import { sectionString } from '@/lib/section-utils';
 
 const PROJECT_FILTERS = [
   { label: 'Tous', value: 'all' },
@@ -39,9 +40,19 @@ function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
   );
 }
 
-export function ProjectsGallery({ projects = [] }: { projects?: CmsProject[] }) {
+interface ProjectsGalleryProps {
+  section?: PageSection;
+  projects?: CmsProject[];
+}
+
+export function ProjectsGallery({ section, projects = [] }: ProjectsGalleryProps) {
   const { t } = useTranslation();
   const [activeFilter, setActiveFilter] = useState('all');
+
+  const badge = sectionString(section, 'badge', t('projects.gallery.badge'));
+  const title = section?.title || t('projects.gallery.title');
+  const titleHighlight = sectionString(section, 'titleHighlight', t('projects.gallery.titleHighlight'));
+  const description = section?.description || t('projects.gallery.description');
 
   const filtered = projects.filter((project) => {
     if (activeFilter === 'all') return true;
@@ -54,6 +65,23 @@ export function ProjectsGallery({ projects = [] }: { projects?: CmsProject[] }) 
   return (
     <section id="pj-projects" className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <FadeCard>
+          <div className="text-center mb-10">
+            <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
+              {badge}
+            </span>
+            <h2 className="text-[clamp(1.9rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.15]">
+              {title}{' '}
+              <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
+                {titleHighlight}
+              </span>
+            </h2>
+            <p className="text-base text-gray-400 max-w-[580px] mx-auto leading-relaxed">
+              {description}
+            </p>
+          </div>
+        </FadeCard>
+
         <FadeCard>
           <div className="flex flex-wrap justify-center gap-3 mb-14">
             {PROJECT_FILTERS.map((filter) => (

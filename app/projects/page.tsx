@@ -6,10 +6,10 @@ import { ProjectsStats } from '@/components/sections/projects-stats';
 import { ProjectsGallery } from '@/components/sections/projects-gallery';
 import { ProjectsTestimonials } from '@/components/sections/projects-testimonials';
 import { ProjectsCTA } from '@/components/sections/projects-cta';
-import { ProjectsSocial } from '@/components/sections/projects-social';
-import { fetchProjects } from '@/lib/cms-queries';
+import { GenericSection } from '@/components/sections/generic-section';
+import { fetchPublishedSections, fetchProjects, fetchTestimonials } from '@/lib/cms-queries';
+import type { PageSection, CmsProject, CmsTestimonial } from '@/types';
 import { RealtimeRefresh } from '@/components/realtime-refresh';
-import { GenericSections } from '@/components/sections/generic-sections';
 
 export const metadata = generateSiteMetadata(
   'Projets',
@@ -19,26 +19,50 @@ export const metadata = generateSiteMetadata(
 
 export const dynamic = 'force-dynamic';
 
+interface ProjectsSectionProps {
+  section?: PageSection;
+  projects?: CmsProject[];
+  testimonials?: CmsTestimonial[];
+}
+
+const sectionComponents: Record<string, React.ComponentType<ProjectsSectionProps>> = {
+  hero: ProjectsHero,
+  stats: ProjectsStats,
+  gallery: ProjectsGallery,
+  testimonials: ProjectsTestimonials,
+  cta: ProjectsCTA,
+};
+
 export default async function ProjectsPage() {
-  let projects = [] as Awaited<ReturnType<typeof fetchProjects>>;
+  let sections: Awaited<ReturnType<typeof fetchPublishedSections>> = [];
+  let projects: Awaited<ReturnType<typeof fetchProjects>> = [];
+  let testimonials: Awaited<ReturnType<typeof fetchTestimonials>> = [];
 
   try {
-    projects = await fetchProjects();
+    [sections, projects, testimonials] = await Promise.all([
+      fetchPublishedSections('projects'),
+      fetchProjects(),
+      fetchTestimonials(),
+    ]);
   } catch {
-    // Tables not configured — sections render their fallbacks.
+    // Tables not configured — components render their fallbacks.
   }
 
   return (
     <>
       <Header />
       <main>
-        <ProjectsHero />
-        <ProjectsStats />
-        <ProjectsGallery projects={projects} />
-        <ProjectsTestimonials />
-        <ProjectsCTA />
-        <ProjectsSocial />
-        <GenericSections pageKey="projects" />
+        {sections.map((section) => {
+          const Component = sectionComponents[section.section_key] ?? GenericSection;
+          return (
+            <Component
+              key={section.id}
+              section={section}
+              projects={projects}
+              testimonials={testimonials}
+            />
+          );
+        })}
       </main>
       <Footer />
       <RealtimeRefresh />

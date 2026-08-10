@@ -54,6 +54,18 @@ export interface CmsProject {
   is_published: boolean;
 }
 
+export interface CmsTestimonial {
+  id: string;
+  name: string;
+  role: string;
+  location: string;
+  quote: string;
+  rating: number;
+  image: string;
+  sort_order: number;
+  is_published: boolean;
+}
+
 export interface TeamMember {
   id: string;
   name: string;
@@ -177,7 +189,7 @@ export interface PageSection {
   updated_by: string;
 }
 
-export type SectionType = 'hero' | 'text' | 'cards' | 'image-text' | 'cta' | 'gallery' | 'faq' | 'team' | 'stats' | 'benefits' | 'services-grid' | 'services-process';
+export type SectionType = 'hero' | 'text' | 'cards' | 'image-text' | 'cta' | 'gallery' | 'faq' | 'team' | 'stats' | 'benefits' | 'services-grid' | 'services-process' | 'testimonials';
 
 export interface MediaItem {
   url: string;

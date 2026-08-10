@@ -26,7 +26,8 @@ export function SectionEditor({ section, onChange }: SectionEditorProps) {
     section.section_type === 'services-process' ||
     section.section_type === 'gallery' ||
     section.section_type === 'cta' ||
-    section.section_type === 'benefits';
+    section.section_type === 'benefits' ||
+    section.section_type === 'testimonials';
 
   return (
     <div className="space-y-5">
@@ -83,12 +84,15 @@ export function SectionEditor({ section, onChange }: SectionEditorProps) {
             buttons={(section.content?.buttons as Array<{ label: string; href: string; variant: string }>) ?? []}
             onChange={(buttons) => updateContent('buttons', buttons)}
           />
-          <div className="pt-2">
-            <StatsEditor
-              stats={(section.content?.stats as Array<{ value: number; suffix: string; label: string }>) ?? []}
-              onChange={(stats) => updateContent('stats', stats)}
-            />
-          </div>
+        </div>
+      )}
+
+      {(section.section_type === 'hero' || section.section_type === 'stats') && (
+        <div className="space-y-4 border-t border-white/6 pt-4">
+          <StatsEditor
+            stats={(section.content?.stats as Array<{ value: number; suffix: string; label: string }>) ?? []}
+            onChange={(stats) => updateContent('stats', stats)}
+          />
         </div>
       )}
 

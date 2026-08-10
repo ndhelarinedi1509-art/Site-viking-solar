@@ -21,6 +21,7 @@ const sectionTypeLabels: Record<string, string> = {
   cta: 'Appel à action', gallery: 'Galerie', faq: 'FAQ', team: 'Équipe',
   stats: 'Statistiques', benefits: 'Avantages',
   'services-grid': 'Services (grille)', 'services-process': 'Processus',
+  testimonials: 'Témoignages',
 };
 
 // Sections whose content is shared with another page and must not be edited here.
