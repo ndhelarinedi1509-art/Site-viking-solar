@@ -7,11 +7,10 @@ import { ServicesProcess } from '@/components/sections/services-process';
 import { ServicesBenefits } from '@/components/sections/services-benefits';
 import { ServicesProjects } from '@/components/sections/services-projects';
 import { ServicesCTA } from '@/components/sections/services-cta';
+import { GenericSection } from '@/components/sections/generic-section';
 import { fetchServices, fetchProjects, fetchPublishedSections, getSection } from '@/lib/cms-queries';
-import { sectionItems } from '@/lib/section-utils';
+import type { PageSection, CmsService, CmsProject } from '@/types';
 import { RealtimeRefresh } from '@/components/realtime-refresh';
-import { GenericSections } from '@/components/sections/generic-sections';
-import type { Benefit } from '@/types';
 
 export const metadata = generateSiteMetadata(
   'Services',
@@ -21,35 +20,59 @@ export const metadata = generateSiteMetadata(
 
 export const dynamic = 'force-dynamic';
 
+interface ServicesSectionProps {
+  section?: PageSection;
+  services?: CmsService[];
+  projects?: CmsProject[];
+  benefitsSection?: PageSection;
+}
+
+const sectionComponents: Record<string, React.ComponentType<ServicesSectionProps>> = {
+  hero: ServicesHero,
+  grid: ServicesGrid,
+  process: ServicesProcess,
+  benefits: ServicesBenefits,
+  projects: ServicesProjects,
+  cta: ServicesCTA,
+};
+
 export default async function ServicesPage() {
-  let services = [] as Awaited<ReturnType<typeof fetchServices>>;
-  let projects = [] as Awaited<ReturnType<typeof fetchProjects>>;
-  let benefits: Benefit[] = [];
+  let sections: Awaited<ReturnType<typeof fetchPublishedSections>> = [];
+  let services: Awaited<ReturnType<typeof fetchServices>> = [];
+  let projects: Awaited<ReturnType<typeof fetchProjects>> = [];
+  let homeSections: Awaited<ReturnType<typeof fetchPublishedSections>> = [];
 
   try {
-    [services, projects] = await Promise.all([fetchServices(), fetchProjects()]);
-    const sections = await fetchPublishedSections('services');
-    benefits = sectionItems(getSection(sections, 'benefits')).map((item, idx) => ({
-      id: `ben-${idx}`,
-      title: item.title ?? '',
-      description: item.description ?? '',
-      iconColor: item.iconColor ?? 'green',
-    }));
+    [sections, services, projects, homeSections] = await Promise.all([
+      fetchPublishedSections('services'),
+      fetchServices(),
+      fetchProjects(),
+      fetchPublishedSections('home'),
+    ]);
   } catch {
     // Tables not configured — sections render their fallbacks.
   }
+
+  // "Pourquoi nous choisir" is shared with the home page: the services
+  // page renders the home benefits section content at its position.
+  const benefitsSection = getSection(homeSections, 'benefits');
 
   return (
     <>
       <Header />
       <main>
-        <ServicesHero />
-        <ServicesGrid services={services} />
-        <ServicesProcess />
-        <ServicesBenefits benefits={benefits} />
-        <ServicesProjects projects={projects} />
-        <ServicesCTA />
-        <GenericSections pageKey="services" />
+        {sections.map((section) => {
+          const Component = sectionComponents[section.section_key] ?? GenericSection;
+          return (
+            <Component
+              key={section.id}
+              section={section}
+              services={services}
+              projects={projects}
+              benefitsSection={benefitsSection}
+            />
+          );
+        })}
       </main>
       <Footer />
       <RealtimeRefresh />

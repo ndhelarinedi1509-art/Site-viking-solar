@@ -4,6 +4,8 @@ import { SITE_CONFIG } from '@/config/site';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
+import type { PageSection } from '@/types';
+import { sectionString, sectionButton } from '@/lib/section-utils';
 
 function FadeIn({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {
   const { ref, isInView } = useInView();
@@ -22,8 +24,18 @@ function FadeIn({ children, delay = 0, className }: { children: React.ReactNode;
   );
 }
 
-export function ServicesCTA() {
+interface ServicesCTAProps {
+  section?: PageSection;
+}
+
+export function ServicesCTA({ section }: ServicesCTAProps) {
   const { t } = useTranslation();
+
+  const badge = sectionString(section, 'badge', t('services.cta.badge'));
+  const title = section?.title || t('services.cta.title');
+  const description = section?.description || t('services.cta.description');
+  const button = sectionButton(section);
+
   return (
     <section className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -42,15 +54,15 @@ export function ServicesCTA() {
 
             <div className="relative z-[1]">
               <span className="inline-block text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
-                {t('services.cta.badge')}
+                {badge}
               </span>
 
               <h2 className="text-[clamp(1.8rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.2] mb-4">
-                {t('services.cta.title')}
+                {title}
               </h2>
 
               <p className="text-base text-gray-400 max-w-[500px] mx-auto mb-8 leading-relaxed">
-                {t('services.cta.description')}
+                {description}
               </p>
 
               {/* Contact row */}
@@ -93,13 +105,13 @@ export function ServicesCTA() {
                   {t('services.cta.whatsapp')}
                 </a>
                 <a
-                  href={`mailto:${SITE_CONFIG.email}`}
+                  href={button?.href || `mailto:${SITE_CONFIG.email}`}
                   className="inline-flex items-center gap-2.5 rounded-full bg-white/6 backdrop-blur-sm border border-white/15 px-8 py-3.5 text-sm font-semibold text-white transition-all duration-350 hover:bg-white/10 hover:border-white/25 hover:-translate-y-0.5"
                 >
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
                     <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 9V3.5L18.5 9H13zM7 17l2-2 2 2 4-4 2 2v4H7v-2z" />
                   </svg>
-                  {t('services.cta.quote')}
+                  {button?.label || t('services.cta.quote')}
                 </a>
               </div>
             </div>

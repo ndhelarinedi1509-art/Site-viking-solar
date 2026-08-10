@@ -1,9 +1,25 @@
 'use client';
 
 import { useTranslation } from 'react-i18next';
+import type { PageSection } from '@/types';
+import { sectionString, sectionButtons } from '@/lib/section-utils';
 
-export function ServicesHero() {
+interface ServicesHeroProps {
+  section?: PageSection;
+}
+
+export function ServicesHero({ section }: ServicesHeroProps) {
   const { t } = useTranslation();
+
+  const badge = sectionString(section, 'badge', t('hero.services.badge'));
+  const title = section?.title || sectionString(section, 'title', t('hero.services.title'));
+  const titleHighlight = sectionString(section, 'titleHighlight', t('hero.services.titleHighlight'));
+  const description = section?.description || t('hero.services.description');
+  const buttons = sectionButtons(section);
+
+  const primaryBtn = buttons.find((b) => b.variant === 'primary');
+  const secondaryBtn = buttons.find((b) => b.variant !== 'primary');
+
   return (
     <section className="relative w-screen left-1/2 -translate-x-1/2 min-h-[55vh] flex items-center justify-center overflow-hidden bg-bg-primary">
       {/* Decorative glows — full-bleed left to right */}
@@ -16,31 +32,49 @@ export function ServicesHero() {
             <svg width="14" height="14" viewBox="0 0 24 24" fill="#22C55E">
               <path d="M12 2L14.09 8.26L20 9.27L15.45 13.14L16.82 19.02L12 16.09L7.18 19.02L8.55 13.14L4 9.27L9.91 8.26L12 2Z" />
             </svg>
-            {t('hero.services.badge')}
+            {badge}
           </span>
         </div>
 
         <h1 className="animate-fade-up text-[clamp(2.25rem,5vw,3.75rem)] font-extrabold text-white leading-[1.1] tracking-tight mb-4" style={{ animationDelay: '0.25s', animationFillMode: 'both' }}>
-          {t('hero.services.title')}{' '}
+          {title}{' '}
           <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
-            {t('hero.services.titleHighlight')}
+            {titleHighlight}
           </span>
         </h1>
 
         <p className="animate-fade-up text-lg text-gray-400 leading-relaxed mb-8 mx-auto max-w-[560px]" style={{ animationDelay: '0.4s', animationFillMode: 'both' }}>
-          {t('hero.services.description')}
+          {description}
         </p>
 
-        <a
-          href="#sv-services"
-          className="animate-fade-up inline-flex items-center gap-2 rounded-full bg-green px-7 py-3 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
-          style={{ animationDelay: '0.55s', animationFillMode: 'both' }}
-        >
-          {t('hero.services.cta1')}
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
-          </svg>
-        </a>
+        <div className="animate-fade-up flex flex-col sm:flex-row items-center justify-center gap-4" style={{ animationDelay: '0.55s', animationFillMode: 'both' }}>
+          {primaryBtn ? (
+            <a
+              href={primaryBtn.href}
+              className="inline-flex items-center gap-2 rounded-full bg-green px-7 py-3 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
+            >
+              {primaryBtn.label}
+            </a>
+          ) : (
+            <a
+              href="#sv-services"
+              className="inline-flex items-center gap-2 rounded-full bg-green px-7 py-3 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
+            >
+              {t('hero.services.cta1')}
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6z" />
+              </svg>
+            </a>
+          )}
+          {secondaryBtn && (
+            <a
+              href={secondaryBtn.href}
+              className="inline-flex items-center gap-2 rounded-full border border-border-light bg-bg-primary/40 px-7 py-3 text-sm font-medium text-white transition-all duration-300 hover:border-green/40 hover:bg-green/5"
+            >
+              {secondaryBtn.label}
+            </a>
+          )}
+        </div>
       </div>
     </section>
   );

@@ -21,7 +21,12 @@ export function SectionEditor({ section, onChange }: SectionEditorProps) {
   const hasHighlight =
     section.section_type === 'hero' ||
     section.section_type === 'image-text' ||
-    section.section_type === 'text';
+    section.section_type === 'text' ||
+    section.section_type === 'services-grid' ||
+    section.section_type === 'services-process' ||
+    section.section_type === 'gallery' ||
+    section.section_type === 'cta' ||
+    section.section_type === 'benefits';
 
   return (
     <div className="space-y-5">
@@ -87,12 +92,17 @@ export function SectionEditor({ section, onChange }: SectionEditorProps) {
         </div>
       )}
 
-      {(section.section_type === 'cards' || section.section_type === 'benefits' || section.section_type === 'team') && (
+      {(section.section_type === 'cards' || section.section_type === 'benefits' || section.section_type === 'team' || section.section_type === 'services-process') && (
         <div className="space-y-4 border-t border-white/6 pt-4">
           <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">Éléments</h4>
           <ItemsEditor
             items={(section.content?.items as Array<Record<string, string>>) ?? []}
-            fields={section.section_type === 'team' ? ['name', 'role'] : section.section_type === 'benefits' ? ['title', 'description', 'iconColor'] : ['title', 'description']}
+            fields={
+              section.section_type === 'team' ? ['name', 'role']
+              : section.section_type === 'benefits' ? ['title', 'description', 'iconColor']
+              : section.section_type === 'services-process' ? ['number', 'title', 'description', 'duration', 'color']
+              : ['title', 'description']
+            }
             onChange={(items) => updateContent('items', items)}
           />
         </div>
@@ -255,6 +265,19 @@ function SingleButtonEditor({ button, onChange }: {
   );
 }
 
+const fieldLabels: Record<string, string> = {
+  title: 'Titre',
+  description: 'Description',
+  iconColor: 'Couleur (green, blue, orange, teal, purple, amber)',
+  question: 'Question',
+  answer: 'Réponse',
+  name: 'Nom',
+  role: 'Rôle',
+  number: 'Numéro (01, 02…)',
+  duration: 'Durée (ex. Jour 1)',
+  color: 'Couleur (blue, green, orange, purple, teal)',
+};
+
 function ItemsEditor({ items, fields, onChange }: {
   items: Array<Record<string, string>>;
   fields: string[];
@@ -286,7 +309,7 @@ function ItemsEditor({ items, fields, onChange }: {
           {fields.map((field) => (
             <InputField
               key={field}
-              label={field.charAt(0).toUpperCase() + field.slice(1)}
+              label={fieldLabels[field] ?? field.charAt(0).toUpperCase() + field.slice(1)}
               value={item[field] ?? ''}
               onChange={(v) => update(i, field, v)}
             />

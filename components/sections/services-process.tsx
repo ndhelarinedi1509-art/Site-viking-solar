@@ -3,73 +3,46 @@
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
+import type { ReactNode } from 'react';
+import type { PageSection } from '@/types';
+import { sectionItems, sectionString } from '@/lib/section-utils';
 
-const steps = [
-  {
-    number: '01',
-    title: 'Analyse des Besoins',
-    description:
-      'Visite sur site gratuite et audit énergétique complet de votre installation existante. Identification de vos consommations et objectifs.',
-    duration: 'Jour 1',
-    color: 'blue',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="#3B82F6">
-        <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
-      </svg>
-    ),
-  },
-  {
-    number: '02',
-    title: 'Étude Technique',
-    description:
-      "Dimensionnement précis du système, sélection des équipements, plans d'installation et devis détaillé remis sous 48h.",
-    duration: 'Jours 2-3',
-    color: 'green',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="#22C55E">
-        <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 9V3.5L18.5 9H13zM7 17l2-2 2 2 4-4 2 2v4H7v-2z" />
-      </svg>
-    ),
-  },
-  {
-    number: '03',
-    title: 'Installation',
-    description:
-      "Déploiement par nos techniciens certifiés. Pose des panneaux, câblage, protection électrique et intégration des onduleurs selon les normes IEC.",
-    duration: '1–5 jours',
-    color: 'orange',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="#F59E0B">
-        <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" />
-      </svg>
-    ),
-  },
-  {
-    number: '04',
-    title: 'Mise en Service',
-    description:
-      "Tests complets du système, configuration du monitoring, formation de l'utilisateur et remise du dossier de conformité avec certificats.",
-    duration: 'Jour J',
-    color: 'purple',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="#8B5CF6">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-      </svg>
-    ),
-  },
-  {
-    number: '05',
-    title: 'Maintenance Continue',
-    description:
-      "Suivi à distance via notre plateforme IoT, visites préventives programmées et assistance téléphonique 7j/7 pour garantir vos performances.",
-    duration: 'En continu',
-    color: 'teal',
-    icon: (
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="#14B8A6">
-        <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z" />
-      </svg>
-    ),
-  },
+type Step = { number: string; title: string; description: string; duration: string; color: string };
+
+const iconByColor: Record<string, ReactNode> = {
+  blue: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#3B82F6">
+      <path d="M12 4.5C7 4.5 2.73 7.61 1 12c1.73 4.39 6 7.5 11 7.5s9.27-3.11 11-7.5c-1.73-4.39-6-7.5-11-7.5zM12 17c-2.76 0-5-2.24-5-5s2.24-5 5-5 5 2.24 5 5-2.24 5-5 5zm0-8c-1.66 0-3 1.34-3 3s1.34 3 3 3 3-1.34 3-3-1.34-3-3-3z" />
+    </svg>
+  ),
+  green: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#22C55E">
+      <path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 9V3.5L18.5 9H13zM7 17l2-2 2 2 4-4 2 2v4H7v-2z" />
+    </svg>
+  ),
+  orange: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#F59E0B">
+      <path d="M22.7 19l-9.1-9.1c.9-2.3.4-5-1.5-6.9-2-2-5-2.4-7.4-1.3L9 6 6 9 1.6 4.7C.4 7.1.9 10.1 2.9 12.1c1.9 1.9 4.6 2.4 6.9 1.5l9.1 9.1c.4.4 1 .4 1.4 0l2.3-2.3c.5-.4.5-1.1.1-1.4z" />
+    </svg>
+  ),
+  purple: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#8B5CF6">
+      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+    </svg>
+  ),
+  teal: (
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="#14B8A6">
+      <path d="M17 8C8 10 5.9 16.17 3.82 21.34l1.89.66.95-2.3c.48.17.98.3 1.34.3C19 20 22 3 22 3c-1 2-8 2.25-13 3.25S2 11.5 2 13.5s1.75 3.75 1.75 3.75C7 8 17 8 17 8z" />
+    </svg>
+  ),
+};
+
+const fallbackSteps: Step[] = [
+  { number: '01', title: 'Analyse des Besoins', description: 'Visite sur site gratuite et audit énergétique complet de votre installation existante. Identification de vos consommations et objectifs.', duration: 'Jour 1', color: 'blue' },
+  { number: '02', title: 'Étude Technique', description: "Dimensionnement précis du système, sélection des équipements, plans d'installation et devis détaillé remis sous 48h.", duration: 'Jours 2-3', color: 'green' },
+  { number: '03', title: 'Installation', description: "Déploiement par nos techniciens certifiés. Pose des panneaux, câblage, protection électrique et intégration des onduleurs selon les normes IEC.", duration: '1–5 jours', color: 'orange' },
+  { number: '04', title: 'Mise en Service', description: "Tests complets du système, configuration du monitoring, formation de l'utilisateur et remise du dossier de conformité avec certificats.", duration: 'Jour J', color: 'purple' },
+  { number: '05', title: 'Maintenance Continue', description: "Suivi à distance via notre plateforme IoT, visites préventives programmées et assistance téléphonique 7j/7 pour garantir vos performances.", duration: 'En continu', color: 'teal' },
 ];
 
 const dotStyles: Record<string, { border: string; shadow: string }> = {
@@ -85,11 +58,11 @@ const dotTextColors: Record<string, string> = {
   purple: 'text-accent-purple', teal: 'text-accent-teal',
 };
 
-function StepCard({ step }: { step: typeof steps[0] }) {
+function StepCard({ step }: { step: typeof fallbackSteps[0] }) {
   return (
     <div className="flex items-start gap-3">
       <div className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xl ${step.color === 'blue' ? 'bg-accent-blue/10' : step.color === 'green' ? 'bg-green/10' : step.color === 'orange' ? 'bg-accent-orange/10' : step.color === 'purple' ? 'bg-accent-purple/10' : 'bg-accent-teal/10'}`}>
-        {step.icon}
+        {iconByColor[step.color] ?? iconByColor.blue}
       </div>
       <div className="flex-1 min-w-0">
         <div className="flex items-center justify-between gap-2 mb-1">
@@ -107,7 +80,7 @@ function StepCard({ step }: { step: typeof steps[0] }) {
   );
 }
 
-function StepRow({ step, index }: { step: typeof steps[0]; index: number }) {
+function StepRow({ step, index }: { step: typeof fallbackSteps[0]; index: number }) {
   const { ref, isInView } = useInView();
   const ds = dotStyles[step.color];
   const isRight = index % 2 === 1;
@@ -170,8 +143,29 @@ function StepRow({ step, index }: { step: typeof steps[0]; index: number }) {
   );
 }
 
-export function ServicesProcess() {
+interface ServicesProcessProps {
+  section?: PageSection;
+}
+
+export function ServicesProcess({ section }: ServicesProcessProps) {
   const { t } = useTranslation();
+
+  const badge = sectionString(section, 'badge', t('services.process.badge'));
+  const title = section?.title || t('services.process.title');
+  const titleHighlight = sectionString(section, 'titleHighlight', t('services.process.titleHighlight'));
+  const description = section?.description || t('services.process.description');
+
+  const dbItems = sectionItems(section);
+  const steps: Step[] = dbItems.length > 0
+    ? dbItems.map((item) => ({
+        number: item.number || '',
+        title: item.title || '',
+        description: item.description || '',
+        duration: item.duration || '',
+        color: item.color && iconByColor[item.color] ? item.color : 'blue',
+      }))
+    : fallbackSteps;
+
   return (
     <section className="sv-process relative py-20 sm:py-24 border-t border-border bg-bg-card overflow-hidden">
       {/* Grid background */}
@@ -188,13 +182,13 @@ export function ServicesProcess() {
         {/* Section header */}
         <div className="text-center mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
-            {t('services.process.badge')}
+            {badge}
           </span>
           <h2 className="text-[clamp(1.9rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.15] mb-3">
-            {t('services.process.title')} <span className="bg-gradient-to-r from-accent-orange to-accent-red bg-clip-text text-transparent">{t('services.process.titleHighlight')}</span>
+            {title} <span className="bg-gradient-to-r from-accent-orange to-accent-red bg-clip-text text-transparent">{titleHighlight}</span>
           </h2>
           <p className="text-base text-gray-400 max-w-[580px] mx-auto leading-relaxed">
-            {t('services.process.description')}
+            {description}
           </p>
         </div>
 

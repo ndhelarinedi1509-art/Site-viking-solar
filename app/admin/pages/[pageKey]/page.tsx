@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback } from 'react';
 import { useParams } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
 import {
-  ArrowLeft, Save, Eye, Loader2, Plus, Trash2, GripVertical, CheckCircle2,
+  ArrowLeft, Save, Eye, Loader2, Plus, Trash2, GripVertical, CheckCircle2, Info,
 } from 'lucide-react';
 import Link from 'next/link';
 import { SectionEditor } from '@/components/admin/section-editor';
@@ -20,6 +20,12 @@ const sectionTypeLabels: Record<string, string> = {
   hero: 'Hero', text: 'Texte', cards: 'Cartes', 'image-text': 'Image + Texte',
   cta: 'Appel à action', gallery: 'Galerie', faq: 'FAQ', team: 'Équipe',
   stats: 'Statistiques', benefits: 'Avantages',
+  'services-grid': 'Services (grille)', 'services-process': 'Processus',
+};
+
+// Sections whose content is shared with another page and must not be edited here.
+const sharedSectionNotes: Record<string, string> = {
+  'services/benefits': 'Section partagée avec l\'accueil : le titre et les éléments proviennent de la page Accueil (section « Pourquoi choisir Viking Solar ? »). Modifiez-les depuis Accueil.',
 };
 
 function toPayload(section: PageSection, publish: boolean): Partial<PageSection> {
@@ -204,6 +210,7 @@ export default function AdminPageEditor() {
           const current = draft ?? section;
           const hasDraft = Boolean(draft);
           const isSaving = savingId === section.id;
+          const sharedNote = sharedSectionNotes[`${pageKey}/${section.section_key}`];
           return (
             <div key={section.id} className="bg-bg-card border border-white/6 rounded-2xl shadow-card overflow-hidden">
               {/* Section header */}
@@ -236,29 +243,43 @@ export default function AdminPageEditor() {
               </div>
 
               {/* Section editor */}
-              <div className="p-5">
-                <SectionEditor section={current} onChange={(next) => handleChange(section.id, next)} />
-              </div>
+              {sharedNote ? (
+                <div className="p-5">
+                  <div className="rounded-xl border border-green/20 bg-green/5 p-4 flex items-start gap-3">
+                    <Info className="h-5 w-5 text-green shrink-0 mt-0.5" />
+                    <div>
+                      <p className="text-sm font-semibold text-white">Section partagée</p>
+                      <p className="text-sm text-gray-400 mt-0.5">{sharedNote}</p>
+                    </div>
+                  </div>
+                </div>
+              ) : (
+                <div className="p-5">
+                  <SectionEditor section={current} onChange={(next) => handleChange(section.id, next)} />
+                </div>
+              )}
 
               {/* Per-section actions */}
-              <div className="flex items-center justify-end gap-2 px-5 py-3 border-t border-white/6 bg-white/2">
-                <button
-                  onClick={() => saveSection(section.id, false)}
-                  disabled={!hasDraft || isSaving}
-                  className="h-9 px-4 rounded-xl border border-white/10 text-sm font-medium text-gray-300 hover:text-white hover:border-white/25 transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2"
-                >
-                  {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
-                  Enregistrer
-                </button>
-                <button
-                  onClick={() => saveSection(section.id, true)}
-                  disabled={isSaving}
-                  className="h-9 px-4 rounded-xl bg-green text-bg-primary text-sm font-semibold hover:bg-green-dark transition-colors disabled:opacity-50 flex items-center gap-2"
-                >
-                  <CheckCircle2 className="h-4 w-4" />
-                  Publier
-                </button>
-              </div>
+              {!sharedNote && (
+                <div className="flex items-center justify-end gap-2 px-5 py-3 border-t border-white/6 bg-white/2">
+                  <button
+                    onClick={() => saveSection(section.id, false)}
+                    disabled={!hasDraft || isSaving}
+                    className="h-9 px-4 rounded-xl border border-white/10 text-sm font-medium text-gray-300 hover:text-white hover:border-white/25 transition-colors disabled:opacity-40 disabled:cursor-not-allowed flex items-center gap-2"
+                  >
+                    {isSaving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
+                    Enregistrer
+                  </button>
+                  <button
+                    onClick={() => saveSection(section.id, true)}
+                    disabled={isSaving}
+                    className="h-9 px-4 rounded-xl bg-green text-bg-primary text-sm font-semibold hover:bg-green-dark transition-colors disabled:opacity-50 flex items-center gap-2"
+                  >
+                    <CheckCircle2 className="h-4 w-4" />
+                    Publier
+                  </button>
+                </div>
+              )}
             </div>
           );
         })}

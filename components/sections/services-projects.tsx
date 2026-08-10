@@ -3,7 +3,8 @@
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-import type { CmsProject } from '@/types';
+import type { CmsProject, PageSection } from '@/types';
+import { sectionString, sectionButton } from '@/lib/section-utils';
 
 const tagColors: Record<string, string> = {
   industriel: 'text-green bg-green/10 border-green/20',
@@ -54,11 +55,19 @@ function ProjCard({ children, delay = 0, className }: { children: React.ReactNod
 }
 
 interface ServicesProjectsProps {
+  section?: PageSection;
   projects?: CmsProject[];
 }
 
-export function ServicesProjects({ projects = [] }: ServicesProjectsProps) {
+export function ServicesProjects({ section, projects = [] }: ServicesProjectsProps) {
   const { t } = useTranslation();
+
+  const badge = sectionString(section, 'badge', t('services.projects.badge'));
+  const title = section?.title || t('services.projects.title');
+  const titleHighlight = sectionString(section, 'titleHighlight', t('services.projects.titleHighlight'));
+  const description = section?.description || t('services.projects.description');
+  const button = sectionButton(section);
+
   const previewProjects = [...projects]
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
     .slice(0, 3);
@@ -68,13 +77,13 @@ export function ServicesProjects({ projects = [] }: ServicesProjectsProps) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
-            {t('services.projects.badge')}
+            {badge}
           </span>
           <h2 className="text-[clamp(1.9rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.15] mb-3">
-            {t('services.projects.title')} <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">{t('services.projects.titleHighlight')}</span>
+            {title} <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">{titleHighlight}</span>
           </h2>
           <p className="text-base text-gray-400 max-w-[580px] mx-auto leading-relaxed">
-            {t('services.projects.description')}
+            {description}
           </p>
         </div>
 
@@ -136,6 +145,18 @@ export function ServicesProjects({ projects = [] }: ServicesProjectsProps) {
             </ProjCard>
           ))}
         </div>
+
+        {button && (
+          <div className="mt-12 text-center">
+            <a
+              href={button.href}
+              className="group inline-flex items-center gap-2 rounded-full border border-border-light bg-transparent px-6 py-2.5 text-sm font-semibold text-green transition-all duration-300 hover:border-green/40 hover:bg-green/5"
+            >
+              {button.label}
+              <svg className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+            </a>
+          </div>
+        )}
       </div>
     </section>
   );

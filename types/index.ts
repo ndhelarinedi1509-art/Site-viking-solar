@@ -177,7 +177,7 @@ export interface PageSection {
   updated_by: string;
 }
 
-export type SectionType = 'hero' | 'text' | 'cards' | 'image-text' | 'cta' | 'gallery' | 'faq' | 'team' | 'stats' | 'benefits';
+export type SectionType = 'hero' | 'text' | 'cards' | 'image-text' | 'cta' | 'gallery' | 'faq' | 'team' | 'stats' | 'benefits' | 'services-grid' | 'services-process';
 
 export interface MediaItem {
   url: string;

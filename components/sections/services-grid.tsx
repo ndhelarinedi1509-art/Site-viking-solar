@@ -3,7 +3,8 @@
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-import type { CmsService } from '@/types';
+import type { CmsService, PageSection } from '@/types';
+import { sectionString } from '@/lib/section-utils';
 
 const colorMap: Record<string, { icon: string; tag: string; glow: string; hover: string; cta: string }> = {
   blue:   { icon: 'bg-accent-blue/15 text-accent-blue', tag: 'bg-accent-blue/12 text-accent-blue', glow: 'blue-glow', hover: 'hover:border-accent-blue/35 hover:shadow-[0_24px_60px_rgba(0,0,0,0.4),0_0_25px_rgba(59,130,246,0.1)]', cta: '' },
@@ -40,24 +41,31 @@ function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
 }
 
 interface ServicesGridProps {
-  services: CmsService[];
+  section?: PageSection;
+  services?: CmsService[];
 }
 
-export function ServicesGrid({ services }: ServicesGridProps) {
+export function ServicesGrid({ section, services = [] }: ServicesGridProps) {
   const { t } = useTranslation();
+
+  const badge = sectionString(section, 'badge', t('services.grid.badge'));
+  const title = section?.title || t('services.grid.title');
+  const titleHighlight = sectionString(section, 'titleHighlight', t('services.grid.titleHighlight'));
+  const description = section?.description || t('services.grid.description');
+
   return (
     <section id="sv-services" className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Section header */}
         <div className="text-center mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
-            {t('services.grid.badge')}
+            {badge}
           </span>
           <h2 className="text-[clamp(1.9rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.15] mb-3">
-            {t('services.grid.title')} <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">{t('services.grid.titleHighlight')}</span>
+            {title} <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">{titleHighlight}</span>
           </h2>
           <p className="text-base text-gray-400 max-w-[580px] mx-auto leading-relaxed">
-            {t('services.grid.description')}
+            {description}
           </p>
         </div>
 

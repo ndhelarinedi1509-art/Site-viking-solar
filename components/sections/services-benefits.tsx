@@ -3,7 +3,8 @@
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
 import { useTranslation } from 'react-i18next';
-import type { Benefit } from '@/types';
+import type { PageSection, Benefit } from '@/types';
+import { sectionItems, sectionString } from '@/lib/section-utils';
 
 const iconSvgs: Record<string, React.ReactNode> = {
   green: (
@@ -64,30 +65,48 @@ function FadeCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
 }
 
 interface ServicesBenefitsProps {
-  benefits?: Benefit[];
+  section?: PageSection;
+  benefitsSection?: PageSection;
 }
 
-export function ServicesBenefits({ benefits = [] }: ServicesBenefitsProps) {
+export function ServicesBenefits({ section, benefitsSection }: ServicesBenefitsProps) {
   const { t } = useTranslation();
-  const items = benefits.length > 0 ? benefits : [];
+
+  // This section is shared with the home page: the title, description and
+  // items are read from the home "Pourquoi choisir Viking Solar ?" section.
+  const badge = sectionString(benefitsSection, 'badge', t('services.benefits.badge'));
+  const title = benefitsSection?.title || t('services.benefits.title');
+  const titleHighlight = sectionString(benefitsSection, 'titleHighlight', '');
+  const description = benefitsSection?.description || t('services.benefits.description');
+
+  const benefits: Benefit[] = sectionItems(benefitsSection).map((item, idx) => ({
+    id: `ben-${idx}`,
+    title: item.title ?? '',
+    description: item.description ?? '',
+    iconColor: item.iconColor ?? 'green',
+  }));
+
   return (
     <section className="py-20 sm:py-24 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-14">
           <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/8 px-4 py-1.5 text-[0.72rem] font-bold tracking-[0.14em] text-green uppercase mb-4">
-            {t('services.benefits.badge')}
+            {badge}
           </span>
           <h2 className="text-[clamp(1.9rem,3.5vw,2.8rem)] font-extrabold text-white tracking-[-0.03em] leading-[1.15] mb-3">
-            {t('services.benefits.title')} <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">{t('services.benefits.titleHighlight')}</span>
+            {title}
+            {titleHighlight && (
+              <> <span className="bg-gradient-to-r from-accent-blue to-accent-purple bg-clip-text text-transparent">{titleHighlight}</span></>
+            )}
           </h2>
           <p className="text-base text-gray-400 max-w-[580px] mx-auto leading-relaxed">
-            {t('services.benefits.description')}
+            {description}
           </p>
         </div>
 
-        {items.length > 0 && (
+        {benefits.length > 0 && (
         <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-          {items.map((ben, i) => (
+          {benefits.map((ben, i) => (
             <FadeCard key={ben.id} delay={i * 80}>
               <div className="group flex items-start gap-5 rounded-2xl border border-border bg-bg-card p-7 transition-all duration-350 hover:-translate-y-[5px] hover:border-white/10 hover:shadow-[0_14px_42px_rgba(0,0,0,0.28)]">
                 <div className={cn('flex h-[50px] w-[50px] shrink-0 items-center justify-center rounded-xl', wrapColors[ben.iconColor])}>
