@@ -8,6 +8,7 @@ import {
   ThumbsUp, MessageCircle, X,
 } from 'lucide-react';
 import type { NewsCategory, NewsPost, NewsPostStatus } from '@/types';
+import { ImageUploader } from '@/components/admin/image-uploader';
 
 interface AdminPost extends NewsPost {
   like_count: number;
@@ -323,8 +324,12 @@ export default function AdminNewsPage() {
               </div>
 
               <div className="space-y-1.5">
-                <label className="block text-sm font-medium text-gray-300">Image de couverture (URL)</label>
-                <input value={form.cover_image} onChange={(e) => setForm({ ...form, cover_image: e.target.value })} className={inputCls} placeholder="https://..." />
+                <label className="block text-sm font-medium text-gray-300">Image de couverture</label>
+                <ImageUploader
+                  value={form.cover_image}
+                  onChange={(cover_image) => setForm({ ...form, cover_image })}
+                  placeholder="https://... ou importez une image"
+                />
               </div>
 
               <div className="space-y-1.5">

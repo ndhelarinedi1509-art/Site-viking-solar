@@ -5,6 +5,7 @@ import { ActualitesHero } from '@/components/sections/actualites-hero';
 import { NewsFeed } from '@/components/news/news-feed';
 import { GenericSections } from '@/components/sections/generic-sections';
 import { RealtimeRefresh } from '@/components/realtime-refresh';
+import { fetchPublishedSections, getSection } from '@/lib/cms-queries';
 
 export const metadata = generateSiteMetadata(
   'Actualités',
@@ -14,13 +15,27 @@ export const metadata = generateSiteMetadata(
 
 export const dynamic = 'force-dynamic';
 
-export default function ActualitesPage() {
+export default async function ActualitesPage() {
+  let sections: Awaited<ReturnType<typeof fetchPublishedSections>> = [];
+
+  try {
+    sections = await fetchPublishedSections('actualites');
+  } catch {
+    // Sections not configured yet — components fall back to their defaults.
+  }
+
+  const hero = getSection(sections, 'hero');
+  const grid = getSection(sections, 'grid');
+
   return (
     <>
       <Header />
       <main>
-        <ActualitesHero />
-        <NewsFeed />
+        <ActualitesHero section={hero} />
+        <NewsFeed
+          headerTitle={grid?.title || undefined}
+          headerDescription={grid?.description || undefined}
+        />
         <GenericSections pageKey="actualites" />
       </main>
       <Footer />

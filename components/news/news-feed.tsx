@@ -28,7 +28,12 @@ function SkeletonCard() {
   );
 }
 
-export function NewsFeed() {
+interface NewsFeedProps {
+  headerTitle?: string;
+  headerDescription?: string;
+}
+
+export function NewsFeed({ headerTitle, headerDescription }: NewsFeedProps) {
   const { t } = useTranslation();
   const [categories, setCategories] = useState<NewsCategory[]>([]);
   const [posts, setPosts] = useState<NewsPost[]>([]);
@@ -279,11 +284,16 @@ export function NewsFeed() {
             )}
 
             {/* Feed header */}
-            <div className="flex items-center justify-between mb-4">
-              <h2 className="text-lg font-bold text-white">{t('news.feedTitle')}</h2>
-              <span className="text-xs text-gray-500">
-                {total} {t('news.articles')}
-              </span>
+            <div className="mb-4">
+              <div className="flex items-center justify-between">
+                <h2 className="text-lg font-bold text-white">{headerTitle || t('news.feedTitle')}</h2>
+                <span className="text-xs text-gray-500">
+                  {total} {t('news.articles')}
+                </span>
+              </div>
+              {headerDescription && (
+                <p className="mt-1 text-sm text-gray-400">{headerDescription}</p>
+              )}
             </div>
 
             {/* Error state */}

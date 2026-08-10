@@ -18,20 +18,34 @@ export function SectionEditor({ section, onChange }: SectionEditorProps) {
     onChange({ ...section, content: { ...section.content, [key]: value } });
   }, [section, onChange]);
 
+  const hasHighlight =
+    section.section_type === 'hero' ||
+    section.section_type === 'image-text' ||
+    section.section_type === 'text';
+
   return (
     <div className="space-y-5">
       {/* Common fields */}
       <div className="space-y-4">
+        {hasHighlight && (
+          <InputField
+            label="Badge"
+            value={contentString(section, 'badge')}
+            onChange={(v) => updateContent('badge', v)}
+          />
+        )}
         <InputField
           label="Titre de la section"
           value={section.title || contentString(section, 'title')}
           onChange={(v) => updateField('title', v)}
         />
-        <InputField
-          label="Sous-titre"
-          value={section.subtitle}
-          onChange={(v) => updateField('subtitle', v)}
-        />
+        {hasHighlight && (
+          <InputField
+            label="Partie surlignée du titre"
+            value={contentString(section, 'titleHighlight')}
+            onChange={(v) => updateContent('titleHighlight', v)}
+          />
+        )}
         <TextareaField
           label="Description"
           value={section.description}
@@ -40,21 +54,6 @@ export function SectionEditor({ section, onChange }: SectionEditorProps) {
       </div>
 
       {/* Section-type-specific editors */}
-      {(section.section_type === 'hero' || section.section_type === 'image-text' || section.section_type === 'text') && (
-        <div className="space-y-4 border-t border-white/6 pt-4">
-          <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">Contenu</h4>
-          <InputField
-            label="Badge"
-            value={contentString(section, 'badge')}
-            onChange={(v) => updateContent('badge', v)}
-          />
-          <InputField
-            label="Partie surlignée du titre"
-            value={contentString(section, 'titleHighlight')}
-            onChange={(v) => updateContent('titleHighlight', v)}
-          />
-        </div>
-      )}
 
       {section.section_type === 'image-text' && (
         <div className="space-y-4 border-t border-white/6 pt-4">

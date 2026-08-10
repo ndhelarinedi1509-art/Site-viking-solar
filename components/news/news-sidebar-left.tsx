@@ -1,18 +1,23 @@
 'use client';
 
+import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useTranslation } from 'react-i18next';
-import { Home, Newspaper, FolderOpen, TrendingUp, Info, HelpCircle, Mail } from 'lucide-react';
+import { Home, Newspaper, FolderOpen, TrendingUp, ChevronDown, Info, HelpCircle, Mail, type LucideIcon } from 'lucide-react';
 import { cn } from '@/lib/utils';
 import type { NewsCategory } from '@/types';
 
-const NAV_LINKS = [
+type NavLink =
+  | { key: string; icon: LucideIcon; expandable: true }
+  | { key: string; icon: LucideIcon; href: string; expandable?: false };
+
+const NAV_LINKS: NavLink[] = [
   { href: '/', key: 'nav.home', icon: Home },
   { href: '/actualites', key: 'nav.actualites', icon: Newspaper },
-  { href: '/actualites#categories', key: 'news.categories', icon: FolderOpen, isFilter: true },
-  { href: '/actualites#trending', key: 'news.trending', icon: TrendingUp, isFilter: true },
+  { key: 'news.categories', icon: FolderOpen, expandable: true },
+  { href: '/actualites', key: 'news.trending', icon: TrendingUp },
 ];
 
 const BOTTOM_NAV = [
@@ -32,12 +37,15 @@ export function NewsSidebarLeft({
 }) {
   const { t } = useTranslation();
   const pathname = usePathname();
+  const [categoriesOpen, setCategoriesOpen] = useState(false);
 
   const isActive = (href: string) => {
     const base = href.split('#')[0];
     if (base === '/') return pathname === '/';
     return pathname.startsWith(base);
   };
+
+  const hasCategorySelected = selectedCategory !== null;
 
   return (
     <aside className="sticky top-24 hidden lg:flex flex-col h-[calc(100vh-7rem)]">
@@ -52,36 +60,87 @@ export function NewsSidebarLeft({
       {/* Navigation */}
       <nav className="flex-1">
         <ul className="space-y-0.5">
-          {NAV_LINKS.map(({ href, key, icon: Icon, isFilter }) => (
-            <li key={href}>
-              {isFilter ? (
-                <button
-                  onClick={() => onSelectCategory(key === 'news.categories' ? null : 'trending')}
-                  className={cn(
-                    'flex items-center gap-3 w-full rounded-lg px-2.5 py-2 text-sm font-medium transition-colors text-left',
-                    (key === 'news.categories' && selectedCategory === null) ||
-                    (key === 'news.trending' && selectedCategory === 'trending')
-                      ? 'bg-green/10 text-green'
-                      : 'text-gray-400 hover:text-white hover:bg-white/5',
+          {NAV_LINKS.map((link) => {
+            const Icon = link.icon;
+            return 'expandable' in link ? (
+              <li key={link.key}>
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setCategoriesOpen((o) => !o)}
+                    className={cn(
+                      'flex items-center justify-between gap-3 w-full rounded-lg px-2.5 py-2 text-sm font-medium transition-colors text-left',
+                      categoriesOpen || hasCategorySelected
+                        ? 'bg-green/10 text-green'
+                        : 'text-gray-400 hover:text-white hover:bg-white/5',
+                    )}
+                  >
+                    <span className="flex items-center gap-3">
+                      <Icon className="h-4 w-4 flex-shrink-0" />
+                      {t(link.key)}
+                    </span>
+                    <ChevronDown
+                      className={cn('h-4 w-4 flex-shrink-0 transition-transform duration-200', categoriesOpen && 'rotate-180')}
+                    />
+                  </button>
+
+                  {categoriesOpen && (
+                    <ul className="mt-1 ml-3 space-y-0.5 border-l border-border pl-3">
+                      <li>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            onSelectCategory(null);
+                            setCategoriesOpen(false);
+                          }}
+                          className={cn(
+                            'flex items-center gap-2.5 w-full rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors text-left',
+                            !hasCategorySelected ? 'text-green' : 'text-gray-400 hover:text-white',
+                          )}
+                        >
+                          {t('news.all')}
+                        </button>
+                      </li>
+                      {categories.map((cat) => (
+                        <li key={cat.id}>
+                          <button
+                            type="button"
+                            onClick={() => {
+                              onSelectCategory(cat.slug);
+                              setCategoriesOpen(false);
+                            }}
+                            className={cn(
+                              'flex items-center gap-2.5 w-full rounded-lg px-2.5 py-1.5 text-sm font-medium transition-colors text-left',
+                              selectedCategory === cat.slug ? 'text-white' : 'text-gray-400 hover:text-white',
+                            )}
+                          >
+                            <span
+                              className="h-2 w-2 flex-shrink-0 rounded-full"
+                              style={{ backgroundColor: cat.color || '#22C55E' }}
+                            />
+                            {cat.name}
+                          </button>
+                        </li>
+                      ))}
+                    </ul>
                   )}
-                >
-                  <Icon className="h-4 w-4 flex-shrink-0" />
-                  {t(key)}
-                </button>
-              ) : (
+                </>
+              </li>
+            ) : (
+              <li key={link.key}>
                 <Link
-                  href={href}
+                  href={link.href}
                   className={cn(
                     'flex items-center gap-3 rounded-lg px-2.5 py-2 text-sm font-medium transition-colors',
-                    isActive(href) ? 'bg-green/10 text-green' : 'text-gray-400 hover:text-white hover:bg-white/5',
+                    isActive(link.href) ? 'bg-green/10 text-green' : 'text-gray-400 hover:text-white hover:bg-white/5',
                   )}
                 >
                   <Icon className="h-4 w-4 flex-shrink-0" />
-                  {t(key)}
+                  {t(link.key)}
                 </Link>
-              )}
-            </li>
-          ))}
+              </li>
+            );
+          })}
         </ul>
 
         {/* Divider */}

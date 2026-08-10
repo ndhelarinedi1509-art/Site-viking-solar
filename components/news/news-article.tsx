@@ -18,10 +18,10 @@ export function NewsArticle({
   const { t, i18n } = useTranslation();
 
   return (
-    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 py-10 sm:py-14">
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 lg:px-8 pt-24 sm:pt-28 pb-10 sm:pb-14">
       <Link
         href="/actualites"
-        className="inline-flex items-center gap-2 text-sm font-medium text-gray-400 hover:text-green transition-colors mb-6"
+        className="inline-flex items-center gap-2 rounded-lg border border-border bg-bg-card px-4 py-2 text-sm font-semibold text-gray-300 hover:border-green/40 hover:text-green transition-colors mb-6"
       >
         <ArrowLeft className="h-4 w-4" />
         {t('news.back')}
@@ -100,6 +100,14 @@ export function NewsArticle({
       {/* Comments */}
       <div className="mt-6">
         <NewsComments postId={post.id} initialComments={comments} />
+
+        <Link
+          href="/actualites"
+          className="mt-5 inline-flex items-center gap-2 rounded-lg border border-border bg-bg-card px-4 py-2 text-sm font-semibold text-gray-300 hover:border-green/40 hover:text-green transition-colors"
+        >
+          <ArrowLeft className="h-4 w-4" />
+          {t('news.back')}
+        </Link>
       </div>
     </div>
   );

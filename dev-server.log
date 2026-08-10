@@ -35,3 +35,10 @@
  GET / 200 in 1641ms
  GET / 200 in 791ms
  GET /services 200 in 802ms
+ ○ Compiling /api/admin/sections ...
+ ✓ Compiled /api/admin/sections in 2.5s (617 modules)
+ GET /api/admin/sections?pageKey=actualites 200 in 3437ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 1348ms (923 modules)
+ GET /api/admin/sections?pageKey=actualites 404 in 2118ms
+[?25h
