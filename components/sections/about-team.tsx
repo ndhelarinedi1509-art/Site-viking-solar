@@ -3,7 +3,9 @@
 import { TEAM_MEMBERS } from '@/constants/team';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { sectionItems, sectionString } from '@/lib/section-utils';
 import { useTranslation } from 'react-i18next';
+import type { PageSection } from '@/types';
 
 const accents = [
   { bg: 'bg-green/12', ring: 'ring-green/25', iconFill: 'rgba(34,197,94,0.4)' },
@@ -28,26 +30,46 @@ function TeamCard({ children, delay = 0 }: { children: React.ReactNode; delay?: 
   );
 }
 
-export function AboutTeam() {
+interface AboutTeamProps {
+  section?: PageSection;
+}
+
+export function AboutTeam({ section }: AboutTeamProps) {
   const { t } = useTranslation();
+
+  const dbItems = sectionItems(section);
+  const members =
+    dbItems.length > 0
+      ? dbItems.map((item, i) => ({
+          id: `team-db-${i}`,
+          name: item.name,
+          role: item.role,
+          photo: item.photo || undefined,
+        }))
+      : TEAM_MEMBERS;
+
+  const subtitle = section?.description || t('about.team.subtitle');
+  const title = sectionString(section, 'title') || section?.title || t('about.team.title');
+
   return (
     <section className="py-12 sm:py-14 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <p className="text-center text-sm text-gray-400 max-w-[520px] mx-auto mb-3 leading-relaxed">
-          {t('about.team.subtitle')}
+          {subtitle}
         </p>
         <h2 className="text-[clamp(1.4rem,2.4vw,1.8rem)] font-extrabold text-white text-center tracking-[-0.02em] mb-8">
-          {t('about.team.title')}
+          {title}
         </h2>
 
         <div className="grid gap-3.5 grid-cols-2 lg:grid-cols-4">
-          {TEAM_MEMBERS.map((member, i) => {
+          {members.map((member, i) => {
             const accent = accents[i % accents.length];
             return (
               <TeamCard key={member.id} delay={i * 80}>
                 <div className="group rounded-lg border border-border bg-bg-card p-3.5 text-center transition-all duration-[0.45s] ease-premium will-change-transform hover:-translate-y-1 hover:scale-[1.01] hover:border-green/25 hover:shadow-[0_16px_40px_rgba(0,0,0,0.35),0_0_20px_rgba(34,197,94,0.12)]">
                   <div className={cn('mx-auto mb-2.5 flex h-14 w-14 items-center justify-center rounded-full ring-2 overflow-hidden', member.photo ? 'ring-green/30' : accent.ring)}>
                     {member.photo ? (
+                      // eslint-disable-next-line @next/next/no-img-element
                       <img src={member.photo} alt={member.name} className="h-full w-full object-cover" />
                     ) : (
                       <svg width="26" height="26" viewBox="0 0 24 24" fill={accent.iconFill}>

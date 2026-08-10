@@ -4,7 +4,9 @@ import Link from 'next/link';
 import { SITE_CONFIG } from '@/config/site';
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { sectionButton, sectionString } from '@/lib/section-utils';
 import { useTranslation } from 'react-i18next';
+import type { PageSection } from '@/types';
 
 function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: number }) {
   const { ref, isInView } = useInView();
@@ -22,8 +24,18 @@ function FadeIn({ children, delay = 0 }: { children: React.ReactNode; delay?: nu
   );
 }
 
-export function AboutCTA() {
+interface AboutCTAProps {
+  section?: PageSection;
+}
+
+export function AboutCTA({ section }: AboutCTAProps) {
   const { t } = useTranslation();
+
+  const badge = sectionString(section, 'badge');
+  const title = section?.title || t('about.cta.title');
+  const description = section?.description || t('about.cta.description');
+  const button = sectionButton(section) ?? { label: 'Demander un devis', href: '/about#contact', variant: 'primary' };
+
   return (
     <section className="py-12 sm:py-14 border-t border-border bg-bg-primary">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -33,19 +45,24 @@ export function AboutCTA() {
             <div className="pointer-events-none absolute -top-[120px] left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[radial-gradient(circle,rgba(34,197,94,0.07)_0%,transparent_70%)]" />
 
             <div className="relative">
+              {badge && (
+                <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/5 px-4 py-1.5 text-xs font-semibold tracking-wider text-green uppercase mb-4">
+                  {badge}
+                </span>
+              )}
               <h2 className="text-[clamp(1.4rem,2.6vw,1.9rem)] font-extrabold text-white tracking-[-0.02em] mb-2">
-                {t('about.cta.title')}
+                {title}
               </h2>
               <p className="text-sm text-gray-400 max-w-[520px] mx-auto mb-6 leading-relaxed">
-                {t('about.cta.description')}
+                {description}
               </p>
 
               <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
                 <Link
-                  href="/about#contact"
+                  href={button.href}
                   className="inline-flex items-center gap-2.5 rounded-full bg-green px-6 py-2.5 text-sm font-semibold text-bg-primary transition-all duration-350 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
                 >
-                  Demander un devis
+                  {button.label}
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
                     <path d="M5 12h14M12 5l7 7-7 7" />
                   </svg>

@@ -27,7 +27,9 @@ export function SectionEditor({ section, onChange }: SectionEditorProps) {
     section.section_type === 'gallery' ||
     section.section_type === 'cta' ||
     section.section_type === 'benefits' ||
-    section.section_type === 'testimonials';
+    section.section_type === 'testimonials' ||
+    section.section_type === 'faq' ||
+    section.section_type === 'team';
 
   return (
     <div className="space-y-5">

@@ -118,8 +118,11 @@
       "title": "Who We",
       "titleHighlight": "Really Are",
       "description": "Since our creation, Vicking Solar has established itself as a key player in solar energy in the DRC.",
+      "description2": "Thanks to a passionate team of Congolese engineers and technicians, we design, install and maintain high-quality residential, commercial and industrial solar systems. Every project is a promise kept: certified equipment, careful installation and long-term support.",
       "mission": "Our mission is clear: to make solar energy accessible, reliable and sustainable for every Congolese home, business and industry.",
-      "vision": "We envision a Congo where clean energy is the norm, not a luxury."
+      "missionLabel": "Our mission",
+      "vision": "We envision a Congo where clean energy is the norm, not a luxury.",
+      "visionLabel": "Our vision"
     },
     "pillars": {
       "badge": "OUR VALUES",
@@ -151,6 +154,11 @@
       "title4": "Mission",
       "desc4": "Democratizing access to solar energy in the DRC by offering innovative, reliable solutions adapted to local realities.",
       "heroTitle": "Innovation at the heart of the Congo"
+    },
+    "faq": {
+      "badge": "Frequently asked questions",
+      "title": "Have questions?",
+      "titleHighlight": "FAQ"
     }
   },
   "services": {

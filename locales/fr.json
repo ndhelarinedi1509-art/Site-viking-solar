@@ -118,8 +118,11 @@
       "title": "Qui Sommes-Nous",
       "titleHighlight": "Vraiment",
       "description": "Depuis notre création, Vicking Solar s'est imposé comme un acteur incontournable de l'énergie solaire en RDC.",
+      "description2": "Grâce à une équipe d'ingénieurs et de techniciens congolais passionnés, nous concevons, installons et entretenons des systèmes solaires résidentiels, commerciaux et industriels de haute qualité. Chaque projet est une promesse tenue : des équipements certifiés, une installation soignée et un accompagnement sur le long terme.",
       "mission": "Notre mission est claire : rendre l’énergie solaire accessible, fiable et durable pour chaque foyer, entreprise et industrie congolais.",
-      "vision": "Nous imaginons un Congo où l'énergie propre est la norme, pas un luxe."
+      "missionLabel": "Notre mission",
+      "vision": "Nous imaginons un Congo où l'énergie propre est la norme, pas un luxe.",
+      "visionLabel": "Notre vision"
     },
     "pillars": {
       "badge": "NOS VALEURS",
@@ -151,6 +154,11 @@
       "title4": "Mission",
       "desc4": "Démocratiser l'accès à l'énergie solaire en RDC en proposant des solutions innovantes, fiables et adaptées aux réalités locales.",
       "heroTitle": "L'innovation au cœur du Congo"
+    },
+    "faq": {
+      "badge": "Questions fréquentes",
+      "title": "Vous avez des questions ?",
+      "titleHighlight": "FAQ"
     }
   },
   "services": {

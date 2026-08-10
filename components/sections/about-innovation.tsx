@@ -2,9 +2,11 @@
 
 import { useInView } from '@/hooks/useInView';
 import { cn } from '@/lib/utils';
+import { sectionString } from '@/lib/section-utils';
 import { useTranslation } from 'react-i18next';
+import type { PageSection } from '@/types';
 
-const visionCards = [
+const missionCards = [
   {
     icon: (
       <svg width="18" height="18" viewBox="0 0 24 24" fill="#22C55E">
@@ -27,27 +29,6 @@ const visionCards = [
   },
 ];
 
-const bottomItems = [
-  {
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="#22C55E">
-        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
-      </svg>
-    ),
-    titleKey: 'about.innovation.title3',
-    descKey: 'about.innovation.desc3',
-  },
-  {
-    icon: (
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="#3B82F6">
-        <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-7 3c1.93 0 3.5 1.57 3.5 3.5S13.93 13 12 13s-3.5-1.57-3.5-3.5S10.07 6 12 6zm7 13H5v-.23c0-.62.28-1.2.76-1.58C7.47 15.82 9.64 15 12 15s4.53.82 6.24 2.19c.48.38.76.97.76 1.58V19z" />
-      </svg>
-    ),
-    titleKey: 'about.innovation.title4',
-    descKey: 'about.innovation.desc4',
-  },
-];
-
 function FadeIn({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {
   const { ref, isInView } = useInView();
   return (
@@ -65,48 +46,127 @@ function FadeIn({ children, delay = 0, className }: { children: React.ReactNode;
   );
 }
 
-export function AboutInnovation() {
-  const { t } = useTranslation();
+function Badge({ children }: { children: React.ReactNode }) {
   return (
-    <section id="innovation" className="py-12 sm:py-14 border-t border-border bg-bg-primary">
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Title — centered, no longer orphaned */}
-        <FadeIn className="text-center mb-8">
-          <h2 className="text-[clamp(1.3rem,2.2vw,1.7rem)] font-extrabold text-white leading-[1.2] tracking-[-0.02em]">
-            {t('about.innovation.heroTitle')}
+    <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/5 px-4 py-1.5 text-xs font-semibold tracking-wider text-green uppercase">
+      {children}
+    </span>
+  );
+}
+
+interface AboutInnovationProps {
+  section?: PageSection;
+}
+
+export function AboutInnovation({ section }: AboutInnovationProps) {
+  const { t } = useTranslation();
+
+  const badge = sectionString(section, 'badge') || t('about.innovation.heroTitle').toUpperCase();
+  const title = section?.title || t('about.innovation.heroTitle');
+  const titleHighlight = sectionString(section, 'titleHighlight') || '';
+  const story =
+    section?.description || `${t('about.story.description')} ${t('about.story.description2')}`.trim();
+
+  return (
+    <section id="innovation" className="relative py-14 sm:py-20 border-t border-border bg-bg-primary overflow-hidden">
+      {/* Decorative glows */}
+      <div className="pointer-events-none absolute -top-40 -left-32 w-[560px] h-[560px] rounded-full bg-green/5 blur-[140px]" />
+      <div className="pointer-events-none absolute -bottom-40 -right-32 w-[560px] h-[560px] rounded-full bg-accent-teal/5 blur-[140px]" />
+
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        {/* Section header */}
+        <FadeIn className="text-center mb-12">
+          <span className="inline-flex items-center gap-2 rounded-full border border-green/20 bg-green/5 px-4 py-1.5 text-xs font-semibold tracking-wider text-green uppercase mb-5">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2L14.09 8.26L20 9.27L15.45 13.14L16.82 19.02L12 16.09L7.18 19.02L8.55 13.14L4 9.27L9.91 8.26L12 2Z" />
+            </svg>
+            {badge}
+          </span>
+          <h2 className="text-[clamp(1.7rem,3.2vw,2.4rem)] font-extrabold text-white leading-[1.15] tracking-[-0.02em]">
+            {title}{' '}
+            {titleHighlight && (
+              <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">{titleHighlight}</span>
+            )}
           </h2>
         </FadeIn>
 
-        {/* Vision cards — 2-col row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
-          {visionCards.map((card, i) => (
-            <FadeIn key={card.titleKey} delay={i * 150}>
-              <div className="group rounded-lg border border-border bg-bg-card p-3.5 transition-all duration-350 hover:-translate-y-1 hover:border-green/20 hover:shadow-[0_12px_36px_rgba(0,0,0,0.25)]">
-                <div className={cn('mb-2 flex h-8 w-8 items-center justify-center rounded-lg', card.iconBg)}>
-                  {card.icon}
-                </div>
-                <h3 className="text-[0.9rem] font-bold text-white mb-1">{t(card.titleKey)}</h3>
-                <p className="text-sm text-gray-400 leading-relaxed">{t(card.descKey)}</p>
-              </div>
-            </FadeIn>
-          ))}
-        </div>
+        <div className="grid grid-cols-1 lg:grid-cols-[1.05fr_1fr] gap-6 lg:gap-8 items-start">
+          {/* LEFT — Notre Histoire */}
+          <FadeIn>
+            <div className="relative h-full overflow-hidden rounded-2xl border border-border bg-bg-card p-6 sm:p-9">
+              <div className="pointer-events-none absolute -top-24 -right-24 w-72 h-72 rounded-full bg-[radial-gradient(circle,rgba(34,197,94,0.1)_0%,transparent_70%)]" />
 
-        {/* Histoire + Mission — 2-col row */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4 border-t border-border pt-6">
-          {bottomItems.map((item, i) => (
-            <FadeIn key={item.titleKey} delay={i * 150}>
-              <div className="flex gap-3 items-start">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-bg-elevated mt-0.5">
-                  {item.icon}
+              <div className="relative">
+                <div className="mb-5">
+                  <Badge>{t('about.story.badge')}</Badge>
                 </div>
-                <div>
-                  <h4 className="text-[0.85rem] font-bold text-white mb-1">{t(item.titleKey)}</h4>
-                  <p className="text-sm text-gray-400 leading-relaxed">{t(item.descKey)}</p>
+                <h3 className="text-[clamp(1.4rem,2.6vw,1.9rem)] font-extrabold text-white leading-[1.15] tracking-[-0.02em] mb-4">
+                  {t('about.story.title')}{' '}
+                  <span className="bg-gradient-to-r from-green to-accent-teal bg-clip-text text-transparent">
+                    {t('about.story.titleHighlight')}
+                  </span>
+                </h3>
+                <p className="text-[0.95rem] text-gray-400 leading-relaxed">{story}</p>
+
+                <div className="my-6 h-px bg-gradient-to-r from-transparent via-green/30 to-transparent" />
+
+                <div className="space-y-4">
+                  <div className="flex gap-3 items-start">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-green/12 text-green">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-[0.8rem] font-bold text-green uppercase tracking-wider mb-0.5">{t('about.story.missionLabel')}</p>
+                      <p className="text-sm text-gray-400 leading-relaxed">{t('about.story.mission')}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-3 items-start">
+                    <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-accent-blue/12 text-accent-blue">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 12c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm0-10c-4.42 0-8 3.58-8 8 0 6 8 14 8 14s8-8 8-14c0-4.42-3.58-8-8-8z" />
+                      </svg>
+                    </div>
+                    <div>
+                      <p className="text-[0.8rem] font-bold text-accent-blue uppercase tracking-wider mb-0.5">{t('about.story.visionLabel')}</p>
+                      <p className="text-sm text-gray-400 leading-relaxed">{t('about.story.vision')}</p>
+                    </div>
+                  </div>
                 </div>
               </div>
+            </div>
+          </FadeIn>
+
+          {/* RIGHT — Mission (Vision Solaire + Engagement Durable) */}
+          <div className="flex flex-col gap-4">
+            <FadeIn>
+              <div className="mb-1">
+                <div className="mb-3">
+                  <Badge>{t('about.story.missionLabel')}</Badge>
+                </div>
+                <h3 className="text-[clamp(1.4rem,2.6vw,1.9rem)] font-extrabold text-white leading-[1.15] tracking-[-0.02em]">
+                  {t('about.innovation.title4')}
+                </h3>
+              </div>
             </FadeIn>
-          ))}
+
+            {missionCards.map((card, i) => (
+              <FadeIn key={card.titleKey} delay={i * 120}>
+                <div className="group rounded-2xl border border-border bg-bg-card p-5 transition-all duration-[0.45s] ease-premium will-change-transform hover:-translate-y-1 hover:border-green/25 hover:shadow-[0_16px_40px_rgba(0,0,0,0.35),0_0_20px_rgba(34,197,94,0.12)]">
+                  <div className="flex items-start gap-4">
+                    <div className={cn('flex h-10 w-10 shrink-0 items-center justify-center rounded-xl', card.iconBg)}>
+                      {card.icon}
+                    </div>
+                    <div>
+                      <h4 className="text-[0.95rem] font-bold text-white mb-1">{t(card.titleKey)}</h4>
+                      <p className="text-sm text-gray-400 leading-relaxed">{t(card.descKey)}</p>
+                    </div>
+                  </div>
+                </div>
+              </FadeIn>
+            ))}
+          </div>
         </div>
       </div>
     </section>
