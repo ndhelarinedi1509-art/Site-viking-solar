@@ -2,6 +2,7 @@
 
 import { useEffect } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useState } from 'react';
 
 export default function Error({
   error,
@@ -14,6 +15,17 @@ export default function Error({
   useEffect(() => {
     console.error('Application error:', error);
   }, [error]);
+
+  const [savedError, setSavedError] = useState<string | null>(null);
+
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem('viking-last-error');
+      if (raw) setSavedError(raw);
+    } catch (e) {
+      // ignore
+    }
+  }, []);
 
   return (
     <main className="flex min-h-screen items-center justify-center bg-bg-primary px-4">
@@ -59,6 +71,59 @@ export default function Error({
           </svg>
           {t('error.retry')}
         </button>
+
+        <div className="mt-6 text-left text-sm text-gray-400">
+          <p className="font-semibold text-white">Détails (pour debug)</p>
+          <p className="mt-2 break-words">{error?.message || '—'}</p>
+          {error?.stack && (
+            <details className="mt-2 whitespace-pre-wrap text-xs text-gray-400">
+              <summary className="cursor-pointer">Voir la pile</summary>
+              <pre className="mt-2 text-xs">{error.stack}</pre>
+            </details>
+          )}
+
+          {savedError && (
+            <details className="mt-2 whitespace-pre-wrap text-xs text-gray-400">
+              <summary className="cursor-pointer">Dernière erreur enregistrée (localStorage)</summary>
+              <pre className="mt-2 text-xs">{savedError}</pre>
+            </details>
+          )}
+
+          <div className="mt-3 flex gap-2">
+            <button
+              onClick={async () => {
+                try {
+                  const text = `error: ${error?.message}\nstack: ${error?.stack}\nlocal: ${savedError}`;
+                  await navigator.clipboard.writeText(text);
+                  alert('Erreur copiée dans le presse-papiers');
+                } catch (e) {
+                  alert('Impossible de copier — voyez la console');
+                }
+              }}
+              className="rounded bg-white/5 px-3 py-1 text-xs"
+            >
+              Copier l'erreur
+            </button>
+            <button
+              onClick={async () => {
+                try {
+                  const payload = savedError ? JSON.parse(savedError) : { message: error?.message, stack: error?.stack };
+                  await fetch('/api/client-error', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ ...payload, page: window.location.href }),
+                  });
+                  alert('Erreur envoyée au serveur (vérifiez les logs Vercel)');
+                } catch (e) {
+                  alert('Échec de l'envoi : ' + String(e));
+                }
+              }}
+              className="rounded bg-white/5 px-3 py-1 text-xs"
+            >
+              Envoyer au serveur
+            </button>
+          </div>
+        </div>
       </div>
     </main>
   );
