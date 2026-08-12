@@ -94,6 +94,14 @@
     overflow-x: hidden;
   }
 
+  /* Drawer overlay color (opaque and adapts to theme) */
+  :root {
+    --drawer-overlay: #060B18; /* opaque dark */
+  }
+  [data-theme='light'] {
+    --drawer-overlay: #FFFFFF; /* opaque light */
+  }
+
   a {
     text-decoration: none;
     color: inherit;

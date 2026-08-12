@@ -199,7 +199,7 @@ export function ServicesProcess({ section }: ServicesProcessProps) {
           {/* Mobile line */}
           <div className="absolute left-7 top-0 bottom-0 w-[2px] bg-gradient-to-b from-transparent via-border-light to-transparent lg:hidden" />
 
-          <div className="flex flex-col gap-0">
+          <div className="flex flex-col gap-6 lg:gap-8">
             {steps.map((step, i) => (
               <StepRow key={step.number} step={step} index={i} />
             ))}
