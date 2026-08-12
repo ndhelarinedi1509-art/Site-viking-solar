@@ -32,7 +32,7 @@ const icons: Record<string, React.ReactNode> = {
   ),
   institutionnel: (
     <svg width="36" height="36" viewBox="0 0 24 24" fill="rgba(139,92,246,0.3)">
-      <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
+      <path d="M12 2C6.48 2 2 6.48 2 12s2.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
     </svg>
   ),
 };
@@ -87,72 +87,70 @@ export function ServicesProjects({ section, projects = [] }: ServicesProjectsPro
           </p>
         </div>
 
-        <div className="grid gap-5 sm:grid-cols-2">
-          {previewProjects.map((project, i) => (
-            <ProjCard
-              key={project.id}
-              delay={i * 100}
-              className={i === 0 ? 'sm:col-span-2' : ''}
-            >
-              <div className={cn(
-                'group overflow-hidden rounded-[20px] border border-border bg-bg-elevated transition-all duration-350',
-                'hover:-translate-y-1.5 hover:border-white/10 hover:shadow-[0_16px_48px_rgba(0,0,0,0.32)]',
-                i === 0 ? 'sm:grid sm:grid-cols-[1.4fr_1fr]' : '',
-              )}>
-                {/* Image ou placeholder */}
+        <div className="-mx-4 sm:-mx-6 lg:-mx-8 overflow-x-auto pb-4 scrollbar-hide snap-x snap-mandatory">
+          <div className="flex gap-5 px-4 sm:px-6 lg:px-8 min-w-max">
+            {previewProjects.map((project, i) => (
+              <ProjCard
+                key={project.id}
+                delay={i * 100}
+                className="snap-start shrink-0 w-[300px] sm:w-[340px]"
+              >
                 <div className={cn(
-                  'relative flex items-center justify-center overflow-hidden',
-                  'bg-[linear-gradient(145deg,#0A1020,#0E1828)]',
-                  i === 0 ? 'h-[280px]' : 'h-[200px]',
-                  'after:absolute after:inset-0 after:bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)] after:animate-[sv-shimmer_3s_ease-in-out_infinite]',
-                  'before:absolute before:inset-0 before:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] before:bg-[size:24px_24px]',
+                  'group flex flex-col overflow-hidden rounded-[20px] border border-border bg-bg-elevated transition-all duration-350 h-full',
+                  'hover:-translate-y-1.5 hover:border-white/10 hover:shadow-[0_16px_48px_rgba(0,0,0,0.32)]',
                 )}>
-                  {project.image ? (
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-                      loading="lazy"
-                    />
-                  ) : (
-                    <div className="relative z-[1] text-center flex flex-col items-center gap-2">
-                      <div className="animate-[sv-icon-pulse_3s_ease-in-out_infinite]">
-                        {icons[project.category] || icons.industriel}
-                      </div>
-                      <p className="text-sm font-semibold text-gray-600">{t('common.photoComing')}</p>
-                      {i === 0 && <span className="text-xs text-gray-700">{t('common.photoWillBeAdded')}</span>}
-                    </div>
-                  )}
-                </div>
-
-                {/* Info */}
-                <div className={cn('p-6', i === 0 && 'sm:p-8')}>
-                  <span className={cn(
-                    'inline-block text-[0.68rem] font-bold tracking-[0.06em] px-2.5 py-1 rounded-full border mb-3',
-                    tagColors[project.category] || tagColors.industriel,
+                  {/* Image ou placeholder */}
+                  <div className={cn(
+                    'relative flex items-center justify-center overflow-hidden',
+                    'bg-[linear-gradient(145deg,#0A1020,#0E1828)]',
+                    'h-[200px] aspect-[4/3] w-full',
                   )}>
-                    {t(`projects.gallery.filters.${project.category}`, { defaultValue: project.category })}
-                  </span>
-                  <h3 className="text-[1.05rem] font-bold text-white mb-2 leading-tight">{project.title}</h3>
-                  <p className="text-sm text-gray-500 leading-relaxed mb-3">{project.description}</p>
-                  <div className="flex gap-4 flex-wrap text-xs text-gray-600">
-                    <span className="flex items-center gap-1">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
-                      </svg>
-                      {project.location}
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                        loading="lazy"
+                      />
+                    ) : (
+                      <div className="relative z-[1] text-center flex flex-col items-center gap-2">
+                        <div className="animate-[sv-icon-pulse_3s_ease-in-out_infinite]">
+                          {icons[project.category] || icons.industriel}
+                        </div>
+                        <p className="text-sm font-semibold text-gray-600">{t('common.photoComing')}</p>
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Info */}
+                  <div className="p-5 flex flex-col flex-1">
+                    <span className={cn(
+                      'inline-block text-[0.68rem] font-bold tracking-[0.06em] px-2.5 py-1 rounded-full border mb-3 self-start',
+                      tagColors[project.category] || tagColors.industriel,
+                    )}>
+                      {t(`projects.gallery.filters.${project.category}`, { defaultValue: project.category })}
                     </span>
-                    <span className="flex items-center gap-1">
-                      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M3.55 18.54l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8zM11 22.45h2V19.5h-2v2.95zM4 10.5H1v2h3v-2zm9-9.95h-2v3h2v-3zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z" />
-                      </svg>
-                      {project.power}
-                    </span>
+                    <h3 className="text-[1rem] font-bold text-white mb-2 leading-tight">{project.title}</h3>
+                    <p className="text-sm text-gray-500 leading-relaxed mb-3 line-clamp-3 flex-1">{project.description}</p>
+                    <div className="flex gap-4 flex-wrap text-xs text-gray-600">
+                      <span className="flex items-center gap-1">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" />
+                        </svg>
+                        {project.location}
+                      </span>
+                      <span className="flex items-center gap-1">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor">
+                          <path d="M3.55 18.54l1.41 1.41 1.79-1.8-1.41-1.41-1.79 1.8zM11 22.45h2V19.5h-2v2.95zM4 10.5H1v2h3v-2zm9-9.95h-2v3h2v-3zm7.45 3.91l-1.41-1.41-1.79 1.79 1.41 1.41 1.79-1.79zm-3.21 13.7l1.79 1.8 1.41-1.41-1.8-1.79-1.4 1.4zM20 10.5v2h3v-2h-3zm-8-5c-3.31 0-6 2.69-6 6s2.69 6 6 6 6-2.69 6-6-2.69-6-6-6z" />
+                        </svg>
+                        {project.power}
+                      </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-            </ProjCard>
-          ))}
+              </ProjCard>
+            ))}
+          </div>
         </div>
 
         {button && (
