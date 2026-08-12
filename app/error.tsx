@@ -115,7 +115,7 @@ export default function Error({
                   });
                   alert('Erreur envoyée au serveur (vérifiez les logs Vercel)');
                 } catch (e) {
-                  alert('Échec de l'envoi : ' + String(e));
+                  alert("Échec de l'envoi : " + String(e));
                 }
               }}
               className="rounded bg-white/5 px-3 py-1 text-xs"
