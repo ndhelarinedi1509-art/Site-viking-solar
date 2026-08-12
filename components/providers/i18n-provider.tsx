@@ -8,9 +8,14 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    const saved = localStorage.getItem('viking-lang');
-    if (saved && saved !== i18n.language) {
-      i18n.changeLanguage(saved);
+    try {
+      const saved = localStorage.getItem('viking-lang');
+      if (saved && saved !== i18n.language) {
+        i18n.changeLanguage(saved);
+      }
+    } catch (e) {
+      // localStorage may be unavailable in some mobile/standalone contexts
+      console.warn('localStorage unavailable, skipping language load', e);
     }
     setReady(true);
   }, []);
