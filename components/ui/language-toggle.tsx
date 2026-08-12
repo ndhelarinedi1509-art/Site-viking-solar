@@ -12,7 +12,11 @@ export function LanguageToggle() {
   const toggleLang = () => {
     const next = i18n.language === 'fr' ? 'en' : 'fr';
     i18n.changeLanguage(next);
-    localStorage.setItem('viking-lang', next);
+    try {
+      localStorage.setItem('viking-lang', next);
+    } catch (e) {
+      console.warn('localStorage unavailable, cannot persist language', e);
+    }
     document.documentElement.lang = next;
   };
 

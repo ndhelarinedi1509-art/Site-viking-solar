@@ -4,10 +4,19 @@ const VISITOR_KEY = 'viking-visitor-id';
 
 export function getVisitorId(): string {
   if (typeof window === 'undefined') return '';
-  let id = window.localStorage.getItem(VISITOR_KEY);
+  let id = '';
+  try {
+    id = window.localStorage.getItem(VISITOR_KEY) || '';
+  } catch (e) {
+    console.warn('localStorage unavailable, cannot read visitor id', e);
+  }
   if (!id || id.length < 8) {
     id = crypto.randomUUID();
-    window.localStorage.setItem(VISITOR_KEY, id);
+    try {
+      window.localStorage.setItem(VISITOR_KEY, id);
+    } catch (e) {
+      console.warn('localStorage unavailable, cannot persist visitor id', e);
+    }
   }
   return id;
 }
