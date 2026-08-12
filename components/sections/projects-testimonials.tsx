@@ -74,7 +74,53 @@ export function ProjectsTestimonials({ section, testimonials = [] }: ProjectsTes
           </div>
         </FadeCard>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {/* Mobile: horizontal carousel */}
+        <div className="sm:hidden -mx-4 overflow-x-auto pb-6">
+          <div className="flex gap-4 px-4 snap-x snap-mandatory">
+            {testimonials.slice(0, 6).map((testimonial, i) => (
+              <div key={testimonial.id} className="snap-start min-w-[82%]">
+                <FadeCard delay={i * 150}>
+                  <div className="relative flex h-full flex-col rounded-[20px] border border-border bg-bg-elevated p-6 transition-all duration-350 hover:-translate-y-1 hover:border-white/10">
+                    <span className="absolute top-4 right-6 text-[3.2rem] font-serif leading-none text-white/[0.06]">
+                      &ldquo;
+                    </span>
+
+                    <Stars rating={testimonial.rating ?? 5} />
+
+                    <p className="mt-4 flex-1 text-[0.95rem] leading-relaxed text-gray-300">
+                      &ldquo;{testimonial.quote}&rdquo;
+                    </p>
+
+                    <div className="mt-6 flex items-center gap-4 border-t border-white/6 pt-4">
+                      {testimonial.image ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img
+                          src={testimonial.image}
+                          alt={testimonial.name}
+                          className="h-10 w-10 rounded-full object-cover border border-white/10"
+                        />
+                      ) : (
+                        <div className="flex h-10 w-10 items-center justify-center rounded-full bg-green/15 text-sm font-bold text-green">
+                          {initials(testimonial.name)}
+                        </div>
+                      )}
+                      <div className="min-w-0">
+                        <p className="text-sm font-bold text-white">{testimonial.name}</p>
+                        <p className="text-xs text-gray-500 truncate">
+                          {testimonial.role}
+                          {testimonial.location ? ` — ${testimonial.location}` : ''}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </FadeCard>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop: grid layout */}
+        <div className="hidden sm:grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {testimonials.slice(0, 6).map((testimonial, i) => (
             <FadeCard key={testimonial.id} delay={i * 150}>
               <div className="relative flex h-full flex-col rounded-[20px] border border-border bg-bg-elevated p-8 sm:p-10 transition-all duration-350 hover:-translate-y-1 hover:border-white/10">
