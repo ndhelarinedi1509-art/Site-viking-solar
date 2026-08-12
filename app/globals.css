@@ -195,7 +195,10 @@
   .vs-loader-overlay {
     position: fixed;
     inset: 0;
-    background-color: #060B18;
+    background:
+      radial-gradient(circle at 50% 45%, rgba(34, 197, 94, 0.12), transparent 34%),
+      radial-gradient(circle at 50% 58%, rgba(59, 130, 246, 0.08), transparent 30%),
+      #060B18;
     z-index: 999999;
     display: flex;
     flex-direction: column;
@@ -232,29 +235,38 @@
   }
 
   .vs-loader-logo-wrap {
-    width: 80px;
-    height: 80px;
+    width: clamp(112px, 18vw, 148px);
+    height: clamp(112px, 18vw, 148px);
     position: relative;
+    display: grid;
+    place-items: center;
   }
 
-  .vs-loader-logo-wrap svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
+  .vs-loader-logo-image {
+    width: clamp(82px, 13vw, 116px);
+    height: auto;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 22px rgba(0, 0, 0, 0.35));
+    animation: vs-logo-breathe 2.2s ease-in-out infinite;
   }
 
   .vs-loader-logo-ring {
-    transform-origin: center;
-    animation: vs-rotate-ring 6s linear infinite;
-    stroke-dasharray: 88;
-    stroke-dashoffset: 0;
-    stroke: var(--green);
+    position: absolute;
+    inset: 0;
+    border-radius: 999px;
+    border: 2px solid rgba(255, 255, 255, 0.08);
+    border-top-color: var(--green);
+    border-right-color: rgba(20, 184, 166, 0.9);
+    animation: vs-rotate-ring 1.25s linear infinite;
   }
 
-  .vs-loader-logo-star {
-    transform-origin: center;
-    animation: vs-pulse-star 2s ease-in-out infinite;
-    fill: var(--green);
+  .vs-loader-logo-ring-secondary {
+    inset: 12px;
+    border-top-color: rgba(251, 191, 36, 0.9);
+    border-right-color: rgba(59, 130, 246, 0.75);
+    animation-duration: 1.9s;
+    animation-direction: reverse;
+    opacity: 0.7;
   }
 
   .vs-loader-brand {
@@ -299,11 +311,11 @@
   }
 
   .vs-loader-progress-bar {
-    width: 0%;
+    width: 42%;
     height: 100%;
     background: linear-gradient(90deg, #22C55E, #14B8A6, #3B82F6);
     border-radius: 50px;
-    transition: width 0.3s cubic-bezier(0.1, 0.8, 0.2, 1);
+    animation: vs-loader-progress 1.2s ease-in-out infinite;
   }
 
   /* ========== Custom Cursor ========== */
@@ -423,6 +435,26 @@
     }
   }
 
+  @keyframes vs-logo-breathe {
+    0%, 100% {
+      transform: scale(1);
+      opacity: 0.96;
+    }
+    50% {
+      transform: scale(1.04);
+      opacity: 1;
+    }
+  }
+
+  @keyframes vs-loader-progress {
+    0% {
+      transform: translateX(-120%);
+    }
+    100% {
+      transform: translateX(260%);
+    }
+  }
+
   @keyframes vs-corona-pulse {
     0%, 100% {
       transform: scale(1);
@@ -487,6 +519,23 @@
     to {
       opacity: 1;
       transform: translateY(0);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .vs-loader-overlay {
+      transition: opacity 0.2s ease;
+    }
+
+    .vs-loader-overlay.vs-loaded {
+      transform: none;
+    }
+
+    .vs-loader-corona,
+    .vs-loader-logo-image,
+    .vs-loader-logo-ring,
+    .vs-loader-progress-bar {
+      animation: none;
     }
   }
 }

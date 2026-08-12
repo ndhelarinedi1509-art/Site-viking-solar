@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google';
 import { ThemeProvider } from 'next-themes';
 import { I18nProvider } from '@/components/providers/i18n-provider';
 import ErrorLogger from '@/components/providers/error-logger';
+import { PageLoader } from '@/components/layout/page-loader';
 import { Toaster } from 'sonner';
 import './globals.css';
 
@@ -42,6 +43,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="fr" className={inter.variable} suppressHydrationWarning>
       <body className="font-sans bg-bg-primary text-gray-400 antialiased overflow-x-hidden">
         <ThemeProvider attribute="data-theme" defaultTheme="dark" enableSystem={false} storageKey="viking-theme">
+          <PageLoader />
           <I18nProvider>
             <ErrorLogger />
             <div className="mx-auto min-h-screen max-w-[1640px] px-4 sm:px-6 lg:px-8">
