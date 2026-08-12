@@ -68,12 +68,12 @@ export function HomeHero({ section }: HomeHeroProps) {
       ? stats
       : [
           { value: 150, suffix: '+', label: t('stats.projectsCompleted') },
-          { value: 5, suffix: '', label: t('stats.yearsExperience') },
+          { value: 5, suffix: '+', label: t('stats.yearsExperience') },
           { value: 24, suffix: '/7', label: t('common.support') },
         ];
 
   return (
-    <section className="relative w-screen left-1/2 -translate-x-1/2 min-h-[calc(100vh-5rem)] flex items-center overflow-hidden">
+    <section className="relative -mx-4 sm:-mx-6 lg:-mx-10 min-h-[calc(100vh-5rem)] flex items-center overflow-hidden">
       {/* Background image — full bleed, reaches the screen corners */}
       {bgImage?.url ? (
         <Image
@@ -100,7 +100,7 @@ export function HomeHero({ section }: HomeHeroProps) {
       {/* Decorative glow */}
       <div className="pointer-events-none absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-green/5 blur-[120px]" />
 
-      <div className="relative z-10 mx-auto max-w-6xl px-6 sm:px-8 lg:px-10 py-16 sm:py-20 text-center">
+      <div className="relative z-10 mx-auto max-w-6xl px-6 sm:px-8 lg:px-10 pt-28 pb-12 sm:pt-32 sm:pb-20 text-center">
         <div className="animate-fade-up mb-6" style={{ animationDelay: '0.1s', animationFillMode: 'both' }}>
           <span className="inline-flex items-center gap-2 rounded-full bg-green px-4 py-1.5 text-xs font-bold tracking-wider text-bg-primary uppercase shadow-lg shadow-green/30">
             {badge}
@@ -118,11 +118,11 @@ export function HomeHero({ section }: HomeHeroProps) {
           {description}
         </p>
 
-        <div className="animate-fade-up flex flex-col sm:flex-row items-center justify-center gap-4 mb-10" style={{ animationDelay: '0.55s', animationFillMode: 'both' }}>
+        <div className="animate-fade-up flex flex-row items-center justify-center gap-3 mb-10 w-full max-w-[720px] mx-auto" style={{ animationDelay: '0.55s', animationFillMode: 'both' }}>
           {primaryBtn && (
             <Link
               href={primaryBtn.href}
-              className="inline-flex items-center gap-2 rounded-full bg-green px-7 py-3 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-green px-6 py-3 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98] h-12 flex-1 min-w-0"
             >
               {primaryBtn.label}
             </Link>
@@ -130,16 +130,16 @@ export function HomeHero({ section }: HomeHeroProps) {
           {secondaryBtn && (
             <Link
               href={secondaryBtn.href}
-              className="inline-flex items-center gap-2 rounded-full border border-border-light bg-bg-primary/40 px-7 py-3 text-sm font-medium text-white transition-all duration-300 hover:border-green/40 hover:bg-green/5"
+              className="inline-flex items-center justify-center gap-2 rounded-full border border-border-light bg-bg-primary/40 px-6 py-3 text-sm font-medium text-white transition-all duration-300 hover:border-green/40 hover:bg-green/5 h-12 flex-1 min-w-0"
             >
               {secondaryBtn.label}
-              <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
+              <svg className="h-4 w-4 ml-2" viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6z"/></svg>
             </Link>
           )}
           {!primaryBtn && (
             <Link
               href="/about#contact"
-              className="inline-flex items-center gap-2 rounded-full bg-green px-7 py-3 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98]"
+              className="inline-flex items-center justify-center gap-2 rounded-full bg-green px-6 py-3 text-sm font-semibold text-bg-primary transition-all duration-300 hover:bg-green-dark hover:shadow-glow active:scale-[0.98] h-12 flex-1 min-w-0"
             >
               {t('common.getQuote')}
             </Link>
@@ -147,9 +147,9 @@ export function HomeHero({ section }: HomeHeroProps) {
         </div>
 
         <div className="animate-fade-up border-t border-border pt-6" style={{ animationDelay: '0.7s', animationFillMode: 'both' }}>
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-0">
+          <div className="flex flex-row flex-wrap items-center justify-center gap-6">
             {statItems.map((stat, i) => (
-              <div key={i} className="flex items-center sm:gap-12">
+              <div key={i} className="flex items-center">
                 <StatItem value={stat.value} suffix={stat.suffix} label={stat.label} />
                 {i < statItems.length - 1 && <div className="hidden sm:block w-px h-12 mx-12 bg-border-light" />}
               </div>
