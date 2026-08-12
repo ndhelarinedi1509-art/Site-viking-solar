@@ -31,7 +31,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   }, []);
 
   useEffect(() => {
-    if (pathname === '/admin/login' || pathname === '/admin/setup') return;
+    if (pathname === '/admin/login') return;
     fetch('/api/admin/auth/session')
       .then((r) => r.ok ? r.json() : Promise.reject())
       .then((d) => setSessionUser(d.user))
@@ -55,7 +55,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
     { href: '/admin/settings', label: t('admin.layout.settings'), icon: Settings },
   ];
 
-  if (pathname === '/admin/login' || pathname === '/admin/setup') {
+  if (pathname === '/admin/login') {
     return <>{children}</>;
   }
 

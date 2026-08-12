@@ -44,11 +44,10 @@ export default function AdminLoginPage() {
     fetch('/api/admin/auth/setup')
       .then((r) => r.json())
       .then((d) => {
-        if (d.setupRequired) {
-          router.replace('/admin/setup');
-        } else {
-          setLoading(false);
-        }
+        // The setup flow has been disabled. If the API reports that an initial
+        // setup is required, we do not redirect to /admin/setup anymore —
+        // simply show the login page (admins must be created via other means).
+        setLoading(false);
       })
       .catch(() => setLoading(false));
   }, [router]);
