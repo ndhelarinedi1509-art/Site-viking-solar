@@ -14,14 +14,25 @@ export function RealtimeRefresh() {
   useEffect(() => {
     const supabase = createClient();
     const channel = supabase.channel('public-content-changes');
+    let realtimeSubscribed = false;
 
-    for (const table of REAL_TIME_TABLES) {
-      channel.on('postgres_changes', { event: '*', schema: 'public', table }, () => {
-        router.refresh();
-      });
+    try {
+      // Register handlers
+      for (const table of REAL_TIME_TABLES) {
+        channel.on('postgres_changes', { event: '*', schema: 'public', table }, () => {
+          router.refresh();
+        });
+      }
+
+      // Attempt to subscribe to realtime. On some iOS PWA / private contexts
+      // WebSocket may be unavailable and attempt will throw "The operation is insecure.".
+      // Guard with try/catch and fall back to polling only.
+      channel.subscribe();
+      realtimeSubscribed = true;
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.warn('Realtime subscription failed, falling back to polling:', err);
     }
-
-    channel.subscribe();
 
     const poll = async () => {
       try {
@@ -49,7 +60,11 @@ export function RealtimeRefresh() {
 
     return () => {
       clearInterval(interval);
-      supabase.removeChannel(channel);
+      try {
+        if (realtimeSubscribed) supabase.removeChannel(channel);
+      } catch (e) {
+        // ignore removal errors
+      }
     };
   }, [router]);
 
