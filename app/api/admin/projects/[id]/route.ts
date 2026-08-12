@@ -12,7 +12,7 @@ const updateSchema = z.object({
   location: z.string().trim().max(200).optional().default(''),
   tags: z.array(z.string()).optional().default([]),
   features: z.array(z.string()).optional().default([]),
-  image: z.string().trim().max(1000).optional().default(''),
+  image: z.string().trim().max(5000).optional().default(''),
   date: z.string().optional(),
   sort_order: z.number().int().optional().default(0),
   is_published: z.boolean().default(true),

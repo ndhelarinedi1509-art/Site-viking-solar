@@ -99,7 +99,7 @@ export function ServicesProjects({ section, projects = [] }: ServicesProjectsPro
                 'hover:-translate-y-1.5 hover:border-white/10 hover:shadow-[0_16px_48px_rgba(0,0,0,0.32)]',
                 i === 0 ? 'sm:grid sm:grid-cols-[1.4fr_1fr]' : '',
               )}>
-                {/* Placeholder */}
+                {/* Image ou placeholder */}
                 <div className={cn(
                   'relative flex items-center justify-center overflow-hidden',
                   'bg-[linear-gradient(145deg,#0A1020,#0E1828)]',
@@ -107,13 +107,22 @@ export function ServicesProjects({ section, projects = [] }: ServicesProjectsPro
                   'after:absolute after:inset-0 after:bg-[linear-gradient(90deg,transparent_0%,rgba(255,255,255,0.02)_50%,transparent_100%)] after:animate-[sv-shimmer_3s_ease-in-out_infinite]',
                   'before:absolute before:inset-0 before:bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] before:bg-[size:24px_24px]',
                 )}>
-                  <div className="relative z-[1] text-center flex flex-col items-center gap-2">
-                    <div className="animate-[sv-icon-pulse_3s_ease-in-out_infinite]">
-                      {icons[project.category] || icons.industriel}
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="relative z-[1] text-center flex flex-col items-center gap-2">
+                      <div className="animate-[sv-icon-pulse_3s_ease-in-out_infinite]">
+                        {icons[project.category] || icons.industriel}
+                      </div>
+                      <p className="text-sm font-semibold text-gray-600">{t('common.photoComing')}</p>
+                      {i === 0 && <span className="text-xs text-gray-700">{t('common.photoWillBeAdded')}</span>}
                     </div>
-                    <p className="text-sm font-semibold text-gray-600">{t('common.photoComing')}</p>
-                    {i === 0 && <span className="text-xs text-gray-700">{t('common.photoWillBeAdded')}</span>}
-                  </div>
+                  )}
                 </div>
 
                 {/* Info */}

@@ -109,23 +109,32 @@ export function ProjectsGallery({ section, projects = [] }: ProjectsGalleryProps
                 className="group rounded-[20px] border border-border bg-bg-card overflow-hidden flex flex-col transition-all duration-[0.45s] ease-premium hover:-translate-y-2 hover:border-white/15 hover:shadow-[0_20px_50px_rgba(0,0,0,0.35)]"
               >
                 <div className="relative h-60 overflow-hidden bg-bg-elevated">
-                  <div className="absolute inset-0 bg-gradient-to-br from-[#0A1020] to-[#0F1A2E]">
-                    <div className="flex h-full items-center justify-center">
-                      <div className="flex flex-col items-center gap-2 z-[1]">
-                        <svg
-                          width="42"
-                          height="42"
-                          viewBox="0 0 24 24"
-                          fill="currentColor"
-                          className="text-gray-600 animate-[pj-icon-pulse_4s_ease-in-out_infinite]"
-                        >
-                          <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
-                        </svg>
-                        <p className="text-[0.85rem] font-semibold text-gray-500">{t('common.photoComing', { defaultValue: 'Image \u00e0 venir' })}</p>
+                  {project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                      loading="lazy"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 bg-gradient-to-br from-[#0A1020] to-[#0F1A2E]">
+                      <div className="flex h-full items-center justify-center">
+                        <div className="flex flex-col items-center gap-2 z-[1]">
+                          <svg
+                            width="42"
+                            height="42"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="text-gray-600 animate-[pj-icon-pulse_4s_ease-in-out_infinite]"
+                          >
+                            <path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z" />
+                          </svg>
+                          <p className="text-[0.85rem] font-semibold text-gray-500">{t('common.photoComing', { defaultValue: 'Image \u00e0 venir' })}</p>
+                        </div>
                       </div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-[sv-shimmer_3s_ease-in-out_infinite]" />
                     </div>
-                    <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent animate-[sv-shimmer_3s_ease-in-out_infinite]" />
-                  </div>
+                  )}
 
                   <span
                     className={cn(
