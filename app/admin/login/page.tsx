@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
@@ -21,7 +21,6 @@ type ForgotStep = 'request' | 'verify' | 'reset' | 'done';
 export default function AdminLoginPage() {
   const { t } = useTranslation();
   const router = useRouter();
-  const [loading, setLoading] = useState(true);
   const [submitLoading, setSubmitLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -40,19 +39,6 @@ export default function AdminLoginPage() {
   } = useForm<LoginValues>({
     resolver: zodResolver(loginSchema(t)),
   });
-
-  useEffect(() => {
-    fetch('/api/admin/auth/setup')
-      .then((r) => r.json())
-      .then((d) => {
-        if (d.setupRequired) {
-          router.replace('/admin/setup');
-          return;
-        }
-        setLoading(false);
-      })
-      .catch(() => setLoading(false));
-  }, [router]);
 
   const onSubmit = async (data: LoginValues) => {
     setSubmitLoading(true);
@@ -129,14 +115,6 @@ export default function AdminLoginPage() {
       setSubmitLoading(false);
     }
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-bg-primary flex items-center justify-center">
-        <Loader2 className="h-8 w-8 text-green animate-spin" />
-      </div>
-    );
-  }
 
   return (
     <div className="min-h-screen bg-bg-primary flex items-center justify-center px-4">

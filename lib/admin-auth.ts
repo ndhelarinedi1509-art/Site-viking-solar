@@ -19,52 +19,6 @@ function getAuthClient() {
   return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } })
 }
 
-export async function hasAnyAdmin(): Promise<boolean> {
-  try {
-    const supabase = getAdminClient()
-    const { count } = await supabase
-      .from('admin_users')
-      .select('*', { count: 'exact', head: true })
-    return (count ?? 0) > 0
-  } catch { return false }
-}
-
-async function createAuthUser(email: string, password: string, name: string) {
-  const supabase = getAdminClient()
-  const { data, error } = await supabase.auth.admin.createUser({
-    email,
-    password,
-    email_confirm: true,
-    user_metadata: { name },
-  })
-  if (error) throw new Error(error.message)
-  return data.user.id
-}
-
-export async function createFirstSuperAdmin(data: { email: string; password: string; name: string }) {
-  const exists = await hasAnyAdmin()
-  if (exists) throw new Error('An admin user already exists')
-  const supabase = getAdminClient()
-  const email = data.email.toLowerCase()
-  const authUserId = await createAuthUser(email, data.password, data.name)
-  const { data: user, error } = await supabase
-    .from('admin_users')
-    .insert({
-      id: authUserId,
-      email,
-      name: data.name,
-      role: 'super_admin',
-      is_active: true,
-    })
-    .select('id, email, name, role')
-    .single()
-  if (error) {
-    await supabase.auth.admin.deleteUser(authUserId).catch(() => {})
-    throw new Error(error.message)
-  }
-  return user
-}
-
 export async function authenticate(email: string, password: string) {
   const auth = getAuthClient()
   const { data: authData, error: authError } = await auth.auth.signInWithPassword({
@@ -81,6 +35,18 @@ export async function authenticate(email: string, password: string) {
     .single()
   if (!user || !user.is_active) return null
   return { id: user.id, email: user.email, name: user.name, role: user.role as 'super_admin' | 'admin' }
+}
+
+async function createAuthUser(email: string, password: string, name: string) {
+  const supabase = getAdminClient()
+  const { data, error } = await supabase.auth.admin.createUser({
+    email,
+    password,
+    email_confirm: true,
+    user_metadata: { name },
+  })
+  if (error) throw new Error(error.message)
+  return data.user.id
 }
 
 export async function createSession(userId: string) {
