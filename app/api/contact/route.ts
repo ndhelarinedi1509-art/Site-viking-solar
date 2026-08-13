@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { serverT } from '@/lib/i18n/server';
+import { createContactMessage } from '@/lib/supabase/queries';
+import { sendContactEmails } from '@/lib/mail';
 
 const contactSchema = z.object({
   name: z.string().min(1, 'Name is required'),
@@ -23,8 +25,17 @@ export async function POST(request: Request) {
       );
     }
 
-    // TODO: Save to Supabase
-    console.log('Contact form submission:', result.data);
+    const data = result.data;
+
+    // Save to Supabase (best effort — never block the form on storage failure)
+    try {
+      await createContactMessage(data);
+    } catch (err) {
+      console.error('Failed to save contact message:', err);
+    }
+
+    // Notify admin + send acknowledgment email
+    await sendContactEmails(data);
 
     return NextResponse.json(
       { message: serverT('contact.form.success') },

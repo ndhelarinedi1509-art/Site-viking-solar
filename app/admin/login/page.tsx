@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
-import { Lock, Loader2, ArrowLeft, Mail, Check, KeyRound } from 'lucide-react';
+import { Lock, Loader2, ArrowLeft, Mail, Check, KeyRound, Eye, EyeOff } from 'lucide-react';
 import { useTranslation } from 'react-i18next';
 
 const loginSchema = (t: (key: string) => string) =>
@@ -30,6 +30,7 @@ export default function AdminLoginPage() {
   const [resetEmail, setResetEmail] = useState('');
   const [resetCode, setResetCode] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [generatedCode, setGeneratedCode] = useState('');
 
   const {
@@ -44,9 +45,10 @@ export default function AdminLoginPage() {
     fetch('/api/admin/auth/setup')
       .then((r) => r.json())
       .then((d) => {
-        // The setup flow has been disabled. If the API reports that an initial
-        // setup is required, we do not redirect to /admin/setup anymore —
-        // simply show the login page (admins must be created via other means).
+        if (d.setupRequired) {
+          router.replace('/admin/setup');
+          return;
+        }
         setLoading(false);
       })
       .catch(() => setLoading(false));
@@ -218,9 +220,15 @@ export default function AdminLoginPage() {
                   </div>
                   <div className="space-y-1.5">
                     <label className="block text-sm font-medium text-gray-300">{t('admin.login.password')}</label>
-                    <input type="password" value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
-                      placeholder="••••••••"
-                      className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors" />
+                    <div className="relative">
+                      <input type={showPassword ? 'text' : 'password'} value={newPassword} onChange={(e) => setNewPassword(e.target.value)}
+                        placeholder="••••••••"
+                        className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors pr-12" />
+                      <button type="button" aria-label={showPassword ? 'Masquer le mot de passe' : 'Voir le mot de passe'} onClick={() => setShowPassword((s) => !s)}
+                        className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-white">
+                        {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                      </button>
+                    </div>
                   </div>
                   <button type="submit" disabled={submitLoading}
                     className="w-full h-11 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all disabled:opacity-50 flex items-center justify-center gap-2">
@@ -261,9 +269,15 @@ export default function AdminLoginPage() {
                     {t('admin.loginExtra.forgotPassword')}
                   </button>
                 </div>
-                <input type="password" placeholder="••••••••"
-                  className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors"
-                  {...register('password')} />
+                <div className="relative">
+                  <input type={showPassword ? 'text' : 'password'} placeholder="••••••••"
+                    className="w-full rounded-xl border border-white/10 bg-white px-4 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30 transition-colors pr-12"
+                    {...register('password')} />
+                  <button type="button" aria-label={showPassword ? 'Masquer le mot de passe' : 'Voir le mot de passe'} onClick={() => setShowPassword((s) => !s)}
+                    className="absolute right-2 top-1/2 -translate-y-1/2 p-2 text-gray-400 hover:text-white">
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
                 {errors.password && <p className="text-xs text-accent-red">{errors.password.message}</p>}
               </div>
 

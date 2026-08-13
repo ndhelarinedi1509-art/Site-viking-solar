@@ -1,9 +1,7 @@
 import { createClient } from '@supabase/supabase-js'
-import bcrypt from 'bcryptjs'
 import { cookies } from 'next/headers'
 import { nanoid } from 'nanoid'
 
-const SALT_ROUNDS = 12
 const COOKIE_NAME = 'viking-admin-session'
 const SESSION_DURATION_MS = 24 * 60 * 60 * 1000
 
@@ -14,12 +12,11 @@ function getAdminClient() {
   return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } })
 }
 
-export async function hashPassword(password: string): Promise<string> {
-  return bcrypt.hash(password, SALT_ROUNDS)
-}
-
-export async function verifyPassword(password: string, hash: string): Promise<boolean> {
-  return bcrypt.compare(password, hash)
+function getAuthClient() {
+  const url = process.env.NEXT_PUBLIC_SUPABASE_URL
+  const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
+  if (!url || !key) throw new Error('Supabase credentials not configured')
+  return createClient(url, key, { auth: { autoRefreshToken: false, persistSession: false } })
 }
 
 export async function hasAnyAdmin(): Promise<boolean> {
@@ -32,36 +29,57 @@ export async function hasAnyAdmin(): Promise<boolean> {
   } catch { return false }
 }
 
+async function createAuthUser(email: string, password: string, name: string) {
+  const supabase = getAdminClient()
+  const { data, error } = await supabase.auth.admin.createUser({
+    email,
+    password,
+    email_confirm: true,
+    user_metadata: { name },
+  })
+  if (error) throw new Error(error.message)
+  return data.user.id
+}
+
 export async function createFirstSuperAdmin(data: { email: string; password: string; name: string }) {
   const exists = await hasAnyAdmin()
   if (exists) throw new Error('An admin user already exists')
   const supabase = getAdminClient()
-  const passwordHash = await hashPassword(data.password)
+  const email = data.email.toLowerCase()
+  const authUserId = await createAuthUser(email, data.password, data.name)
   const { data: user, error } = await supabase
     .from('admin_users')
     .insert({
-      email: data.email.toLowerCase(),
-      password_hash: passwordHash,
+      id: authUserId,
+      email,
       name: data.name,
       role: 'super_admin',
       is_active: true,
     })
     .select('id, email, name, role')
     .single()
-  if (error) throw new Error(error.message)
+  if (error) {
+    await supabase.auth.admin.deleteUser(authUserId).catch(() => {})
+    throw new Error(error.message)
+  }
   return user
 }
 
 export async function authenticate(email: string, password: string) {
+  const auth = getAuthClient()
+  const { data: authData, error: authError } = await auth.auth.signInWithPassword({
+    email: email.toLowerCase(),
+    password,
+  })
+  if (authError || !authData.user) return null
+
   const supabase = getAdminClient()
   const { data: user } = await supabase
     .from('admin_users')
-    .select('id, email, name, role, password_hash, is_active')
-    .eq('email', email.toLowerCase())
+    .select('id, email, name, role, is_active')
+    .eq('id', authData.user.id)
     .single()
   if (!user || !user.is_active) return null
-  const valid = await verifyPassword(password, user.password_hash)
-  if (!valid) return null
   return { id: user.id, email: user.email, name: user.name, role: user.role as 'super_admin' | 'admin' }
 }
 
@@ -138,12 +156,13 @@ export async function listAdminUsers() {
 
 export async function createAdminUser(data: { email: string; password: string; name: string; createdBy: string }) {
   const supabase = getAdminClient()
-  const passwordHash = await hashPassword(data.password)
+  const email = data.email.toLowerCase()
+  const authUserId = await createAuthUser(email, data.password, data.name)
   const { data: user, error } = await supabase
     .from('admin_users')
     .insert({
-      email: data.email.toLowerCase(),
-      password_hash: passwordHash,
+      id: authUserId,
+      email,
       name: data.name,
       role: 'admin',
       is_active: true,
@@ -151,7 +170,10 @@ export async function createAdminUser(data: { email: string; password: string; n
     })
     .select('id, email, name, role, is_active, created_at')
     .single()
-  if (error) throw new Error(error.message)
+  if (error) {
+    await supabase.auth.admin.deleteUser(authUserId).catch(() => {})
+    throw new Error(error.message)
+  }
   return user
 }
 
@@ -169,16 +191,14 @@ export async function updateAdminUser(id: string, updates: { name?: string; is_a
 
 export async function changeUserPassword(id: string, newPassword: string) {
   const supabase = getAdminClient()
-  const passwordHash = await hashPassword(newPassword)
-  const { error } = await supabase
-    .from('admin_users')
-    .update({ password_hash: passwordHash })
-    .eq('id', id)
+  const { error } = await supabase.auth.admin.updateUserById(id, { password: newPassword })
   if (error) throw new Error(error.message)
 }
 
 export async function deleteAdminUser(id: string) {
   const supabase = getAdminClient()
+  const { error: authError } = await supabase.auth.admin.deleteUser(id)
+  if (authError) throw new Error(authError.message)
   const { error } = await supabase
     .from('admin_users')
     .delete()
