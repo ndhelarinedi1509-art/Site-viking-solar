@@ -89,9 +89,9 @@ export default function AdminCategoriesPage() {
       <h1 className="text-2xl font-bold text-white">Catégories</h1>
 
       {/* Create */}
-      <div className="bg-bg-card border border-white/6 rounded-2xl p-5 shadow-card space-y-4">
+      <div className="bg-bg-card border border-white/6 rounded-2xl p-4 sm:p-5 shadow-card space-y-4">
         <h2 className="text-sm font-semibold text-white">Nouvelle catégorie</h2>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-col sm:flex-row sm:items-center gap-3">
           <input
             type="color"
             value={newColor}
@@ -110,7 +110,7 @@ export default function AdminCategoriesPage() {
           <button
             onClick={create}
             disabled={creating || newName.trim().length < 2}
-            className="inline-flex h-10 shrink-0 items-center gap-2 rounded-xl bg-green px-4 text-sm font-semibold text-bg-primary hover:bg-green-dark transition-all disabled:opacity-50 disabled:pointer-events-none"
+            className="inline-flex h-10 shrink-0 items-center justify-center gap-2 rounded-xl bg-green px-4 text-sm font-semibold text-bg-primary hover:bg-green-dark transition-all disabled:opacity-50 disabled:pointer-events-none"
           >
             {creating ? <Loader2 className="h-4 w-4 animate-spin" /> : <Plus className="h-4 w-4" />}
             Ajouter
@@ -127,7 +127,7 @@ export default function AdminCategoriesPage() {
         ) : (
           <div className="divide-y divide-white/6">
             {categories.map((cat) => (
-              <div key={cat.id} className="flex items-center gap-3 p-4 hover:bg-white/3 transition-colors">
+              <div key={cat.id} className="flex flex-wrap items-center gap-3 p-3 sm:p-4 hover:bg-white/3 transition-colors">
                 {editingId === cat.id ? (
                   <>
                     <input type="color" value={editColor} onChange={(e) => setEditColor(e.target.value)}
@@ -145,7 +145,7 @@ export default function AdminCategoriesPage() {
                 ) : (
                   <>
                     <span className="h-4 w-4 rounded-full flex-shrink-0" style={{ backgroundColor: cat.color }} />
-                    <span className="flex-1 text-sm font-medium text-white">{cat.name}</span>
+                    <span className="flex-1 min-w-0 text-sm font-medium text-white truncate">{cat.name}</span>
                     <span className="text-[0.7rem] text-gray-500 font-mono">/{cat.slug}</span>
                     <button
                       onClick={() => { setEditingId(cat.id); setEditName(cat.name); setEditColor(cat.color); }}

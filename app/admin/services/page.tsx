@@ -181,13 +181,13 @@ export default function AdminServicesPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white">Services</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-white">Services</h1>
           <p className="text-sm text-gray-400 mt-1">Gérez les services affichés sur le site public.</p>
         </div>
         <button onClick={openCreate}
-          className="h-10 px-5 rounded-xl bg-green text-white text-sm font-semibold hover:bg-green-dark hover:shadow-glow transition-all duration-300 active:scale-[0.98] flex items-center gap-2">
+          className="h-10 px-5 rounded-xl bg-green text-white text-sm font-semibold hover:bg-green-dark hover:shadow-glow transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2">
           <Plus className="h-4 w-4" />
           Nouveau service
         </button>
@@ -195,14 +195,14 @@ export default function AdminServicesPage() {
 
       {formOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="w-full max-w-2xl bg-bg-card border border-white/10 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+          <div className="w-full max-w-2xl bg-bg-card border border-white/10 rounded-2xl shadow-2xl max-h-[90vh] [@supports(height:100dvh)]:max-h-[90dvh] overflow-y-auto">
             <div className="flex items-center justify-between px-6 py-4 border-b border-white/6">
               <h2 className="text-lg font-semibold text-white">{editingId ? 'Modifier le service' : 'Nouveau service'}</h2>
               <button onClick={() => setFormOpen(false)} className="text-gray-400 hover:text-white transition-colors">
                 <X className="h-5 w-5" />
               </button>
             </div>
-            <div className="p-6 space-y-4">
+            <div className="p-4 sm:p-6 space-y-4">
               <Field label="Titre">
                 <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })}
                   placeholder="Installation Solaire" className={inputCls} />
@@ -215,7 +215,7 @@ export default function AdminServicesPage() {
                 <textarea value={form.features} onChange={(e) => setForm({ ...form, features: e.target.value })}
                   rows={3} placeholder={'Garantie 25 ans\nPanneaux certifiés'} className={inputCls} />
               </Field>
-              <div className="grid grid-cols-2 gap-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Field label="Tag">
                   <input value={form.tag} onChange={(e) => setForm({ ...form, tag: e.target.value })}
                     placeholder="Résidentiel & Commercial" className={inputCls} />
@@ -260,14 +260,14 @@ export default function AdminServicesPage() {
 
       <div className="space-y-3">
         {services.map((s, idx) => (
-          <div key={s.id} className="flex items-center gap-4 bg-bg-card border border-white/6 rounded-xl px-4 py-3">
+          <div key={s.id} className="flex flex-wrap items-center gap-3 sm:gap-4 bg-bg-card border border-white/6 rounded-xl px-3 sm:px-4 py-3">
             <div className="flex flex-col gap-0.5">
               <button onClick={() => move(s.id, -1)} disabled={idx === 0}
                 className="text-gray-600 hover:text-white disabled:opacity-30 text-xs">&uarr;</button>
               <button onClick={() => move(s.id, 1)} disabled={idx === services.length - 1}
                 className="text-gray-600 hover:text-white disabled:opacity-30 text-xs">&darr;</button>
             </div>
-            <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold ${colorBadge(s.color)}`}>
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center text-sm font-bold ${colorBadge(s.color)} flex-shrink-0`}>
               {s.title.charAt(0).toUpperCase()}
             </div>
             <div className="flex-1 min-w-0">
@@ -278,7 +278,7 @@ export default function AdminServicesPage() {
               <p className="text-xs text-gray-500 truncate">{s.tag || s.description}</p>
             </div>
             <span className={`w-2 h-2 rounded-full ${s.is_published ? 'bg-green' : 'bg-gray-500'}`} />
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-1 ml-auto sm:ml-0">
               <button onClick={() => togglePublished(s)} title={s.is_published ? 'Dépublier' : 'Publier'}
                 className="h-8 w-8 rounded-lg bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 flex items-center justify-center transition-colors">
                 {s.is_published ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}

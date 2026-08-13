@@ -180,17 +180,17 @@ export default function AdminPageEditor() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div className="flex items-center gap-3">
-          <Link href="/admin/pages" className="h-9 w-9 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors">
+          <Link href="/admin/pages" className="h-9 w-9 rounded-xl bg-white/5 flex items-center justify-center text-gray-400 hover:text-white hover:bg-white/10 transition-colors flex-shrink-0">
             <ArrowLeft className="h-4 w-4" />
           </Link>
-          <div>
-            <h1 className="text-2xl font-bold text-white">{pageLabels[pageKey] ?? pageKey}</h1>
+          <div className="min-w-0">
+            <h1 className="text-xl sm:text-2xl font-bold text-white truncate">{pageLabels[pageKey] ?? pageKey}</h1>
             <p className="text-sm text-gray-400 mt-0.5">{sections.length} section{sections.length > 1 ? 's' : ''}</p>
           </div>
         </div>
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 flex-wrap">
           <Link href={`/${pageKey === 'home' ? '' : pageKey}`} target="_blank"
             className="h-10 px-4 rounded-xl border border-white/10 text-sm font-medium text-gray-400 hover:text-white hover:border-white/20 transition-all flex items-center gap-2">
             <Eye className="h-4 w-4" />
@@ -215,13 +215,13 @@ export default function AdminPageEditor() {
           return (
             <div key={section.id} className="bg-bg-card border border-white/6 rounded-2xl shadow-card overflow-hidden">
               {/* Section header */}
-              <div className="flex items-center justify-between px-5 py-3 border-b border-white/6 bg-white/2">
-                <div className="flex items-center gap-3">
+              <div className="flex flex-wrap items-center justify-between gap-2 px-4 sm:px-5 py-3 border-b border-white/6 bg-white/2">
+                <div className="flex items-center gap-3 min-w-0">
                   <div className="cursor-grab opacity-40 hover:opacity-100 transition-opacity">
                     <GripVertical className="h-4 w-4 text-gray-400" />
                   </div>
-                  <div className="flex items-center gap-2">
-                    <span className="text-sm font-semibold text-white">{section.label || 'Section sans titre'}</span>
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <span className="text-sm font-semibold text-white truncate">{section.label || 'Section sans titre'}</span>
                     <span className="text-xs text-gray-500 bg-white/5 px-2 py-0.5 rounded-full">
                       {sectionTypeLabels[section.section_type] ?? section.section_type}
                     </span>
@@ -232,7 +232,7 @@ export default function AdminPageEditor() {
                     )}
                   </div>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2 flex-wrap">
                   <span className={`inline-block w-2 h-2 rounded-full ${current.is_published ? 'bg-green' : 'bg-gray-500'}`} />
                   <span className="text-xs text-gray-500">{current.is_published ? 'Publiée' : 'Brouillon'}</span>
                   <span className="text-xs text-gray-600">| Ordre {section.sort_order / 10 + 1}</span>
@@ -245,7 +245,7 @@ export default function AdminPageEditor() {
 
               {/* Section editor */}
               {sharedNote ? (
-                <div className="p-5">
+                <div className="p-4 sm:p-5">
                   <div className="rounded-xl border border-green/20 bg-green/5 p-4 flex items-start gap-3">
                     <Info className="h-5 w-5 text-green shrink-0 mt-0.5" />
                     <div>
@@ -255,14 +255,14 @@ export default function AdminPageEditor() {
                   </div>
                 </div>
               ) : (
-                <div className="p-5">
+                <div className="p-4 sm:p-5">
                   <SectionEditor section={current} onChange={(next) => handleChange(section.id, next)} />
                 </div>
               )}
 
               {/* Per-section actions */}
               {!sharedNote && (
-                <div className="flex items-center justify-end gap-2 px-5 py-3 border-t border-white/6 bg-white/2">
+                <div className="flex items-center justify-end gap-2 px-4 sm:px-5 py-3 border-t border-white/6 bg-white/2">
                   <button
                     onClick={() => saveSection(section.id, false)}
                     disabled={!hasDraft || isSaving}

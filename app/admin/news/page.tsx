@@ -180,11 +180,11 @@ export default function AdminNewsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-white">Actualités</h1>
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+        <h1 className="text-xl sm:text-2xl font-bold text-white">Actualités</h1>
         <button
           onClick={openCreate}
-          className="inline-flex h-10 items-center gap-2 rounded-xl bg-green px-4 text-sm font-semibold text-bg-primary hover:bg-green-dark hover:shadow-glow transition-all duration-300"
+          className="inline-flex h-10 items-center justify-center gap-2 rounded-xl bg-green px-4 text-sm font-semibold text-bg-primary hover:bg-green-dark hover:shadow-glow transition-all duration-300 w-full sm:w-auto"
         >
           <Plus className="h-4 w-4" />
           Nouvelle actualité
@@ -202,7 +202,7 @@ export default function AdminNewsPage() {
         ) : (
           <div className="divide-y divide-white/6">
             {posts.map((post) => (
-              <div key={post.id} className="flex items-center gap-4 p-4 hover:bg-white/3 transition-colors">
+              <div key={post.id} className="flex flex-col md:flex-row md:items-center gap-3 p-3 sm:p-4 hover:bg-white/3 transition-colors">
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
                     <h3 className="text-sm font-semibold text-white truncate">{post.title}</h3>
@@ -232,7 +232,7 @@ export default function AdminNewsPage() {
                     )}
                   </div>
                 </div>
-                <div className="flex items-center gap-1 flex-shrink-0">
+                <div className="flex items-center gap-1 flex-shrink-0 md:ml-auto">
                   <button
                     onClick={() => quickToggle(post, 'is_pinned')}
                     title={post.is_pinned ? 'Désépingler' : 'Épingler'}
@@ -279,7 +279,7 @@ export default function AdminNewsPage() {
       {/* Create/Edit modal */}
       {formOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-          <div className="w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-2xl border border-white/6 bg-bg-card p-6 sm:p-8 shadow-card scrollbar-thin">
+          <div className="w-full max-w-2xl max-h-[90vh] [@supports(height:100dvh)]:max-h-[90dvh] overflow-y-auto rounded-2xl border border-white/6 bg-bg-card p-6 sm:p-8 shadow-card scrollbar-thin">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-lg font-bold text-white">{editingId ? 'Modifier l’actualité' : 'Nouvelle actualité'}</h2>
               <button onClick={() => setFormOpen(false)} className="flex h-8 w-8 items-center justify-center rounded-lg border border-white/10 text-gray-400 hover:text-white transition-colors">

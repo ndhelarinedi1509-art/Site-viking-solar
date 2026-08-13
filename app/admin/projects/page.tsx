@@ -278,9 +278,9 @@ export default function AdminProjectsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between flex-wrap gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white">Projets & Témoignages</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-white">Projets & Témoignages</h1>
           <p className="text-sm text-gray-400 mt-1">Gérez les réalisations et les témoignages clients affichés sur le site public.</p>
         </div>
         <button onClick={tab === 'projects' ? openCreate : openCreateTestimonial}
@@ -291,13 +291,13 @@ export default function AdminProjectsPage() {
       </div>
 
       {/* Tabs */}
-      <div className="flex gap-1 rounded-xl bg-white/5 border border-white/6 p-1 w-fit">
+      <div className="flex gap-1 rounded-xl bg-white/5 border border-white/6 p-1 w-fit overflow-x-auto max-w-full">
         <button onClick={() => setTab('projects')}
-          className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${tab === 'projects' ? 'bg-green text-bg-primary' : 'text-gray-400 hover:text-white'}`}>
+          className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${tab === 'projects' ? 'bg-green text-bg-primary' : 'text-gray-400 hover:text-white'}`}>
           Projets ({projects.length})
         </button>
         <button onClick={() => setTab('testimonials')}
-          className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all ${tab === 'testimonials' ? 'bg-green text-bg-primary' : 'text-gray-400 hover:text-white'}`}>
+          className={`px-5 py-2 rounded-lg text-sm font-semibold transition-all whitespace-nowrap ${tab === 'testimonials' ? 'bg-green text-bg-primary' : 'text-gray-400 hover:text-white'}`}>
           Témoignages ({testimonials.length})
         </button>
       </div>
@@ -307,14 +307,14 @@ export default function AdminProjectsPage() {
         <>
           {formOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-              <div className="w-full max-w-2xl bg-bg-card border border-white/10 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+              <div className="w-full max-w-2xl bg-bg-card border border-white/10 rounded-2xl shadow-2xl max-h-[90vh] [@supports(height:100dvh)]:max-h-[90dvh] overflow-y-auto">
                 <div className="flex items-center justify-between px-6 py-4 border-b border-white/6">
                   <h2 className="text-lg font-semibold text-white">{editingId ? 'Modifier le projet' : 'Nouveau projet'}</h2>
                   <button onClick={() => setFormOpen(false)} className="text-gray-400 hover:text-white transition-colors">
                     <X className="h-5 w-5" />
                   </button>
                 </div>
-                <div className="p-6 space-y-4">
+                <div className="p-4 sm:p-6 space-y-4">
                   <Field label="Titre">
                     <input value={form.title} onChange={(e) => setForm({ ...form, title: e.target.value })}
                       placeholder="Villa Moderne Autonome" className={inputCls} />
@@ -323,7 +323,7 @@ export default function AdminProjectsPage() {
                     <textarea value={form.description} onChange={(e) => setForm({ ...form, description: e.target.value })}
                       rows={3} className={inputCls} />
                   </Field>
-                  <div className="grid grid-cols-2 gap-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Field label="Catégorie">
                       <select value={form.category} onChange={(e) => setForm({ ...form, category: e.target.value })} className={inputCls}>
                         {CATEGORIES.map((c) => <option key={c.value} value={c.value}>{c.label}</option>)}
@@ -378,7 +378,7 @@ export default function AdminProjectsPage() {
 
           <div className="space-y-3">
             {projects.map((p) => (
-              <div key={p.id} className="flex items-center gap-4 bg-bg-card border border-white/6 rounded-xl px-4 py-3">
+              <div key={p.id} className="flex flex-wrap items-center gap-3 sm:gap-4 bg-bg-card border border-white/6 rounded-xl px-3 sm:px-4 py-3">
                 <div className="flex-1 min-w-0">
                   <p className="text-sm font-semibold text-white truncate">
                     {p.title}
@@ -389,7 +389,7 @@ export default function AdminProjectsPage() {
                   {CATEGORIES.find((c) => c.value === p.category)?.label ?? p.category}
                 </span>
                 <span className={`w-2 h-2 rounded-full ${p.is_published ? 'bg-green' : 'bg-gray-500'}`} />
-                <div className="flex items-center gap-1">
+                <div className="flex items-center gap-1 ml-auto sm:ml-0">
                   <button onClick={() => togglePublished(p)} title={p.is_published ? 'Dépublier' : 'Publier'}
                     className="h-8 w-8 rounded-lg bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 flex items-center justify-center transition-colors">
                     {p.is_published ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}
@@ -419,15 +419,15 @@ export default function AdminProjectsPage() {
         <>
           {testimonialFormOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-              <div className="w-full max-w-2xl bg-bg-card border border-white/10 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
+              <div className="w-full max-w-2xl bg-bg-card border border-white/10 rounded-2xl shadow-2xl max-h-[90vh] [@supports(height:100dvh)]:max-h-[90dvh] overflow-y-auto">
                 <div className="flex items-center justify-between px-6 py-4 border-b border-white/6">
                   <h2 className="text-lg font-semibold text-white">{editingTestimonialId ? 'Modifier le témoignage' : 'Nouveau témoignage'}</h2>
                   <button onClick={() => setTestimonialFormOpen(false)} className="text-gray-400 hover:text-white transition-colors">
                     <X className="h-5 w-5" />
                   </button>
                 </div>
-                <div className="p-6 space-y-4">
-                  <div className="grid grid-cols-2 gap-4">
+                <div className="p-4 sm:p-6 space-y-4">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                     <Field label="Nom *">
                       <input value={testimonialForm.name} onChange={(e) => setTestimonialForm({ ...testimonialForm, name: e.target.value })}
                         placeholder="Jean-Marc Kabeya" className={inputCls} />
@@ -485,7 +485,7 @@ export default function AdminProjectsPage() {
 
           <div className="space-y-3">
             {testimonials.map((t) => (
-              <div key={t.id} className="flex items-start gap-4 bg-bg-card border border-white/6 rounded-xl px-4 py-3">
+              <div key={t.id} className="flex flex-wrap items-start gap-3 sm:gap-4 bg-bg-card border border-white/6 rounded-xl px-3 sm:px-4 py-3">
                 <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-green/12 text-green mt-0.5">
                   <Quote className="h-4 w-4" />
                 </div>
@@ -496,7 +496,7 @@ export default function AdminProjectsPage() {
                   <p className="text-xs text-amber mt-1">{'★'.repeat(t.rating ?? 5)}{'☆'.repeat(5 - (t.rating ?? 5))}</p>
                 </div>
                 <span className={`w-2 h-2 rounded-full mt-2 ${t.is_published ? 'bg-green' : 'bg-gray-500'}`} />
-                <div className="flex items-center gap-1 mt-1">
+                <div className="flex items-center gap-1 mt-1 ml-auto sm:ml-0">
                   <button onClick={() => toggleTestimonialPublished(t)} title={t.is_published ? 'Dépublier' : 'Publier'}
                     className="h-8 w-8 rounded-lg bg-white/5 text-gray-400 hover:text-white hover:bg-white/10 flex items-center justify-center transition-colors">
                     {t.is_published ? <Eye className="h-4 w-4" /> : <EyeOff className="h-4 w-4" />}

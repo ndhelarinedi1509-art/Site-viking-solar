@@ -75,8 +75,8 @@ export default function AdminDashboardPage() {
   return (
     <div className="space-y-6">
       {/* Welcome */}
-      <div className="bg-gradient-to-br from-green/8 to-accent-teal/8 border border-green/10 rounded-2xl p-6 shadow-card">
-        <h1 className="text-2xl font-bold text-white">{t('admin.dashboard.overview')}</h1>
+      <div className="bg-gradient-to-br from-green/8 to-accent-teal/8 border border-green/10 rounded-2xl p-5 sm:p-6 shadow-card">
+        <h1 className="text-xl sm:text-2xl font-bold text-white">{t('admin.dashboard.overview')}</h1>
         <p className="text-sm text-gray-400 mt-1">Bienvenue dans votre tableau de bord CMS. Gérez tout le contenu de votre site en quelques clics.</p>
       </div>
 
@@ -96,7 +96,7 @@ export default function AdminDashboardPage() {
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Quick actions */}
-        <div className="lg:col-span-2 bg-bg-card border border-white/6 rounded-2xl p-6 shadow-card">
+        <div className="lg:col-span-2 bg-bg-card border border-white/6 rounded-2xl p-4 sm:p-6 shadow-card">
           <h2 className="text-lg font-semibold text-white mb-4">Actions rapides</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
             {quickActions.map((action) => {
@@ -115,7 +115,7 @@ export default function AdminDashboardPage() {
         </div>
 
         {/* Pages overview */}
-        <div className="bg-bg-card border border-white/6 rounded-2xl p-6 shadow-card">
+        <div className="bg-bg-card border border-white/6 rounded-2xl p-4 sm:p-6 shadow-card">
           <div className="flex items-center justify-between mb-4">
             <h2 className="text-lg font-semibold text-white">Pages</h2>
             <Link href="/admin/pages" className="text-xs font-semibold text-green hover:text-green-dark transition-colors flex items-center gap-1">
@@ -139,7 +139,7 @@ export default function AdminDashboardPage() {
       </div>
 
       {/* Recent activity */}
-      <div className="bg-bg-card border border-white/6 rounded-2xl p-6 shadow-card">
+      <div className="bg-bg-card border border-white/6 rounded-2xl p-4 sm:p-6 shadow-card">
         <h2 className="text-lg font-semibold text-white mb-4">{t('admin.dashboard.recentActivity')}</h2>
         <div className="space-y-3">
           {[
@@ -147,12 +147,12 @@ export default function AdminDashboardPage() {
             { text: 'Nouveau message de contact', time: 'Il y a 5 heures' },
             { text: 'Image uploadée dans la médiathèque', time: 'Hier' },
           ].map((activity, i) => (
-            <div key={i} className="flex items-center justify-between py-3 border-b border-white/6 last:border-0">
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-green" />
-                <p className="text-sm text-gray-300">{activity.text}</p>
+            <div key={i} className="flex items-center justify-between gap-3 py-3 border-b border-white/6 last:border-0">
+              <div className="flex items-center gap-3 min-w-0">
+                <div className="w-2 h-2 rounded-full bg-green flex-shrink-0" />
+                <p className="text-sm text-gray-300 truncate">{activity.text}</p>
               </div>
-              <span className="text-xs text-gray-500 whitespace-nowrap">{activity.time}</span>
+              <span className="text-xs text-gray-500 whitespace-nowrap flex-shrink-0">{activity.time}</span>
             </div>
           ))}
         </div>

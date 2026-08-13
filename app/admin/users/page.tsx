@@ -150,20 +150,20 @@ export default function AdminUsersPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white">{t('admin.users.title')}</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-white">{t('admin.users.title')}</h1>
           <p className="text-sm text-gray-400 mt-1">{t('admin.users.description')}</p>
         </div>
         <button onClick={() => { setShowCreate(!showCreate); setError(''); reset(); }}
-          className="flex items-center gap-2 h-10 px-4 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all">
+          className="flex items-center justify-center gap-2 h-10 px-4 rounded-xl bg-green text-white font-semibold text-sm hover:bg-green-dark hover:shadow-glow transition-all">
           <UserPlus className="h-4 w-4" />
           {t('admin.users.create')}
         </button>
       </div>
 
       {showCreate && (
-        <div className="bg-bg-card border border-white/6 rounded-2xl p-6 shadow-card">
+        <div className="bg-bg-card border border-white/6 rounded-2xl p-4 sm:p-6 shadow-card">
           <h2 className="text-lg font-semibold text-white mb-4">{t('admin.users.newUser')}</h2>
           {error && <p className="text-xs text-accent-red mb-3">{error}</p>}
           <form onSubmit={handleSubmit(onCreate)} className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -209,7 +209,8 @@ export default function AdminUsersPage() {
       )}
 
       <div className="bg-bg-card border border-white/6 rounded-2xl shadow-card overflow-hidden">
-        <div className="overflow-x-auto">
+        {/* Desktop table */}
+        <div className="hidden md:block overflow-x-auto">
           <table className="w-full">
             <thead>
               <tr className="border-b border-white/6">
@@ -298,6 +299,75 @@ export default function AdminUsersPage() {
               ))}
             </tbody>
           </table>
+        </div>
+
+        {/* Mobile cards */}
+        <div className="md:hidden divide-y divide-white/6">
+          {users.map((user) => (
+            <div key={user.id} className="p-4 space-y-3">
+              <div className="flex items-center justify-between gap-2">
+                {editId === user.id ? (
+                  <div className="flex items-center gap-2 flex-1 min-w-0">
+                    <input type="text" value={editName} onChange={(e) => setEditName(e.target.value)}
+                      className="flex-1 min-w-0 rounded-lg border border-white/10 bg-white px-3 py-1.5 text-sm text-gray-900 focus:border-green/50 focus:outline-none focus:ring-1 focus:ring-green/30" />
+                    <button onClick={() => updateName(user.id)} className="text-green hover:text-green-dark flex-shrink-0"><Check className="h-4 w-4" /></button>
+                    <button onClick={() => setEditId(null)} className="text-gray-500 hover:text-white flex-shrink-0"><X className="h-4 w-4" /></button>
+                  </div>
+                ) : (
+                  <div className="flex items-center gap-3 flex-1 min-w-0">
+                    <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center flex-shrink-0">
+                      <span className="text-xs font-bold text-gray-300">{user.name.charAt(0).toUpperCase()}</span>
+                    </div>
+                    <div className="min-w-0">
+                      <p className="text-sm font-medium text-white truncate">{user.name}</p>
+                      <span className={`inline-flex items-center gap-1 text-xs font-medium ${
+                        user.role === 'super_admin' ? 'text-green/70' : 'text-accent-blue/70'
+                      }`}>
+                        {user.role === 'super_admin' ? <ShieldCheck className="h-3 w-3" /> : <Shield className="h-3 w-3" />}
+                        {user.role === 'super_admin' ? t('admin.users.superAdmin') : t('admin.users.admin')}
+                      </span>
+                    </div>
+                  </div>
+                )}
+                <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-medium flex-shrink-0 ${
+                  user.isActive ? 'bg-green/10 text-green' : 'bg-accent-red/10 text-accent-red'
+                }`}>
+                  {user.isActive ? t('admin.users.active') : t('admin.users.disabled')}
+                </span>
+              </div>
+              <p className="text-sm text-gray-400 break-all">{user.email}</p>
+              <div className="flex items-center justify-between gap-2">
+                <span className="text-xs text-gray-500">{new Date(user.createdAt).toLocaleDateString()}</span>
+                {user.role !== 'super_admin' && (
+                  <div className="flex items-center gap-2 flex-wrap">
+                    <button onClick={() => { setEditId(user.id); setEditName(user.name); }}
+                      className="h-8 px-3 rounded-lg border border-white/10 text-xs text-gray-400 hover:text-white hover:border-green/30 transition-colors">
+                      {t('admin.users.rename')}
+                    </button>
+                    <button onClick={() => toggleActive(user)}
+                      className={`h-8 px-3 rounded-lg border text-xs transition-colors ${
+                        user.isActive
+                          ? 'border-accent-orange/30 text-accent-orange hover:bg-accent-orange/10'
+                          : 'border-green/30 text-green hover:bg-green/10'
+                      }`}>
+                      {user.isActive ? t('admin.users.disable') : t('admin.users.enable')}
+                    </button>
+                    {deleteConfirm === user.id ? (
+                      <button onClick={() => deleteUser(user.id)}
+                        className="h-8 px-3 rounded-lg bg-accent-red/20 text-accent-red text-xs font-semibold hover:bg-accent-red/30 transition-colors flex items-center gap-1">
+                        <AlertTriangle className="h-3 w-3" /> {t('admin.users.confirm')}
+                      </button>
+                    ) : (
+                      <button onClick={() => setDeleteConfirm(user.id)}
+                        className="h-8 w-8 rounded-lg border border-white/10 text-gray-500 hover:text-accent-red hover:border-accent-red/30 transition-colors flex items-center justify-center">
+                        <Trash2 className="h-3.5 w-3.5" />
+                      </button>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          ))}
         </div>
         {users.length === 0 && (
           <div className="text-center py-12">

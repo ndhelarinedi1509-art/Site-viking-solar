@@ -82,13 +82,13 @@ export default function AdminMediaPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white">{t('admin.media.title')}</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-white">{t('admin.media.title')}</h1>
           <p className="text-sm text-gray-400 mt-1">{media.length} fichier{media.length > 1 ? 's' : ''}</p>
         </div>
         <button onClick={() => fileRef.current?.click()} disabled={uploading}
-          className="h-10 px-5 rounded-xl bg-green text-bg-primary text-sm font-semibold hover:bg-green-dark hover:shadow-glow transition-all flex items-center gap-2 disabled:opacity-50">
+          className="h-10 px-5 rounded-xl bg-green text-bg-primary text-sm font-semibold hover:bg-green-dark hover:shadow-glow transition-all flex items-center justify-center gap-2 disabled:opacity-50">
           {uploading ? <Loader2 className="h-4 w-4 animate-spin" /> : <Upload className="h-4 w-4" />}
           {t('admin.media.upload')}
         </button>
@@ -112,7 +112,7 @@ export default function AdminMediaPage() {
                 {/* eslint-disable-next-line @next/next/no-img-element */}
                 <img src={item.url} alt={item.alt || item.filename}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
-                <div className="absolute inset-0 bg-black/0 group-hover:bg-black/40 transition-colors flex items-center justify-center gap-2 opacity-0 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-black/0 md:group-hover:bg-black/40 transition-colors flex items-center justify-center gap-2 opacity-100 md:opacity-0 md:group-hover:opacity-100">
                   <button onClick={() => handleCopyUrl(item.url, item.id)}
                     className="h-8 w-8 rounded-lg bg-white/20 backdrop-blur-sm flex items-center justify-center text-white hover:bg-white/30 transition-all">
                     {copiedId === item.id ? <Check className="h-4 w-4" /> : <Copy className="h-4 w-4" />}

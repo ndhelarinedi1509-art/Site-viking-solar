@@ -115,13 +115,13 @@ export default function AdminTeamPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between flex-wrap gap-4">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between flex-wrap gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white">Gestion de l'Équipe</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-white">Gestion de l'Équipe</h1>
           <p className="text-sm text-gray-400 mt-1">Les membres affichés sur la page À propos. Modifications visibles immédiatement.</p>
         </div>
         <button onClick={openCreate}
-          className="h-10 px-5 rounded-xl bg-green text-white text-sm font-semibold hover:bg-green-dark hover:shadow-glow transition-all duration-300 active:scale-[0.98] flex items-center gap-2">
+          className="h-10 px-5 rounded-xl bg-green text-white text-sm font-semibold hover:bg-green-dark hover:shadow-glow transition-all duration-300 active:scale-[0.98] flex items-center justify-center gap-2">
           <Plus className="h-4 w-4" />
           Ajouter un membre
         </button>
@@ -137,14 +137,14 @@ export default function AdminTeamPage() {
         <>
           {formOpen && (
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-sm p-4">
-              <div className="w-full max-w-md bg-bg-card border border-white/10 rounded-2xl shadow-2xl max-h-[90vh] overflow-y-auto">
-                <div className="flex items-center justify-between px-6 py-4 border-b border-white/6">
+              <div className="w-full max-w-md bg-bg-card border border-white/10 rounded-2xl shadow-2xl max-h-[90vh] [@supports(height:100dvh)]:max-h-[90dvh] overflow-y-auto">
+                <div className="flex items-center justify-between px-4 sm:px-6 py-4 border-b border-white/6">
                   <h2 className="text-lg font-semibold text-white">{editingIndex === null ? 'Nouveau membre' : 'Modifier le membre'}</h2>
                   <button onClick={() => setFormOpen(false)} className="text-gray-400 hover:text-white transition-colors">
                     <X className="h-5 w-5" />
                   </button>
                 </div>
-                <div className="p-6 space-y-4">
+                <div className="p-4 sm:p-6 space-y-4">
                   <Field label="Nom *">
                     <input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })}
                       placeholder="Jean-Marc Kabeya" className={inputCls} />
@@ -161,7 +161,7 @@ export default function AdminTeamPage() {
                     />
                   </Field>
                 </div>
-                <div className="flex justify-end gap-3 px-6 py-4 border-t border-white/6">
+                <div className="flex justify-end gap-3 px-4 sm:px-6 py-4 border-t border-white/6">
                   <button onClick={() => setFormOpen(false)} className="h-10 px-4 rounded-xl border border-white/10 text-sm text-gray-400 hover:text-white transition-colors">
                     Annuler
                   </button>
@@ -175,10 +175,10 @@ export default function AdminTeamPage() {
             </div>
           )}
 
-          <div className="grid gap-3.5 grid-cols-2 lg:grid-cols-4">
+          <div className="grid gap-3.5 grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {members.map((member, i) => (
               <div key={i} className="group relative rounded-lg border border-border bg-bg-card p-3.5 text-center transition-all duration-[0.45s] ease-premium will-change-transform hover:-translate-y-1 hover:border-green/25 hover:shadow-[0_16px_40px_rgba(0,0,0,0.35),0_0_20px_rgba(34,197,94,0.12)]">
-                <div className="absolute top-2 right-2 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                <div className="absolute top-2 right-2 flex items-center gap-1 opacity-100 md:opacity-0 md:group-hover:opacity-100 transition-opacity">
                   <button onClick={() => openEdit(i)}
                     className="h-7 w-7 rounded-lg bg-white/10 text-gray-300 hover:text-white hover:bg-white/20 flex items-center justify-center transition-colors">
                     <Pencil className="h-3.5 w-3.5" />

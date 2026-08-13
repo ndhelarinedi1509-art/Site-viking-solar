@@ -30,9 +30,9 @@ export default function AdminContentPage() {
 
   return (
     <div className="space-y-6 max-w-3xl">
-      <h1 className="text-2xl font-bold text-white">{t('admin.content.management')}</h1>
+      <h1 className="text-xl sm:text-2xl font-bold text-white">{t('admin.content.management')}</h1>
 
-      <div className="bg-bg-card border border-white/6 rounded-2xl p-6 shadow-card space-y-4">
+      <div className="bg-bg-card border border-white/6 rounded-2xl p-4 sm:p-6 shadow-card space-y-4">
         <h2 className="text-lg font-semibold text-white">{t('admin.content.heroContent')}</h2>
 
         <div className="space-y-1.5">
@@ -71,7 +71,7 @@ export default function AdminContentPage() {
         </button>
       </div>
 
-      <div className="bg-bg-card border border-white/6 rounded-2xl p-6 shadow-card space-y-4">
+      <div className="bg-bg-card border border-white/6 rounded-2xl p-4 sm:p-6 shadow-card space-y-4">
         <h2 className="text-lg font-semibold text-white">{t('admin.content.contactInfo')}</h2>
 
         <div className="space-y-1.5">

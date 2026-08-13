@@ -113,7 +113,7 @@ export default function AdminCommentsPage() {
           <div className="divide-y divide-white/6">
             {filtered.map((c) => (
               <div key={c.id} className="p-4 hover:bg-white/3 transition-colors">
-                <div className="flex items-start gap-3">
+                <div className="flex flex-col sm:flex-row sm:items-start gap-3">
                   <div className="flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-green/20 bg-green/10 text-xs font-bold text-green">
                     {c.author_name.charAt(0).toUpperCase()}
                   </div>
@@ -133,8 +133,38 @@ export default function AdminCommentsPage() {
                         Sur : {c.post.title}
                       </Link>
                     )}
+                    <div className="flex flex-wrap items-center gap-1 mt-3 sm:hidden">
+                      {c.status !== 'published' && (
+                        <button onClick={() => setStatus(c.id, 'published')} title="Publier"
+                          className="h-9 w-9 rounded-lg border border-white/10 text-gray-400 hover:text-green transition-colors flex items-center justify-center">
+                          <CheckCircle2 className="h-4 w-4" />
+                        </button>
+                      )}
+                      {c.status !== 'hidden' && (
+                        <button onClick={() => setStatus(c.id, 'hidden')} title="Masquer"
+                          className="h-9 w-9 rounded-lg border border-white/10 text-gray-400 hover:text-white transition-colors flex items-center justify-center">
+                          <EyeOff className="h-4 w-4" />
+                        </button>
+                      )}
+                      {c.status !== 'pending' && (
+                        <button onClick={() => setStatus(c.id, 'pending')} title="En attente"
+                          className="h-9 w-9 rounded-lg border border-white/10 text-gray-400 hover:text-white transition-colors flex items-center justify-center">
+                          <Eye className="h-4 w-4" />
+                        </button>
+                      )}
+                      {c.status !== 'spam' && (
+                        <button onClick={() => setStatus(c.id, 'spam')} title="Marquer spam"
+                          className="h-9 w-9 rounded-lg border border-white/10 text-gray-400 hover:text-accent-orange transition-colors flex items-center justify-center">
+                          <Ban className="h-4 w-4" />
+                        </button>
+                      )}
+                      <button onClick={() => remove(c.id)} title="Supprimer"
+                        className="h-9 w-9 rounded-lg border border-white/10 text-gray-400 hover:text-accent-red transition-colors flex items-center justify-center">
+                        <Trash2 className="h-4 w-4" />
+                      </button>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-1 flex-shrink-0">
+                  <div className="hidden sm:flex items-center gap-1 flex-shrink-0">
                     {c.status !== 'published' && (
                       <button onClick={() => setStatus(c.id, 'published')} title="Publier"
                         className="h-9 w-9 rounded-lg border border-white/10 text-gray-400 hover:text-green transition-colors flex items-center justify-center">

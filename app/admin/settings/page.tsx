@@ -68,13 +68,13 @@ export default function AdminSettingsPage() {
 
   return (
     <div className="space-y-6 max-w-3xl">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
         <div>
-          <h1 className="text-2xl font-bold text-white">{t('admin.settings.title')}</h1>
+          <h1 className="text-xl sm:text-2xl font-bold text-white">{t('admin.settings.title')}</h1>
           <p className="text-sm text-gray-400 mt-1">Configuration globale du site</p>
         </div>
         <button onClick={handleSave} disabled={saving}
-          className="h-10 px-5 rounded-xl bg-green text-bg-primary text-sm font-semibold hover:bg-green-dark hover:shadow-glow transition-all flex items-center gap-2 disabled:opacity-50">
+          className="h-10 px-5 rounded-xl bg-green text-bg-primary text-sm font-semibold hover:bg-green-dark hover:shadow-glow transition-all flex items-center justify-center gap-2">
           {saving ? <Loader2 className="h-4 w-4 animate-spin" /> : <Save className="h-4 w-4" />}
           {t('admin.settings.save')}
         </button>
@@ -106,7 +106,7 @@ export default function AdminSettingsPage() {
 
 function SectionCard({ icon: Icon, title, children }: { icon: React.ElementType; title: string; children: React.ReactNode }) {
   return (
-    <div className="bg-bg-card border border-white/6 rounded-2xl p-6 shadow-card space-y-4">
+    <div className="bg-bg-card border border-white/6 rounded-2xl p-4 sm:p-6 shadow-card space-y-4">
       <div className="flex items-center gap-3 pb-2 border-b border-white/6">
         <Icon className="h-5 w-5 text-green" />
         <h2 className="text-lg font-semibold text-white">{title}</h2>

@@ -240,7 +240,7 @@ function ButtonsEditor({ buttons, onChange }: {
     <div className="space-y-3">
       {buttons.map((btn, i) => (
         <div key={i} className="flex items-start gap-2">
-          <div className="flex-1 grid grid-cols-3 gap-2">
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-2">
             <input value={btn.label} onChange={(e) => update(i, 'label', e.target.value)}
               placeholder="Label" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none" />
             <input value={btn.href} onChange={(e) => update(i, 'href', e.target.value)}
@@ -273,7 +273,7 @@ function SingleButtonEditor({ button, onChange }: {
 }) {
   return (
     <div className="flex items-start gap-2">
-      <div className="flex-1 grid grid-cols-3 gap-2">
+      <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-2">
         <input value={button.label} onChange={(e) => onChange({ ...button, label: e.target.value })}
           placeholder="Label" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none" />
         <input value={button.href} onChange={(e) => onChange({ ...button, href: e.target.value })}
@@ -436,7 +436,7 @@ function ImagesEditor({ images, onChange }: {
             onChange={(url) => update(i, 'url', url)}
             placeholder="https://… ou /home.jpeg"
           />
-          <div className="grid grid-cols-2 gap-2">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
             <input value={img.alt ?? ''} onChange={(e) => update(i, 'alt', e.target.value)}
               placeholder="Texte alternatif" className="rounded-lg border border-white/10 bg-white px-3 py-2 text-sm text-gray-900 placeholder:text-gray-400 focus:border-green/50 focus:outline-none" />
             <input value={img.caption ?? ''} onChange={(e) => update(i, 'caption', e.target.value)}
@@ -503,7 +503,7 @@ function StatsEditor({ stats, onChange }: {
       <h4 className="text-sm font-semibold text-gray-300 uppercase tracking-wider">Statistiques</h4>
       {stats.map((stat, i) => (
         <div key={i} className="flex items-start gap-2">
-          <div className="flex-1 grid grid-cols-3 gap-2">
+          <div className="flex-1 grid grid-cols-1 sm:grid-cols-3 gap-2">
             <input
               type="number"
               value={stat.value}
