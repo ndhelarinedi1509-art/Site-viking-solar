@@ -2,7 +2,7 @@ import { NextResponse, type NextRequest } from 'next/server'
 import { createClient } from '@supabase/supabase-js'
 
 const COOKIE_NAME = 'viking-admin-session'
-const PUBLIC_ADMIN_ROUTES = ['/admin/login']
+const PUBLIC_ADMIN_ROUTES = ['/admin/login', '/admin/setup']
 
 async function validateSession(sessionId: string) {
   try {
