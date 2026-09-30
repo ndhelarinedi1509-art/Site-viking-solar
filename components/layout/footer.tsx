@@ -222,7 +222,7 @@ export function Footer() {
                   height={32}
                 />
                 <span className="text-lg font-normal text-white tracking-tight">
-                  Vicking <span className="font-bold">Solar</span>
+                  Viking <span className="font-bold">Solar</span>
                 </span>
               </Link>
               <p className="text-sm text-gray-400 leading-relaxed mb-2 max-w-xs">
@@ -320,7 +320,7 @@ export function Footer() {
               aria-label="Administration"
               title=""
             >
-              &copy; {currentYear} Vicking Solar. {t('footer.rights')}
+              &copy; {currentYear} Viking Solar. {t('footer.rights')}
             </Link>
 
             {/* ── Fournisseur ── */}

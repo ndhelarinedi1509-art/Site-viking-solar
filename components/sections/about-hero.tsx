@@ -13,7 +13,7 @@ export function AboutHero({ section }: AboutHeroProps) {
 
   const badge = sectionString(section, 'badge') || t('hero.about.badge');
   const title = section?.title || t('hero.about.title');
-  const titleHighlight = sectionString(section, 'titleHighlight') || 'Vicking Solar';
+  const titleHighlight = sectionString(section, 'titleHighlight') || 'Viking Solar';
   const description = section?.description || t('hero.about.description');
   const buttons =
     sectionButtons(section).length > 0

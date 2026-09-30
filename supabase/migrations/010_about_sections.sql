@@ -12,11 +12,11 @@
 -- Hero : badge, title, highlight, description, buttons
 INSERT INTO page_sections (page_key, section_key, section_type, label, title, subtitle, description, content, images, sort_order)
 VALUES (
-  'about', 'hero', 'hero', 'Hero - À propos', 'Qui sommes-nous ?', 'Vicking Solar',
+  'about', 'hero', 'hero', 'Hero - À propos', 'Qui sommes-nous ?', 'Viking Solar',
   'Viking Solar est une entreprise congolaise spécialisée dans les solutions d''énergie solaire : installation, systèmes hybrides et maintenance pour particuliers, entreprises et industries.',
   $JSON${
     "badge": "À propos",
-    "titleHighlight": "Vicking Solar",
+    "titleHighlight": "Viking Solar",
     "buttons": [
       {"label": "Nos services", "href": "/services", "variant": "primary"},
       {"label": "Contactez-nous", "href": "/contact", "variant": "outline"}
@@ -41,7 +41,7 @@ SET
 INSERT INTO page_sections (page_key, section_key, section_type, label, title, subtitle, description, content, images, sort_order)
 VALUES (
   'about', 'innovation', 'text', 'Notre Histoire & Mission', 'L''innovation', '',
-  'Depuis notre création, Vicking Solar s''est imposé comme un acteur incontournable de l''énergie solaire en RDC. Fondée à Kinshasa, notre entreprise est née d''une vision simple : offrir au Congo une énergie fiable, propre et accessible pour tous. Grâce à une équipe d''ingénieurs et de techniciens congolais passionnés, nous concevons, installons et entretenons des systèmes solaires résidentiels, commerciaux et industriels de haute qualité. Chaque projet est une promesse tenue : des équipements certifiés, une installation soignée et un accompagnement sur le long terme.',
+  'Depuis notre création, Viking Solar s''est imposé comme un acteur incontournable de l''énergie solaire en RDC. Fondée à Kinshasa, notre entreprise est née d''une vision simple : offrir au Congo une énergie fiable, propre et accessible pour tous. Grâce à une équipe d''ingénieurs et de techniciens congolais passionnés, nous concevons, installons et entretenons des systèmes solaires résidentiels, commerciaux et industriels de haute qualité. Chaque projet est une promesse tenue : des équipements certifiés, une installation soignée et un accompagnement sur le long terme.',
   $JSON${
     "badge": "Notre histoire & notre mission",
     "titleHighlight": "au cœur du Congo"

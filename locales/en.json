@@ -42,7 +42,7 @@
     "about": {
       "badge": "OUR STORY, OUR MISSION",
       "title": "About Us",
-      "description": "Discover the story, vision and team that make Vicking Solar the Congolese leader in solar energy.",
+      "description": "Discover the story, vision and team that make Viking Solar the Congolese leader in solar energy.",
       "cta1": "Discover our story"
     },
     "services": {
@@ -64,7 +64,7 @@
     "contact": {
       "badge": "YOUR PARTNER IN SUSTAINABLE SOLAR ENERGY",
       "title": "Contact",
-      "titleHighlight": "Vicking Solar",
+      "titleHighlight": "Viking Solar",
       "description": "Our team is ready to support you in your energy projects. Request a quote or ask us your questions."
     }
   },
@@ -83,7 +83,7 @@
       "badge": "About",
       "title": "Local Expertise,",
       "titleHighlight": "International Standards",
-      "paragraph1": "At Vicking Solar, we are a team of experts based in the Democratic Republic of Congo, specialized in solar energy solutions. We combine our local knowledge with the most advanced technologies to transform Congo's energy landscape.",
+      "paragraph1": "At Viking Solar, we are a team of experts based in the Democratic Republic of Congo, specialized in solar energy solutions. We combine our local knowledge with the most advanced technologies to transform Congo's energy landscape.",
       "paragraph2": "Our methodology is based on a personalized approach — we analyze your specific needs, propose tailored solutions and ensure rigorous follow-up of each installation.",
       "highlight1": "Complete and reliable engineering",
       "highlight2": "Certified cutting-edge equipment",
@@ -117,7 +117,7 @@
       "badge": "OUR STORY",
       "title": "Who We",
       "titleHighlight": "Really Are",
-      "description": "Since our creation, Vicking Solar has established itself as a key player in solar energy in the DRC.",
+      "description": "Since our creation, Viking Solar has established itself as a key player in solar energy in the DRC.",
       "description2": "Thanks to a passionate team of Congolese engineers and technicians, we design, install and maintain high-quality residential, commercial and industrial solar systems. Every project is a promise kept: certified equipment, careful installation and long-term support.",
       "mission": "Our mission is clear: to make solar energy accessible, reliable and sustainable for every Congolese home, business and industry.",
       "missionLabel": "Our mission",
@@ -150,7 +150,7 @@
       "title2": "Sustainable Commitment",
       "desc2": "We are committed to reducing our clients carbon footprint while contributing to local economic development and the creation of green jobs in the DRC.",
       "title3": "Our Story",
-      "desc3": "Founded in Kinshasa, Vicking Solar was born from a simple vision: to offer Congo reliable, clean and accessible energy for all.",
+      "desc3": "Founded in Kinshasa, Viking Solar was born from a simple vision: to offer Congo reliable, clean and accessible energy for all.",
       "title4": "Mission",
       "desc4": "Democratizing access to solar energy in the DRC by offering innovative, reliable solutions adapted to local realities.",
       "heroTitle": "Innovation at the heart of the Congo"
@@ -179,9 +179,9 @@
     "benefits": {
       "badge": "Why choose us",
       "title": "",
-      "titleHighlight": "Vicking Solar",
+      "titleHighlight": "Viking Solar",
       "titleHighlightEnd": "Advantages",
-      "description": "Choosing Vicking Solar means opting for local expertise, cutting-edge technology and quality human support."
+      "description": "Choosing Viking Solar means opting for local expertise, cutting-edge technology and quality human support."
     },
     "projects": {
       "badge": "Our work",
@@ -192,7 +192,7 @@
     "cta": {
       "badge": "Let's take action",
       "title": "Switch to solar energy today.",
-      "description": "Join the hundreds of Congolese households and businesses that have already chosen Vicking Solar. Get your free study within 24 hours.",
+      "description": "Join the hundreds of Congolese households and businesses that have already chosen Viking Solar. Get your free study within 24 hours.",
       "whatsapp": "Contact on WhatsApp",
       "quote": "Request a quote"
     }
@@ -463,7 +463,7 @@
       "badge": "News",
       "title": "All the news",
       "titleHighlight": "Viking Solar",
-      "description": "Stay informed about the latest news, promotions and innovations from Vicking Solar in Kinshasa, DRC."
+      "description": "Stay informed about the latest news, promotions and innovations from Viking Solar in Kinshasa, DRC."
     },
     "grid": {
       "title": "Latest news",
@@ -632,7 +632,7 @@
       "projects": "Projets"
     },
     "loginExtra": {
-      "workspace": "Vicking Solar Workspace",
+      "workspace": "Viking Solar Workspace",
       "tagline": "Your partner in sustainable solar energy",
       "adminId": "Admin ID",
       "adminPlaceholder": "ex: admin@vickingsolar.com",

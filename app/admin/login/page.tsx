@@ -122,7 +122,7 @@ export default function AdminLoginPage() {
         <div className="bg-bg-card border border-white/6 rounded-2xl p-8 shadow-card">
           <div className="flex flex-col items-center mb-8">
             <div className="w-20 h-20 rounded-full flex items-center justify-center mb-4 overflow-hidden bg-white/10 border border-white/10">
-              <img src="/logo.webp" alt="Vicking Solar" className="h-full w-full object-contain" />
+              <img src="/logo.webp" alt="Viking Solar" className="h-full w-full object-contain" />
             </div>
             <h1 className="text-xl font-bold text-white">{t('admin.loginExtra.workspace')}</h1>
             <p className="text-sm text-gray-400 mt-1">{t('admin.loginExtra.tagline')}</p>

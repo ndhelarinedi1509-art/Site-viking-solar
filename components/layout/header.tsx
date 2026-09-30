@@ -57,7 +57,7 @@ export function Header() {
                 priority
               />
               <span className="text-lg font-normal text-white tracking-tight">
-                Vicking <span className="font-bold">Solar</span>
+                Viking <span className="font-bold">Solar</span>
               </span>
             </Link>
 

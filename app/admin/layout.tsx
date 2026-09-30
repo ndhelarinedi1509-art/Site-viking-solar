@@ -49,14 +49,14 @@ function SidebarContent({ sidebarOpen, setSidebarOpen, isMobile, pathname, t, pa
         {sidebarOpen ? (
           <Link href="/admin" onClick={() => isMobile && setSidebarOpen(false)} className="flex items-center gap-3">
             <div className="w-9 h-9 rounded-full flex items-center justify-center flex-shrink-0 overflow-hidden bg-white/10">
-              <img src="/logo.webp" alt="Vicking Solar" className="h-full w-full object-contain" />
+              <img src="/logo.webp" alt="Viking Solar" className="h-full w-full object-contain" />
             </div>
-            <span className="text-base font-bold text-white">Vicking Solar</span>
+            <span className="text-base font-bold text-white">Viking Solar</span>
           </Link>
         ) : (
           <Link href="/admin" onClick={() => isMobile && setSidebarOpen(false)}>
             <div className="w-9 h-9 rounded-full flex items-center justify-center overflow-hidden bg-white/10">
-              <img src="/logo.webp" alt="Vicking Solar" className="h-full w-full object-contain" />
+              <img src="/logo.webp" alt="Viking Solar" className="h-full w-full object-contain" />
             </div>
           </Link>
         )}

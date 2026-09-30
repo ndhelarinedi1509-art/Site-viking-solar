@@ -69,7 +69,7 @@ export function HomeAboutPreview({ section }: HomeAboutPreviewProps) {
                 <div className="relative w-full max-w-md aspect-[4/3] rounded-2xl border border-border bg-bg-card overflow-hidden">
                   <Image
                     src={image.url}
-                    alt={image.alt || 'À propos de Vicking Solar'}
+                    alt={image.alt || 'À propos de Viking Solar'}
                     fill
                     className="object-cover"
                   />

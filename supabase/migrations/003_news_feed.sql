@@ -168,13 +168,13 @@ INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_p
     'Nouvelle Promotion : -20% sur les Kits Solaires',
     'nouvelle-promotion-20-kits-solaires',
     'Profitez d''une réduction exceptionnelle de 20% sur tous nos kits solaires résidentiels jusqu''à la fin du mois.',
-    'Vicking Solar lance une promotion exceptionnelle sur l''ensemble de sa gamme de kits solaires résidentiels. Que vous souhaitiez équiper votre maison d''un système de 3kW ou de 10kW, bénéficiez de 20% de réduction sur le prix total de l''installation. Offre valable jusqu''au 31 juillet 2026.',
+    'Viking Solar lance une promotion exceptionnelle sur l''ensemble de sa gamme de kits solaires résidentiels. Que vous souhaitiez équiper votre maison d''un système de 3kW ou de 10kW, bénéficiez de 20% de réduction sur le prix total de l''installation. Offre valable jusqu''au 31 juillet 2026.',
     (SELECT id FROM news_categories WHERE slug = 'promotion'),
     'published', true, ARRAY['solaires','promotion','kits'],
     '2026-07-01T08:00:00Z'
   ),
   (
-    'Vicking Solar au Salon de l''Énergie 2026',
+    'Viking Solar au Salon de l''Énergie 2026',
     'vicking-solar-au-salon-de-l-energie-2026',
     'Venez nous rencontrer au Salon International de l''Énergie de Kinshasa du 15 au 18 juillet.',
     'Nous serons présents au Salon International de l''Énergie de Kinshasa pour vous présenter nos dernières innovations en matière d''énergie solaire. Découvrez nos nouveaux panneaux à haut rendement et nos solutions de stockage nouvelle génération. Entrée gratuite sur invitation.',
@@ -194,7 +194,7 @@ INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_p
   (
     'Nouveau Partenariat avec SolarTech',
     'nouveau-partenariat-avec-solartech',
-    'Vicking Solar signe un partenariat stratégique avec SolarTech pour distribuer exclusivement leurs panneaux nouvelle génération en RDC.',
+    'Viking Solar signe un partenariat stratégique avec SolarTech pour distribuer exclusivement leurs panneaux nouvelle génération en RDC.',
     'Nous avons le plaisir d''annoncer notre partenariat exclusif avec SolarTech, fabricant mondial de panneaux solaires haut de gamme. Cette collaboration nous permet de vous offrir des panneaux monocristallins de dernière génération avec un rendement record de 24,5%. Disponibles dès maintenant dans notre showroom.',
     (SELECT id FROM news_categories WHERE slug = 'partenariat'),
     'published', false, ARRAY['partenariat','solartech','panneaux'],
@@ -213,7 +213,7 @@ INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_p
     'Témoignage : La Famille Mbemba passe au Solaire',
     'temoinage-famille-mbemba-passe-au-solaire',
     'Découvrez comment la famille Mbemba a réduit sa facture d''électricité de 80% grâce à notre installation solaire.',
-    'La famille Mbemba, résidant à Ngaliema, a fait le choix du solaire avec Vicking Solar. Installés depuis 6 mois, leurs panneaux solaires de 8kW couvrent désormais 80% de leurs besoins énergétiques. ''Nous économisons près de 300$ par mois et nous n''avons plus de coupures'', témoigne M. Mbemba.',
+    'La famille Mbemba, résidant à Ngaliema, a fait le choix du solaire avec Viking Solar. Installés depuis 6 mois, leurs panneaux solaires de 8kW couvrent désormais 80% de leurs besoins énergétiques. ''Nous économisons près de 300$ par mois et nous n''avons plus de coupures'', témoigne M. Mbemba.',
     (SELECT id FROM news_categories WHERE slug = 'temoinage'),
     'published', false, ARRAY['temoignage','clients','familiale'],
     '2026-06-05T08:00:00Z'
@@ -222,7 +222,7 @@ INSERT INTO news_posts (title, slug, excerpt, content, category_id, status, is_p
     'Formation Gratuite : Tout savoir sur le Solaire',
     'formation-gratuite-tout-savoir-sur-le-solaire',
     'Inscrivez-vous à notre formation gratuite sur l''énergie solaire ouverte à tous les résidents de Kinshasa.',
-    'Vicking Solar organise une formation gratuite d''une journée sur les bases de l''énergie solaire. Au programme : fonctionnement des panneaux, dimensionnement d''installation, entretien et maintenance. La formation aura lieu dans nos locaux à Kinshasa. Places limitées, inscription obligatoire.',
+    'Viking Solar organise une formation gratuite d''une journée sur les bases de l''énergie solaire. Au programme : fonctionnement des panneaux, dimensionnement d''installation, entretien et maintenance. La formation aura lieu dans nos locaux à Kinshasa. Places limitées, inscription obligatoire.',
     (SELECT id FROM news_categories WHERE slug = 'formation'),
     'published', false, ARRAY['formation','gratuit','savoir'],
     '2026-06-01T08:00:00Z'

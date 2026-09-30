@@ -15,7 +15,7 @@ import { RealtimeRefresh } from '@/components/realtime-refresh';
 
 export const metadata = generateSiteMetadata(
   'À propos',
-  'Découvrez Vicking Solar, entreprise congolaise spécialisée dans les solutions solaires innovantes à Kinshasa, RDC. Notre équipe d\'experts vous accompagne vers un avenir énergétique durable.',
+  'Découvrez Viking Solar, entreprise congolaise spécialisée dans les solutions solaires innovantes à Kinshasa, RDC. Notre équipe d\'experts vous accompagne vers un avenir énergétique durable.',
   '/about',
 );
 

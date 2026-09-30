@@ -168,7 +168,7 @@ SET
 INSERT INTO page_sections (page_key, section_key, section_type, label, title, subtitle, description, content, images, sort_order)
 VALUES (
   'services', 'cta', 'cta', 'CTA - Devis', 'Passez à l''énergie solaire dès aujourd''hui.', '',
-  'Rejoignez les centaines de foyers et entreprises congolaises qui ont déjà choisi Vicking Solar. Obtenez votre étude gratuite sous 24h.',
+  'Rejoignez les centaines de foyers et entreprises congolaises qui ont déjà choisi Viking Solar. Obtenez votre étude gratuite sous 24h.',
   $JSON${
     "badge": "Passons à l'action",
     "button": {"label": "Demander un devis", "href": "/contact", "variant": "primary"}
