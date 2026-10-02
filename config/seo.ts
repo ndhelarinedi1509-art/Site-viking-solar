@@ -13,6 +13,7 @@ export function generateSiteMetadata(
   const url = path ? `${SITE_CONFIG.url}${path}` : SITE_CONFIG.url;
 
   return {
+    metadataBase: new URL(SITE_CONFIG.url),
     title,
     description: description || SITE_CONFIG.description,
     openGraph: {

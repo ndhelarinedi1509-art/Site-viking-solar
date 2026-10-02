@@ -15,6 +15,7 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || 'https://vickingsolar.com'),
   title: 'Viking Solar | Énergie solaire durable à Kinshasa RDC',
   description:
     "Viking Solar – Votre partenaire en énergie solaire durable à Kinshasa, RDC. Solutions solaires fiables pour particuliers, entreprises et industries. Énergie de demain, disponible aujourd'hui.",

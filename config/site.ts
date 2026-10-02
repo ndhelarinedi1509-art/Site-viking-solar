@@ -17,6 +17,8 @@ export const SITE_CONFIG = {
     tiktok: process.env.NEXT_PUBLIC_SOCIAL_TIKTOK || 'https://www.tiktok.com/@vicking.solar',
   },
   copyright: `© ${new Date().getFullYear()} Viking Solar. Tous droits réservés.`,
-  ogImage: '/og-image.jpg',
+  // Generee a la volee par app/og/route.tsx : une image declaree mais absente
+  // du depot donne un lien sans apercu sur WhatsApp, Facebook et LinkedIn.
+  ogImage: '/og',
   logo: { icon: '/logo-icon.svg', full: '/logo-full.svg' },
 } as const;
