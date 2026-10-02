@@ -11,11 +11,12 @@ import { useTranslation } from 'react-i18next';
 
 const contactSchema = (t: (key: string) => string) =>
   z.object({
-    name: z.string().min(1, t('formErrors.name')),
-    phone: z.string().min(1, t('formErrors.phone')),
-    email: z.string().min(1, t('formErrors.email')).email(t('formErrors.emailInvalid')),
-    service: z.string().min(1, t('formErrors.service')),
-    message: z.string().min(1, t('formErrors.message')),
+    name: z.string().trim().min(1, t('formErrors.name')),
+    phone: z.string().trim().min(1, t('formErrors.phone')),
+    email: z.string().trim().min(1, t('formErrors.email')).email(t('formErrors.emailInvalid')),
+    service: z.string().trim().min(1, t('formErrors.service')),
+    subject: z.string().trim().min(3, t('formErrors.subject')).max(150, t('formErrors.subject')),
+    message: z.string().trim().min(1, t('formErrors.message')),
   });
 
 type ContactFormData = z.infer<ReturnType<typeof contactSchema>>;
@@ -250,6 +251,22 @@ export function ContactFormSection({ mapUrl, embedUrl }: ContactFormSectionProps
                     ))}
                   </select>
                   {errors.service?.message && <p className="mt-1 text-[0.7rem] text-red-400">{errors.service.message}</p>}
+                </div>
+
+                <div>
+                  <label htmlFor="subject" className="block text-[0.85rem] font-medium text-gray-300 mb-1.5">
+                    {t('contact.form.subject')}
+                  </label>
+                  <input
+                    id="subject"
+                    type="text"
+                    placeholder={t('contact.form.subjectPlaceholder')}
+                    {...register('subject')}
+                    className="w-full rounded-lg border border-white/10 bg-white px-3.5 py-2.5 text-sm text-gray-900 placeholder:text-gray-400 transition-colors focus:border-green focus:bg-gray-50 focus:outline-none"
+                  />
+                  {errors.subject?.message && (
+                    <p className="mt-1 text-[0.7rem] text-red-400">{errors.subject.message}</p>
+                  )}
                 </div>
 
                 <div>

@@ -18,6 +18,7 @@
     "db:pooler": "node scripts/probe-pooler.mjs",
     "db:clean-test": "node scripts/db-clean-test-leads.mjs",
     "i18n:audit": "node scripts/audit-i18n-keys.mjs",
+    "i18n:prune": "node scripts/prune-i18n-keys.mjs",
     "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
     "db:types": "supabase gen types typescript --project-id YOUR_PROJECT_ID > types/database.generated.ts",
     "db:push": "psql $DATABASE_URL -f supabase/schema.sql",

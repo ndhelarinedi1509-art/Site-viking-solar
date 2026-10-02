@@ -405,7 +405,9 @@
       "submit": "Send message",
       "sending": "Sending...",
       "success": "Message sent successfully!",
-      "error": "An error occurred. Please try again."
+      "error": "An error occurred. Please try again.",
+      "subject": "Request subject",
+      "subjectPlaceholder": "e.g. 6 kW solar installation for my home"
     },
     "map": {
       "title": "Our Office in Kinshasa",
@@ -590,25 +592,20 @@
       "error": "Invalid credentials"
     },
     "dashboard": {
-      "title": "Dashboard",
-      "messages": "Messages",
       "projects": "Projects",
-      "content": "Content",
-      "team": "Team",
-      "settings": "Settings",
-      "logout": "Logout",
       "overview": "Global Overview",
-      "projectsCompleted": "Projects Completed",
-      "visitors30d": "Visitors 30d",
       "quoteRequests": "Quote Requests",
-      "newMessages": "New Messages",
-      "recentActivity": "Recent Activity",
-      "activity1": "New quote requested by Jean Dupont – Solar installation",
-      "activity2": "Message received from Marie Claire – Battery info request",
-      "activity3": "Project \"Villa Lumière\" marked as completed",
-      "timeAgo2h": "2h ago",
-      "timeAgo5h": "5h ago",
-      "timeYesterday": "Yesterday"
+      "unreadQuotes": "Unread quotes",
+      "subscribers": "Newsletter subscribers",
+      "quickActions": "Quick actions",
+      "latestQuotes": "Latest quote requests",
+      "viewAll": "View all",
+      "overviewHint": "Manage your website content and track incoming quote requests.",
+      "newQuoteNotification_one": "1 new quote request to handle",
+      "newQuoteNotification_other": "{{count}} new quote requests to handle",
+      "pages": "Site pages",
+      "newQuoteNotificationFirst": "{{name}} — “{{subject}}”",
+      "newQuoteNotificationMore": "{{name}} — “{{subject}}”, and {{count}} other waiting."
     },
     "layout": {
       "dashboard": "Dashboard",
@@ -643,15 +640,49 @@
     },
     "messages": {
       "inbox": "Inbox",
-      "status": "Status",
-      "date": "Date",
+      "status": {
+        "new": "Unread",
+        "read": "Read",
+        "replied": "Replied",
+        "archived": "Archived"
+      },
       "name": "Name",
       "service": "Service",
       "message": "Message",
-      "action": "Action",
-      "open": "Open",
-      "new": "New",
-      "read": "Read"
+      "subject": "Subject",
+      "email": "Email address",
+      "phone": "Phone",
+      "back": "Back to the list",
+      "refresh": "Refresh",
+      "unreadLabel": "unread messages",
+      "unreadCount_one": "{{count}} unread message",
+      "unreadCount_other": "{{count}} unread messages",
+      "noSubject": "No subject",
+      "filterLabel": "Filter requests",
+      "filter": {
+        "all": "All",
+        "new": "Unread",
+        "replied": "Replied"
+      },
+      "markAsRead": "Mark as read",
+      "markAsUnread": "Mark as unread",
+      "delete": "Delete",
+      "deleteConfirm": "Permanently delete this request? This cannot be undone.",
+      "reply": "Reply",
+      "replyHistory": "Reply sent",
+      "replyTitle": "Reply to the customer",
+      "replyTo": "To {{name}} — {{email}}",
+      "replyBody": "Your reply",
+      "replyPlaceholder": "Hello, thank you for your request. Regarding your project, we can offer…",
+      "sendReply": "Send reply",
+      "sendingReply": "Sending…",
+      "cancel": "Cancel",
+      "replySent": "Reply sent to the customer.",
+      "replyFailed": "The reply could not be sent.",
+      "statusUpdated": "Status updated.",
+      "empty": "No quote requests yet.",
+      "emptyHint": "Requests submitted through the “Free quote” form appear here automatically.",
+      "loadError": "Could not load the messages."
     },
     "projectsPage": {
       "management": "Project Management",
@@ -767,7 +798,8 @@
     "emailInvalid": "Invalid email format",
     "service": "Please select a service",
     "message": "Message is required",
-    "password": "Password is required"
+    "password": "Password is required",
+    "subject": "A subject is required (3 characters minimum)"
   },
   "faq": [
     {

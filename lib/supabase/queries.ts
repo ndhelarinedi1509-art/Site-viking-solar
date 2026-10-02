@@ -149,6 +149,7 @@ export async function createContactMessage(data: {
   email: string;
   phone?: string;
   service?: string;
+  subject?: string;
   message: string;
 }) {
   const supabase = getAdminClient();

@@ -405,7 +405,9 @@
       "submit": "Envoyer le message",
       "sending": "Envoi en cours...",
       "success": "Message envoyé avec succès !",
-      "error": "Une erreur est survenue. Veuillez réessayer."
+      "error": "Une erreur est survenue. Veuillez réessayer.",
+      "subject": "Objet de la demande",
+      "subjectPlaceholder": "Ex. : Installation solaire 6 kW pour ma maison"
     },
     "map": {
       "title": "Nos Bureaux à Kinshasa",
@@ -590,25 +592,20 @@
       "error": "Identifiants incorrects"
     },
     "dashboard": {
-      "title": "Tableau de bord",
-      "messages": "Messages",
       "projects": "Projets",
-      "content": "Contenu",
-      "team": "Équipe",
-      "settings": "Paramètres",
-      "logout": "Déconnexion",
       "overview": "Aperçu Global",
-      "projectsCompleted": "Projets Réalisés",
-      "visitors30d": "Visiteurs 30j",
       "quoteRequests": "Demandes Devis",
-      "newMessages": "Nouveaux Messages",
-      "recentActivity": "Activité Récente",
-      "activity1": "Nouveau devis demandé par Jean Dupont – Installation solaire",
-      "activity2": "Message reçu de Marie Claire – Demande info batteries",
-      "activity3": "Projet \"Villa Lumière\" marqué comme terminé",
-      "timeAgo2h": "Il y a 2h",
-      "timeAgo5h": "Il y a 5h",
-      "timeYesterday": "Hier"
+      "unreadQuotes": "Devis non lus",
+      "subscribers": "Abonnés newsletter",
+      "quickActions": "Actions rapides",
+      "latestQuotes": "Dernières demandes de devis",
+      "viewAll": "Voir tout",
+      "overviewHint": "Gérez le contenu de votre site et suivez les demandes de devis reçues.",
+      "newQuoteNotification_one": "Nouvelle demande de devis à traiter",
+      "newQuoteNotification_other": "{{count}} nouvelles demandes de devis à traiter",
+      "pages": "Pages du site",
+      "newQuoteNotificationFirst": "{{name}} — « {{subject}} »",
+      "newQuoteNotificationMore": "{{name}} — « {{subject}} », et {{count}} autre en attente."
     },
     "layout": {
       "dashboard": "Dashboard",
@@ -643,15 +640,49 @@
     },
     "messages": {
       "inbox": "Boîte de réception",
-      "status": "Statut",
-      "date": "Date",
+      "status": {
+        "new": "Non lu",
+        "read": "Lu",
+        "replied": "Répondu",
+        "archived": "Archivé"
+      },
       "name": "Nom",
       "service": "Service",
       "message": "Message",
-      "action": "Action",
-      "open": "Ouvrir",
-      "new": "Nouveau",
-      "read": "Lu"
+      "subject": "Objet",
+      "email": "Adresse e-mail",
+      "phone": "Téléphone",
+      "back": "Retour à la liste",
+      "refresh": "Actualiser",
+      "unreadLabel": "messages non lus",
+      "unreadCount_one": "{{count}} message non lu",
+      "unreadCount_other": "{{count}} messages non lus",
+      "noSubject": "Sans objet",
+      "filterLabel": "Filtrer les demandes",
+      "filter": {
+        "all": "Toutes",
+        "new": "Non lus",
+        "replied": "Répondu"
+      },
+      "markAsRead": "Marquer comme lu",
+      "markAsUnread": "Marquer comme non lu",
+      "delete": "Supprimer",
+      "deleteConfirm": "Supprimer définitivement cette demande ? Cette action est irréversible.",
+      "reply": "Répondre",
+      "replyHistory": "Réponse envoyée",
+      "replyTitle": "Répondre au client",
+      "replyTo": "À {{name}} — {{email}}",
+      "replyBody": "Votre réponse",
+      "replyPlaceholder": "Bonjour, merci pour votre demande. Concernant votre projet, nous pouvons proposer…",
+      "sendReply": "Envoyer la réponse",
+      "sendingReply": "Envoi…",
+      "cancel": "Annuler",
+      "replySent": "Réponse envoyée au client.",
+      "replyFailed": "La réponse n'a pas pu être envoyée.",
+      "statusUpdated": "Statut mis à jour.",
+      "empty": "Aucune demande de devis pour le moment.",
+      "emptyHint": "Les demandes envoyées depuis le formulaire « Devis gratuit » apparaissent ici automatiquement.",
+      "loadError": "Impossible de charger les messages."
     },
     "projectsPage": {
       "management": "Gestion des Projets",
@@ -786,7 +817,8 @@
     "emailInvalid": "Format d'email invalide",
     "service": "Veuillez sélectionner un service",
     "message": "Le message est requis",
-    "password": "Le mot de passe est requis"
+    "password": "Le mot de passe est requis",
+    "subject": "L'objet de la demande est requis (3 caractères minimum)"
   },
   "faq": [
     {

@@ -10,6 +10,7 @@ import {
   Home, Newspaper, Info, Zap, FolderOpen, MessageSquareText, Tags, TriangleAlert,
 } from 'lucide-react';
 import type { PageInfo } from '@/types';
+import { UNREAD_CHANGED_EVENT } from '@/lib/admin-events';
 
 const iconMap: Record<string, React.ElementType> = {
   Home, Newspaper, Info, Zap, FolderOpen, Mail,
@@ -24,22 +25,23 @@ type SidebarProps = {
   pages: PageInfo[];
   sessionUser: { name: string; email: string; role: string } | null;
   sessionLoading: boolean;
+  unreadCount: number;
 };
 
-function SidebarContent({ sidebarOpen, setSidebarOpen, isMobile, pathname, t, pages, sessionUser, sessionLoading }: SidebarProps) {
+function SidebarContent({ sidebarOpen, setSidebarOpen, isMobile, pathname, t, pages, sessionUser, sessionLoading, unreadCount }: SidebarProps) {
   const mainNavItems = [
-    { href: '/admin', label: t('admin.layout.dashboard'), icon: LayoutDashboard },
-    { href: '/admin/pages', label: t('admin.layout.pages'), icon: FileEdit },
-    { href: '/admin/news', label: t('admin.layout.news'), icon: Newspaper },
-    { href: '/admin/comments', label: t('admin.layout.comments'), icon: MessageSquareText },
-    { href: '/admin/categories', label: t('admin.layout.categories'), icon: Tags },
-    { href: '/admin/services', label: t('admin.layout.services'), icon: Zap },
-    { href: '/admin/projects', label: t('admin.layout.projects'), icon: FolderOpen },
-    { href: '/admin/media', label: t('admin.layout.media'), icon: Image },
-    { href: '/admin/messages', label: t('admin.layout.messages'), icon: Mail },
-    { href: '/admin/team', label: t('admin.layout.team'), icon: Users },
-    { href: '/admin/users', label: t('admin.layout.admins'), icon: Users },
-    { href: '/admin/settings', label: t('admin.layout.settings'), icon: Settings },
+    { href: '/admin', label: t('admin.layout.dashboard'), icon: LayoutDashboard, badge: 0 },
+    { href: '/admin/pages', label: t('admin.layout.pages'), icon: FileEdit, badge: 0 },
+    { href: '/admin/news', label: t('admin.layout.news'), icon: Newspaper, badge: 0 },
+    { href: '/admin/comments', label: t('admin.layout.comments'), icon: MessageSquareText, badge: 0 },
+    { href: '/admin/categories', label: t('admin.layout.categories'), icon: Tags, badge: 0 },
+    { href: '/admin/services', label: t('admin.layout.services'), icon: Zap, badge: 0 },
+    { href: '/admin/projects', label: t('admin.layout.projects'), icon: FolderOpen, badge: 0 },
+    { href: '/admin/media', label: t('admin.layout.media'), icon: Image, badge: 0 },
+    { href: '/admin/messages', label: t('admin.layout.messages'), icon: Mail, badge: unreadCount },
+    { href: '/admin/team', label: t('admin.layout.team'), icon: Users, badge: 0 },
+    { href: '/admin/users', label: t('admin.layout.admins'), icon: Users, badge: 0 },
+    { href: '/admin/settings', label: t('admin.layout.settings'), icon: Settings, badge: 0 },
   ];
 
   return (
@@ -92,6 +94,16 @@ function SidebarContent({ sidebarOpen, setSidebarOpen, isMobile, pathname, t, pa
             >
               <item.icon className="h-5 w-5 flex-shrink-0" />
               {(sidebarOpen || isMobile) && item.label}
+              {item.badge > 0 && (
+                <span
+                  className={`ml-auto rounded-full bg-accent-orange px-2 py-0.5 text-[0.65rem] font-bold text-bg-primary ${
+                    !sidebarOpen && !isMobile ? 'sr-only' : ''
+                  }`}
+                >
+                  {item.badge > 99 ? '99+' : item.badge}
+                  <span className="sr-only"> {t('admin.messages.unreadLabel')}</span>
+                </span>
+              )}
             </Link>
           );
         })}
@@ -161,6 +173,16 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [sessionUser, setSessionUser] = useState<{ name: string; email: string; role: string } | null>(null);
   const [sessionLoading, setSessionLoading] = useState(true);
   const [mailProblems, setMailProblems] = useState<string[]>([]);
+  const [unreadCount, setUnreadCount] = useState(0);
+
+  const fetchUnreadCount = useCallback(async () => {
+    try {
+      const res = await fetch('/api/admin/messages-count', { cache: 'no-store' });
+      if (!res.ok) return;
+      const json = await res.json();
+      setUnreadCount(typeof json.count === 'number' ? json.count : 0);
+    } catch { /* silencieux : le badge n'est pas critique */ }
+  }, []);
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 767px)');
@@ -193,6 +215,24 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       .finally(() => setSessionLoading(false));
     fetchPages();
   }, [fetchPages, pathname]);
+
+  // Badge « non lus » : un devis recu doit etre signale sans rechargement manuel.
+  useEffect(() => {
+    if (pathname === '/admin/login') return;
+    fetchUnreadCount();
+    const interval = setInterval(() => {
+      if (document.visibilityState === 'visible') fetchUnreadCount();
+    }, 30_000);
+    return () => clearInterval(interval);
+  }, [pathname, fetchUnreadCount]);
+
+  // La boite de reception signale tout changement de statut : le badge suit
+  // immediatement, sans attendre le prochain sondage.
+  useEffect(() => {
+    const handler = () => fetchUnreadCount();
+    window.addEventListener(UNREAD_CHANGED_EVENT, handler);
+    return () => window.removeEventListener(UNREAD_CHANGED_EVENT, handler);
+  }, [fetchUnreadCount]);
 
   // Alarme visible : une chaine e-mail cassee ne doit pas decouvrir un client.
   useEffect(() => {
@@ -229,6 +269,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             pages={pages}
             sessionUser={sessionUser}
             sessionLoading={sessionLoading}
+            unreadCount={unreadCount}
           />
         </aside>
       ) : (
@@ -244,6 +285,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             pages={pages}
             sessionUser={sessionUser}
             sessionLoading={sessionLoading}
+            unreadCount={unreadCount}
           />
         </aside>
       )}

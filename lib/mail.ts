@@ -113,6 +113,7 @@ export interface ContactSubmission {
   email: string;
   phone: string;
   service: string;
+  subject: string;
   message: string;
 }
 
@@ -155,8 +156,9 @@ function buildFields(data: ContactSubmission): Field[] {
     { label: 'Nom complet', value: name },
     { label: 'Email', value: email, href: `mailto:${email}` },
     { label: 'Téléphone', value: phone, href: `tel:${phone.replace(/[^\d+]/g, '')}` },
-    { label: 'Service demande', value: serviceLabel(data.service) },
-    { label: 'Recu le', value: new Date().toLocaleString('fr-FR', { dateStyle: 'full', timeStyle: 'short' }) },
+    { label: 'Service demandé', value: serviceLabel(data.service) },
+    { label: 'Objet', value: headerSafe(data.subject) || '—' },
+    { label: 'Reçu le', value: new Date().toLocaleString('fr-FR', { dateStyle: 'full', timeStyle: 'short' }) },
   ];
 }
 
@@ -221,7 +223,7 @@ export function adminNotificationHtml(data: ContactSubmission): string {
     <p style="margin:0 0 6px;color:#94a3b8;font-weight:600;">Message&nbsp;:</p>
     <p style="margin:0 0 20px;padding:12px;background-color:#0b1220;border:1px solid #1e293b;border-radius:10px;color:#e2e8f0;white-space:pre-line;">${escapeHtml(data.message)}</p>
     <p style="margin:0;font-size:13px;color:#64748b;">
-      Repondre directement a cet e-mail recontacte le client.
+      Répondre directement à cet e-mail recontacte le client.
       <a href="https://vickingsolar.com/admin/messages" style="color:#22c55e;text-decoration:none;">Voir dans le back-office</a>
     </p>
   `);
@@ -240,20 +242,25 @@ export function adminNotificationText(data: ContactSubmission): string {
     data.message,
     '',
     '---',
-    'Repondre directement a cet e-mail recontacte le client.',
+    'Répondre directement à cet e-mail recontacte le client.',
     'Back-office : https://vickingsolar.com/admin/messages',
   ].join('\n');
 }
 
 export function acknowledgmentHtml(data: ContactSubmission): string {
   const name = escapeHtml(headerSafe(data.name));
+  const subject = escapeHtml(headerSafe(data.subject));
   return layout(`
     <h2 style="margin:0 0 12px;color:#ffffff;font-size:18px;">Merci ${name}&nbsp;!</h2>
     <p style="margin:0 0 12px;color:#e2e8f0;">
-      Votre demande de devis a bien ete transmise a notre equipe. Nous vous en remercions
-      et reviendrons vers vous dans les plus brefs delais.
+      Votre demande de devis a bien été transmise à notre équipe. Nous vous en remercions
+      et reviendrons vers vous dans les plus brefs délais.
     </p>
-    <p style="margin:0 0 16px;color:#94a3b8;">Votre demande concernait&nbsp;: <strong style="color:#e2e8f0;">${escapeHtml(serviceLabel(data.service))}</strong>.</p>
+    <p style="margin:0 0 6px;color:#94a3b8;">Votre demande concernait&nbsp;:</p>
+    <p style="margin:0 0 16px;color:#e2e8f0;font-weight:600;">${subject}</p>
+    <p style="margin:0 0 16px;color:#94a3b8;">
+      Service&nbsp;: <strong style="color:#e2e8f0;">${escapeHtml(serviceLabel(data.service))}</strong>
+    </p>
     <p style="margin:0;color:#64748b;font-size:13px;">
       Si votre demande est urgente, contactez-nous directement au
       <strong style="color:#e2e8f0;">${escapeHtml(env('NEXT_PUBLIC_CONTACT_PHONE') || '+243820128315')}</strong>.
@@ -265,10 +272,11 @@ export function acknowledgmentText(data: ContactSubmission): string {
   return [
     `Merci ${headerSafe(data.name)} !`,
     '',
-    'Votre demande de devis a bien ete transmise a notre equipe. Nous vous en remercions',
-    'et reviendrons vers vous dans les plus brefs delais.',
+    'Votre demande de devis a bien été transmise à notre équipe. Nous vous en remercions',
+    'et reviendrons vers vous dans les plus brefs délais.',
     '',
-    `Votre demande concernait : ${serviceLabel(data.service)}`,
+    `Votre demande concernait : ${headerSafe(data.subject)}`,
+    `Service : ${serviceLabel(data.service)}`,
     '',
     `Si votre demande est urgente : ${env('NEXT_PUBLIC_CONTACT_PHONE') || '+243820128315'}`,
   ].join('\n');
@@ -339,4 +347,83 @@ function describe(err: unknown): string {
     return [e.message, e.code, e.responseCode].filter(Boolean).join(' / ') || String(err);
   }
   return String(err);
+}
+
+// ===========================================
+// REPONDE DEPUIS LE BACK-OFFICE
+// ===========================================
+
+export interface ReplyToQuote {
+  to: string;
+  toName: string;
+  originalSubject: string;
+  originalMessage: string;
+  service: string;
+  body: string;
+}
+
+export function quoteReplyHtml(data: ReplyToQuote): string {
+  return layout(`
+    <p style="margin:0 0 16px;color:#e2e8f0;">Bonjour ${escapeHtml(headerSafe(data.toName))},</p>
+    <div style="margin:0 0 20px;padding:16px;background-color:#0b1220;border:1px solid #1e293b;border-radius:10px;color:#e2e8f0;white-space:pre-line;font-size:14px;line-height:1.7;">${escapeHtml(data.body)}</div>
+    <p style="margin:0 0 20px;color:#94a3b8;">
+      Cordialement,<br />
+      <strong style="color:#ffffff;">L'équipe Viking Solar</strong><br />
+      <a href="tel:${escapeHtml(env('NEXT_PUBLIC_CONTACT_PHONE') || '+243820128315')}" style="color:#22c55e;text-decoration:none;">${escapeHtml(env('NEXT_PUBLIC_CONTACT_PHONE') || '+243820128315')}</a>
+    </p>
+    <hr style="border:0;border-top:1px solid #1e293b;margin:0 0 12px;" />
+    <p style="margin:0;font-size:12px;color:#64748b;line-height:1.6;">
+      Votre demande&nbsp;«&nbsp;${escapeHtml(headerSafe(data.originalSubject))}&nbsp;»<br />
+      <span style="white-space:pre-line;">${escapeHtml(data.originalMessage)}</span>
+    </p>
+  `);
+}
+
+export function quoteReplyText(data: ReplyToQuote): string {
+  return [
+    `Bonjour ${headerSafe(data.toName)},`,
+    '',
+    data.body,
+    '',
+    'Cordialement,',
+    "L'équipe Viking Solar",
+    env('NEXT_PUBLIC_CONTACT_PHONE') || '+243820128315',
+    '',
+    '---',
+    `Votre demande « ${headerSafe(data.originalSubject)} »`,
+    data.originalMessage,
+  ].join('\n');
+}
+
+/**
+ * Reponse de l'administrateur a une demande de devis.
+ *
+ * @throws {MailNotConfiguredError} configuration SMTP incomplete
+ * @throws {MailDeliveryError}      le message n'a pas pu etre envoye au client
+ */
+export async function sendQuoteReply(data: ReplyToQuote): Promise<{ messageId: string }> {
+  const transport = getTransporter();
+  const from = getFrom();
+
+  const original = headerSafe(data.originalSubject) || 'votre demande de devis';
+
+  let info;
+  try {
+    info = await transport.sendMail({
+      from,
+      to: headerSafe(data.to),
+      replyTo: from,
+      subject: `Re: ${original}`,
+      text: quoteReplyText(data),
+      html: quoteReplyHtml(data),
+    });
+  } catch (err) {
+    throw new MailDeliveryError(
+      `Reponse non envoyee a ${data.to} : ${describe(err)}`,
+      { cause: err },
+    );
+  }
+
+  console.log(`[mail] reponse de devis envoyee a ${data.to} (id=${info.messageId})`);
+  return { messageId: info.messageId };
 }

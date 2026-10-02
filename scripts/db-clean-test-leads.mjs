@@ -42,6 +42,9 @@ const PATTERNS = [
   '%debug%',
   '%test entetes%',
   '%headers%',
+  // example.com est reserve a la documentation : aucun vrai prospect ne peut
+  // s y inscrire, toute adresse de ce domaine provient d un test.
+  '%@example.com',
 ];
 
 let total = 0;

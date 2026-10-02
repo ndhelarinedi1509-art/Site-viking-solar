@@ -144,6 +144,11 @@ const MIGRATIONS = [
     sql: `create index if not exists idx_contact_messages_created_at on contact_messages(created_at desc);`,
   },
   {
+    name: 'index contact_messages.status_created_at',
+    sql: `create index if not exists idx_contact_messages_status_created_at
+            on contact_messages(status, created_at desc);`,
+  },
+  {
     name: 'table newsletter_subscribers',
     sql: `create table if not exists newsletter_subscribers (
             id uuid primary key default gen_random_uuid(),
@@ -152,6 +157,22 @@ const MIGRATIONS = [
             active boolean not null default true
           );
           comment on table newsletter_subscribers is 'Liste des abonnes a la newsletter';`,
+  },
+  {
+    name: 'contact_messages.subject',
+    sql: `alter table contact_messages add column if not exists subject text;`,
+  },
+  {
+    name: 'contact_messages.replied_at',
+    sql: `alter table contact_messages add column if not exists replied_at timestamptz;`,
+  },
+  {
+    name: 'contact_messages.replied_message',
+    sql: `alter table contact_messages add column if not exists replied_message text;`,
+  },
+  {
+    name: 'contact_messages.replied_by',
+    sql: `alter table contact_messages add column if not exists replied_by text;`,
   },
   {
     name: 'index newsletter_subscribers.email',
