@@ -3,31 +3,109 @@ import type { Transporter } from 'nodemailer';
 
 let transporter: Transporter | null = null;
 
-function getTransporter(): Transporter | null {
-  const host = process.env.SMTP_HOST;
-  const user = process.env.SMTP_USER;
-  const pass = process.env.SMTP_PASSWORD;
-  if (!host || !user || !pass) return null;
+export class MailNotConfiguredError extends Error {
+  readonly problems: string[];
+  constructor(problems: string[]) {
+    super(`SMTP mal configure : ${problems.join(' ; ')}`);
+    this.name = 'MailNotConfiguredError';
+    this.problems = problems;
+  }
+}
+
+export class MailDeliveryError extends Error {
+  constructor(message: string, options?: { cause?: unknown }) {
+    super(message, options);
+    this.name = 'MailDeliveryError';
+  }
+}
+
+const PLACEHOLDER_PASSWORDS = new Set([
+  'your_email_password_or_app_password',
+  'your_email_password',
+  'your_app_password',
+  'changeme',
+  'password',
+  'motdepasse',
+  'votre_mot_de_passe',
+]);
+
+const EMAIL_RE = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
+
+function env(key: string): string {
+  const value = process.env[key];
+  return typeof value === 'string' ? value.trim() : '';
+}
+
+/**
+ * Description complete de ce qui manque pour pouvoir envoyer un e-mail.
+ * Utilisee pour eveiter les pannes silencieuses : si cette liste est non vide,
+ * aucune notification ne partira et le caller doit le signaler.
+ */
+export function checkMailConfig(): string[] {
+  const problems: string[] = [];
+
+  const host = env('SMTP_HOST');
+  const user = env('SMTP_USER');
+  const pass = env('SMTP_PASSWORD');
+  const notify = getNotifyTo();
+
+  if (!host) problems.push('SMTP_HOST absent');
+  if (!user) problems.push('SMTP_USER absent');
+  if (!pass) {
+    problems.push('SMTP_PASSWORD absent');
+  } else if (PLACEHOLDER_PASSWORDS.has(pass.toLowerCase())) {
+    problems.push('SMTP_PASSWORD est encore le placeholder de .env.example');
+  } else if (/\s/.test(pass)) {
+    problems.push('SMTP_PASSWORD contient des espaces (invalide pour Gmail)');
+  }
+
+  if (!notify) problems.push('CONTACT_NOTIFY_EMAIL absent');
+  else if (!EMAIL_RE.test(notify)) problems.push(`CONTACT_NOTIFY_EMAIL invalide : "${notify}"`);
+  if (user && !EMAIL_RE.test(user)) problems.push(`SMTP_USER invalide : "${user}"`);
+
+  const port = Number(env('SMTP_PORT') || 587);
+  if (!Number.isInteger(port) || port < 1 || port > 65535) {
+    problems.push(`SMTP_PORT invalide : "${env('SMTP_PORT')}"`);
+  }
+
+  return problems;
+}
+
+export function isMailConfigured(): boolean {
+  return checkMailConfig().length === 0;
+}
+
+function getTransporter(): Transporter {
+  const problems = checkMailConfig();
+  if (problems.length > 0) throw new MailNotConfiguredError(problems);
 
   if (!transporter) {
     transporter = nodemailer.createTransport({
-      host,
-      port: Number(process.env.SMTP_PORT || 587),
-      secure: process.env.SMTP_SECURE === 'true',
-      auth: { user, pass },
+      host: env('SMTP_HOST'),
+      port: Number(env('SMTP_PORT') || 587),
+      secure: env('SMTP_SECURE') === 'true',
+      auth: { user: env('SMTP_USER'), pass: env('SMTP_PASSWORD') },
+      // Un serveur SMTP injoignable ne doit pas faire bloquer la requete du visiteur.
+      connectionTimeout: 15_000,
+      greetingTimeout: 15_000,
+      socketTimeout: 20_000,
     });
   }
   return transporter;
 }
 
+/** Neutralise les CR/LF qui permettraient d'injecter un en-tete SMTP. */
+function headerSafe(value: string): string {
+  return value.replace(/[\r\n]+/g, ' ').trim();
+}
+
 function getFrom(): string {
-  const user = process.env.SMTP_USER || '';
-  const name = process.env.MAIL_FROM_NAME || 'Viking Solar';
-  return `"${name}" <${user}>`;
+  const name = headerSafe(env('MAIL_FROM_NAME') || 'Viking Solar') || 'Viking Solar';
+  return `"${name}" <${env('SMTP_USER')}>`;
 }
 
 function getNotifyTo(): string {
-  return process.env.CONTACT_NOTIFY_EMAIL || process.env.SMTP_USER || '';
+  return env('CONTACT_NOTIFY_EMAIL') || env('SMTP_USER');
 }
 
 export interface ContactSubmission {
@@ -45,6 +123,41 @@ function escapeHtml(value: string): string {
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
+}
+
+const SERVICE_LABELS: Record<string, string> = {
+  installation: 'Installation de panneaux solaires',
+  hybrid: 'Système hybride (réseau + solaire)',
+  maintenance: 'Maintenance & entretien',
+  industrial: 'Installation industrielle',
+  residential: 'Installation résidentielle',
+  audit: 'Audit énergétique',
+  other: 'Autre / non précisé',
+};
+
+function serviceLabel(key: string): string {
+  return SERVICE_LABELS[key] ?? key;
+}
+
+interface Field {
+  label: string;
+  value: string;
+  /** Rend la valeur cliquable dans le mail (mailto:, tel:). */
+  href?: string;
+}
+
+function buildFields(data: ContactSubmission): Field[] {
+  const name = headerSafe(data.name) || '—';
+  const email = headerSafe(data.email);
+  const phone = headerSafe(data.phone);
+
+  return [
+    { label: 'Nom complet', value: name },
+    { label: 'Email', value: email, href: `mailto:${email}` },
+    { label: 'Téléphone', value: phone, href: `tel:${phone.replace(/[^\d+]/g, '')}` },
+    { label: 'Service demande', value: serviceLabel(data.service) },
+    { label: 'Recu le', value: new Date().toLocaleString('fr-FR', { dateStyle: 'full', timeStyle: 'short' }) },
+  ];
 }
 
 function layout(body: string): string {
@@ -85,85 +198,145 @@ function layout(body: string): string {
 }
 
 export function adminNotificationHtml(data: ContactSubmission): string {
-  const service = data.service || '-';
-  const rows = [
-    ['Nom', data.name],
-    ['Email', data.email],
-    ['Téléphone', data.phone],
-    ['Service', service],
-  ]
+  const rows = buildFields(data)
     .map(
-      ([label, value]) =>
+      (field) =>
         `<tr>
-           <td style="padding:8px 12px;color:#94a3b8;white-space:nowrap;font-weight:600;">${label}</td>
-           <td style="padding:8px 12px;color:#e2e8f0;">${escapeHtml(value)}</td>
+           <td style="padding:8px 12px;color:#94a3b8;white-space:nowrap;font-weight:600;">${escapeHtml(field.label)}</td>
+           <td style="padding:8px 12px;color:#e2e8f0;">${
+             field.href
+               ? `<a href="${escapeHtml(field.href)}" style="color:#22c55e;text-decoration:none;">${escapeHtml(field.value)}</a>`
+               : escapeHtml(field.value)
+           }</td>
          </tr>`,
     )
     .join('');
 
   return layout(`
-    <h2 style="margin:0 0 12px;color:#ffffff;font-size:18px;">Nouveau message de contact</h2>
-    <p style="margin:0 0 16px;color:#94a3b8;">Vous avez reçu une nouvelle demande via le formulaire de contact du site.</p>
+    <h2 style="margin:0 0 12px;color:#ffffff;font-size:18px;">Nouvelle demande de devis</h2>
+    <p style="margin:0 0 16px;color:#94a3b8;">Un client a rempli le formulaire « Devis gratuit » sur vickingsolar.com.</p>
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #1e293b;border-radius:10px;margin-bottom:16px;">
       ${rows}
     </table>
     <p style="margin:0 0 6px;color:#94a3b8;font-weight:600;">Message&nbsp;:</p>
-    <p style="margin:0;padding:12px;background-color:#0b1220;border:1px solid #1e293b;border-radius:10px;color:#e2e8f0;white-space:pre-line;">${escapeHtml(data.message)}</p>
+    <p style="margin:0 0 20px;padding:12px;background-color:#0b1220;border:1px solid #1e293b;border-radius:10px;color:#e2e8f0;white-space:pre-line;">${escapeHtml(data.message)}</p>
+    <p style="margin:0;font-size:13px;color:#64748b;">
+      Repondre directement a cet e-mail recontacte le client.
+      <a href="https://vickingsolar.com/admin/messages" style="color:#22c55e;text-decoration:none;">Voir dans le back-office</a>
+    </p>
   `);
+}
+
+export function adminNotificationText(data: ContactSubmission): string {
+  const lines = buildFields(data).map((f) => `${f.label}: ${f.value}`);
+  return [
+    'NOUVELLE DEMANDE DE DEVIS - Viking Solar',
+    '',
+    'Un client a rempli le formulaire « Devis gratuit » sur vickingsolar.com.',
+    '',
+    ...lines,
+    '',
+    'Message :',
+    data.message,
+    '',
+    '---',
+    'Repondre directement a cet e-mail recontacte le client.',
+    'Back-office : https://vickingsolar.com/admin/messages',
+  ].join('\n');
 }
 
 export function acknowledgmentHtml(data: ContactSubmission): string {
+  const name = escapeHtml(headerSafe(data.name));
   return layout(`
-    <h2 style="margin:0 0 12px;color:#ffffff;font-size:18px;">Merci ${escapeHtml(data.name)}&nbsp;!</h2>
+    <h2 style="margin:0 0 12px;color:#ffffff;font-size:18px;">Merci ${name}&nbsp;!</h2>
     <p style="margin:0 0 12px;color:#e2e8f0;">
-      Nous avons bien reçu votre message et nous vous en remercions. Notre équipe
-      reviendra vers vous dans les plus brefs délais.
+      Votre demande de devis a bien ete transmise a notre equipe. Nous vous en remercions
+      et reviendrons vers vous dans les plus brefs delais.
     </p>
-    <p style="margin:0 0 16px;color:#94a3b8;">Votre demande concernait&nbsp;: <strong style="color:#e2e8f0;">${escapeHtml(data.service || '-')}</strong>.</p>
+    <p style="margin:0 0 16px;color:#94a3b8;">Votre demande concernait&nbsp;: <strong style="color:#e2e8f0;">${escapeHtml(serviceLabel(data.service))}</strong>.</p>
     <p style="margin:0;color:#64748b;font-size:13px;">
       Si votre demande est urgente, contactez-nous directement au
-      <strong style="color:#e2e8f0;">${escapeHtml(process.env.NEXT_PUBLIC_CONTACT_PHONE || '+243820128315')}</strong>.
+      <strong style="color:#e2e8f0;">${escapeHtml(env('NEXT_PUBLIC_CONTACT_PHONE') || '+243820128315')}</strong>.
     </p>
   `);
 }
 
-export async function sendContactEmails(data: ContactSubmission): Promise<{ notified: boolean; ack: boolean }> {
-  const transport = getTransporter();
-  if (!transport) {
-    console.warn('[mail] SMTP not configured, skipping emails');
-    return { notified: false, ack: false };
-  }
+export function acknowledgmentText(data: ContactSubmission): string {
+  return [
+    `Merci ${headerSafe(data.name)} !`,
+    '',
+    'Votre demande de devis a bien ete transmise a notre equipe. Nous vous en remercions',
+    'et reviendrons vers vous dans les plus brefs delais.',
+    '',
+    `Votre demande concernait : ${serviceLabel(data.service)}`,
+    '',
+    `Si votre demande est urgente : ${env('NEXT_PUBLIC_CONTACT_PHONE') || '+243820128315'}`,
+  ].join('\n');
+}
 
+export interface SendResult {
+  notified: boolean;
+  ack: boolean;
+}
+
+/**
+ * Envoie la notification a l'admin puis l'accuse de reception au client.
+ *
+ * @throws {MailNotConfiguredError} configuration SMTP incomplete ou placeholder
+ * @throws {MailDeliveryError}      la notification admin n'a pas pu partir
+ */
+export async function sendContactEmails(data: ContactSubmission): Promise<SendResult> {
+  const transport = getTransporter();
   const notifyTo = getNotifyTo();
   const from = getFrom();
 
-  const results = { notified: false, ack: false };
+  const customer = headerSafe(data.name) || 'un visiteur';
+  const subjectService = serviceLabel(data.service);
 
+  // 1. Notification a l'admin : critique. Une erreur doit remonter, jamais etre masquee.
+  let info;
   try {
-    if (notifyTo) {
-      await transport.sendMail({
-        from,
-        to: notifyTo,
-        subject: `Nouveau message de ${data.name} (${data.service || 'contact'})`,
-        html: adminNotificationHtml(data),
-      });
-      results.notified = true;
-    }
+    info = await transport.sendMail({
+      from,
+      to: notifyTo,
+      replyTo: `${headerSafe(data.name) || 'Client'} <${headerSafe(data.email)}>`,
+      subject: `[Devis] ${subjectService} — ${customer}`,
+      text: adminNotificationText(data),
+      html: adminNotificationHtml(data),
+    });
   } catch (err) {
-    console.error('[mail] failed to send admin notification:', err);
+    throw new MailDeliveryError(
+      `Notification de devis non envoyee a ${notifyTo} : ${describe(err)}`,
+      { cause: err },
+    );
   }
 
+  console.log(
+    `[mail] notification de devis envoyee a ${notifyTo} (id=${info.messageId}) — ${subjectService} / ${customer}`,
+  );
+
+  // 2. Accuse de reception : best effort, ne doit pas faire echouer la demande.
+  let ack = false;
   try {
     await transport.sendMail({
       from,
-      to: data.email,
-      subject: 'Nous avons bien reçu votre message — Viking Solar',
+      to: headerSafe(data.email),
+      subject: 'Votre demande de devis a bien ete recue — Viking Solar',
+      text: acknowledgmentText(data),
       html: acknowledgmentHtml(data),
     });
-    results.ack = true;
+    ack = true;
   } catch (err) {
-    console.error('[mail] failed to send acknowledgment:', err);
+    console.error(`[mail] accuse de reception non envoye a ${data.email} : ${describe(err)}`);
   }
 
-  return results;
+  return { notified: true, ack };
+}
+
+function describe(err: unknown): string {
+  if (err && typeof err === 'object') {
+    const e = err as { message?: string; code?: string; command?: string; responseCode?: number };
+    return [e.message, e.code, e.responseCode].filter(Boolean).join(' / ') || String(err);
+  }
+  return String(err);
 }
