@@ -754,6 +754,10 @@
       "cannotModifySelf": "Impossible de modifier votre propre compte",
       "cannotDeleteSelf": "Impossible de supprimer votre propre compte",
       "emailExists": "Un administrateur avec cet email existe déjà"
+    },
+    "mailHealth": {
+      "brokenTitle": "Envoi des demandes de devis par e-mail cassé",
+      "brokenHint": "Les demandes sont bien enregistrees ici, mais aucune notification n’arrive par e-mail. Corrigez la configuration SMTP (npm run mail:test pour diagnostiquer)."
     }
   },
   "error": {

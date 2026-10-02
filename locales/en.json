@@ -754,6 +754,10 @@
       "cannotModifySelf": "Cannot modify your own account",
       "cannotDeleteSelf": "Cannot delete your own account",
       "emailExists": "An admin with this email already exists"
+    },
+    "mailHealth": {
+      "brokenTitle": "Quote request e-mails are broken",
+      "brokenHint": "Requests are still saved here, but no notification is e-mailed. Fix the SMTP configuration (run npm run mail:test to diagnose)."
     }
   },
   "formErrors": {

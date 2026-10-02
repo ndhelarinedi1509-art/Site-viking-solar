@@ -7,7 +7,7 @@ import { useTranslation } from 'react-i18next';
 import {
   LayoutDashboard, FileEdit, Image, Mail, Users, Settings,
   ExternalLink, LogOut, PanelRightClose, PanelRight, Loader2, Menu, X,
-  Home, Newspaper, Info, Zap, FolderOpen, MessageSquareText, Tags,
+  Home, Newspaper, Info, Zap, FolderOpen, MessageSquareText, Tags, TriangleAlert,
 } from 'lucide-react';
 import type { PageInfo } from '@/types';
 
@@ -160,6 +160,7 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
   const [pages, setPages] = useState<PageInfo[]>([]);
   const [sessionUser, setSessionUser] = useState<{ name: string; email: string; role: string } | null>(null);
   const [sessionLoading, setSessionLoading] = useState(true);
+  const [mailProblems, setMailProblems] = useState<string[]>([]);
 
   useEffect(() => {
     const mq = window.matchMedia('(max-width: 767px)');
@@ -192,6 +193,15 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
       .finally(() => setSessionLoading(false));
     fetchPages();
   }, [fetchPages, pathname]);
+
+  // Alarme visible : une chaine e-mail cassee ne doit pas decouvrir un client.
+  useEffect(() => {
+    if (pathname === '/admin/login') return;
+    fetch('/api/admin/mail-health')
+      .then((r) => (r.ok ? r.json() : { ok: true, problems: [] }))
+      .then((d) => setMailProblems(Array.isArray(d.problems) ? d.problems : []))
+      .catch(() => {});
+  }, [pathname]);
 
   if (pathname === '/admin/login') {
     return <>{children}</>;
@@ -270,6 +280,22 @@ export default function AdminLayout({ children }: { children: React.ReactNode })
             </button>
           </div>
         </header>
+        {mailProblems.length > 0 && (
+          <div role="alert" className="flex items-start gap-3 border-b border-accent-orange/30 bg-accent-orange/10 px-4 md:px-6 py-3">
+            <TriangleAlert className="mt-0.5 h-4 w-4 shrink-0 text-accent-orange" aria-hidden />
+            <div className="min-w-0 text-xs leading-relaxed">
+              <p className="font-semibold text-accent-orange">
+                {t('admin.mailHealth.brokenTitle')}
+              </p>
+              <ul className="mt-1 list-disc pl-4 text-gray-300">
+                {mailProblems.map((problem) => (
+                  <li key={problem}>{problem}</li>
+                ))}
+              </ul>
+              <p className="mt-1 text-gray-400">{t('admin.mailHealth.brokenHint')}</p>
+            </div>
+          </div>
+        )}
         <main className="flex-1 min-h-0 p-4 md:p-6 overflow-y-auto">{children}</main>
       </div>
     </div>
