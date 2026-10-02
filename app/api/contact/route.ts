@@ -60,7 +60,14 @@ export async function POST(request: Request) {
       );
     }
 
-    const body = await request.json();
+    const body = await request.json().catch(() => null);
+    if (body === null || typeof body !== 'object') {
+      return NextResponse.json(
+        { error: serverT('error.description') },
+        { status: 400 },
+      );
+    }
+
     const result = contactSchema.safeParse(body);
 
     if (!result.success) {
@@ -107,7 +114,8 @@ export async function POST(request: Request) {
       { message: serverT('contact.form.success'), notifiedByEmail: emailed },
       { status: 200 },
     );
-  } catch {
+  } catch (err) {
+    console.error('[contact] erreur inattendue :', err);
     return NextResponse.json({ error: serverT('error.description') }, { status: 500 });
   }
 }

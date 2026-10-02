@@ -1,4 +1,5 @@
 import { createClient } from '@/lib/supabase/server';
+import { getAdminClient } from '@/lib/supabase/admin';
 import type { PaginationParams, PaginatedResponse } from '@/types';
 
 // ===========================================
@@ -135,6 +136,14 @@ export async function getContactMessages(
   return response;
 }
 
+/**
+ * Enregistrement d'un message de contact.
+ *
+ * Passe par la cle service_role : l'ecriture se fait uniquement depuis le
+ * serveur, et le service role est le seul moyen de s'affranchir du cache de
+ * policies RLS de PostgREST. Sans cela, l'insertion peut echouer aleatoirement
+ * avec "violates row-level security policy" alors que la policy existe.
+ */
 export async function createContactMessage(data: {
   name: string;
   email: string;
@@ -142,7 +151,7 @@ export async function createContactMessage(data: {
   service?: string;
   message: string;
 }) {
-  const supabase = await createClient();
+  const supabase = getAdminClient();
 
   const { data: result, error } = await supabase
     .from('contact_messages')
@@ -158,12 +167,16 @@ export async function createContactMessage(data: {
 // NEWSLETTER SUBSCRIBERS
 // ===========================================
 
+/**
+ * Abonnement a la newsletter. Idempotent : re-soumettre la meme adresse
+ * reactive l abonnement au lieu de lever une erreur de doublon.
+ */
 export async function createNewsletterSubscription(email: string) {
-  const supabase = await createClient();
+  const supabase = getAdminClient();
 
   const { data, error } = await supabase
     .from('newsletter_subscribers')
-    .insert({ email })
+    .upsert({ email }, { onConflict: 'email' })
     .select()
     .single();
 
