@@ -20,5 +20,7 @@ export const SITE_CONFIG = {
   // Generee a la volee par app/og/route.tsx : une image declaree mais absente
   // du depot donne un lien sans apercu sur WhatsApp, Facebook et LinkedIn.
   ogImage: '/og',
-  logo: { icon: '/logo-icon.svg', full: '/logo-full.svg' },
+  // `logo-icon.svg` et `logo.webp` existent dans public/ ; l'ancien
+  // `/logo-full.svg` n'a jamais existé et cassait silencieusement l'image.
+  logo: { icon: '/logo-icon.svg', full: '/logo.webp' },
 } as const;
